@@ -5,79 +5,87 @@
     }
 *@
 
-    <h3 class="text-grey col s10 offset-s3"> @Html.DisplayFor(model => model.nombre) </h3>
+<h3 class="text-grey"> @Html.DisplayFor(model => model.nombre) </h3>
 
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
+    <div class="row margin-p">
+        <div class="col s6 offset-s3">
+            <div class="card hoverable">
+                <nav>
+                    <div class="nav-wrapper turq">
+                        <p class="col s4"> Quality Expert S.A</p>
+                    </div>
+                </nav>
+                <div class="card-content black-text">
+                    <div class="row">
+                        <div class="col s12 margin-b1">
+                            <p class="p-size"> <i class="material-icons left text-grey">person</i> 
+                            <span class="text-turq"> Nombre del cliente </span> 
+                            : @Html.DisplayFor(model => model.Cliente.nombreP) 
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">person</i> 
+                                <span class="text-turq"> Lider del proyecto </span>
+                                : @Html.DisplayName("Hacer consulta")
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">assignment</i>
+                                <span class="text-turq"> Objetivo </span>
+                                : @Html.DisplayFor(model => model.objetivo)
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">date_range</i>
+                                <span class="text-turq">Fecha de inicio</span>
+                                : @Html.DisplayFor(model => model.fechaInicio)
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">date_range</i>
+                                <span class="text-turq">Fecha de finalizacion</span>
+                                : @Html.DisplayFor(model => model.fechaFin)
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">info</i>
+                                <span class="text-turq">Estado</span>
+                                : @Html.DisplayFor(model => model.estado)
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">hourglass_empty</i>
+                                <span class="text-turq">Duracion estimada</span>
+                                : @Html.DisplayFor(model => model.duracionEstimada)
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">hourglass_full</i>
+                                <span class="text-turq">Duracion real</span>
+                                : @Html.DisplayFor(model => model.duracionReal)
+                            </p>
+                        </div>
+                       
+                    </div>
+                    <div class="card-action center">
 
-        <dd>
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.idPK }, new { @class = "waves-effect waves-light btn turq"}) 
+                        @Html.ActionLink("Borrar", "Delete", new { id = Model.idPK }, new { @class = "waves-effect waves-light btn red accent-4"})
 
-        <dt>
-            @Html.DisplayNameFor(model => model.objetivo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.objetivo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaInicio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.fechaInicio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaFin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.fechaFin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.estado)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.duracionEstimada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.duracionEstimada)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.duracionReal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.duracionReal)
-        </dd>
-
-        <dt>
-
-            @Html.DisplayNameFor(model => model.Cliente.nombreP)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cliente.nombreP)
-        </dd>
-
-    </dl>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.idPK }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
