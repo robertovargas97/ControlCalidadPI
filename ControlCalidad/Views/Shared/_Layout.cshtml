@@ -25,14 +25,14 @@
                 <li><a href=" @Url.Action( "Index" , "Home" )"><i class="material-icons left">home</i>Inicio</a></li>
                 @{
 
-                    if( User.IsInRole( "Jefe" ) )
+                    if (User.IsInRole("Jefe"))
                     {
                         <li><a href=" @Url.Action( "Index" , "LoginUsers" )">Perfiles</a></li>
-
+                        <li><a href=" @Url.Action( "Index" , "Client" )">Clientes</a></li>
                     }
                 }
-                <li>@Html.Partial( "_LoginPartial" ) </li>
-               
+                <li>@Html.Partial("_LoginPartial") </li>
+
             </ul>
 
         </div>
