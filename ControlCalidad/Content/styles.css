@@ -15,14 +15,30 @@
     color:#606060;
 }
 
+.text-turq {
+    color: #00796B;
+}
 
-.text-error{
-    color:darkred;
-    font-size:10px;
+
+.text-error {
+    color: darkred;
+    font-size: 10px;
 }
 
 .margin-b{
     margin-bottom: 5px!important; 
+}
+
+.margin-b1 {
+    margin-bottom: 12px !important;
+}
+
+.p-size{
+    font-size: 19px;
+}
+
+.margin-p {
+    margin-top: 5%;
 }
 
 .btn-login{
