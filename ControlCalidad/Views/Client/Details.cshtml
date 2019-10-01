@@ -4,95 +4,60 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles de cliente</h2>
+<hr />
 
-<div>
-    <h4>Cliente</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nombreP)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nombreP)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.apellido1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.apellido1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.apellido2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.apellido2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaNacimiento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.fechaNacimiento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.telefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.correo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.correo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.provincia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.provincia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.canton)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.canton)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.distrito)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.distrito)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.direccionExacta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.direccionExacta)
-        </dd>
-
-    </dl>
+<div class="fixed-action-btn">
+    <a href="@Url.Action( "Index" , "Client/Index" )" class="btn-floating btn-large turq left">
+        <i class="large material-icons">arrow_back</i>
+    </a>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.cedulaPK }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="row margin-p">
+    <div class="col s6 offset-s3">
+        <div class="card hoverable ">
+            <nav>
+                <div class="nav-wrapper turq">
+                    <p class="col s4">Quality Expert S.A</p>
+                </div>
+            </nav>
+            <div class="card-content black-text">
+                <div class="row">
+                    <div class="col s12 margin-b1">
+                        <p class="p-size"> <i class="material-icons left text-grey">person</i> <span class="text-turq"> Nombre de cliente </span> : @Html.DisplayFor(model => model.nombreP) </p>
+                    </div>
+
+                    <div class="col s12 margin-b1">
+                        <p class="p-size"> <i class="material-icons left text-grey">person</i> <span class="text-turq"> Primer apellido </span> : @Html.DisplayFor(model => model.apellido1) </p>
+                    </div>
+                    <div class="col s12 margin-b1">
+                        <p class="p-size"> <i class="material-icons left text-grey">person</i> <span class="text-turq"> Segundo apellido </span> : @Html.DisplayFor(model => model.apellido2) </p>
+                    </div>
+                    <div class="col s12 margin-b1">
+                        <p class="p-size"> <i class="material-icons left text-grey">call</i> <span class="text-turq"> Teléfono</span> : @Html.DisplayFor(model => model.telefono) </p>
+                    </div>
+                    <div class="col s12 margin-b1">
+                        <p class="p-size"> <i class="material-icons left text-grey">mail</i> <span class="text-turq"> Correo</span> : @Html.DisplayFor(model => model.correo) </p>
+                    </div>
+                    <div class="col s12 margin-b1">
+                        <p class="p-size"> <i class="material-icons left text-grey">place</i> <span class="text-turq"> Provincia</span> : @Html.DisplayFor(model => model.provincia) </p>
+                    </div>
+                    <div class="col s12 margin-b1">
+                        <p class="p-size"> <i class="material-icons left text-grey">place</i> <span class="text-turq"> Cantón</span> : @Html.DisplayFor(model => model.canton) </p>
+                    </div>
+                    <div class="col s12 margin-b1">
+                        <p class="p-size"> <i class="material-icons left text-grey">place</i> <span class="text-turq"> Distrito</span> : @Html.DisplayFor(model => model.distrito) </p>
+                    </div>
+                    <div class="col s12 margin-b1">
+                        <p class="p-size"> <i class="material-icons left text-grey">place</i> <span class="text-turq"> Dirección Exacta</span> : @Html.DisplayFor(model => model.distrito) </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action center">
+                @Html.ActionLink("Borrar", "Delete", new { id=Model.cedulaPK }, new {
+               @class = "waves-effect waves-light btn red accent-4"} )
+                @Html.ActionLink("Editar", "Edit", new { id = Model.cedulaPK }, new { @class = "waves-effect waves-light btn turq" })
+            </div>
+        </div>
+    </div>
+</div>
