@@ -1,0 +1,38 @@
+.turq {
+    background-color: #00796B;
+}
+
+.center{
+    margin: 0 auto!important;
+}
+
+.distance{
+    margin-top: 70px!important;
+}
+
+.text-grey{
+   
+    color:#606060;
+}
+
+
+.text-error{
+    color:darkred;
+    font-size:10px;
+}
+
+.margin-b{
+    margin-bottom: 5px!important; 
+}
+
+.btn-login{
+    width: 110px!important;
+}
+
+.top-m-block {
+    margin: 5% auto !important;
+}
+
+.padd{
+    padding-left: 50px;
+}
