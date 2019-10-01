@@ -4,11 +4,16 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Seguro que deseas borrar?</h3>
+<hr />
+<div class="fixed-action-btn">
+    <a href="@Url.Action( "Volver" , "Index" )" class="btn-floating btn-large turq left">
+        <i class="large material-icons">arrow_back</i>
+    </a>
+</div>
+
 <div>
-
     <div class="row margin-p">
         <div class="col s6 offset-s3">
             <div class="card hoverable ">
@@ -39,10 +44,11 @@
                     {
                         @Html.AntiForgeryToken( )
 
-                        <div class="form-actions no-color">
-                            <input type="submit" value="Delete" class="btn turq" /> |
-                            @Html.ActionLink( "Back to List" , "Index" )
-                        </div>
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Aceptar" class="btn turq" />
+                        @Html.ActionLink("Cancelar", "Index", new { id=Model.Id }, new {
+              @class = "waves-effect waves-light btn red accent-4"} )
+                    </div>
                     }
                 </div>
             </div>
