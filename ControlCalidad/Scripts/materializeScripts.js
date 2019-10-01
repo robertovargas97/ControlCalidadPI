@@ -9,5 +9,19 @@ document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems);
 
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+
+        format : 'yyyy-mm-dd',
+        showClearBtn: true,
+        i18n: {
+            done : 'Aceptar',
+            cancel : 'Cancelar',
+            clear : 'Borrar'
+        }
+        
+
+    });
+
 });
 

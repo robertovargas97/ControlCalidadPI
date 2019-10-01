@@ -1,75 +1,90 @@
 ﻿@model IEnumerable<ControlCalidad.Models.Proyecto>
 
-@{
-    ViewBag.Title = "Index";
-}
+@*  {
+        ViewBag.Title = "Index";
+    }
+*@
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col s6">
+        <h3 class="text-grey">Proyectos</h3>
+    </div>
+</div>
+    
+<div class="fixed-action-btn">
+    <a href="@Url.Action( "Create New" , "Project/Create" )" class="btn-floating btn-large turq">
+        <i class="large material-icons">add</i>
+    </a>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.objetivo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaInicio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaFin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duracionEstimada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duracionReal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.nombreP)
-        </th>
-        <th></th>
-    </tr>
+<div class="card">
+    <table class="table striped">
+        <tr>
+            <th class="center turq white-text">
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th class="center turq white-text">
+                @Html.DisplayNameFor(model => model.objetivo)
+            </th>
+            <th class="center turq white-text">
+                @Html.DisplayNameFor(model => model.fechaInicio)
+            </th>
+            <th class="center turq white-text">
+                @Html.DisplayNameFor(model => model.fechaFin)
+            </th>
+            <th class="center turq white-text">
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th class="center turq white-text">
+                @Html.DisplayNameFor(model => model.duracionEstimada)
+            </th>
+            <th class="center turq white-text">
+                @Html.DisplayNameFor(model => model.duracionReal)
+            </th>
+            <th class="center turq white-text">
+                @Html.DisplayName("Nombre Cliente")
+            </th>
+            <th class="center turq white-text">
+                @Html.DisplayName("Acción")
+            </th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.objetivo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaFin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duracionEstimada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duracionReal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.nombreP)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idPK }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idPK }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idPK })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.objetivo)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.fechaInicio)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.fechaFin)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.estado)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.duracionEstimada)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.duracionReal)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.Cliente.nombreP)
+                </td>
+                <td class="center">
+                  
+                    @Html.ActionLink("Details", "Details", new { id = item.idPK },
+                    new { @class =  "waves-effect waves-light btn turq"}
+                    ) 
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+
+</div>
