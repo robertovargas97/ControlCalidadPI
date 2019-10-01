@@ -18,6 +18,7 @@ namespace ControlCalidad.Controllers
         // GET: Client
         public async Task<ActionResult> Index()
         {
+            
             return View(await db.Clientes.ToListAsync());
         }
 
