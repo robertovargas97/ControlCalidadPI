@@ -4,115 +4,49 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h3>Detalles de usuario</h3>
+<hr />
+
+<div class="fixed-action-btn">
+    <a href="@Url.Action( "Index" , "LoginUsers/Index" )" class="btn-floating btn-large turq left">
+        <i class="large material-icons">arrow_back</i>
+    </a>
+</div>
 
 <div>
-    <h4>AspNetUser</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Role)
-        </dd>
+    <div class="row margin-p">
+        <div class="col s6 offset-s3">
+            <div class="card hoverable ">
+                <nav>
+                    <div class="nav-wrapper turq">
+                        <p class="col s4">Quality Expert S.A</p>
+                    </div>
+                </nav>
+                <div class="card-content black-text">
+                    <div class="row">
+                        <div class="col s12 margin-b1">
+                            <p class="p-size"> <i class="material-icons left text-grey">person</i> <span class="text-turq"> Nombre de usuario </span> : @Html.DisplayFor( model => model.UserName ) </p>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size"> <i class="material-icons left text-grey">work</i> <span class="text-turq"> Rol </span> : @Html.DisplayFor( model => model.Role ) </p>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size"> <i class="material-icons left text-grey">mail</i> <span class="text-turq"> Correo</span> : @Html.DisplayFor( model => model.Email ) </p>
+                        </div>
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PasswordHash)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SecurityStamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumberConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TwoFactorEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEndDateUtc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessFailedCount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-    </dl>
+                <div class="card-action center">
+                    @Html.ActionLink( "Editar"  , "Edit", new { id=Model.Id }, new { @class = "waves-effect waves-light btn turq"} )
+                    @Html.ActionLink("Borrar", "Delete", new { id=Model.Id }, new {
+                   @class = "waves-effect waves-light btn red accent-4"
+               } )
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Borrar", "Delete", new { id=Model.Id }, new {
-                  @class = "waves-effect waves-light btn turq"
-              } )
-    @Html.ActionLink( "Editar"  , "Edit", new { id=Model.Id }, new { @class = "waves-effect waves-light btn turq"} ) |
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink( "Back to List" , "Index" )
-</p>
+
