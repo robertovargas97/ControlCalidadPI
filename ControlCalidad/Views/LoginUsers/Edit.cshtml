@@ -31,7 +31,7 @@
 
                 <div class="row margin-b">
                     <div class="input-field col s6 offset-s3">
-                        <i class="text-grey material-icons prefix">account_circle</i>
+                        <i class="p-size text-grey material-icons prefix">account_circle</i>
                         @Html.TextBoxFor( model => model.UserName , new {
                        @class = "validate"
                    } )
@@ -45,10 +45,9 @@
                     </div>
                 </div>
 
-
                 <div class="row margin-b">
                     <div class="input-field col s6 offset-s3">
-                        <i class="text-grey material-icons prefix">mail</i>
+                        <i class="p-size text-grey material-icons prefix">mail</i>
                         @Html.TextBoxFor( model => model.Email , new {
                        @class = "validate"
                    } )
@@ -63,7 +62,7 @@
                 </div>
 
                 <div class="row margin-b">
-                    <i class=" text-grey col s1 offset-s3 material-icons prefix">work</i>
+                    <i class="p-size text-grey col s1 offset-s3 material-icons prefix">work</i>
                     <div class="input-field col s5">
                         @Html.ValidationMessageFor( model => model.Role , null , new {
                        @class = "text-error"
@@ -79,12 +78,30 @@
                     </div>
                 </div>
 
-
-                <div class="row margin-b">
-                    <div class="col s2 offset-s5">
-                        <button type="submit" value="Save" class="btn waves-effect waves-light turq white-text">Guardar</button>
+                <div class="row margin-b hide">
+                    <div class="input-field col s6 offset-s3">
+                        @Html.EditorFor( model => model.PasswordHash, new { htmlAttributes = new { @class = "" } })
+                        @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "" })
+                        @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
+                <div class=" hide row margin-b">
+                    <div class="input-field col s6 offset-s3">
+                        @Html.EditorFor(model => model.SecurityStamp, new { htmlAttributes = new { @class = "disabled" } })
+                        @Html.LabelFor(model => model.SecurityStamp, htmlAttributes: new { @class = "" })
+                        @Html.ValidationMessageFor(model => model.SecurityStamp, "", new { @class = "" })
+                    </div>
+                </div>
+
+                <div class="row center">
+
+                    <button type="submit" value="Save" class="btn waves-effect waves-light turq white-text">Guardar</button>
+
+                    @Html.ActionLink("Cancelar", "Index", new { id=Model.Id }, new {
+             @class = "waves-effect waves-light btn red accent-4"} )
+                </div>
+
                 <div class="margin-b section">
 
                 </div>

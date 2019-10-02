@@ -13,6 +13,7 @@ namespace ControlCalidad.Controllers
     public class LoginUsersController : Controller
     {
         private S3G4CEntity db = new S3G4CEntity();
+        private S3G4CUREntity userRoles = new S3G4CUREntity( );
 
         // GET: LoginUsers
         public ActionResult Index()
@@ -82,8 +83,47 @@ namespace ControlCalidad.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(aspNetUser).State = EntityState.Modified;
-                db.SaveChanges();
+                var roleId = "";
+                switch( aspNetUser.Role )
+                {
+                    case "Jefe":
+                    roleId = "1";
+                    break;
+                    case "Lider":
+                    roleId = "2";
+                    break;
+                    case "Tester":
+                    roleId = "3";
+                    break;
+                    case "Cliente":
+                    roleId = "4";
+                    break;
+
+                    default:
+                    roleId = "1";
+                    break;
+                }
+                /*
+                if( ( userRoles.AspNetUserRoles.Where( userExist => userExist.UserId == aspNetUser.Id ).Any( ) == true) )
+                {
+                   AspNetUserRole userRoleToDelete = userRoles.AspNetUserRoles.Find( aspNetUser.Id);
+                    userRoles.AspNetUserRoles.Remove( userRoleToDelete );
+                }*/
+
+                AspNetUser aspNetUserToDelete = db.AspNetUsers.Find( aspNetUser.Id );
+                db.AspNetUsers.Remove( aspNetUserToDelete );
+
+                AspNetUserRole userRole = new AspNetUserRole {
+                    UserId = aspNetUser.Id ,
+                    RoleId = roleId
+                };
+
+                db.AspNetUsers.Add( aspNetUser );
+                userRoles.AspNetUserRoles.Add( userRole );
+
+                db.SaveChanges( );
+                userRoles.SaveChanges( );
+              
                 return RedirectToAction("Index");
             }
             return View(aspNetUser);

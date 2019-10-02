@@ -162,35 +162,35 @@ namespace ControlCalidad.Controllers
                     //Esto hace que se inicie sesion automaticamente con el usario 
                     //await SignInManager.SignInAsync( user , isPersistent: false , rememberBrowser: false );
 
-                    var rolId = "";
+                    var roleId = "";
                     //var userId = dataBase2.AspNetUsers.Include( "Id" ).Where( u => u.UserName == user.UserName);
-                    //var rolId = dataBase2.AspNetRoles.Include("Id").Where (r => r.Name == user.Role);
+                    //var roleId = dataBase2.AspNetRoles.Include("Id").Where (r => r.Name == user.Role);
                     //System.Collections.Generic.IEnumerable<string> userId = from u in dataBase2.AspNetUsers where u.UserName == user.UserName select u.Id;
-                    //System.Collections.Generic.IEnumerable<string> rolId = from r in dataBase2.AspNetRoles where r.Name == user.Role select r.Id;
+                    //System.Collections.Generic.IEnumerable<string> roleId = from r in dataBase2.AspNetRoles where r.Name == user.Role select r.Id;
 
                     switch( user.Role )
                     {
                         case "Jefe":
-                        rolId = "1";
+                        roleId = "1";
                         break;
                         case "Lider":
-                        rolId = "2";
+                        roleId = "2";
                         break;
                         case "Tester":
-                        rolId = "3";
+                        roleId = "3";
                         break;
                         case "Cliente":
-                        rolId = "4";
+                        roleId = "4";
                         break;
 
                         default:
-                        rolId = "1";
+                        roleId = "1";
                         break;
                     }
 
                     var userRole = new AspNetUserRole {
                         UserId = user.Id ,
-                        RoleId = rolId
+                        RoleId = roleId
                     };
 
 
