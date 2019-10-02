@@ -101,7 +101,8 @@
                     <button type="submit" value="Save" class="btn waves-effect waves-light turq white-text">Guardar</button>
 
                     @Html.ActionLink("Cancelar", "Index", new { id=Model.Id }, new {
-             @class = "waves-effect waves-light btn red accent-4"} )
+                   @class = "waves-effect waves-red btn red accent-4"
+               } )
                 </div>
 
                 <div class="margin-b section">
@@ -112,9 +113,7 @@
         </div>
     </div>
 </div>
-<div>
-    @Html.ActionLink( "Back to List" , "Index" )
-</div>
+
 
 @section Scripts {
     @Scripts.Render( "~/bundles/jqueryval" )
