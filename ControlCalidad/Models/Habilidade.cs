@@ -13,7 +13,8 @@ namespace ControlCalidad.Models
     using System.Collections.Generic;
     
     public partial class Habilidade
-    {
+    {        
+ 
         public string cedula_empleadoFK { get; set; }
         public string categoriaPK { get; set; }
         public string descripcionPK { get; set; }

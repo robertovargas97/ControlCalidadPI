@@ -95,9 +95,10 @@
             @Html.DisplayFor(modelItem => item.Tester.cedula_empleadoFk)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.cedulaPK }) |
-            @Html.ActionLink("Details", "Details", new { id=item.cedulaPK }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.cedulaPK })
+            @Html.ActionLink("Edit", "Edit", new { id = item.cedulaPK }) |
+            @Html.ActionLink("Details", "Details", new { id = item.cedulaPK }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.cedulaPK }) |
+            @Html.ActionLink("Habilidades", "../Habilities/Index", new { id = item.cedulaPK })
         </td>
     </tr>
 }

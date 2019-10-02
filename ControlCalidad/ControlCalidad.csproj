@@ -172,6 +172,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\HabilitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginUsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -453,6 +454,11 @@
     <Content Include="Views\Team\Details.cshtml" />
     <Content Include="Views\Team\Edit.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Habilities\Create.cshtml" />
+    <Content Include="Views\Habilities\Delete.cshtml" />
+    <Content Include="Views\Habilities\Details.cshtml" />
+    <Content Include="Views\Habilities\Edit.cshtml" />
+    <Content Include="Views\Habilities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
