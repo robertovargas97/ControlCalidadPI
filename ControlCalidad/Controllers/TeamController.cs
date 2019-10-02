@@ -14,10 +14,12 @@ namespace ControlCalidad.Controllers
     public class TeamController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
+        //private S3G4CEntity e = new S3G4CEntity();
 
         // GET: Team
         public async Task<ActionResult> Index()
         {
+            //e.AspNetUsers.
             var trabajaEns = db.TrabajaEns.Include(t => t.Empleado).Include(t => t.Proyecto);
             return View(await trabajaEns.ToListAsync());
         }
@@ -36,12 +38,17 @@ namespace ControlCalidad.Controllers
             }
             return View(trabajaEn);
         }
+        //string sqlp = "SELECT E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'Nombre' FROM ControlCalidad.Empleado E JOIN ControlCalidad.Tester T ON E.cedulaPK = T.cedula_empleadoFk JOIN ControlCalidad.Habilidades H ON H.cedula_empleadoFK = E.cedulaPK WHERE E.disponibilidad = 'Available' AND categoriaPK = 'Lenguaje' AND descripcionPK LIKE '%' + @descripcion + '%'"
 
         // GET: Team/Create
-        public ActionResult Create()
+        public ActionResult Create(/*RegisterViewModel model*/)
         {
-            ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP");
-            ViewBag.id_proyectoFK = new SelectList(db.Proyectoes, "idPK", "nombre");
+            string sqle = "SELECT E.cedulaPK FROM ControlCalidad.Empleado E JOIN ControlCalidad.Tester T ON E.cedulaPK = T.cedula_empleadoFk WHERE E.disponibilidad = 'Disponible'";
+            List<string> resulte = db.Database.SqlQuery<string>(sqle).ToList();
+            ViewBag.cedula_empleadoFk = new SelectList(resulte);
+            string sqlp = "SELECT P.idPK FROM ControlCalidad.Proyecto P JOIN ControlCalidad.TrabajaEn T ON	P.idPK = T.id_proyectoFK JOIN ControlCalidad.Empleado E ON E.cedulaPK = T.cedula_empleadoFK WHERE E.correo = 'grubio010@gmail.com'";
+            List<int> resultp = db.Database.SqlQuery<int>(sqlp).ToList();
+            ViewBag.id_proyectoFK = new SelectList(resultp);
             return View();
         }
 

@@ -189,7 +189,7 @@ namespace ControlCalidad.Controllers
                     }
 
                     var userRole = new AspNetUserRole {
-                        UserId = user.Id ,
+                        UserId = user.Id,
                         RoleId = rolId
                     };
 
