@@ -4,8 +4,10 @@
     ViewBag.Title = "Edit";
 }
 
-<h3>Editar Usuario</h3>
-<hr />
+<h3 class="text-grey">Editar Usuario</h3>
+<div class="margin-b1">
+    <hr />
+</div>
 
 <div class="row container ">
     <div class="col s8 offset-s2">
@@ -62,7 +64,7 @@
                 </div>
 
                 <div class="row margin-b">
-                    <i class="p-size text-grey col s1 offset-s3 material-icons prefix">work</i>
+                    <i class=" small text-grey col s1 offset-s3 material-icons prefix">work</i>
                     <div class="input-field col s5">
                         @Html.ValidationMessageFor( model => model.Role , null , new {
                        @class = "text-error"

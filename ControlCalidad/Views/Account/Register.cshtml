@@ -6,112 +6,134 @@
 *@
 
 @{
+
     if( User.IsInRole( "Jefe" ) )
     {
-
-<div class="row container">
-    @using( Html.BeginForm( "Register" , "Account" , FormMethod.Post , new {
-        @class = "col s8 offset-s2 card" ,
-        role = "form"
-    } ) )
-    {
-
-        <h5 class="text-grey col s10 offset-s3">Registrar nuevo usuario</h5>
-        @Html.AntiForgeryToken( )
-
-        <div class="row margin-b">
-            <div class="input-field col s6 offset-s3">
-                <i class="text-grey material-icons prefix">mail</i>
-                @Html.TextBoxFor( m => m.Email , new {
-               @class = "validate"
-           } )
-                @Html.LabelFor( m => m.Email , new {
-               @class = ""
-           } )
-                @Html.ValidationMessageFor( m => m.Email , null , new {
-               @class = "text-error"
-           } )
-
-            </div>
+        <h3 class="text-grey">Registrar Usuario</h3>
+        <div class="margin-b1">
+            <hr />
         </div>
 
-        <div class="row margin-b">
-            <div class="input-field col s6 offset-s3">
-                <i class="text-grey material-icons prefix">account_circle</i>
-                @Html.TextBoxFor( m => m.UserName , new {
-               @class = "validate"
-           } )
-                @Html.LabelFor( m => m.UserName , new {
-               @class = ""
-           } )
-                @Html.ValidationMessageFor( m => m.UserName , null , new {
-               @class = "text-error"
-           } )
+        <div class="row container">
+            <div class="col s8 offset-s2">
+                <div class="card hoverable">
+                    <nav>
+                        <div class="nav-wrapper turq">
+                            <p class="col s4">Quality Expert S.A</p>
+                        </div>
+                    </nav>
+                    <div class="margin-b section">
+                    </div>
+                    @using( Html.BeginForm( "Register" , "Account" , FormMethod.Post , new {
+                        @class = "" ,
+                        role = "form"
+                    } ) )
+                    {
+
+                        <h5 class="text-grey col s10 offset-s3">Registrar nuevo usuario</h5>
+                        @Html.AntiForgeryToken( )
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="text-grey material-icons prefix">mail</i>
+                                @Html.TextBoxFor( m => m.Email , new {
+                               @class = "validate"
+                           } )
+                                @Html.LabelFor( m => m.Email , new {
+                               @class = ""
+                           } )
+                                @Html.ValidationMessageFor( m => m.Email , null , new {
+                               @class = "text-error"
+                           } )
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="text-grey material-icons prefix">account_circle</i>
+                                @Html.TextBoxFor( m => m.UserName , new {
+                               @class = "validate"
+                           } )
+                                @Html.LabelFor( m => m.UserName , new {
+                               @class = ""
+                           } )
+                                @Html.ValidationMessageFor( m => m.UserName , null , new {
+                               @class = "text-error"
+                           } )
 
 
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+
+                            <i class=" text-grey col s1 offset-s3 material-icons prefix">work</i>
+
+                            <div class="input-field col s5">
+                                @Html.ValidationMessageFor( m => m.Role , null , new {
+                               @class = "text-error"
+                           } )
+
+                                <select id="Role" name="Role">
+                                    <option value="" disabled selected>Selecciona un rol</option>
+                                    <option value="Jefe">Jefe</option>
+                                    <option value="Lider">Lider</option>
+                                    <option value="Tester">Tester</option>
+                                    <option value="Cliente">Cliente</option>
+                                </select>
+                                <label for="Role">Rol</label>
+                            </div>
+                        </div>
+
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6  offset-s3">
+                                <i class="text-grey material-icons prefix">lock</i>
+                                @Html.PasswordFor( m => m.Password , new {
+                               @class = "validate"
+                           } )
+                                @Html.LabelFor( m => m.Password , new {
+                               @class = ""
+                           } )
+                                @Html.ValidationMessageFor( m => m.Password , null , new {
+                               @class = "text-error"
+                           } )
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6  offset-s3">
+                                <i class=" text-grey material-icons prefix">lock</i>
+                                @Html.PasswordFor( m => m.ConfirmPassword , new {
+                               @class = "validate"
+                           } )
+                                @Html.LabelFor( m => m.ConfirmPassword , new {
+                               @class = ""
+                           } )
+                                @Html.ValidationMessageFor( m => m.ConfirmPassword , null , new {
+                               @class = "text-error"
+                           } )
+
+                            </div>
+                        </div>
+
+                        <div class="row center">
+
+                            <button type="submit" class="btn waves-effect waves-light turq btn-login modal-trigger">REGISTRAR</button>
+                            @Html.ActionLink("Cancelar", "Index", null, new {@class = "waves-effect waves-light btn red accent-4"} )
+
+                        </div>
+                        <div class="margin-b section">
+                        </div>
+
+                    }
+                </div>
             </div>
+
+
         </div>
-
-        <div class="row margin-b">
-
-            <i class=" text-grey col s1 offset-s3 material-icons prefix">work</i>
-
-            <div class="input-field col s5">
-                @Html.ValidationMessageFor( m => m.Role , null , new {
-               @class = "text-error"
-           } )
-
-                <select id="Role" name="Role">
-                    <option value="" disabled selected>Selecciona un rol</option>
-                    <option value="Jefe">Jefe</option>
-                    <option value="Lider">Lider</option>
-                    <option value="Tester">Tester</option>
-                    <option value="Cliente">Cliente</option>
-                </select>
-                <label for="Role">Rol</label>
-            </div>
-        </div>
-
-
-        <div class="row margin-b">
-            <div class="input-field col s6  offset-s3">
-                <i class="text-grey material-icons prefix">lock</i>
-                @Html.PasswordFor( m => m.Password , new {
-               @class = "validate"
-           } )
-                @Html.LabelFor( m => m.Password , new {
-               @class = ""
-           } )
-                @Html.ValidationMessageFor( m => m.Password , null , new {
-               @class = "text-error"
-           } )
-
-            </div>
-        </div>
-
-        <div class="row margin-b">
-            <div class="input-field col s6  offset-s3">
-                <i class=" text-grey material-icons prefix">lock</i>
-                @Html.PasswordFor( m => m.ConfirmPassword , new {
-               @class = "validate"
-           } )
-                @Html.LabelFor( m => m.ConfirmPassword , new {
-               @class = ""
-           } )
-                @Html.ValidationMessageFor( m => m.ConfirmPassword , null , new {
-               @class = "text-error"
-           } )
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col s2  offset-s5 col m4 offset-m5  ">
-                <button type="submit" class="btn waves-effect waves-light turq btn-login modal-trigger">REGISTRAR</button>
-            </div>
-        </div>
-    }
-</div>
     }
     else
     {

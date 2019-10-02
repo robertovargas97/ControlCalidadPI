@@ -1,3 +1,12 @@
+.footer-down {
+    display: flex;
+    min-height: 80vh;
+    flex-direction: column;
+}
+
+
+
+
 .turq {
     background-color: #00796B;
 }
@@ -10,9 +19,8 @@
     margin-top: 70px!important;
 }
 
-.text-grey{
-   
-    color:#606060;
+.text-grey {
+    color: #616161;
 }
 
 .text-turq {
