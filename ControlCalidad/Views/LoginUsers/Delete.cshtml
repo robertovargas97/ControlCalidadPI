@@ -41,12 +41,13 @@
                     {
                         @Html.AntiForgeryToken( )
 
-                        <div class="form-actions no-color">
-                            <input type="submit" value="Aceptar" class="btn turq" />
-                            @Html.ActionLink("Cancelar", "Index", new { id=Model.Id }, new {
-                           @class = "waves-effect waves-red btn red accent-4"
-                       } )
-                        </div>
+                    <div class="form-actions no-color">
+                        @Html.ActionLink("Cancelar", "Index", new { id=Model.Id }, new {
+                   @class = "waves-effect red-hover btn red accent-4"
+               } )
+                        <input type="submit" value="Aceptar" class="btn turq" />
+
+                    </div>
                     }
                 </div>
             </div>

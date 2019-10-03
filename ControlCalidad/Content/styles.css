@@ -4,8 +4,13 @@
     flex-direction: column;
 }
 
+.indicator {
+    background: #005a4f;
+}
 
-
+.red-hover:hover {
+    background: #fa6161!important;
+}
 
 .turq {
     background-color: #00796B;

@@ -35,10 +35,11 @@
                 </div>
 
                 <div class="card-action center">
-                    @Html.ActionLink( "Editar"  , "Edit", new { id=Model.Id }, new { @class = "waves-effect waves-light btn turq"} )
                     @Html.ActionLink("Borrar", "Delete", new { id=Model.Id }, new {
-                   @class = "waves-effect waves-red btn red accent-4"
-               } )
+                @class = "waves-effect btn red accent-4 red-hover"
+            } )
+                    @Html.ActionLink( "Editar"  , "Edit", new { id=Model.Id }, new { @class = "waves-effect waves-light btn turq"} )
+
                 </div>
             </div>
         </div>
