@@ -38,11 +38,11 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <i class="text-grey material-icons prefix">account_circle</i>
+                            <i class="text-grey material-icons prefix">mail</i>
                             @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
 
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control validate"} )
-                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-error"
+                            @Html.TextBoxFor(m => m.UserName , new { @class = "form-control validate"} )
+                            @Html.ValidationMessageFor(m => m.UserName , "", new { @class = "text-error"
                        } )
                         </div>
 

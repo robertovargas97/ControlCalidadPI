@@ -6,7 +6,7 @@
 *@
 
 @{
-    @*
+    
     if( User.IsInRole( "Jefe" ) )
     {
         *@
@@ -14,7 +14,7 @@
         <div class="margin-b1">
             <hr />
         </div>
-
+        <p>@User.Identity.Name</p>
         <div class="row container">
             <div class="col s8 offset-s2">
                 <div class="card hoverable">

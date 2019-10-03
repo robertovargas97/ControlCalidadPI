@@ -84,23 +84,25 @@ namespace ControlCalidad.Models
 
     public class LoginViewModel
     {
+        
         /*
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
         */
-        
-        [Required]
-        [Display( Name = "Username" )]
+
+        [Required( ErrorMessage = "El correo es requerido." )]
+        [Display( Name = "Correo" )]
         public string UserName
         {
             get; set;
         }
-        
-        [Required]
+
+
+        [Required( ErrorMessage = "La contraseña es requerida." )]
         [DataType( DataType.Password )]
-        [Display( Name = "Password" )]
+        [Display( Name = "Contraseña" )]
         public string Password
         {
             get; set;
