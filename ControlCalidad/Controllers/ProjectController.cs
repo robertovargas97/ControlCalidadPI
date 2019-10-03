@@ -87,6 +87,7 @@ namespace ControlCalidad.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.Entry(proyecto).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
