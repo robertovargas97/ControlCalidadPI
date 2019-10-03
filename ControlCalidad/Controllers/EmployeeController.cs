@@ -15,10 +15,13 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities();
 
+
+
         // GET: Employee
         public async Task<ActionResult> Index()
         {
             var empleadoes = db.Empleadoes.Include(e => e.Tester);
+           
             return View(await empleadoes.ToListAsync());
         }
 

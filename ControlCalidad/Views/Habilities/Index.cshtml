@@ -9,31 +9,36 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table stripped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Empleado.nombreP)
+            Tipo de Habilidad
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.descripcionPK)
+            Detalle
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Empleado.nombreP)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.descripcionPK)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { cedula_empleadoFK = item.cedula_empleadoFK, categoriaPK = item.categoriaPK, descripcionPK = item.descripcionPK }) |
-        @Html.ActionLink("Details", "Details", new { cedula_empleadoFK = item.cedula_empleadoFK, categoriaPK = item.categoriaPK, descripcionPK = item.descripcionPK }) |
-        @Html.ActionLink("Delete", "Delete", new { cedula_empleadoFK = item.cedula_empleadoFK, categoriaPK = item.categoriaPK, descripcionPK = item.descripcionPK })
-    </td>
-</tr>
+
+    if (item.cedula_empleadoFK == ViewBag.empleado)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoriaPK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcionPK)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { cedula_empleadoFK = item.cedula_empleadoFK, categoriaPK = item.categoriaPK, descripcionPK = item.descripcionPK }) |
+                @Html.ActionLink("Details", "Details", new { cedula_empleadoFK = item.cedula_empleadoFK, categoriaPK = item.categoriaPK, descripcionPK = item.descripcionPK }) |
+                @Html.ActionLink("Delete", "Delete", new { cedula_empleadoFK = item.cedula_empleadoFK, categoriaPK = item.categoriaPK, descripcionPK = item.descripcionPK })
+            </td>
+        </tr>
+    }
+
 }
 
 </table>
