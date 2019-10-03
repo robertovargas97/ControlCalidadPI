@@ -6,14 +6,14 @@
 *@
 
 @{
-
-    if( User.IsInRole( "Jefe" ) )
+    
+    if(! User.IsInRole( "Jefe" ) )
     {
         <h3 class="text-grey">Registrar Usuario</h3>
         <div class="margin-b1">
             <hr />
         </div>
-
+        <p>@User.Identity.Name</p>
         <div class="row container">
             <div class="col s8 offset-s2">
                 <div class="card hoverable">
