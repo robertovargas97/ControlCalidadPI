@@ -21,14 +21,14 @@
 
             </div>
 
-            @using( Html.BeginForm( ) )
+            @using (Html.BeginForm())
             {
 
-                @Html.AntiForgeryToken( )
+                @Html.AntiForgeryToken()
 
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor( model => model.Id )
+                @Html.HiddenFor(model => model.Id)
 
 
                 <div class="row margin-b">
@@ -82,7 +82,7 @@
 
                 <div class="row margin-b hide">
                     <div class="input-field col s6 offset-s3">
-                        @Html.EditorFor( model => model.PasswordHash, new { htmlAttributes = new { @class = "" } })
+                        @Html.EditorFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "" } })
                         @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "" })
                         @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
                     </div>
@@ -116,5 +116,5 @@
 
 
 @section Scripts {
-    @Scripts.Render( "~/bundles/jqueryval" )
+    @Scripts.Render("~/bundles/jqueryval")
 }
