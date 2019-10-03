@@ -90,14 +90,14 @@ namespace ControlCalidad.Models
         [EmailAddress]
         public string Email { get; set; }
         */
-
+        
         [Required]
         [Display( Name = "Username" )]
         public string UserName
         {
             get; set;
         }
-
+        
         [Required]
         [DataType( DataType.Password )]
         [Display( Name = "Password" )]
