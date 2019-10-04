@@ -13,7 +13,12 @@
 }
 
 .turq {
-    background-color: #00796B;
+    background-color: #008d7c;
+}
+
+.turq-hover:hover {
+    background: #008d7c !important;
+    transition: ease-in-out 0.2s !important;
 }
 
 .center{

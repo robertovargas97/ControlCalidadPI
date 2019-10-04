@@ -14,25 +14,25 @@
         <hr />
 
         <div class="fixed-action-btn">
-            <a href="@Url.Action("Crear", "Client/Create")" class="btn-floating btn-large turq"><i class="large material-icons">add</i></a>
+            <a href="@Url.Action("Crear", "Client/Create")" class="btn-floating btn-large black turq-hover"><i class="large material-icons">add</i></a>
         </div>
         <div class="card ">
             <table class="table striped ">
                 <thead>
                     <tr>
-                        <th class="center turq white-text">
+                        <th class="center black white-text">
                             Nombre
                         </th>
-                        <th class="center turq white-text">
+                        <th class="center black white-text">
                             Teléfono
                         </th>
-                        <th class="center turq white-text">
+                        <th class="center black white-text">
                             Correo
                         </th>
-                        <th class="center turq white-text">
+                        <th class="center black white-text">
                             Dirección
                         </th>
-                        <th class="center turq white-text">
+                        <th class="center black white-text">
                             <p>Acción</p>
                         </th>
                     </tr>
@@ -58,7 +58,7 @@
                             </td>
                             <td class="center">
                                 @Html.ActionLink("Detalles", "Details", new { id = item.cedulaPK }, new {
-                               @class = "waves-effect waves-light btn turq"
+                               @class = "waves-effect waves-light btn  black turq-hover"
                            })
                             </td>
                         </tr>

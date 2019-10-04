@@ -117,6 +117,7 @@ namespace ControlCalidad.Models
 
     public class RegisterViewModel
     {
+        [Display( Name = "Rol" )]
         [Required( ErrorMessage = "El rol es requerido." )]
         public string Role
         {
@@ -125,7 +126,7 @@ namespace ControlCalidad.Models
 
         [Required( ErrorMessage = "El correo es requerido." )]
         [EmailAddress]
-        [Display( Name = "Email" )]
+        [Display( Name = "Correo" )]
         public string Email
         {
             get; set;
@@ -138,16 +139,16 @@ namespace ControlCalidad.Models
         }
 
         [Required]
+        [Display( Name = "Contraseña" )]
         [StringLength( 100 , ErrorMessage = "La contraseña es requerida." , MinimumLength = 1 )]
         [DataType( DataType.Password )]
-        [Display( Name = "Password" )]
         public string Password
         {
             get; set;
         }
 
         [DataType( DataType.Password )]
-        [Display( Name = "Confirm password" )]
+        [Display( Name = "Confirmar contraseña" )]
         [Compare( "Password" , ErrorMessage = "Las contraseñas no coinciden." )]
         public string ConfirmPassword
         {

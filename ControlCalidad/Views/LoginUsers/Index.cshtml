@@ -8,7 +8,7 @@
 
 
 <div class="fixed-action-btn">
-    <a href="@Url.Action( "Register" , "Account/Register" )" class="btn-floating btn-large turq">
+    <a href="@Url.Action( "Register" , "Account/Register" )" class="btn-floating btn-large black turq-hover">
         <i class="large material-icons">add</i>
     </a>
 </div>
@@ -18,13 +18,13 @@
         <div class="card">
             <table class="table striped responsive-table">
                 <tr class="">
-                    <th class="center turq white-text">
+                    <th class="center black white-text">
                         @Html.DisplayNameFor( model => model.Email )
                     </th>
-                    <th class="center turq white-text">
+                    <th class="center black white-text">
                         @Html.DisplayNameFor( model => model.Role )
                     </th>
-                    <th class="center turq white-text">
+                    <th class="center black white-text">
                         <p>Acción</p>
                     </th>
                 </tr>
@@ -44,7 +44,7 @@
 
 
                             @Html.ActionLink("Detalles", "Details", new { id=item.Id }, new {
-                           @class = "waves-effect waves-light btn turq"
+                           @class = "turq-hover btn black waves-light"
                        } )
 
 
