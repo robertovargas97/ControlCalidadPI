@@ -19,17 +19,19 @@
 </head>
 <body class="">
     <nav>
-        <div class="nav-wrapper turq">
+        <div class="nav-wrapper black">
             <ul class="right hide-on-med-and-down">
-                <li><a href=" @Url.Action( "Index" , "Home" )">Inicio</a></li>
+                <li><a class="turq-hover" href=" @Url.Action( "Index" , "Home" )">Inicio</a></li>
                 @{
                     if( User.IsInRole( "Jefe" ) )
                     {
-                        <li><a href=" @Url.Action( "Index" , "LoginUsers" )">Perfiles</a></li>
-                        <li><a href=" @Url.Action( "Index" , "Client" )">Clientes</a></li>
+                        <li><a class="turq-hover" href=" @Url.Action( "Index" , "LoginUsers" )">Perfiles</a></li>
+                        <li><a class="turq-hover" href=" @Url.Action( "Index" , "Client" )">Clientes</a></li>
+                        <li><a class="turq-hover" href=" @Url.Action( "Index" , "Employee" )">Empleados</a></li>
+                        <li><a class="turq-hover" href="@Url.Action( "Index" , "Project" )">Proyectos</a></li>
                     }
                 }
-                <li><a href="@Url.Action( "Index" , "Project" )">Proyectos</a></li>
+
                 <li>@Html.Partial( "_LoginPartial" ) </li>
             </ul>
         </div>
@@ -51,7 +53,7 @@
                         ;
                     }
                     @dateFormat
-                </div> 
+                </div>
             </div>
         </div>
     </footer>

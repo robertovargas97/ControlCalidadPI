@@ -9,7 +9,7 @@
         @Html.AntiForgeryToken( )
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a class='dropdown-trigger' data-target='dropdown1'>@User.Identity.GetUserName( )<i class="material-icons right">arrow_drop_down</i></a>
+                <a class='turq-hover dropdown-trigger' data-target='dropdown1'>@User.Identity.GetUserName( )<i class="material-icons right">arrow_drop_down</i></a>
             </li>
 
         </ul>
@@ -30,8 +30,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-
-        <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+       <li>  <a  class="turq-hover" id="loginLink" href="Account/Login">Iniciar sesión</a> </li> 
     </ul>
 }
 

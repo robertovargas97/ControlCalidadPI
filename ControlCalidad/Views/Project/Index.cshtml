@@ -11,7 +11,7 @@
 </div>
     
 <div class="fixed-action-btn">
-    <a href="@Url.Action( "Create New" , "Project/Create" )" class="btn-floating btn-large turq">
+    <a href="@Url.Action( "Create New" , "Project/Create" )" class="btn-floating btn-large black turq-hover">
         <i class="large material-icons">add</i>
     </a>
 </div>
@@ -19,31 +19,31 @@
 <div class="card">
     <table class="table striped">
         <tr>
-            <th class="center turq white-text">
+            <th class="center black white-text">
                 @Html.DisplayNameFor(model => model.nombre)
             </th>
-            <th class="center turq white-text">
+            <th class="center black white-text">
                 @Html.DisplayNameFor(model => model.objetivo)
             </th>
-            <th class="center turq white-text">
+            <th class="center black white-text">
                 @Html.DisplayNameFor(model => model.fechaInicio)
             </th>
-            <th class="center turq white-text">
+            <th class="center black white-text">
                 @Html.DisplayNameFor(model => model.fechaFin)
             </th>
-            <th class="center turq white-text">
+            <th class="center black white-text">
                 @Html.DisplayNameFor(model => model.estado)
             </th>
-            <th class="center turq white-text">
+            <th class="center black white-text">
                 @Html.DisplayNameFor(model => model.duracionEstimada)
             </th>
-            <th class="center turq white-text">
+            <th class="center black white-text">
                 @Html.DisplayNameFor(model => model.duracionReal)
             </th>
-            <th class="center turq white-text">
+            <th class="center black white-text">
                 @Html.DisplayName("Nombre Cliente")
             </th>
-            <th class="center turq white-text">
+            <th class="center black white-text">
                 @Html.DisplayName("Acción")
             </th>
         </tr>
@@ -77,8 +77,8 @@
                 </td>
                 <td class="center">
                   
-                    @Html.ActionLink("Details", "Details", new { id = item.idPK },
-                    new { @class =  "waves-effect waves-light btn turq"}
+                    @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
+                    new { @class =  "waves-effect waves-light btn black turq-hover"}
                     ) 
                 </td>
             </tr>
