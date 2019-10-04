@@ -12,34 +12,34 @@ namespace ControlCalidad.Controllers
 {
     public class LoginUsersController : Controller
     {
-        private S3G4CEntity db = new S3G4CEntity();
+        private S3G4CEntity db = new S3G4CEntity( );
         private S3G4CUREntity userRoles = new S3G4CUREntity( );
 
         // GET: LoginUsers
         public ActionResult Index()
         {
-            return View(db.AspNetUsers.ToList());
+            return View( db.AspNetUsers.ToList( ) );
         }
 
         // GET: LoginUsers/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details( string id )
         {
-            if (id == null)
+            if( id == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
             }
-            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
-            if (aspNetUser == null)
+            AspNetUser aspNetUser = db.AspNetUsers.Find( id );
+            if( aspNetUser == null )
             {
-                return HttpNotFound();
+                return HttpNotFound( );
             }
-            return View(aspNetUser);
+            return View( aspNetUser );
         }
 
         // GET: LoginUsers/Create
         public ActionResult Create()
         {
-            return View();
+            return View( );
         }
 
         // POST: LoginUsers/Create
@@ -47,31 +47,31 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Role,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
+        public ActionResult Create( [Bind( Include = "Id,Role,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName" )] AspNetUser aspNetUser )
         {
-            if (ModelState.IsValid)
+            if( ModelState.IsValid )
             {
-                db.AspNetUsers.Add(aspNetUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.AspNetUsers.Add( aspNetUser );
+                db.SaveChanges( );
+                return RedirectToAction( "Index" );
             }
 
-            return View(aspNetUser);
+            return View( aspNetUser );
         }
 
         // GET: LoginUsers/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit( string id )
         {
-            if (id == null)
+            if( id == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
             }
-            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
-            if (aspNetUser == null)
+            AspNetUser aspNetUser = db.AspNetUsers.Find( id );
+            if( aspNetUser == null )
             {
-                return HttpNotFound();
+                return HttpNotFound( );
             }
-            return View(aspNetUser);
+            return View( aspNetUser );
         }
 
         // POST: LoginUsers/Edit/5
@@ -79,9 +79,9 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Role,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
+        public ActionResult Edit( [Bind( Include = "Id,Role,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName" )] AspNetUser aspNetUser )
         {
-            if (ModelState.IsValid)
+            if( ModelState.IsValid )
             {
                 var roleId = "";
                 switch( aspNetUser.Role )
@@ -118,50 +118,50 @@ namespace ControlCalidad.Controllers
                     RoleId = roleId
                 };
 
+                aspNetUser.Email = aspNetUser.UserName;
                 db.AspNetUsers.Add( aspNetUser );
                 userRoles.AspNetUserRoles.Add( userRole );
 
                 db.SaveChanges( );
                 userRoles.SaveChanges( );
-              
-                return RedirectToAction("Index");
+
+                return RedirectToAction( "Index" );
             }
-            return View(aspNetUser);
+            return View( aspNetUser );
         }
 
         // GET: LoginUsers/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete( string id )
         {
-            if (id == null)
+            if( id == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
             }
-            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
-            if (aspNetUser == null)
+            AspNetUser aspNetUser = db.AspNetUsers.Find( id );
+            if( aspNetUser == null )
             {
-                return HttpNotFound();
+                return HttpNotFound( );
             }
-            return View(aspNetUser);
+            return View( aspNetUser );
+
         }
 
-        // POST: LoginUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        //COMENTAR ESTE METODO****************************************
+        public ActionResult RemoveUser( string userId )
         {
-            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
-            db.AspNetUsers.Remove(aspNetUser);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            AspNetUser aspNetUser = db.AspNetUsers.Find( userId );
+            db.AspNetUsers.Remove( aspNetUser );
+            db.SaveChanges( );
+            return RedirectToAction( "Index" );
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose( bool disposing )
         {
-            if (disposing)
+            if( disposing )
             {
-                db.Dispose();
+                db.Dispose( );
             }
-            base.Dispose(disposing);
+            base.Dispose( disposing );
         }
     }
 }

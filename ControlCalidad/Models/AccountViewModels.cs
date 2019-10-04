@@ -84,7 +84,7 @@ namespace ControlCalidad.Models
 
     public class LoginViewModel
     {
-        
+
         /*
         [Required]
         [Display(Name = "Email")]
@@ -131,7 +131,6 @@ namespace ControlCalidad.Models
             get; set;
         }
 
-        [Required( ErrorMessage = "El nombre de usuario es requerido." )]
         [Display( Name = "Nombre de usuario" )]
         public string UserName
         {

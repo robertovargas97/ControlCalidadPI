@@ -29,5 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
+    function sendForm() {
+        document.getElementById("myForm").submit();
+    }
+
 });
 

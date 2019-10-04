@@ -20,51 +20,47 @@
     </a>
 </div>
 
-<div class="card">
-    <table class="table striped ">
-        <tr class="">
-            <th class="center turq white-text">
-                @Html.DisplayNameFor( model => model.UserName )
-            </th>
-            <th class="center turq white-text">
-                @Html.DisplayNameFor( model => model.Email )
-            </th>
-            <th class="center turq white-text">
-                @Html.DisplayNameFor( model => model.Role )
-            </th>
-            <th class="center turq white-text">
-                <p>Acción</p>
-            </th>
+    <div class="">
+
+        <div class="card">
+            <table class="table striped responsive-table">
+                <tr class="">
+                    <th class="center turq white-text">
+                        @Html.DisplayNameFor( model => model.Email )
+                    </th>
+                    <th class="center turq white-text">
+                        @Html.DisplayNameFor( model => model.Role )
+                    </th>
+                    <th class="center turq white-text">
+                        <p>Acción</p>
+                    </th>
+                </tr>
+
+                @foreach( var item in Model )
+                {
+                    <tr>
+                        <td class="center">
+                            @Html.DisplayFor( modelItem => item.UserName )
+                        </td>
+                        <td class="center">
+                            @Html.DisplayFor( modelItem => item.Role )
+                        </td>
 
 
-        </tr>
-
-        @foreach( var item in Model )
-        {
-            <tr>
-                <td class="center">
-                    @Html.DisplayFor( modelItem => item.UserName )
-                </td>
-                <td class="center">
-                    @Html.DisplayFor( modelItem => item.Email )
-                </td>
-                <td class="center">
-                    @Html.DisplayFor( modelItem => item.Role )
-                </td>
+                        <td class="center">
 
 
-                <td class="center">
+                            @Html.ActionLink("Detalles", "Details", new { id=item.Id }, new {
+                           @class = "waves-effect waves-light btn turq"
+                       } )
 
 
-                    @Html.ActionLink("Detalles", "Details", new { id=item.Id }, new {
-                   @class = "waves-effect waves-light btn turq"
-               } )
+                        </td>
+                    </tr>
 
+                }
 
-                </td>
-            </tr>
+            </table>
+        </div>
 
-        }
-
-    </table>
-</div>
+    </div>
