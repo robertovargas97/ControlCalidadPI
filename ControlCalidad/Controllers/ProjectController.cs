@@ -14,12 +14,14 @@ namespace ControlCalidad.Controllers
     public class ProjectController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
-
+        private ClientController client = new ClientController();
+        
         // GET: Project
         public async Task<ActionResult> Index()
         {
             var proyectoes = db.Proyectoes.Include(p => p.Cliente);
             return View(await proyectoes.ToListAsync());
+            
         }
 
         // GET: Project/Details/5

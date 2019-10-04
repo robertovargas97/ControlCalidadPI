@@ -20,6 +20,14 @@ namespace ControlCalidad.Controllers
         {
             
             return View(await db.Clientes.ToListAsync());
+            
+        }
+
+        public ActionResult GetClientList() {
+
+            var clientList = db.Clientes.ToList();
+
+            return RedirectToAction("GetClientList", "ProjectController", clientList);
         }
 
         // GET: Client/Details/5
