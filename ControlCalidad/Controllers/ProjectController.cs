@@ -122,6 +122,15 @@ namespace ControlCalidad.Controllers
             return RedirectToAction("Index");
         }
 
+        //COMENTAR ESTE METODO****************************************
+        public ActionResult RemoveProject(int id)
+        {
+            Proyecto project = db.Proyectoes.Find(id);
+            db.Proyectoes.Remove(project);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
