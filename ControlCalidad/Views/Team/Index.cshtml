@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { })
+    @Html.ActionLink("Create Team", "Create", new { email =User.Identity.Name })
 </p>
 <table class="table">
     <tr>
@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.Proyecto.nombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit", new { id_proyecto = item.id_proyectoFK }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
@@ -44,3 +44,4 @@
     }
 
 </table>
+
