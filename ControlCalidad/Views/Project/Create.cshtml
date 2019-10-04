@@ -15,7 +15,7 @@
 
 
         <div class="row container">
-            <div class="col s8 offset-s3">
+            <div class="col s8 offset-s2">
                 <div class="card hoverable">
                     <nav>
                         <div class="nav-wrapper turq">
@@ -23,6 +23,7 @@
                         </div>
                     </nav>
                     <div class="margin-b section">
+
                     </div>
                     @using (Html.BeginForm())
                     {
@@ -30,109 +31,116 @@
                         <h5 class="text-grey col s10 offset-s3">Crear nuevo proyecto</h5>
                         @Html.AntiForgeryToken()
 
-                        <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="row">
-                                <div class="input-field col s6 offset-s3">
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="p-size material-icons text-grey prefix">person</i>
+                                @Html.LabelFor(model => model.cedulaClienteFK, htmlAttributes: new { @class = "control-label col-md-2" })
 
-                                    @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.cedulaClienteFK, new { htmlAttributes = new { @class = "form-control" } })
 
-                                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-danger" })
 
-                                    @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s6 offset-s3">
-
-                                    @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                    @Html.EditorFor(model => model.objetivo, new { htmlAttributes = new { @class = "form-control" } })
-
-                                    @Html.ValidationMessageFor(model => model.objetivo, "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="input-field col s6 offset-s3">
-                                    <label for="fechaInicio">fecha de inicio</label>
-                                    <input type="text" class="datepicker" id="fechaInicio" name="fechaInicio" />
-
-                                    @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s6 offset-s3">
-                                    <label for="fechaFin">fecha de finalización</label>
-                                    <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
-
-
-                                    @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s6 offset-s3">
-
-                                    @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                    @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
-
-                                    @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s6 offset-s3">
-
-                                    @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                    @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control" } })
-
-                                    @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s6 offset-s3">
-
-                                    @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                    @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "form-control" } })
-
-                                    @Html.ValidationMessageFor(model => model.duracionReal, "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s6 offset-s3">
-
-                                    @Html.LabelFor(model => model.cedulaClienteFK, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                    @Html.EditorFor(model => model.cedulaClienteFK, new { htmlAttributes = new { @class = "form-control" } })
-
-                                    @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col s2  offset-s5 col m4 offset-m5">
-                                    <button type="submit" class="btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
-                                </div>
                             </div>
                         </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+
+                                <i class="p-size text-grey material-icons prefix">person</i>
+                                @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+
+                                <i class="p-size material-icons text-grey prefix">assignment</i>
+                                @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                @Html.EditorFor(model => model.objetivo, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.ValidationMessageFor(model => model.objetivo, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="p-size material-icons text-grey prefix">date_range</i>
+                                <label for="fechaInicio">fecha de inicio</label>
+                                <input type="text" class="datepicker" id="fechaInicio" name="fechaInicio" />
+
+                                @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="p-size material-icons text-grey prefix">date_range</i>
+                                <label for="fechaFin">fecha de finalización</label>
+                                <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
+
+                                @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="p-size material-icons text-grey prefix">info</i>
+
+                                @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
+                                @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="p-size material-icons text-grey prefix">hourglass_full</i>
+
+                                @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.ValidationMessageFor(model => model.duracionReal, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row center">
+                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "waves-effect red-hover btn red accent-4" })
+                            <button type="submit" class="btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
+
+                        </div>
+                        <div class="margin-b section">
+                        </div>
+
+
                     }
                 </div>
             </div>

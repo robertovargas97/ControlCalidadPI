@@ -6,9 +6,11 @@
 *@
 
 <h3 class="text-grey"> @Html.DisplayFor(model => model.nombre) </h3>
-
+<div class="margin-b1">
+    <hr />
+</div>
 <div>
-    <div class="row margin-p">
+    <div class="row">
         <div class="col s6 offset-s3">
             <div class="card hoverable">
                 <nav>
@@ -19,14 +21,15 @@
                 <div class="card-content black-text">
                     <div class="row">
                         <div class="col s12 margin-b1">
-                            <p class="p-size"> <i class="material-icons left text-grey">person</i> 
-                            <span class="text-turq"> Nombre del cliente </span> 
-                            : @Html.DisplayFor(model => model.Cliente.nombreP) 
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">person</i>
+                                <span class="text-turq"> Nombre del cliente </span>
+                                : @Html.DisplayFor(model => model.Cliente.nombreP)
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
-                                <i class="material-icons left text-grey">person</i> 
+                                <i class="material-icons left text-grey">person</i>
                                 <span class="text-turq"> Lider del proyecto </span>
                                 : @Html.DisplayName("Hacer consulta")
                             </p>
@@ -73,7 +76,7 @@
                                 : @Html.DisplayFor(model => model.duracionReal)
                             </p>
                         </div>
-                       
+
                     </div>
                     <div class="card-action center">
 
@@ -82,10 +85,12 @@
 
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </div>
-        
+           
+            
     </div>
+        
 </div>
