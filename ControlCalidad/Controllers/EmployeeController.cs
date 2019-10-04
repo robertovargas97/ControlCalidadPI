@@ -58,7 +58,7 @@ namespace ControlCalidad.Controllers
             {
                 db.Empleadoes.Add(empleado);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("../Habilities/Index",new {cedula_empleado = empleado.cedulaPK });
             }
 
             ViewBag.cedulaPK = new SelectList(db.Testers, "cedula_empleadoFk", "cedula_empleadoFk", empleado.cedulaPK);

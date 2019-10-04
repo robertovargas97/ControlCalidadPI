@@ -14,6 +14,9 @@ namespace ControlCalidad.Controllers
     public class HabilitiesController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
+        private static string cedulaEdit;
+        private static string categoriaEdit;
+        private static string descripcionEdit;
 
         // GET: Habilities
         public async Task<ActionResult> Index(string empleado)
@@ -57,8 +60,23 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Habilities/Create
-        public ActionResult Create()
+        public ActionResult Create(string cedulaEmpleado)
         {
+            if (string.IsNullOrEmpty(cedulaEmpleado))
+            {
+                string rawUrl = Request.RawUrl;
+                string[] splitUrl = rawUrl.Split('=');
+
+                try
+                {
+                    ViewBag.cedulaCreate = splitUrl[1];
+                }
+                catch (Exception e)
+                {
+                    Console.Write("ignorar");
+                }
+            }
+
             ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP");
             return View();
         }
@@ -84,6 +102,13 @@ namespace ControlCalidad.Controllers
         // GET: Habilities/Edit/5
         public async Task<ActionResult> Edit(string cedula_empleadoFK, string categoriaPK, string descripcionPK)
         {
+            cedulaEdit = string.Copy(cedula_empleadoFK);
+            categoriaEdit = string.Copy(categoriaPK);
+            descripcionEdit = string.Copy(descripcionPK);
+            ViewBag.cedulaEdit = string.Copy(cedula_empleadoFK);
+            ViewBag.categoriaEdit = string.Copy(categoriaPK);
+            ViewBag.descripcionEdit = string.Copy(descripcionPK);
+
             if (cedula_empleadoFK == null)
             {
                 return RedirectToAction("../Employee/Index");
@@ -108,17 +133,15 @@ namespace ControlCalidad.Controllers
             {
                 var sql =
                     from a in db.Habilidades
-                    where a.cedula_empleadoFK == habilidad.cedula_empleadoFK &&
-                    a.categoriaPK == habilidad.categoriaPK
+                    where a.cedula_empleadoFK == cedulaEdit
+                    && a.descripcionPK == descripcionEdit
+                    && a.categoriaPK == categoriaEdit
                     select a;
                 
                 foreach (var a in sql)
                 {
-                    if (habilidad.descripcionPK.Contains(a.descripcionPK) || a.descripcionPK.Contains(habilidad.descripcionPK))
-                    {
-                        db.Habilidades.Remove(a);
-                        break;
-                    }
+                    db.Habilidades.Remove(a);
+                    break; 
                 }
 
                 try
