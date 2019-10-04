@@ -11,7 +11,7 @@ namespace ControlCalidad.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Proyecto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +21,6 @@ namespace ControlCalidad.Models
             this.TrabajaEns = new HashSet<TrabajaEn>();
         }
     
-        [Key]
         public int idPK { get; set; }
         public string nombre { get; set; }
         public string objetivo { get; set; }

@@ -12,7 +12,7 @@
 
 @{
 
-    if (User.IsInRole("Jefe"))
+    if( User.IsInRole( "Jefe" ) )
     {
 
         <div class="row container">
@@ -23,9 +23,9 @@
                             <p class="col s4"> Quality Expert S.A</p>
                         </div>
                     </nav>
-                    @using (Html.BeginForm())
+                    @using( Html.BeginForm( "Edit" ) )
                     {
-                        @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken( )
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="margin-b section">
@@ -38,6 +38,18 @@
                                 @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
 
                                 @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-b hide">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="p-size material-icons text-grey prefix">person</i>
+                                @Html.LabelFor(model => model.idPK, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                @Html.EditorFor(model => model.idPK, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.ValidationMessageFor(model => model.idPK, "", new { @class = "text-danger" })
 
                             </div>
                         </div>
@@ -70,9 +82,10 @@
                             <div class="input-field col s6 offset-s3">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaInicio">fecha de inicio</label>
-                                <input type="text" class="datepicker" id="fechaInicio" name="fechaInicio" />
+                                <input type="text" value="@Model.fechaInicio" class="datepicker" id="fechaInicio" name="fechaInicio" />
 
-                                @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.fechaInicio , "", new { @class = "text-danger" })
+
 
                             </div>
                         </div>
@@ -128,10 +141,8 @@
 
 
                         <div class="row center">
-
-                            @Html.ActionLink("Cancelar", "Index", new { Model.idPK }, new { @class = "waves-effect red-hover btn red accent-4" })
+                            @Html.ActionLink("Cancelar", "Details", new { Model.idPK }, new { @class = "waves-effect red-hover btn red accent-4" })
                             <button type="submit" class="waves-effect waves-light btn turq">Guardar</button>
-
                         </div>
 
                         <div class="margin-b section">
@@ -141,7 +152,7 @@
                 </div>
 
             </div>
-            
+
         </div>
 
     }
@@ -150,9 +161,9 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink( "Back to List" , "Index" )
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render( "~/bundles/jqueryval" )
 }
