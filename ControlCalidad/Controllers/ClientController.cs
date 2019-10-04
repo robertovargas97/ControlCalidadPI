@@ -84,6 +84,10 @@ namespace ControlCalidad.Controllers
         {
             if (ModelState.IsValid)
             {
+                string SQL = "SELECT nombre FROM localizaciones.Provincia";
+                List<string> provincias = db.Database.SqlQuery<string>(SQL).ToList();
+                ViewBag.provincia = new SelectList(provincias);
+
                 db.Entry(cliente).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
