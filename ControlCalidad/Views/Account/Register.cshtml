@@ -6,14 +6,15 @@
 *@
 
 @{
-
+    
     if( User.IsInRole( "Jefe" ) )
     {
+        
         <h3 class="text-grey">Registrar Usuario</h3>
         <div class="margin-b1">
             <hr />
         </div>
-
+        
         <div class="row container">
             <div class="col s8 offset-s2">
                 <div class="card hoverable">
@@ -45,23 +46,6 @@
                                 @Html.ValidationMessageFor( m => m.Email , null , new {
                                @class = "text-error"
                            } )
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="text-grey material-icons prefix">account_circle</i>
-                                @Html.TextBoxFor( m => m.UserName , new {
-                               @class = "validate"
-                           } )
-                                @Html.LabelFor( m => m.UserName , new {
-                               @class = ""
-                           } )
-                                @Html.ValidationMessageFor( m => m.UserName , null , new {
-                               @class = "text-error"
-                           } )
-
 
                             </div>
                         </div>
@@ -121,7 +105,7 @@
 
                         <div class="row center">
                             @Html.ActionLink("Cancelar", "../LoginUsers/Index", null, new {@class = "waves-effect red-hover btn red accent-4"
-                 } )
+                            } )
                             <button type="submit" class="btn waves-effect waves-light turq btn-login modal-trigger">REGISTRAR</button>
 
 
@@ -135,6 +119,7 @@
 
 
         </div>
+        
     }
     else
     {
@@ -148,7 +133,9 @@
             </div>
         </div>
     }
+            
 }
+
 
 @section Scripts {
     @Scripts.Render( "~/bundles/jqueryval" )

@@ -14,32 +14,69 @@ namespace ControlCalidad.Controllers
     public class HabilitiesController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
+        private static string cedulaEdit;
+        private static string categoriaEdit;
+        private static string descripcionEdit;
 
         // GET: Habilities
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string empleado)
         {
             var habilidades = db.Habilidades.Include(h => h.Empleado);
+
+            if (string.IsNullOrEmpty(empleado))
+            {
+                string rawUrl = Request.RawUrl;
+                string[] splitUrl = rawUrl.Split('=');
+
+                try
+                {
+                    ViewBag.empleado = splitUrl[1];
+                }
+                catch (Exception e)
+                {
+                    Console.Write("ignorar");
+                }
+            }
+            else
+            {
+                ViewBag.empleado = empleado;
+            }
             return View(await habilidades.ToListAsync());
         }
 
         // GET: Habilities/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(string cedula_empleadoFK, string categoriaPK, string descripcionPK)
         {
-            if (id == null)
+            if (cedula_empleadoFK == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", new { cedula_empleadoFK = cedula_empleadoFK });
             }
-            Habilidade habilidade = await db.Habilidades.FindAsync(id);
+            Habilidade habilidade = await db.Habilidades.FindAsync(cedula_empleadoFK, categoriaPK, descripcionPK);
             if (habilidade == null)
             {
-                return HttpNotFound();
+                 return RedirectToAction("Index", new { cedula_empleadoFK = habilidade.cedula_empleadoFK });
             }
             return View(habilidade);
         }
 
         // GET: Habilities/Create
-        public ActionResult Create()
+        public ActionResult Create(string cedulaEmpleado)
         {
+            if (string.IsNullOrEmpty(cedulaEmpleado))
+            {
+                string rawUrl = Request.RawUrl;
+                string[] splitUrl = rawUrl.Split('=');
+
+                try
+                {
+                    ViewBag.cedulaCreate = splitUrl[1];
+                }
+                catch (Exception e)
+                {
+                    Console.Write("ignorar");
+                }
+            }
+
             ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP");
             return View();
         }
@@ -49,30 +86,37 @@ namespace ControlCalidad.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "cedula_empleadoFK,categoriaPK,descripcionPK")] Habilidade habilidade)
+        public async Task<ActionResult> Create([Bind(Include = "cedula_empleadoFK,categoriaPK,descripcionPK")] Habilidade habilidad)
         {
             if (ModelState.IsValid)
             {
-                db.Habilidades.Add(habilidade);
+                db.Habilidades.Add(habilidad);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { cedula_empleadoFK = habilidad.cedula_empleadoFK });
             }
 
-            ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", habilidade.cedula_empleadoFK);
-            return View(habilidade);
+            ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", habilidad.cedula_empleadoFK);
+            return View(habilidad);
         }
 
         // GET: Habilities/Edit/5
         public async Task<ActionResult> Edit(string cedula_empleadoFK, string categoriaPK, string descripcionPK)
         {
+            cedulaEdit = string.Copy(cedula_empleadoFK);
+            categoriaEdit = string.Copy(categoriaPK);
+            descripcionEdit = string.Copy(descripcionPK);
+            ViewBag.cedulaEdit = string.Copy(cedula_empleadoFK);
+            ViewBag.categoriaEdit = string.Copy(categoriaPK);
+            ViewBag.descripcionEdit = string.Copy(descripcionPK);
+
             if (cedula_empleadoFK == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("../Employee/Index");
             }
             Habilidade habilidade = await db.Habilidades.FindAsync(cedula_empleadoFK,categoriaPK,descripcionPK);
             if (habilidade == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("../Employee/Index");
             }
             ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", habilidade.cedula_empleadoFK);
             return View(habilidade);
@@ -89,17 +133,15 @@ namespace ControlCalidad.Controllers
             {
                 var sql =
                     from a in db.Habilidades
-                    where a.cedula_empleadoFK == habilidad.cedula_empleadoFK &&
-                    a.categoriaPK == habilidad.categoriaPK
+                    where a.cedula_empleadoFK == cedulaEdit
+                    && a.descripcionPK == descripcionEdit
+                    && a.categoriaPK == categoriaEdit
                     select a;
                 
                 foreach (var a in sql)
                 {
-                    if (habilidad.descripcionPK.Contains(a.descripcionPK) || a.descripcionPK.Contains(habilidad.descripcionPK))
-                    {
-                        db.Habilidades.Remove(a);
-                        break;
-                    }
+                    db.Habilidades.Remove(a);
+                    break; 
                 }
 
                 try
@@ -115,7 +157,7 @@ namespace ControlCalidad.Controllers
                 db.Habilidades.Add(habilidad);
                 await db.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { cedula_empleadoFK = habilidad.cedula_empleadoFK });
             }
             ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", habilidad.cedula_empleadoFK);
             return View(habilidad);
@@ -126,14 +168,14 @@ namespace ControlCalidad.Controllers
         {
             if (cedula_empleadoFK == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("../Employee/Index");
             }
-            Habilidade habilidade = await db.Habilidades.FindAsync(cedula_empleadoFK,  categoriaPK,  descripcionPK);
-            if (habilidade == null)
+            Habilidade habilidad = await db.Habilidades.FindAsync(cedula_empleadoFK,  categoriaPK,  descripcionPK);
+            if (habilidad == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("../Employee/Index");
             }
-            return View(habilidade);
+            return View(habilidad);
         }
 
         // POST: Habilities/Delete/5
@@ -144,7 +186,7 @@ namespace ControlCalidad.Controllers
             Habilidade habilidade = await db.Habilidades.FindAsync(cedula_empleadoFK, categoriaPK, descripcionPK);
             db.Habilidades.Remove(habilidade);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new { cedula_empleadoFK = cedula_empleadoFK});
         }
 
         protected override void Dispose(bool disposing)
