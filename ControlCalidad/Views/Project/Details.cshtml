@@ -80,7 +80,7 @@
                     </div>
                     <div class="card-action center">
 
-                        <a class="waves-effect btn red accent-4 red-hover modal-trigger" href="#modal1">Borrar</a>
+                        <a class="waves-effect btn red accent-4 red-hover modal-trigger" href="#modalProject">Borrar</a>
                         @Html.ActionLink("Editar", "Edit", new { id = Model.idPK }, new { @class = "waves-effect waves-light btn turq" })
 
                     </div>
@@ -89,12 +89,20 @@
             </div>
 
         </div>
-           
-            
+
+
     </div>
-        
+
 </div>
-<div id="modal1" class="modal">
+
+<div class="fixed-action-btn">
+    <a href="@Url.Action( "Index" , "Project/Index" )" class="btn-floating btn-large turq left">
+        <i class="large material-icons">arrow_back</i>
+    </a>
+</div>
+
+<!-- Modal Structure -->
+<div id="modalProject" class="modal">
     <div class="row">
         <div class="">
             <nav>
@@ -111,7 +119,7 @@
                 <i class="material-icons medium red-text text-darken-4">warning</i>
             </div>
             <div class="s8">
-                <h5>Está seguro que desea <span class="red-text text-darken-4 "> borrar </span> al proyecto  @Model.nombre ?</h5>
+                <h5>Está seguro que desea <span class="red-text text-darken-4 "> borrar </span> el proyecto  @Model.nombre ?</h5>
             </div>
         </div>
 
@@ -119,8 +127,12 @@
             <hr />
         </div>
         <div class="modal-footer">
-            @Html.ActionLink("Aceptar", "RemoveProject", new { id = Model.idPK }, new { @class = "waves-effect red-hover btn red accent-4" })
+            @Html.ActionLink("Aceptar", "RemoveProject", new { id = Model.idPK }, new
+            {
+           @class = "waves-effect red-hover btn red accent-4"
+       })
             <a class="modal-close btn waves-effect waves-light turq white-text">Cancelar</a>
         </div>
     </div>
 </div>
+
