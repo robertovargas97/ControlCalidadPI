@@ -95,12 +95,13 @@
                         </div>
 
                         <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
+                            <div class="input-field col s6 offset-s3" data-target="dropdownCreate">
                                 <i class="p-size material-icons text-grey prefix">info</i>
-
-                                @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
+                                <select name="estado">
+                                    <option value="" disabled selected>Estado del proyecto</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                    <option value="Activo">Activo</option>
+                                </select>
 
                                 @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
 
@@ -144,13 +145,26 @@
                     }
                 </div>
             </div>
-            
+
         </div>
 
+    }
+    else
+    {
+        <div class="row container center top-m-block">
+
+            <div class="card hoverable s10 section">
+
+                <h3>Lo sentimos.<br />Debes iniciar sesión como <span class="red-text"> jefe </span> para crear un proyecto.</h3>
+                <i class="large material-icons red-text">block</i>
+
+            </div>
+        </div>
     }
 
 
 }
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")
