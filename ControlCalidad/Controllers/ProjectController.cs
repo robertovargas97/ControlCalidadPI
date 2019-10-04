@@ -96,6 +96,20 @@ namespace ControlCalidad.Controllers
             return View(proyecto);
         }
 
+        public ActionResult EditProject([Bind(Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK")] Proyecto proyecto)
+        {
+            if (ModelState.IsValid)
+            {
+
+                db.Entry(proyecto).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
+            return RedirectToAction("Index");
+        }
+
+
         // GET: Project/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
