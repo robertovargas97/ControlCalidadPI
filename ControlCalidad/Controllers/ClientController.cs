@@ -84,9 +84,6 @@ namespace ControlCalidad.Controllers
         {
             if (ModelState.IsValid)
             {
-                string SQL = "SELECT nombre FROM localizaciones.Provincia";
-                List<string> provincias = db.Database.SqlQuery<string>(SQL).ToList();
-                ViewBag.provincia = new SelectList(provincias);
 
                 db.Entry(cliente).State = EntityState.Modified;
                 await db.SaveChangesAsync();
@@ -94,6 +91,7 @@ namespace ControlCalidad.Controllers
             }
             return View(cliente);
         }
+
 
         // GET: Client/Delete/5
         public async Task<ActionResult> Delete(string id)
@@ -129,5 +127,6 @@ namespace ControlCalidad.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
