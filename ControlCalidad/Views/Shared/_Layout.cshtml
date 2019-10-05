@@ -23,7 +23,7 @@
             <ul class="right hide-on-med-and-down">
                 <li><a class="turq-hover" href=" @Url.Action( "Index" , "Home" )">Inicio</a></li>
                 @{
-                    if( User.IsInRole( "Jefe" ) )
+                    if (User.IsInRole("Jefe"))
                     {
                         <li><a class="turq-hover" href=" @Url.Action( "Index" , "LoginUsers" )">Perfiles</a></li>
                         <li><a class="turq-hover" href=" @Url.Action( "Index" , "Client" )">Clientes</a></li>
@@ -33,12 +33,16 @@
                 }
 
                 <li>@Html.Partial( "_LoginPartial" ) </li>
+
+                <li><a href="@Url.Action( "Index" , "Project" )">Proyectos</a></li>
+                <li>@Html.Partial("_LoginPartial") </li>
+
             </ul>
         </div>
     </nav>
 
     <div class="footer-down">
-        @RenderBody( )
+        @RenderBody()
     </div>
     <footer class="page-footer grey darken-2">
 
@@ -49,7 +53,7 @@
                 </div>
                 <div class=" col s3 offset-s3">
                     @{var date = System.DateTime.Now;
-                        string dateFormat = string.Format( "{0:D}" , date );
+                        string dateFormat = string.Format("{0:D}", date);
                         ;
                     }
                     @dateFormat
@@ -61,11 +65,10 @@
 
 
     <!-- Compiled and minified JavaScript -->
+    @Scripts.Render("~/bundles/jquery")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    @Scripts.Render( "~/bundles/materializeD" )
-    @Scripts.Render( "~/bundles/jquery" )
-    @Scripts.Render( "~/bundles/bootstrap" )
-    @RenderSection( "scripts" , required: false )
+    @Scripts.Render("~/bundles/materializeD")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

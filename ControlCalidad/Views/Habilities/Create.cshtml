@@ -27,19 +27,19 @@
             }))
             {
 
-                <h5 class="text-grey col s10 offset-s3">Registrar nueva habilidad</h5>
+                <h5 class="text-grey col s10 offset-s3">Registrar nueva habilidad para @ViewBag.cedulaCreate</h5>
                 @Html.AntiForgeryToken()
-                <div class="row margin-b">
+                <!--<div class="row margin-b">
 
-                    <i class=" text-grey col s1 offset-s3 material-icons prefix">Tipo de habilidad</i>
+            <i class=" text-grey col s1 offset-s3 material-icons prefix">Tipo de habilidad</i>
 
-                    <div class="input-field col s5">
-                        <div class="col-md-10">
-                            <input id="cedula_empleadoFK" name="cedula_empleadoFK" value="@ViewBag.cedulaCreate" type="text" readonly />
-                            @Html.ValidationMessageFor(model => model.cedula_empleadoFK, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+            <div class="input-field col s5">
+                <div class="col-md-10">
+                    <input id="cedula_empleadoFK" name="cedula_empleadoFK" value="@ViewBag.cedulaCreate" type="text" readonly />
+                    @Html.ValidationMessageFor(model => model.cedula_empleadoFK, "", new { @class = "text-danger" })
                 </div>
+            </div>
+        </div>-->
 
                 <div class="row center">
 
@@ -50,12 +50,16 @@
                         {
                        @class = "text-error"
                    })
-                        <input type="text" id="descripcionPK" name="descripcionPK" class="autocomplete">
+                        <select id="descripcionPK" name="descripcionPK" class="autocomplete" onchange="habilidades(this);">
+                            <option value="">Seleccione una opción</option>
+                            <option value="Técnica">Técnica</option>
+                            <option value="Blanda">Blanda</option>
+                        </select>
                         <label for="descripcionPK">Categoria</label>
                     </div>
                 </div>
 
-                <div class="row" id="respuesta">
+                <div  id="respuesta">
 
                 </div>
 
@@ -76,49 +80,51 @@
         </div>
     </div>
 
-
 </div>
 
+
+
 <script>
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var options = {
-            data: {
-                "Blanda": null,
-                "Tecnica": null,
-                "Otra": null,
-            },
-            onAutocomplete: function (text) {
-                if (text == "Tecnica") {
-                    respuesta.innerHTML =
-                        `<div class="row margin-b">
+function habilidades (input) {
+    if (input.selectedIndex == 1) {
+        respuesta = document.getElementById('respuesta');
+        respuesta.innerHTML = `<div class="row margin-b">
 
-                            <i class=" text-grey col s1 offset-s3 material-icons prefix">work</i>
+                <i class="text-grey col s1 offset-s3 material-icons prefix">work</i>
 
-                            <div class="input-field col s5">
-                                <select id="descripcionPK" name="descripcionPK">
+                <div class="input-field col s5">
+                    <select id="descripcionPK" name="descripcionPK">
 
-                                    <option value="Jefe">Jefe</option>
-                                    <option value="Lider">Lider</option>
-                                    <option value="Tester">Tester</option>
-                                    <option value="Cliente">Cliente</option>
-                                </select>
-                                <label for="descripcionPK">Descripcion</label>
-                            </div>
-                        </div>`;
-                }
-            }
-        }
+                        <option value="Jefe">Jefe</option>
+                        <option value="Lider">Lider</option>
+                        <option value="Tester">Tester</option>
+                        <option value="Cliente">Cliente</option>
+                    </select>
+                    <label for="descripcionPK">Descripcion</label>
+                </div>
+            </div>`;
+        $('select').formSelect();
+    }
+    if (input.selectedIndex == 2) {
+        respuesta = document.getElementById('respuesta');
+        respuesta.innerHTML = `<div class="row margin-b">
 
-        var elems = document.querySelectorAll('.autocomplete');
-        var instances = M.Autocomplete.init(elems, options);
-    });
+                <i class="text-grey col s1 offset-s3 material-icons prefix">work</i>
 
-    const respuesta = document.getElementById('respuesta');
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems);
-  });
+                <div class="input-field col s5">
+                    <select id="descripcionPK" name="descripcionPK">
+
+                        <option value="Jefe">Jefe1</option>
+                        <option value="Lider">Lider2</option>
+                        <option value="Tester">Tester3</option>
+                        <option value="Cliente">Cliente4</option>
+                    </select>
+                    <label for="descripcionPK">Descripcion</label>
+                </div>
+            </div>`;
+        $('select').formSelect();
+    }
+}
+
 </script>
