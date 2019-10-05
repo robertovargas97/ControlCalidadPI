@@ -93,7 +93,7 @@
             <hr />
         </div>
         <div class="modal-footer">
-            @Html.ActionLink("Aceptar", "Delete", new { id = Model.cedulaPK }, new { @class = "waves-effect red-hover btn red accent-4" })
+            @Html.ActionLink( "Aceptar" ,"RemoveClient",new { clientId = Model.cedulaPK} , new { @class = "waves-effect red-hover btn red accent-4"} )
             <a class="modal-close btn waves-effect waves-light turq white-text">Cancelar</a>
         </div>
     </div>

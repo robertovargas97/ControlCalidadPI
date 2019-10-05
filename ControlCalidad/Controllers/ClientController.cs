@@ -119,6 +119,14 @@ namespace ControlCalidad.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult RemoveClient(string clientId)
+        {  
+            Cliente client= db.Clientes.Find(clientId);
+            db.Clientes.Remove(client);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
