@@ -28,10 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
         
 
     });
-
-    function sendForm() {
-        document.getElementById("myForm").submit();
-    }
-
 });
 
+function redirectToPage(address) {
+    location.href = address;
+}
+
+function complete() {
+    document.getElementById("complete").classList.remove("hide");
+}

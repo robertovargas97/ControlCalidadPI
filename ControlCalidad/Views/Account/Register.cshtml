@@ -25,9 +25,11 @@
                     </nav>
                     <div class="margin-b section">
                     </div>
-                    @using( Html.BeginForm( "Register" , "Account" , FormMethod.Post , new {
-                        @class = "" ,
-                        role = "form"
+                    @using( Ajax.BeginForm( "Register" , "Account" , new AjaxOptions {
+                        HttpMethod = "POST" ,
+                        LoadingElementId = "loading" ,
+                        OnSuccess = "redirectToPage('../../LoginUsers/Index')" ,
+                        OnComplete = "complete" ,
                     } ) )
                     {
 
@@ -103,12 +105,41 @@
                             </div>
                         </div>
 
+                        <div class=" row container center" id="loading" style="display:none;">
+                            <div class="">
+                                <i class="material-icons text-turq ">info_outline</i>
+                            </div>
+                            <div class="">
+                                <p class="text-turq">
+                                    Registrando... Por favor espere.
+                                </p>
+                            </div>
+
+                            <div class="progress">
+                                <div class="indeterminate"></div>
+                            </div>
+                        </div>
+
+                        <div class=" row container center hide " id="complete">
+                            <div class="">
+                                <i class="material-icons text-turq ">info_outline</i>
+                            </div>
+                            <div class="">
+                                <p class="text-turq">
+                                    Se registró correctamente.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="margin-b1">
+                        </div>
+
+
+
                         <div class="row center">
                             @Html.ActionLink("Cancelar", "../LoginUsers/Index", null, new {@class = "waves-effect red-hover btn red accent-4"
                             } )
                             <button type="submit" class="btn waves-effect waves-light turq btn-login modal-trigger">REGISTRAR</button>
-
-
                         </div>
                         <div class="margin-b section">
                         </div>
