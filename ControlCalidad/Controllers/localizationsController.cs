@@ -17,24 +17,19 @@ namespace ControlCalidad.Controllers
         // GET: Province
         public SelectList TraerNombreProvincias()
         {
-            /*int[] prov_cod_int = (from provincia in db.Provincias
-                                  select provincia.codigoPK).ToArray();
-            Console.WriteLine("DEBUG 01");
-            Console.WriteLine(prov_cod_int);
-            Console.WriteLine("DEBUG 02");*/
-            return new SelectList(db.Provincias, "nombre");
+            return new SelectList((from provincias in db.Provincias
+                                   select provincias.nombre).ToList());
         }
 
-        public SelectList TraerNombreCantones(string provincia)
+        public SelectList TraerNombreCantones()
         {
-            int prov_cod_int =  (from prov in db.Provincias
-                                           where prov.nombre == provincia
-                                           select prov.codigoPK).ElementAt(0);
-            Console.WriteLine(prov_cod_int);
-            int prov_cod = 0;
-            return new SelectList((from canton in db.Cantons
-                                   where canton.provinciaFK == prov_cod
-                                   select canton.nombre).ToList());
+            return new SelectList((from cantones in db.Cantons
+                                   select cantones.nombre).ToList());
+        }
+        public SelectList TraerNombreDistritos()
+        {
+            return new SelectList((from distritos in db.Distritoes
+                                   select distritos.nombre).ToList());
         }
 
     }
