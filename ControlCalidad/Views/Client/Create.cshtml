@@ -22,7 +22,13 @@
             <div class="margin-b section">
 
             </div>
-            @using (Html.BeginForm())
+            @using (Ajax.BeginForm("Create", "Client", new AjaxOptions
+            {
+                HttpMethod = "POST",
+                LoadingElementId = "loading",
+                OnSuccess = "redirectToPage('../../Client/Index')",
+                OnComplete = "complete",
+            }))
             {
                 @Html.AntiForgeryToken()
 
@@ -115,6 +121,32 @@
                         @Html.LabelFor(model => model.direccionExacta, htmlAttributes: new { @class = "control-label col-md-2" })
                         @Html.EditorFor(model => model.direccionExacta, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.direccionExacta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class=" row container center" id="loading" style="display:none;">
+                    <div class="">
+                        <i class="material-icons text-turq ">info_outline</i>
+                    </div>
+                    <div class="">
+                        <p class="text-turq">
+                            Registrando... Por favor espere.
+                        </p>
+                    </div>
+
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+
+                <div class=" row container center hide " id="complete">
+                    <div class="">
+                        <i class="material-icons text-turq ">info_outline</i>
+                    </div>
+                    <div class="">
+                        <p class="text-turq">
+                            Se registró correctamente.
+                        </p>
                     </div>
                 </div>
 
