@@ -14,6 +14,7 @@ namespace ControlCalidad.Controllers
     public class ProjectController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
+        private ClientController clientController = new ClientController( );
 
         // GET: Project
         public async Task<ActionResult> Index()
@@ -40,7 +41,8 @@ namespace ControlCalidad.Controllers
         // GET: Project/Create
         public ActionResult Create()
         {
-            ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP");
+            ViewBag.allClientsId = clientController.GetClients( );
+           // ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP");
             return View();
         }
 
