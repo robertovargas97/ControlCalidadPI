@@ -13,6 +13,7 @@ namespace ControlCalidad.Controllers
 {
     public class ClientController : Controller
     {
+        public static localizationsController localizationsController = new localizationsController();
         private QASystemEntities db = new QASystemEntities();
 
         // GET: Client
@@ -134,6 +135,11 @@ namespace ControlCalidad.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public SelectList Provinces()
+        {
+            return localizationsController.TraerNombreProvincias();
         }
 
     }
