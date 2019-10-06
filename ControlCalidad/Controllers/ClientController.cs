@@ -14,6 +14,7 @@ namespace ControlCalidad.Controllers
     public class ClientController : Controller
     {
         public static localizationsController localizationsController = new localizationsController();
+
         private QASystemEntities db = new QASystemEntities();
 
         // GET: Client
@@ -41,6 +42,9 @@ namespace ControlCalidad.Controllers
         // GET: Client/Create
         public ActionResult Create()
         {
+            ViewBag.prov = localizationsController.TraerNombreProvincias();
+            ViewBag.cant = localizationsController.TraerNombreCantones();
+            ViewBag.dist = localizationsController.TraerNombreDistritos();
             return View();
         }
 
@@ -139,7 +143,8 @@ namespace ControlCalidad.Controllers
 
         public SelectList Provinces()
         {
-            return localizationsController.TraerNombreProvincias();
+            ViewBag.prov = localizationsController.TraerNombreProvincias();
+            return ViewBag;
         }
 
     }
