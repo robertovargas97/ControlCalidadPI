@@ -21,7 +21,13 @@
 
             </div>
 
-            @using( Html.BeginForm( ) )
+            @using( Ajax.BeginForm( "Edit" , new AjaxOptions {
+                HttpMethod = "POST" ,
+                LoadingElementId = "loading" ,
+                OnSuccess = "redirectToPage('../Index')" ,
+                OnComplete = "complete",
+               
+            } ) )
             {
 
                 @Html.AntiForgeryToken( )
@@ -96,6 +102,36 @@
                     </div>
                 </div>
 
+                <div class=" row container center" id="loading" style="display:none;">
+                    <div class="">
+                        <i class="material-icons text-turq ">info_outline</i>
+                    </div>
+                    <div class="">
+                        <p class="text-turq">
+                            Editando... Por favor espere.
+                        </p>
+                    </div>
+
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+
+                <div class=" row container center hide " id="complete">
+                    <div class="">
+                        <i class="material-icons text-turq ">info_outline</i>
+                    </div>
+                    <div class="">
+                        <p class="text-turq">
+                            Se edito correctamente.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="margin-b1">
+                </div>
+
+
                 <div class="row center">
                     @Html.ActionLink("Cancelar", "Details", new { id=Model.Id }, new {
              @class = "waves-effect red-hover btn red accent-4"
@@ -111,6 +147,7 @@
         </div>
     </div>
 </div>
+
 
 
 @section Scripts {

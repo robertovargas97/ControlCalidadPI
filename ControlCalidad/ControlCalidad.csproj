@@ -459,8 +459,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\LoginUsers\Create.cshtml" />
-    <Content Include="Views\LoginUsers\Delete.cshtml" />
     <Content Include="Views\LoginUsers\Details.cshtml" />
     <Content Include="Views\LoginUsers\Edit.cshtml" />
     <Content Include="Views\LoginUsers\Index.cshtml" />
