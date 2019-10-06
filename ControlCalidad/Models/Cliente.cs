@@ -24,7 +24,6 @@ namespace ControlCalidad.Models
         public string nombreP { get; set; }
         public string apellido1 { get; set; }
         public string apellido2 { get; set; }
-        public Nullable<System.DateTime> fechaNacimiento { get; set; }
         public string telefono { get; set; }
         public string correo { get; set; }
         public string provincia { get; set; }
