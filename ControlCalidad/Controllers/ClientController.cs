@@ -13,7 +13,8 @@ namespace ControlCalidad.Controllers
 {
     public class ClientController : Controller
     {
-        private QASystemEntities db = new QASystemEntities( );
+        public static localizationsController localizationsController = new localizationsController();
+        private QASystemEntities db = new QASystemEntities();
 
 
         //<summary> : Toma todos lo clientes de la base de datos para convertirlos en una lista
@@ -149,13 +150,26 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" );
         }
 
-        protected override void Dispose( bool disposing )
+        public ActionResult RemoveClient(string clientId)
+        {  
+            Cliente client= db.Clientes.Find(clientId);
+            db.Clientes.Remove(client);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
         {
             if( disposing )
             {
                 db.Dispose( );
             }
             base.Dispose( disposing );
+        }
+
+        public SelectList Provinces()
+        {
+            return localizationsController.TraerNombreProvincias();
         }
 
     }
