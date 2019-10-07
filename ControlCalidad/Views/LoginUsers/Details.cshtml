@@ -30,8 +30,9 @@
                     </div>
                 </div>
                 <div class="card-action center">
-                    <a class="waves-effect btn red accent-4 red-hover modal-trigger" href="#modal1">Borrar</a>
-                    @Html.ActionLink( "Editar"  , "Edit", new { id=Model.Id }, new { @class = "waves-effect waves-light btn turq"} )
+                    <a class="margin-r waves-effect btn red accent-4 red-hover modal-trigger" href="#modal1">Borrar</a>
+                    @Html.ActionLink( "Editar"  , "Edit", new { id=Model.Id }, new { @class = "margin-l waves-effect waves-light btn turq"
+               } )
 
                 </div>
             </div>
@@ -72,9 +73,9 @@
         </div>
         <div class="modal-footer">
             @Html.ActionLink( "Aceptar" ,"RemoveUser",new { userId = Model.Id} , new {
-           @class = "waves-effect red-hover btn red accent-4"
+           @class = " waves-effect red-hover btn red accent-4"
        } )
-            <a class="modal-close btn waves-effect waves-light turq white-text">Cancelar</a>
+            <a class=" modal-close btn waves-effect waves-light turq white-text">Cancelar</a>
         </div>
     </div>
 </div>
