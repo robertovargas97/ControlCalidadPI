@@ -26,6 +26,7 @@ namespace ControlCalidad.Controllers
             return new SelectList((from cantones in db.Cantons
                                    select cantones.nombre).ToList());
         }
+
         public SelectList TraerNombreDistritos()
         {
             return new SelectList((from distritos in db.Distritoes

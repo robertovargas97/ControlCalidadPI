@@ -53,7 +53,7 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,telefono,correo,provincia,canton,distrito,direccionExacta")] Cliente cliente)
+        public async Task<ActionResult> Create([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +68,9 @@ namespace ControlCalidad.Controllers
         // GET: Client/Edit/5
         public async Task<ActionResult> Edit(string id)
         {
+            ViewBag.prov = localizationsController.TraerNombreProvincias();
+            ViewBag.cant = localizationsController.TraerNombreCantones();
+            ViewBag.dist = localizationsController.TraerNombreDistritos();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -85,7 +88,7 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,telefono,correo,provincia,canton,distrito,direccionExacta")] Cliente cliente)
+        public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
