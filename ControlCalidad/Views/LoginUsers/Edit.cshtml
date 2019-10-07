@@ -25,7 +25,7 @@
                 HttpMethod = "POST" ,
                 LoadingElementId = "loading" ,
                 OnSuccess = "redirectToPage('../Index')" ,
-                OnComplete = "complete",
+                OnComplete = "complete"
                
             } ) )
             {
@@ -90,7 +90,7 @@
                     <div class="input-field col s6 offset-s3">
                         @Html.EditorFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "" } })
                         @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "" })
-                        @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "" })
                     </div>
                 </div>
 

@@ -77,7 +77,8 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
+            ViewBag.allClientsId = clientController.GetClients( );
+            ViewBag.cedulaClienteFK = proyecto.cedulaClienteFK;
             return View(proyecto);
         }
 
