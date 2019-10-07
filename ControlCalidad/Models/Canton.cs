@@ -12,26 +12,20 @@ namespace ControlCalidad.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cliente
+    public partial class Canton
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cliente()
+        public Canton()
         {
-            this.Proyectoes = new HashSet<Proyecto>();
+            this.Distritoes = new HashSet<Distrito>();
         }
     
-        public string cedulaPK { get; set; }
-        public string nombreP { get; set; }
-        public string apellido1 { get; set; }
-        public string apellido2 { get; set; }
-        public string telefono { get; set; }
-        public string correo { get; set; }
-        public string provincia { get; set; }
-        public string canton { get; set; }
-        public string distrito { get; set; }
-        public string direccionExacta { get; set; }
+        public int codigoPK { get; set; }
+        public string nombre { get; set; }
+        public int provinciaFK { get; set; }
     
+        public virtual Provincia Provincia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Proyecto> Proyectoes { get; set; }
+        public virtual ICollection<Distrito> Distritoes { get; set; }
     }
 }

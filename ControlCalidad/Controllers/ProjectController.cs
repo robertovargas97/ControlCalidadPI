@@ -14,8 +14,9 @@ namespace ControlCalidad.Controllers
     public class ProjectController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
-        private ClientController client = new ClientController();
+        private ClientController clientController = new ClientController( );
         
+
         // GET: Project
         public async Task<ActionResult> Index()
         {
@@ -42,7 +43,8 @@ namespace ControlCalidad.Controllers
         // GET: Project/Create
         public ActionResult Create()
         {
-            ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP");
+            ViewBag.allClientsId = clientController.GetClients( );
+           // ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP");
             return View();
         }
 
@@ -76,7 +78,8 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
+            ViewBag.allClientsId = clientController.GetClients( );
+            ViewBag.cedulaClienteFK = proyecto.cedulaClienteFK;
             return View(proyecto);
         }
 
