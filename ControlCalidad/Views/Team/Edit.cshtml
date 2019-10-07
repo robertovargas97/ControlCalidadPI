@@ -9,19 +9,30 @@
 
 @using (Html.BeginForm())
 {
+
+
     @Html.AntiForgeryToken()
-    @Html.Hidden("Cedula", "", new { @id = "Cedula" })
-    @Html.Hidden("Proyecto","", new { Value = ViewBag.id_proyecto , @id = "Proyecto" })
+    @Html.Hidden("CedulaN", "", new { @id = "CedulaN" })
+    @Html.Hidden("CedulaT", "", new { @id = "CedulaT" })
+    @Html.Hidden("Hability", "", new { @id = "Hability" })
+    @Html.Hidden("Proyecto", "", new { Value = ViewBag.id_proyecto, @id = "Proyecto" })
+
+
     <div class="form-horizontal">
         <h4>TrabajaEn</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="input-field col s6">
+            <i class="material-icons prefix">search</i>
+            <textarea id="hability" class="materialize-textarea"></textarea>
+            <label for="icon_prefix2">Buscar por habilidades</label>
+        </div>
         <td>Disponibles: </td>
-        @Html.DropDownList("nombreP", (IEnumerable<SelectListItem>)ViewBag.disponibles, null, new { @class = "form-control", @onChange = "SelectedValue(this)" })
+        @Html.DropDownList("nombreP", (IEnumerable<SelectListItem>)ViewBag.disponibles, "Disponibles", new { @class = "form-control", @onChange = "setCedulaN(this)" })
         <div class="form-group">
             @Html.LabelFor(model => model.cedula_empleadoFK, "Equipo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("cedula_empleadoFK", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("cedula_empleadoFK", null, "Equipo", htmlAttributes: new { @class = "form-control", @onChange = "setCedulaT(this)" })
                 @Html.ValidationMessageFor(model => model.cedula_empleadoFK, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -29,25 +40,41 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Asignar" class="btn btn-default" />
+            <input type="submit" name="Asignar" value="Asignar" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" name="Desasignar" value="Desasignar" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" name="Buscar" value="Buscar" onclick="getHability()" />
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Add", "Add", new { cedulaPK = "hfCountry", id_proyecto = ViewBag.id_proyecto })
-</div>
 <script>
 
     //To get selected value an text of dropdownlist
-    function SelectedValue(ddlObject) {
+    function setCedulaN(ddlObject) {
         //Selected value of dropdownlist
         var selectedValue = ddlObject.value;
         //Selected text of dropdownlist
         var selectedText = ddlObject.options[ddlObject.selectedIndex].innerHTML;
-        $('#Cedula').val(selectedValue);
-        //alert popup with detail of seleceted value and text
-        alert(" Selected Value: " + selectedValue + " -- " + "Selected Text: " + selectedText);
+        $('#CedulaN').val(selectedValue);
+    }
+
+    function setCedulaT(ddlObject) {
+        //Selected value of dropdownlist
+        var selectedValue = ddlObject.value;
+        //Selected text of dropdownlist
+        var selectedText = ddlObject.options[ddlObject.selectedIndex].innerHTML;
+        $('#CedulaT').val(selectedValue);
+    }
+
+    function getHability() {
+         $('#Hability').val(document.getElementById("hability").value);
     }
 </script>
 

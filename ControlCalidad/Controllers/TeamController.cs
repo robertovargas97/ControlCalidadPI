@@ -105,31 +105,65 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Team/Edit/5
-        public ActionResult Edit(int id_proyecto)
+        public ActionResult Edit(int id_proyecto, string hability)
         {
             string sql = "SELECT E.cedulaPK, E.nombreP FROM ControlCalidad.Empleado E JOIN ControlCalidad.TrabajaEn T ON T.cedula_empleadoFK = E.cedulaPK WHERE T.id_proyectoFK = " + id_proyecto;
             List<DbResultE> team = db.Database.SqlQuery<DbResultE>(sql).ToList();
-            ViewBag.cedula_empleadoFK = new SelectList(team, "cedulaPK", "nombreP");
-            string sqle = "SELECT E.cedulaPK , E.nombreP FROM ControlCalidad.Empleado E WHERE E.disponibilidad = 'Disponible'";
+            ViewBag.cedula_empleadoFK = new SelectList(team, "cedulaPK", "nombreP", "Equipo");
+            string sqle = "SELECT E.cedulaPK , E.nombreP FROM ControlCalidad.Empleado E JOIN ControlCalidad.Habilidades H ON H.cedula_empleadoFK = E.cedulaPK WHERE H.descripcionPK LIKE '%" + hability + "%' AND E.disponibilidad = 'Disponible'";
+            if (hability == null)
+            {
+                sqle = " SELECT E.cedulaPK , E.nombreP FROM ControlCalidad.Empleado E WHERE E.disponibilidad = 'Disponible'";
+            }
             List<DbResultE> disponibles = db.Database.SqlQuery<DbResultE>(sqle).ToList();
-            ViewBag.disponibles = new SelectList(disponibles, "cedulaPK", "nombreP");
+            ViewBag.disponibles = new SelectList(disponibles, "cedulaPK", "nombreP", "Disponibles");
             ViewBag.id_proyecto = id_proyecto;
             return View();
         }
 
-        // POST: Team/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(FormCollection fc)
+        public async Task<ActionResult> Edit(FormCollection fc, string asignar, string desasignar, string buscar)
         {
-            string cedulaPK = fc["Cedula"];
-            int id_proyecto = Convert.ToInt32(fc["Proyecto"]);
-            string sql = "INSERT INTO ControlCalidad.TrabajaEn VALUES('" + cedulaPK + "'," + id_proyecto + ", 'Tester')";
-            _ = db.Database.ExecuteSqlCommand(sql);
+            if (buscar != null) {
+                string skill = fc["Hability"];
+                return RedirectToAction("Edit", new { id_proyecto = Convert.ToInt32(fc["Proyecto"]), hability = skill });
+            }
+            string cedulaPK = "";
+            int id_proyecto = -1;
+            string sql = "";
+            int result = -1;
+            if (asignar != null)
+            {
+                cedulaPK = fc["CedulaN"];
+                id_proyecto = Convert.ToInt32(fc["Proyecto"]);
+                sql = "INSERT INTO ControlCalidad.TrabajaEn VALUES('" + cedulaPK + "'," + id_proyecto + ", 'Tester')";
+                try {
+                    result = db.Database.ExecuteSqlCommand(sql);
+                    sql = "UPDATE ControlCalidad.Empleado SET disponibilidad = 'Ocupado' WHERE cedulaPK = '" + cedulaPK + "'";
+                    result = db.Database.ExecuteSqlCommand(sql);
+                }
+                catch (Exception e) {
+                    Console.WriteLine(e);
+                }
+            }
+            else {
+                cedulaPK = fc["CedulaT"];
+                id_proyecto = Convert.ToInt32(fc["Proyecto"]);
+                sql = "DELETE FROM ControlCalidad.TrabajaEn WHERE cedula_empleadoFK = '" + cedulaPK + "' AND id_proyectoFK = " + id_proyecto + ";";
+                try {
+                    result = db.Database.ExecuteSqlCommand(sql);
+                    sql = "UPDATE ControlCalidad.Empleado SET disponibilidad = 'Disponible' WHERE cedulaPK = '" + cedulaPK + "'";
+                    result = db.Database.ExecuteSqlCommand(sql);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
             return RedirectToAction("Index");
         }
+
 
         // GET: Team/Delete/5
         public async Task<ActionResult> Delete(string id)
