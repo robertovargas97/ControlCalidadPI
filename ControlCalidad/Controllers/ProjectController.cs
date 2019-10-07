@@ -15,6 +15,7 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities();
         private ClientController clientController = new ClientController( );
+        
 
         // GET: Project
         public async Task<ActionResult> Index()
