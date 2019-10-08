@@ -72,7 +72,7 @@ namespace ControlCalidad.Controllers
         public ActionResult Create(string email)
         {
             ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes.Where(e => e.disponibilidad == "Disponible"), "cedulaPK", "nombreP");
-            string sqlp = "SELECT P.idPK , P.nombre FROM ControlCalidad.Proyecto P JOIN ControlCalidad.TrabajaEn T ON	P.idPK = T.id_proyectoFK JOIN ControlCalidad.Empleado E ON E.cedulaPK = T.cedula_empleadoFK WHERE E.correo = '"+email+"'";
+            string sqlp = "SELECT P.idPK , P.nombre FROM ControlCalidad.Proyecto P JOIN ControlCalidad.TrabajaEn T ON	P.idPK = T.id_proyectoFK JOIN ControlCalidad.Empleado E ON E.cedulaPK = T.cedula_empleadoFK WHERE E.correo = '" + email + "'";
             List<DbResultP> resultp = db.Database.SqlQuery<DbResultP>(sqlp).ToList();
             ViewBag.id_proyectoFK = new SelectList(resultp, "idPK", "nombre");
             return View();
@@ -98,7 +98,7 @@ namespace ControlCalidad.Controllers
             string sqle = "SELECT E.cedulaPK, E.nombreP FROM ControlCalidad.Empleado E JOIN ControlCalidad.Tester T ON E.cedulaPK = T.cedula_empleadoFk WHERE E.disponibilidad = 'Disponible'";
             List<DbResultE> resulte = db.Database.SqlQuery<DbResultE>(sqle).ToList();
             ViewBag.cedula_empleadoFk = new SelectList(resulte, "cedulaPK", "nombreP");
-            string sqlp = "SELECT P.idPK, P.nombre FROM ControlCalidad.Proyecto P JOIN ControlCalidad.TrabajaEn T ON	P.idPK = T.id_proyectoFK JOIN ControlCalidad.Empleado E ON E.cedulaPK = T.cedula_empleadoFK WHERE E.correo = '"+correo+"'";
+            string sqlp = "SELECT P.idPK, P.nombre FROM ControlCalidad.Proyecto P JOIN ControlCalidad.TrabajaEn T ON	P.idPK = T.id_proyectoFK JOIN ControlCalidad.Empleado E ON E.cedulaPK = T.cedula_empleadoFK WHERE E.correo = '" + correo + "'";
             List<DbResultP> resultp = db.Database.SqlQuery<DbResultP>(sqlp).ToList();
             ViewBag.id_proyectoFK = new SelectList(resultp, "idPK", "nombre");
             return View(trabajaEn);
@@ -125,7 +125,8 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(FormCollection fc, string asignar, string desasignar, string buscar)
         {
-            if (buscar != null) {
+            if (buscar != null)
+            {
                 string skill = fc["Hability"];
                 return RedirectToAction("Edit", new { id_proyecto = Convert.ToInt32(fc["Proyecto"]), hability = skill });
             }
@@ -138,20 +139,24 @@ namespace ControlCalidad.Controllers
                 cedulaPK = fc["CedulaN"];
                 id_proyecto = Convert.ToInt32(fc["Proyecto"]);
                 sql = "INSERT INTO ControlCalidad.TrabajaEn VALUES('" + cedulaPK + "'," + id_proyecto + ", 'Tester')";
-                try {
+                try
+                {
                     result = db.Database.ExecuteSqlCommand(sql);
                     sql = "UPDATE ControlCalidad.Empleado SET disponibilidad = 'Ocupado' WHERE cedulaPK = '" + cedulaPK + "'";
                     result = db.Database.ExecuteSqlCommand(sql);
                 }
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     Console.WriteLine(e);
                 }
             }
-            else {
+            else
+            {
                 cedulaPK = fc["CedulaT"];
                 id_proyecto = Convert.ToInt32(fc["Proyecto"]);
                 sql = "DELETE FROM ControlCalidad.TrabajaEn WHERE cedula_empleadoFK = '" + cedulaPK + "' AND id_proyectoFK = " + id_proyecto + ";";
-                try {
+                try
+                {
                     result = db.Database.ExecuteSqlCommand(sql);
                     sql = "UPDATE ControlCalidad.Empleado SET disponibilidad = 'Disponible' WHERE cedulaPK = '" + cedulaPK + "'";
                     result = db.Database.ExecuteSqlCommand(sql);

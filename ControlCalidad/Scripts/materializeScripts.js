@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    var elems = document.querySelectorAll('.parallax');
+    var instances = M.Parallax.init(elems);
+
     var elems = document.querySelectorAll('select');
     var instances = M.FormSelect.init(elems);
+
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
 
     var elems = document.querySelectorAll('.dropdown-trigger');
     var instances = M.Dropdown.init(elems, { coverTrigger: false, closeOnClick: true });
@@ -22,6 +28,18 @@ document.addEventListener('DOMContentLoaded', function () {
         
 
     });
-
 });
+
+function redirectToPage(address) {
+    location.href = address;
+}
+
+function complete() {
+    document.getElementById("complete").classList.remove("hide");
+}
+
+
+function showError() {
+    alert("Error");
+}
 

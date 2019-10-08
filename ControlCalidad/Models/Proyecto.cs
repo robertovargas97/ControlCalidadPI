@@ -11,7 +11,8 @@ namespace ControlCalidad.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Proyecto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,15 +21,24 @@ namespace ControlCalidad.Models
             this.Requerimientoes = new HashSet<Requerimiento>();
             this.TrabajaEns = new HashSet<TrabajaEn>();
         }
-    
+
+        [Display( Name = "Id" )]
         public int idPK { get; set; }
+        [Display( Name = "Nombre" )]
         public string nombre { get; set; }
+        [Display( Name = "Objetivo" )]
         public string objetivo { get; set; }
+        [Display( Name = "Fecha de Inicio" )]
         public System.DateTime fechaInicio { get; set; }
+        [Display( Name = "Fecha de Finalización" )]
         public Nullable<System.DateTime> fechaFin { get; set; }
+        [Display( Name = "Estado" )]
         public string estado { get; set; }
+        [Display( Name = "Duración Estimada" )]
         public float duracionEstimada { get; set; }
+        [Display( Name = "Duración Real" )]
         public Nullable<float> duracionReal { get; set; }
+        [Display( Name = "Cliente" )]
         public string cedulaClienteFK { get; set; }
     
         public virtual Cliente Cliente { get; set; }

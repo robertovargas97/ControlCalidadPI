@@ -84,6 +84,7 @@ namespace ControlCalidad.Models
 
     public class LoginViewModel
     {
+
         /*
         [Required]
         [Display(Name = "Email")]
@@ -91,16 +92,17 @@ namespace ControlCalidad.Models
         public string Email { get; set; }
         */
 
-        [Required]
-        [Display( Name = "Username" )]
+        [Required( ErrorMessage = "El correo es requerido." )]
+        [Display( Name = "Correo" )]
         public string UserName
         {
             get; set;
         }
 
-        [Required]
+
+        [Required( ErrorMessage = "La contraseña es requerida." )]
         [DataType( DataType.Password )]
-        [Display( Name = "Password" )]
+        [Display( Name = "Contraseña" )]
         public string Password
         {
             get; set;
@@ -115,6 +117,7 @@ namespace ControlCalidad.Models
 
     public class RegisterViewModel
     {
+        [Display( Name = "Rol" )]
         [Required( ErrorMessage = "El rol es requerido." )]
         public string Role
         {
@@ -123,13 +126,12 @@ namespace ControlCalidad.Models
 
         [Required( ErrorMessage = "El correo es requerido." )]
         [EmailAddress]
-        [Display( Name = "Email" )]
+        [Display( Name = "Correo" )]
         public string Email
         {
             get; set;
         }
 
-        [Required( ErrorMessage = "El nombre de usuario es requerido." )]
         [Display( Name = "Nombre de usuario" )]
         public string UserName
         {
@@ -137,16 +139,16 @@ namespace ControlCalidad.Models
         }
 
         [Required]
+        [Display( Name = "Contraseña" )]
         [StringLength( 100 , ErrorMessage = "La contraseña es requerida." , MinimumLength = 1 )]
         [DataType( DataType.Password )]
-        [Display( Name = "Password" )]
         public string Password
         {
             get; set;
         }
 
         [DataType( DataType.Password )]
-        [Display( Name = "Confirm password" )]
+        [Display( Name = "Confirmar contraseña" )]
         [Compare( "Password" , ErrorMessage = "Las contraseñas no coinciden." )]
         public string ConfirmPassword
         {

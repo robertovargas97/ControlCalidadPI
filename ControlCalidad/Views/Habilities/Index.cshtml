@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ControlCalidad.Models.Habilidade>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { cedula_empleadoFK = ViewBag.empleado })
+</p>
+
+<p>
+
+</p>
+<table class="table stripped">
+    <tr>
+        <th>
+            Tipo de Habilidad
+        </th>
+        <th>
+            Detalle
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        if (item.cedula_empleadoFK == ViewBag.empleado)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoriaPK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcionPK)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { cedula_empleadoFK = item.cedula_empleadoFK, categoriaPK = item.categoriaPK, descripcionPK = item.descripcionPK }) |
+                    @Html.ActionLink("Details", "Details", new { cedula_empleadoFK = item.cedula_empleadoFK, categoriaPK = item.categoriaPK, descripcionPK = item.descripcionPK }) |
+                    @Html.ActionLink("Delete", "Delete", new { cedula_empleadoFK = item.cedula_empleadoFK, categoriaPK = item.categoriaPK, descripcionPK = item.descripcionPK })
+                </td>
+            </tr>
+        }
+
+    }
+
+</table>

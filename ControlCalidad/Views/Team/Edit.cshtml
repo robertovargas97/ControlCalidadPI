@@ -88,35 +88,34 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
+}
+<script>
+
+
+    function setCedulaN(id) {
+        if ($('#CedulaN').val() != "") {
+            $('#' + $('#CedulaN').val()).removeClass("active");
         }
-        <script>
+        $('#CedulaN').val(id);
+        $('#' + id).addClass("active");
+    }
 
-
-            function setCedulaN(id) {
-                if ($('#CedulaN').val() != "") {
-                    $('#' + $('#CedulaN').val()).removeClass("active");
-                }
-                $('#CedulaN').val(id);
-                $('#' + id).addClass("active");
-            }
-
-            function setCedulaT(id) {
-                if ($('#CedulaT').val() != "") {
-                    $('#' + $('#CedulaT').val()).removeClass("active");
-                }
-                $('#CedulaT').val(id);
-                $('#' + id).addClass("active");
-            }
-
-            function getHability() {
-                $('#Hability').val(document.getElementById("hability").value);
-            }
-
-        </script>
-
-
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
+    function setCedulaT(id) {
+        if ($('#CedulaT').val() != "") {
+            $('#' + $('#CedulaT').val()).removeClass("active");
         }
+        $('#CedulaT').val(id);
+        $('#' + id).addClass("active");
+    }
 
+    function getHability() {
+        $('#Hability').val(document.getElementById("hability").value);
+    }
+
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

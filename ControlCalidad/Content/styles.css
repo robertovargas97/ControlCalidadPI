@@ -1,18 +1,38 @@
-.turq {
-    background-color: #00796B;
+.footer-down {
+    display: flex;
+    min-height: 80vh;
+    flex-direction: column;
 }
 
-.center{
-    margin: 0 auto!important;
+.indicator {
+    background: #005a4f;
+}
+
+.red-hover:hover {
+    background: #fa6161!important;
+}
+
+.turq {
+    background-color: #008d7c;
+}
+
+
+
+.turq-hover:hover {
+    background: #008d7c !important;
+    transition: ease-in-out 0.2s !important;
+}
+
+.center {
+    margin: 0 auto !important;
 }
 
 .distance{
     margin-top: 70px!important;
 }
 
-.text-grey{
-   
-    color:#606060;
+.text-grey {
+    color: #616161;
 }
 
 .text-turq {
@@ -34,7 +54,7 @@
 }
 
 .p-size{
-    font-size: 19px;
+    font-size: 1.2em;
 }
 
 .margin-p {
@@ -52,3 +72,12 @@
 .padd{
     padding-left: 50px;
 }
+
+.margin-l{
+    margin-left: 10px;
+}
+
+.margin-r {
+    margin-right: 10px;
+}
+
