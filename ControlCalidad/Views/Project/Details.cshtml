@@ -5,6 +5,13 @@
     }
 *@
 
+
+@{ 
+
+    string leader = @ViewBag.projectLeader;
+
+
+
 <h3 class="text-grey"> @Html.DisplayFor(model => model.nombre) </h3>
 <div class="margin-b1">
     <hr />
@@ -31,7 +38,7 @@
                             <p class="p-size">
                                 <i class="material-icons left text-grey">person</i>
                                 <span class="text-turq"> Lider del proyecto </span>
-                                : @Html.DisplayName("Hacer consulta")
+                                : @Html.DisplayName(leader)
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
@@ -81,8 +88,10 @@
                     <div class="card-action center">
 
                         <a class="margin-r waves-effect btn red accent-4 red-hover modal-trigger" href="#modalProject">Borrar</a>
-                        @Html.ActionLink("Editar", "Edit", new { id = Model.idPK }, new { @class = "margin-l waves-effect waves-light btn turq"
-                   } )
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.idPK }, new
+                   {
+                       @class = "margin-l waves-effect waves-light btn turq"
+                   })
 
                     </div>
                 </div>
@@ -97,7 +106,7 @@
 </div>
 
 <div class="fixed-action-btn">
-    <a href="@Url.Action( "Index" , "Project/Index" )" class="btn-floating btn-large black turq-hover left">
+    <a href="@Url.Action("Index", "Project/Index")" class="btn-floating btn-large black turq-hover left">
         <i class="large material-icons">arrow_back</i>
     </a>
 </div>
@@ -129,7 +138,7 @@
         </div>
         <div class="modal-footer">
             @Html.ActionLink("Aceptar", "RemoveProject", new { id = Model.idPK }, new
-            {
+       {
            @class = "waves-effect red-hover btn red accent-4"
        })
             <a class="modal-close btn waves-effect waves-light turq white-text">Cancelar</a>
@@ -137,3 +146,4 @@
     </div>
 </div>
 
+    }

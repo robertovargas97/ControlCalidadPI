@@ -100,7 +100,7 @@ namespace ControlCalidad.Controllers
         // GET: Client/Edit/5
         public async Task<ActionResult> Edit( string id )
         {
-            ViewBag.prov = localizationsController.TraerNombreProvincias();
+            //ViewBag.prov = localizationsController.TraerNombreProvincias();
             ViewBag.cant = localizationsController.TraerNombreCantones();
             ViewBag.dist = localizationsController.TraerNombreDistritos();
             if (id == null)

@@ -15,7 +15,7 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities();
         private localizationsController localizations = new localizationsController();
-
+        
 
 
         // GET: Employee
