@@ -37,3 +37,9 @@ function redirectToPage(address) {
 function complete() {
     document.getElementById("complete").classList.remove("hide");
 }
+
+
+function showError() {
+    alert("Error");
+}
+

@@ -72,9 +72,9 @@ namespace ControlCalidad.Controllers
         // GET: Client/Create
         public ActionResult Create()
         {
-            ViewBag.prov = localizationsController.TraerNombreProvincias();
-            ViewBag.cant = localizationsController.TraerNombreCantones();
-            ViewBag.dist = localizationsController.TraerNombreDistritos();
+            //ViewBag.prov = localizationsController.TraerNombreProvincias();
+           // ViewBag.cant = localizationsController.TraerNombreCantones();
+           // ViewBag.dist = localizationsController.TraerNombreDistritos();
             return View();
 
         }

@@ -89,7 +89,7 @@ namespace ControlCalidad.Controllers
                 } );
                 case SignInStatus.Failure:
                 default:
-                ModelState.AddModelError( "" , "Invalid login attempt." );
+                ModelState.AddModelError( "" , "Error en los datos de inicio de sesión." );
                 return View( model );
             }
         }
@@ -163,10 +163,6 @@ namespace ControlCalidad.Controllers
                     //await SignInManager.SignInAsync( user , isPersistent: false , rememberBrowser: false );
 
                     var roleId = "";
-                    //var userId = dataBase2.AspNetUsers.Include( "Id" ).Where( u => u.UserName == user.UserName);
-                    //var roleId = dataBase2.AspNetRoles.Include("Id").Where (r => r.Name == user.Role);
-                    //System.Collections.Generic.IEnumerable<string> userId = from u in dataBase2.AspNetUsers where u.UserName == user.UserName select u.Id;
-                    //System.Collections.Generic.IEnumerable<string> roleId = from r in dataBase2.AspNetRoles where r.Name == user.Role select r.Id;
 
                     switch( user.Role )
                     {
@@ -197,8 +193,6 @@ namespace ControlCalidad.Controllers
                     netUserRoles.AspNetUserRoles.Add( userRole );
                     netUserRoles.SaveChanges( );
 
-
-
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -208,6 +202,8 @@ namespace ControlCalidad.Controllers
                     return RedirectToAction( "Index" , "LoginUsers" );
                 }
                 AddErrors( result );
+                ViewBag.errorR = "kksks";
+                ModelState.AddModelError( "errorR" , "Mejaja" );
             }
 
             // If we got this far, something failed, redisplay form

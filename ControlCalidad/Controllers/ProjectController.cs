@@ -15,6 +15,7 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities();
         private ClientController clientController = new ClientController( );
+        private EmployeeController employeeController = new EmployeeController( );
         
 
         // GET: Project
@@ -43,6 +44,7 @@ namespace ControlCalidad.Controllers
         // GET: Project/Create
         public ActionResult Create()
         {
+            ViewBag.leaders = employeeController.GetLeaders( );
             ViewBag.allClientsId = clientController.GetClients( );
            // ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP");
             return View();
@@ -53,12 +55,16 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK")] Proyecto proyecto)
+        public async Task<ActionResult> Create([Bind(Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK")] Proyecto proyecto, string cedula_empleadoFK)
         {
+            //Console.WriteLine(cedula_empleadoFK);
+            
             if (ModelState.IsValid)
             {
+               
                 db.Proyectoes.Add(proyecto);
                 await db.SaveChangesAsync();
+                employeeController.SetLeaderToProject(cedula_empleadoFK, proyecto.idPK, "Lider");
                 return RedirectToAction("Index");
             }
 
@@ -78,6 +84,7 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.leaders = employeeController.GetLeaders( );
             ViewBag.allClientsId = clientController.GetClients( );
             ViewBag.cedulaClienteFK = proyecto.cedulaClienteFK;
             return View(proyecto);

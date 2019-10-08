@@ -15,10 +15,37 @@ namespace ControlCalidad.Controllers
         private localizacoinesEntities db = new localizacoinesEntities();
 
         // GET: Province
-        public SelectList TraerNombreProvincias()
+        public List<SelectListItem> provinceList()
         {
-            return new SelectList((from provincias in db.Provincias
-                                   select provincias.nombre).ToList());
+            List<Provincia> provinces = db.Provincias.ToList();
+
+            List<SelectListItem> provinceList = provinces.ConvertAll(province => { return new SelectListItem() {
+                Text = province.nombre,
+                Value = province.codigoPK.ToString(),
+                Selected = false
+                };
+             });
+            return provinceList;
+        }
+
+
+        public JsonResult cantonesList(int provincia)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Canton> cantonList = db.Cantons.Where(x => x.provinciaFK == provincia).ToList();
+            return Json(cantonList, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult districtsList(int provincia,int canton)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Distrito> cantonList = db.Distritoes.Where(x => x.cantonFK == canton && x.provinciaFK == provincia).ToList();
+            return Json(cantonList, JsonRequestBehavior.AllowGet);
+
+
+            //return new SelectList((from provincias in db.Provincias
+            //                       select provincias.nombre).ToList());
         }
 
         public SelectList TraerNombreCantones()
@@ -32,6 +59,7 @@ namespace ControlCalidad.Controllers
             return new SelectList((from distritos in db.Distritoes
                                    select distritos.nombre).ToList());
         }
+
 
     }
 }

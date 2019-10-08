@@ -55,7 +55,6 @@ namespace ControlCalidad.Controllers
                 db.SaveChanges( );
                 return RedirectToAction( "Index" );
             }
-
             return View( aspNetUser );
         }
 

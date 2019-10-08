@@ -4,104 +4,77 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h3 class="text-grey">Empleados</h3>
+<div class="margin-b1">
+    <hr />
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombreP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.apellido1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.apellido2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaNacimiento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.edad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.correo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.provincia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.canton)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.distrito)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.direccionExacta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.disponibilidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tester.cedula_empleadoFk)
-        </th>
-        <th></th>
-    </tr>
+<div class="fixed-action-btn">
+    <a href="@Url.Action( "Create New" , "Employee/Create" )" class="btn-floating btn-large black turq-hover">
+        <i class="large material-icons">add</i>
+    </a>
+</div>
 
-    @foreach (var item in Model)
-    {
+
+<div class="card">
+
+    <table class="table striped">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombreP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.apellido1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.apellido2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaNacimiento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.edad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.correo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.provincia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.canton)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.distrito)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.direccionExacta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.disponibilidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tester.cedula_empleadoFk)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.cedulaPK }) |
-                @Html.ActionLink("Details", "Details", new { id = item.cedulaPK }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.cedulaPK }) |
-                @Html.ActionLink("Habilidades", "../Habilities/Index", new { cedula_empleado = item.cedulaPK})
-            </td>
+            <th class="center black white-text">
+                @Html.DisplayName("Nombre")
+            </th>
+            <th class="center black white-text">
+                @Html.DisplayName("Apellido")
+            </th>
+            <th class="center black white-text">
+                @Html.DisplayName("Telefono")
+            </th>
+            <th class="center black white-text">
+                @Html.DisplayName("Correo")
+            </th>
+            <th class="center black white-text">
+                @Html.DisplayName("Direccion exacta")
+            </th>
+            <th class="center black white-text">
+                @Html.DisplayName("Disponibilidad")
+            </th>
+            <th class="center black white-text">
+                @Html.DisplayName("Accion")
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.nombreP)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.apellido1)
+                </td>
+                
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.telefono)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.correo)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.direccionExacta)
+                </td>
+                <td class="center">
+                    @Html.DisplayFor(modelItem => item.disponibilidad)
+                </td>
+                <td class="center">
+                    @*Html.ActionLink("Edit", "Edit", new { id = item.cedulaPK }) |*@
+                    @Html.ActionLink("Detalles", "Details", new { id = item.cedulaPK }, new { @class = "waves-effect waves-light btn black turq-hover" }) 
+                    @*Html.ActionLink("Delete", "Delete", new { id = item.cedulaPK }) |*@
+                    @*Html.ActionLink("Habilidades", "../Habilities/Index", new { cedula_empleado = item.cedulaPK })*@
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
