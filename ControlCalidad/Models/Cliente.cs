@@ -30,7 +30,8 @@ namespace ControlCalidad.Models
         public string canton { get; set; }
         public string distrito { get; set; }
         public string direccionExacta { get; set; }
-    
+        public Nullable<System.DateTime> fechaNacimiento { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proyecto> Proyectoes { get; set; }
     }

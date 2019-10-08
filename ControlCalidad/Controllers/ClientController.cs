@@ -84,11 +84,8 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-<<<<<<< HEAD
-        public async Task<ActionResult> Create([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta")] Cliente cliente)
-=======
-        public async Task<ActionResult> Create( [Bind( Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,telefono,correo,provincia,canton,distrito,direccionExacta" )] Cliente cliente )
->>>>>>> master
+
+        public async Task<ActionResult> Create([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta,fechaNacimiento")] Cliente cliente)
         {
             if( ModelState.IsValid )
             {
@@ -103,14 +100,10 @@ namespace ControlCalidad.Controllers
         // GET: Client/Edit/5
         public async Task<ActionResult> Edit( string id )
         {
-<<<<<<< HEAD
             ViewBag.prov = localizationsController.TraerNombreProvincias();
             ViewBag.cant = localizationsController.TraerNombreCantones();
             ViewBag.dist = localizationsController.TraerNombreDistritos();
             if (id == null)
-=======
-            if( id == null )
->>>>>>> master
             {
                 return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
             }
@@ -127,11 +120,8 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-<<<<<<< HEAD
-        public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta")] Cliente cliente)
-=======
-        public async Task<ActionResult> Edit( [Bind( Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,telefono,correo,provincia,canton,distrito,direccionExacta" )] Cliente cliente )
->>>>>>> master
+
+        public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta,fechaNacimiento")] Cliente cliente)
         {
             if( ModelState.IsValid )
             {
@@ -185,12 +175,6 @@ namespace ControlCalidad.Controllers
                 db.Dispose( );
             }
             base.Dispose( disposing );
-        }
-
-        public SelectList Provinces()
-        {
-            ViewBag.prov = localizationsController.TraerNombreProvincias();
-            return ViewBag;
         }
 
     }

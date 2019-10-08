@@ -22,7 +22,7 @@ namespace ControlCalidad.Controllers
         }
 
         public SelectList TraerNombreCantones()
-        {
+        { 
             return new SelectList((from cantones in db.Cantons
                                    select cantones.nombre).ToList());
         }

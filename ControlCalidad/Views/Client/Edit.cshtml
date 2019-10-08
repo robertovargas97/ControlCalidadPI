@@ -23,14 +23,13 @@
 
             </div>
 
-            @using (Ajax.BeginForm("Edit", new AjaxOptions
-            {
-                HttpMethod = "POST",
-                LoadingElementId = "loading",
-                OnSuccess = "redirectToPage('../Details')",
+            @using( Ajax.BeginForm( "Edit" , new AjaxOptions {
+                HttpMethod = "POST" ,
+                LoadingElementId = "loading" ,
+                OnSuccess = "redirectToPage('../Index')" ,
                 OnComplete = "complete",
-
-            }))
+               
+            } ) )
             {
                 @Html.AntiForgeryToken()
 
@@ -94,7 +93,8 @@
                 <div class="row margin-b">
                     <i class=" small text-grey col s1 offset-s3 material-icons prefix">place</i>
                     <div class="input-field col s5">
-                        @Html.DropDownList("prov", null, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -102,16 +102,18 @@
                 <div class="row margin-b">
                     <i class=" small text-grey col s1 offset-s3 material-icons prefix">place</i>
                     <div class="input-field col s5">
-                        @Html.DropDownList("cant", null, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.canton, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.canton, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="row margin-b">
                     <i class=" small text-grey col s1 offset-s3 material-icons prefix">place</i>
                     <div class="input-field col s5">
-                        @Html.DropDownList("cant", null, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.distrito, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.distrito, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
