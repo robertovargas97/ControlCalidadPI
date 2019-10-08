@@ -29,7 +29,7 @@
 
                 <h5 class="text-grey col s10 offset-s3">Registrar nueva habilidad para @ViewBag.cedulaCreate</h5>
                 @Html.AntiForgeryToken()
-                <!--<div class="row margin-b">
+                <div class="row margin-b">
 
             <i class=" text-grey col s1 offset-s3 material-icons prefix">Tipo de habilidad</i>
 
@@ -39,7 +39,7 @@
                     @Html.ValidationMessageFor(model => model.cedula_empleadoFK, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>-->
+        </div>
 
                 <div class="row center">
 
@@ -50,7 +50,7 @@
                         {
                        @class = "text-error"
                    })
-                        <select id="descripcionPK" name="descripcionPK" class="autocomplete" onchange="habilidades(this);">
+                        <select id="categoriaPK" name="categoriaPK" class="autocomplete" onchange="habilidades(this);">
                             <option value="">Seleccione una opción</option>
                             <option value="Técnica">Técnica</option>
                             <option value="Blanda">Blanda</option>

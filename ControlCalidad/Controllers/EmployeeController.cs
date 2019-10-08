@@ -56,6 +56,12 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,edad,telefono,correo,provincia,canton,distrito,direccionExacta,disponibilidad")] Empleado empleado)
         {
+            string provinceName = localizations.provinceName(empleado.provincia);
+            string cantonName = localizations.cantonName(empleado.provincia, empleado.canton);
+            string districtName = localizations.districtName(empleado.provincia, empleado.canton, empleado.distrito);
+            empleado.provincia = provinceName;
+            empleado.canton = cantonName;
+            empleado.distrito = districtName;
             if (ModelState.IsValid)
             {
                 db.Empleadoes.Add(empleado);
