@@ -5,8 +5,24 @@
 }
 
 <h2>Edit</h2>
-
-
+<style>
+tbody {
+  display:block;
+  height:150px;
+  overflow:auto;
+}
+thead, tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+thead {
+  width: calc( 100% - 1em )
+}
+table {
+  width:100%;
+}
+</style>
 @using (Html.BeginForm())
 {
 
@@ -18,64 +34,69 @@
     @Html.Hidden("Proyecto", "", new { Value = ViewBag.id_proyecto, @id = "Proyecto" })
 
 
-    <div class="form-horizontal">
-        <h4>TrabajaEn</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="input-field col s6">
-            <i class="material-icons prefix">search</i>
-            <textarea id="hability" class="materialize-textarea"></textarea>
-            <label for="icon_prefix2">Buscar por habilidades</label>
-        </div>
-        <td>Disponibles: </td>
-        @Html.DropDownList("nombreP", (IEnumerable<SelectListItem>)ViewBag.disponibles, "Disponibles", new { @class = "form-control", @onChange = "setCedulaN(this)" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.cedula_empleadoFK, "Equipo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("cedula_empleadoFK", null, "Equipo", htmlAttributes: new { @class = "form-control", @onChange = "setCedulaT(this)" })
-                @Html.ValidationMessageFor(model => model.cedula_empleadoFK, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
 
-    <div class="form-group">
+
+
+<div class="form-horizontal">
+    <h4>TrabajaEn</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    <div class="input-field col s4">
+        <i class="material-icons prefix">search</i>
+        <textarea id="hability" class="materialize-textarea"></textarea>
+        <label for="icon_prefix2">Buscar por habilidades</label>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" name="Buscar" value="Buscar" onclick="getHability()" />
+    </div>
+</div>
+    <div class="collection">
+        <td>Disponibles: </td>
+        @foreach (var tester in ViewBag.disponibles as SelectList)
+        {
+            <a href="javascript:setCedulaN(@tester.Value)" id="@tester.Value" class="collection-item">@tester.Text</a>
+        }
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" name="Asignar" value="Asignar" />
         </div>
     </div>
-    <div class="form-group">
+
+    <div class="collection">
+        <td>Equipo: </td>
+        @foreach (var team in ViewBag.cedula_empleadoFK as SelectList)
+        {
+            <a href="javascript:setCedulaT(@team.Value)" id="@team.Value" class="collection-item">@team.Text</a>
+        }
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" name="Desasignar" value="Desasignar" />
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" name="Buscar" value="Buscar" onclick="getHability()" />
-        </div>
-    </div>
+</div>
 }
 <script>
 
-    //To get selected value an text of dropdownlist
-    function setCedulaN(ddlObject) {
-        //Selected value of dropdownlist
-        var selectedValue = ddlObject.value;
-        //Selected text of dropdownlist
-        var selectedText = ddlObject.options[ddlObject.selectedIndex].innerHTML;
-        $('#CedulaN').val(selectedValue);
+
+    function setCedulaN(id) {
+        if ($('#CedulaN').val() != "") {
+            $('#' + $('#CedulaN').val()).removeClass("active");
+        }
+        $('#CedulaN').val(id);
+        $('#' + id).addClass("active");
     }
 
-    function setCedulaT(ddlObject) {
-        //Selected value of dropdownlist
-        var selectedValue = ddlObject.value;
-        //Selected text of dropdownlist
-        var selectedText = ddlObject.options[ddlObject.selectedIndex].innerHTML;
-        $('#CedulaT').val(selectedValue);
+    function setCedulaT(id) {
+        if ($('#CedulaT').val() != "") {
+            $('#' + $('#CedulaT').val()).removeClass("active");
+        }
+        $('#CedulaT').val(id);
+        $('#' + id).addClass("active");
     }
 
     function getHability() {
-         $('#Hability').val(document.getElementById("hability").value);
+        $('#Hability').val(document.getElementById("hability").value);
     }
+
 </script>
 
 
