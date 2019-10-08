@@ -44,8 +44,8 @@ namespace ControlCalidad.Controllers
             return Json(cantonList, JsonRequestBehavior.AllowGet);
 
 
-           // return new SelectList((from provincias in db.Provincias
-                                  // select provincias.nombre).ToList());
+            //return new SelectList((from provincias in db.Provincias
+            //                       select provincias.nombre).ToList());
         }
 
         public SelectList TraerNombreCantones()
