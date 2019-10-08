@@ -121,23 +121,18 @@
                         <div class="row margin-b">
                             <i class=" small text-grey col s1 offset-s1 material-icons prefix">place</i>
                             <div class="input-field col s9">
+                                @Html.LabelFor(model => model.canton, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.canton, "", new { @class = "text-danger" })
-                                <Select id="canton" name="Cantón">
-                                    <option value="" disabled selected>Seleccione un cantón.</option>
-                                    <option value="San Mateo">San Mateo</option>
-                                </Select>
-                                <label for="canton">Cantón</label>
                             </div>
                         </div>
 
                         <div class="row margin-b">
                             <i class="small text-grey col s1 offset-s1 material-icons prefix">place</i>
                             <div class="input-field col s9">
+                                @Html.LabelFor(model => model.distrito, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.distrito, "", new { @class = "text-danger" })
-                                <Select id="distrito" name="Distrito">
-                                    <option value="" disabled selected>Seleccione un distrito.</option>
-                                    <option value="Jesus María">Jesus María</option>
-                                </Select>
                                 <label for="distrito">Distrito</label>
                             </div>
                         </div>
