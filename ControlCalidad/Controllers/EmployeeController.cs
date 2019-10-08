@@ -127,6 +127,14 @@ namespace ControlCalidad.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult RemoveEmployee(string employeeId)
+        {
+            Empleado employee = db.Empleadoes.Find(employeeId);
+            db.Empleadoes.Remove(employee);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
