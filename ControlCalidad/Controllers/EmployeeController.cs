@@ -133,5 +133,42 @@ namespace ControlCalidad.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public List<SelectListItem> GetLeaders()
+        {
+            string query = "SELECT	E.nombreP, E.apellido1, E.apellido2, E.cedulaPK, E.disponibilidad FROM ControlCalidad.Empleado E WHERE E.cedulaPK NOT IN(SELECT  T.cedula_empleadoFk FROM    ControlCalidad.Tester T) " +
+                "AND E.disponibilidad = 'Disponible';";
+            List<LeaderForProject> leaderList = db.Database.SqlQuery<LeaderForProject>(query).ToList();
+
+            foreach (LeaderForProject leader in leaderList){
+                leader.nombreCompleto = leader.nombreP + " " + leader.apellido1 + " " + leader.apellido2;
+            }
+
+            List< SelectListItem > leadersItemList = leaderList.ConvertAll(
+                leader => {
+                    return new SelectListItem()
+                    {
+                        Text = leader.nombreCompleto,
+                        Value = leader.cedulaPK.ToString(),
+                        Selected = false
+                    };
+                });
+            return leadersItemList;
+        }
+
+        public void SetLeaderToProject(string cedula_empleadoFK, int idPK, string rol)
+        {
+            var TrabajaEn = new TrabajaEn
+            {
+                cedula_empleadoFK = cedula_empleadoFK,
+                id_proyectoFK = idPK,
+                rol = rol
+            };
+            var employee = db.Empleadoes.Find(cedula_empleadoFK);
+            employee.disponibilidad =  employee.disponibilidad.Replace("Disponible", "No disponible");
+
+            db.TrabajaEns.Add(TrabajaEn);
+            db.SaveChangesAsync();
+        }
     }
 }

@@ -6,7 +6,7 @@
 
 @{
     List<SelectListItem> clientsId = ( List<SelectListItem> ) ViewBag.allClientsId;
-
+    List<SelectListItem> leaders = ( List<SelectListItem> ) ViewBag.leaders;
     if( User.IsInRole( "Jefe" ) )
     {
         <h3 class="text-grey">Crear nuevo proyecto</h3>
@@ -26,23 +26,37 @@
                     <div class="margin-b section">
 
                     </div>
-                    @using( Ajax.BeginForm( "Create" , new AjaxOptions {
-                        HttpMethod = "POST" ,
-                        LoadingElementId = "loading" ,
-                        OnSuccess = "redirectToPage('../Index')" ,
+                    @using (Ajax.BeginForm("Create", new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        LoadingElementId = "loading",
+                        OnSuccess = "redirectToPage('../Index')",
                         OnComplete = "complete"
 
-                    } ) )
+                    }))
                     {
 
                         <h5 class="text-grey col s10 offset-s3">Crear nuevo proyecto</h5>
-                        @Html.AntiForgeryToken( )
+                        @Html.AntiForgeryToken()
 
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">
                                 <i class="p-size material-icons text-grey prefix">person</i>
-                                @Html.DropDownList( "cedulaClienteFK" , clientsId , "Selecciona el cliente",new {
-                               @class = "validate" } )
+                                @Html.DropDownList("cedulaClienteFK", clientsId, "Selecciona el cliente", new
+                                {
+                               @class = "validate"
+                                })
+                                @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-error" })
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="p-size material-icons text-grey prefix">person</i>
+                                @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new
+                                {
+                               @class = "validate"
+                                })
                                 @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-error" })
                             </div>
                         </div>
@@ -69,7 +83,7 @@
                             <div class="input-field col s6 offset-s3">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaInicio">Fecha de Inicio</label>
-                                <input type="text" class="datepicker" id="fechaInicio" name="fechaInicio" required/>
+                                <input type="text" class="datepicker" id="fechaInicio" name="fechaInicio" required />
                                 @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-error" })
                             </div>
                         </div>
