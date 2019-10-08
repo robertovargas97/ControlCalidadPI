@@ -25,7 +25,7 @@
                 HttpMethod = "POST" ,
                 LoadingElementId = "loading" ,
                 OnSuccess = "redirectToPage('../Index')" ,
-                OnComplete = "complete",
+                OnComplete = "complete"
                
             } ) )
             {
@@ -90,7 +90,7 @@
                     <div class="input-field col s6 offset-s3">
                         @Html.EditorFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "" } })
                         @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "" })
-                        @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "" })
                     </div>
                 </div>
 
@@ -134,9 +134,9 @@
 
                 <div class="row center">
                     @Html.ActionLink("Cancelar", "Details", new { id=Model.Id }, new {
-             @class = "waves-effect red-hover btn red accent-4"
-         } )
-                    <button type="submit" value="Save" class="btn waves-effect waves-light turq white-text">Guardar</button>
+                   @class = "margin-r waves-effect red-hover btn red accent-4"
+               } )
+                    <button type="submit" value="Save" class="margin-l btn waves-effect waves-light turq white-text">Guardar</button>
                 </div>
 
                 <div class="margin-b section">

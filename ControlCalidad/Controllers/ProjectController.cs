@@ -15,12 +15,14 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities();
         private ClientController clientController = new ClientController( );
+        
 
         // GET: Project
         public async Task<ActionResult> Index()
         {
             var proyectoes = db.Proyectoes.Include(p => p.Cliente);
             return View(await proyectoes.ToListAsync());
+            
         }
 
         // GET: Project/Details/5
@@ -76,7 +78,8 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
+            ViewBag.allClientsId = clientController.GetClients( );
+            ViewBag.cedulaClienteFK = proyecto.cedulaClienteFK;
             return View(proyecto);
         }
 
