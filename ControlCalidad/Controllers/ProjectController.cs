@@ -172,8 +172,12 @@ namespace ControlCalidad.Controllers
                     l.nombreCompleto = l.nombreP + " " + l.apellido1 + " " + l.apellido2;
 
                 }
-                Leader leaderForProject = leader.Last();
-                projectLeader = leaderForProject.nombreCompleto;
+                if (leader.Count() > 0)
+                {
+                    Leader leaderForProject = leader.Last();
+                    projectLeader = leaderForProject.nombreCompleto;
+                }
+                
             }
             
             return projectLeader;
