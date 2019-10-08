@@ -26,7 +26,7 @@
             @using( Ajax.BeginForm( "Edit" , new AjaxOptions {
                 HttpMethod = "POST" ,
                 LoadingElementId = "loading" ,
-                OnSuccess = "redirectToPage('../Details')" ,
+                OnSuccess = "redirectToPage('../Index')" ,
                 OnComplete = "complete" ,
 
             } ) )
@@ -153,11 +153,6 @@
                     </div>
 
                 </div>
-
-
-
-
-               
 
                 <div class=" row container center" id="loading" style="display:none;">
                     <div class="">
