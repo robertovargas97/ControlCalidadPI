@@ -48,6 +48,28 @@ namespace ControlCalidad.Controllers
             //                       select provincias.nombre).ToList());
         }
 
+        public string provinceName(string strProvince)
+        {
+            int provinceIndex = System.Convert.ToInt32(strProvince);
+            List<Provincia> provincia = db.Provincias.Where(x => x.codigoPK == provinceIndex).ToList();
+            return provincia[0].nombre;
+        }
+        public string cantonName(string strProvince,string strCanton)
+        {
+            int province = System.Convert.ToInt32(strProvince);
+            int cantonIndex = System.Convert.ToInt32(strCanton);
+            List<Canton> canton = db.Cantons.Where(x => x.codigoPK == cantonIndex && x.provinciaFK == province).ToList();
+            return canton[0].nombre;
+        }
+        public string districtName(string strProvince,  string strCanton, string strDistrict)
+        {
+            int province = System.Convert.ToInt32(strProvince);
+            int canton = System.Convert.ToInt32(strCanton);
+            int districtIndex = System.Convert.ToInt32(strDistrict);
+            List<Distrito> distrito = db.Distritoes.Where(x => x.codigoPK == districtIndex && x.provinciaFK == province && x.cantonFK == canton).ToList();
+            return distrito[0].nombre;
+        }
+
         public SelectList TraerNombreCantones()
         {
             return new SelectList((from cantones in db.Cantons
