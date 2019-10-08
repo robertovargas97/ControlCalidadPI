@@ -15,27 +15,36 @@ namespace ControlCalidad.Controllers
         private localizacoinesEntities db = new localizacoinesEntities();
 
         // GET: Province
-        public SelectList TraerNombreProvincias()
+        public List<SelectListItem> provinceList()
         {
-            /*int[] prov_cod_int = (from provincia in db.Provincias
-                                  select provincia.codigoPK).ToArray();
-            Console.WriteLine("DEBUG 01");
-            Console.WriteLine(prov_cod_int);
-            Console.WriteLine("DEBUG 02");*/
-            return new SelectList(db.Provincias, "nombre");
+            List<Provincia> provinces = db.Provincias.ToList();
+
+            List<SelectListItem> provinceList = provinces.ConvertAll(province => { return new SelectListItem() {
+                Text = province.nombre,
+                Value = province.codigoPK.ToString(),
+                Selected = false
+                };
+             });
+            return provinceList;
         }
 
-        public SelectList TraerNombreCantones(string provincia)
+
+        public JsonResult cantonesList(int provincia)
         {
-            int prov_cod_int =  (from prov in db.Provincias
-                                           where prov.nombre == provincia
-                                           select prov.codigoPK).ElementAt(0);
-            Console.WriteLine(prov_cod_int);
-            int prov_cod = 0;
-            return new SelectList((from canton in db.Cantons
-                                   where canton.provinciaFK == prov_cod
-                                   select canton.nombre).ToList());
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Canton> cantonList = db.Cantons.Where(x => x.provinciaFK == provincia).ToList();
+            return Json(cantonList, JsonRequestBehavior.AllowGet);
+
         }
+
+        public JsonResult districtsList(int provincia,int canton)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Distrito> cantonList = db.Distritoes.Where(x => x.cantonFK == canton && x.provinciaFK == provincia).ToList();
+            return Json(cantonList, JsonRequestBehavior.AllowGet);
+
+        }
+
 
     }
 }

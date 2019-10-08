@@ -14,6 +14,7 @@ namespace ControlCalidad.Controllers
     public class EmployeeController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
+        private localizationsController localizations = new localizationsController();
 
 
 
@@ -43,6 +44,7 @@ namespace ControlCalidad.Controllers
         // GET: Employee/Create
         public ActionResult Create()
         {
+            ViewBag.provinces = this.localizations.provinceList();
             ViewBag.cedulaPK = new SelectList(db.Testers, "cedula_empleadoFk", "cedula_empleadoFk");
             return View();
         }

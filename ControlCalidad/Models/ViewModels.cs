@@ -32,5 +32,46 @@ namespace ControlCalidad.Models
         {
             get; set;
         }
+
+    }
+
+    public class Localizations
+    {
+        public string nombreProvincia
+        {
+            get; set;
+        }
+        public int numProvincia
+        {
+            get; set;
+        }
+        public string nombreCanton
+        {
+            get; set;
+        }
+        public int numCanton
+        {
+            get; set;
+        }
+        public string nombreDistrito
+        {
+            get; set;
+        }
+        public string numDistrito
+        {
+            get; set;
+        }
+    }
+
+    public class EmployeesForHabilities
+    {
+        public string employeeName
+        {
+            get; set;
+        }
+        public string employeeID
+        {
+            get; set;
+        }
     }
 }

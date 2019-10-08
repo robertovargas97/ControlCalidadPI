@@ -167,10 +167,5 @@ namespace ControlCalidad.Controllers
             base.Dispose( disposing );
         }
 
-        public SelectList Provinces()
-        {
-            return localizationsController.TraerNombreProvincias();
-        }
-
     }
 }

@@ -1,16 +1,17 @@
 ﻿@model ControlCalidad.Models.Empleado
-
 @{
     ViewBag.Title = "Create";
 }
 
+
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
+    List<SelectListItem> provinces = (List<SelectListItem>)ViewBag.provinces;
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Empleado</h4>
         <hr />
@@ -80,27 +81,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
-            </div>
+            @if (ViewBag.provinces != null)
+            {
+                @Html.DropDownList("provincia", provinces, "Selecciona una provincia")
+            }
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.canton, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.canton, "", new { @class = "text-danger" })
-            </div>
+            @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione Canton", new { @class = "form-control" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.distrito, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.distrito, "", new { @class = "text-danger" })
-            </div>
+            @Html.DropDownListFor(model => model.distrito, new SelectList(" "), "Selecciones Distrito", new { @class = "form-control" })
         </div>
 
         <div class="form-group">
@@ -131,6 +123,46 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/materializeD")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/ajax")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#provincia").change(function () {
+
+                var output = "";
+                $.get("/localizations/cantonesList", { provincia: $("#provincia").val() }, function (data) {
+                    $('#canton').children().remove().end()
+                    $.each(data, function (index, row) {
+                        $("#canton").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
+                    });
+                    $('select').formSelect();
+                });
+            })
+        });
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            $("#canton").change(function () {
+
+                var output = "";
+                $.get("/localizations/districtsList", { provincia: $("#provincia").val(),canton: $("#canton").val() }, function (data) {
+                    $('#distrito').children().remove().end()
+                    $.each(data, function (index, row) {
+                        $("#distrito").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
+                    });
+                    $('select').formSelect();
+                });
+            })
+        });
+    </script>
 }
+
+
