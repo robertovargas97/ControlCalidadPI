@@ -7,6 +7,7 @@
 @{
     List<SelectListItem> clientsId = ( List<SelectListItem> ) ViewBag.allClientsId;
     List<SelectListItem> leaders = ( List<SelectListItem> ) ViewBag.leaders;
+
     if( User.IsInRole( "Jefe" ) )
     {
         <h3 class="text-grey">Crear nuevo proyecto</h3>

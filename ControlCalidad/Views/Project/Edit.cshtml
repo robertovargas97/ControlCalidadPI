@@ -6,6 +6,8 @@
     }
 *@
 
+
+
 <h3 class="text-grey">Editar Proyecto</h3>
 <div class="margin-b1">
     <hr />
@@ -13,7 +15,7 @@
 
 @{
     List<SelectListItem> clientsId = ( List<SelectListItem> ) ViewBag.allClientsId;
-
+    List<SelectListItem> leaders = ( List<SelectListItem> ) ViewBag.leaders;
 
     if( User.IsInRole( "Jefe" ) )
     {
@@ -88,12 +90,19 @@
                                     @Html.DropDownList( "cedulaClienteFK" , clientsId , "Selecciona el cliente" )
                                     @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-danger" })
                                 </div>
-
-
-
                             </div>
                         </div>
 
+                        <div class="row margin-b">
+                            <div class="input-field col s6 offset-s3">
+                                <i class="p-size material-icons text-grey prefix">person</i>
+                                @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new
+                                {
+                               @class = "validate"
+                                })
+                                @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-error" })
+                            </div>
+                        </div>
 
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">

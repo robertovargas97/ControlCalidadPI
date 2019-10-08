@@ -84,6 +84,7 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.leaders = employeeController.GetLeaders( );
             ViewBag.allClientsId = clientController.GetClients( );
             ViewBag.cedulaClienteFK = proyecto.cedulaClienteFK;
             return View(proyecto);
