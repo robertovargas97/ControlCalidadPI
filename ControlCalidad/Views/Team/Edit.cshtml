@@ -4,24 +4,15 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
 <style>
-tbody {
-  display:block;
-  height:150px;
-  overflow:auto;
-}
-thead, tbody tr {
-  display:table;
-  width:100%;
-  table-layout:fixed;
-}
-thead {
-  width: calc( 100% - 1em )
-}
-table {
-  width:100%;
-}
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
 </style>
 @using (Html.BeginForm())
 {
@@ -33,74 +24,99 @@ table {
     @Html.Hidden("Hability", "", new { @id = "Hability" })
     @Html.Hidden("Proyecto", "", new { Value = ViewBag.id_proyecto, @id = "Proyecto" })
 
-
-
-
-
-<div class="form-horizontal">
-    <h4>TrabajaEn</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<div class="form-group">
-    <div class="input-field col s4">
-        <i class="material-icons prefix">search</i>
-        <textarea id="hability" class="materialize-textarea"></textarea>
-        <label for="icon_prefix2">Buscar por habilidades</label>
-    </div>
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" name="Buscar" value="Buscar" onclick="getHability()" />
-    </div>
-</div>
-    <div class="collection">
-        <td>Disponibles: </td>
-        @foreach (var tester in ViewBag.disponibles as SelectList)
-        {
-            <a href="javascript:setCedulaN(@tester.Value)" id="@tester.Value" class="collection-item">@tester.Text</a>
-        }
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" name="Asignar" value="Asignar" />
+    <div class="form-horizontal">
+        <h4>Equipos</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="input-field col s4">
+                <i class="material-icons prefix">search</i>
+                <textarea id="hability" class="materialize-textarea" style="width: 50%;"></textarea>
+                <label for="icon_prefix2">Buscar por habilidades</label>
+                <button type="submit" class="btn btn-default" name="Buscar" value="Buscar" title="Buscar" onclick="getHability()" align="center">Buscar</button>
+            </div>
         </div>
-    </div>
 
-    <div class="collection">
-        <td>Equipo: </td>
-        @foreach (var team in ViewBag.cedula_empleadoFK as SelectList)
-        {
-            <a href="javascript:setCedulaT(@team.Value)" id="@team.Value" class="collection-item">@team.Text</a>
-        }
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" name="Desasignar" value="Desasignar" />
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <div class="row">
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Disponibles</span>
+                        <div class="table-responsive collection">
+                            <table>
+
+                                <tbody>
+                                    @foreach (var tester in ViewBag.disponibles as SelectList)
+                                    {
+                                        <a href="javascript:setCedulaN(@tester.Value)" id="@tester.Value" class="collection-item">@tester.Text</a>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <p align="center">
+                        <button type="submit" class="btn btn-default" name="Asignar" value="Asignar" title="Asignar">Asignar</button>
+                    </p>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Equipo</span>
+                        <div class="table-responsive collection">
+                            <table>
+
+                                <tbody>
+                                    @foreach (var team in ViewBag.cedula_empleadoFK as SelectList)
+                                    {
+                                        <a href="javascript:setCedulaT(@team.Value)" id="@team.Value" class="collection-item">@team.Text</a>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <p align="center">
+                        <button type="submit" class="btn btn-default" name="Desasignar" value="Desasignar" title="Desasignar">Desasignar</button>
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
 </div>
-}
-<script>
-
-
-    function setCedulaN(id) {
-        if ($('#CedulaN').val() != "") {
-            $('#' + $('#CedulaN').val()).removeClass("active");
         }
-        $('#CedulaN').val(id);
-        $('#' + id).addClass("active");
-    }
+        <script>
 
-    function setCedulaT(id) {
-        if ($('#CedulaT').val() != "") {
-            $('#' + $('#CedulaT').val()).removeClass("active");
+
+            function setCedulaN(id) {
+                if ($('#CedulaN').val() != "") {
+                    $('#' + $('#CedulaN').val()).removeClass("active");
+                }
+                $('#CedulaN').val(id);
+                $('#' + id).addClass("active");
+            }
+
+            function setCedulaT(id) {
+                if ($('#CedulaT').val() != "") {
+                    $('#' + $('#CedulaT').val()).removeClass("active");
+                }
+                $('#CedulaT').val(id);
+                $('#' + id).addClass("active");
+            }
+
+            function getHability() {
+                $('#Hability').val(document.getElementById("hability").value);
+            }
+
+        </script>
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
         }
-        $('#CedulaT').val(id);
-        $('#' + id).addClass("active");
-    }
-
-    function getHability() {
-        $('#Hability').val(document.getElementById("hability").value);
-    }
-
-</script>
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
 
