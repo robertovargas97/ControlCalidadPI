@@ -4,7 +4,7 @@
         ViewBag.Title = "Edit";
 
     }
-    *@
+*@
 
 <h3 class="text-grey">Editar Proyecto</h3>
 <div class="margin-b1">
@@ -12,8 +12,10 @@
 </div>
 
 @{
+    List<SelectListItem> clientsId = ( List<SelectListItem> ) ViewBag.allClientsId;
 
-    if (User.IsInRole("Jefe"))
+
+    if( User.IsInRole( "Jefe" ) )
     {
 
         <div class="row container">
@@ -24,9 +26,15 @@
                             <p class="col s4"> Quality Expert S.A</p>
                         </div>
                     </nav>
-                    @using (Html.BeginForm("Edit"))
+                    @using( Ajax.BeginForm( "Edit" , new AjaxOptions {
+                        HttpMethod = "POST" ,
+                        LoadingElementId = "loading" ,
+                        OnSuccess = "redirectToPage('../Index')" ,
+                        OnComplete = "complete" ,
+
+                    } ) )
                     {
-                        @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken( )
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="margin-b section">
@@ -46,7 +54,7 @@
 
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">person</i>
+                                <i class="p-size material-icons text-grey prefix">assignment_ind</i>
                                 @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
 
                                 @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
@@ -69,21 +77,28 @@
                         </div>
 
                         <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">person</i>
+                            <div class="col s6 offset-s4">
                                 @Html.LabelFor(model => model.cedulaClienteFK, htmlAttributes: new { @class = "control-label col-md-2" })
 
-                                @Html.EditorFor(model => model.cedulaClienteFK, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
 
-                                @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-danger" })
+                            <div class="input-field ">
+                                <div class="col s6 offset-s3">
+                                    <i class="p-size material-icons text-grey prefix">person</i>
+                                    @Html.DropDownList( "cedulaClienteFK" , clientsId , "Selecciona el cliente" )
+                                    @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-danger" })
+                                </div>
+
+
 
                             </div>
                         </div>
 
+
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">
                                 <i class="p-size material-icons text-grey prefix">assignment</i>
-                                
+
                                 @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-2" })
 
                                 @Html.EditorFor(model => model.objetivo, new { htmlAttributes = new { @class = "form-control" } })
@@ -96,11 +111,10 @@
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
-                                <label for="fechaInicio">fecha de inicio</label>
+                                <label for="fechaInicio">Fecha de Inicio</label>
                                 <input type="text" value="@Model.fechaInicio" class="datepicker" id="fechaInicio" name="fechaInicio" />
 
                                 @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
-
 
                             </div>
                         </div>
@@ -108,7 +122,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
-                                <label for="fechaFin">fecha de finalización</label>
+                                <label for="fechaFin">Fecha de Finalización</label>
                                 <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
 
                                 @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-danger" })
@@ -118,9 +132,10 @@
 
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">
+
                                 <i class="p-size material-icons text-grey prefix">info</i>
 
-                                 <select name="estado">
+                                <select name="estado">
                                     <option value="" disabled selected>Estado del proyecto</option>
                                     <option value="Inactivo">Inactivo</option>
                                     <option value="Activo">Activo</option>
@@ -156,10 +171,39 @@
                             </div>
                         </div>
 
+                        <div class=" row container center" id="loading" style="display:none;">
+                            <div class="">
+                                <i class="material-icons text-turq ">info_outline</i>
+                            </div>
+                            <div class="">
+                                <p class="text-turq">
+                                    Editando... Por favor espere.
+                                </p>
+                            </div>
+
+                            <div class="progress">
+                                <div class="indeterminate"></div>
+                            </div>
+                        </div>
+
+                        <div class=" row container center hide " id="complete">
+                            <div class="">
+                                <i class="material-icons text-turq ">info_outline</i>
+                            </div>
+                            <div class="">
+                                <p class="text-turq">
+                                    Se edito correctamente.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="margin-b1">
+                        </div>
 
                         <div class="row center">
-                            @Html.ActionLink("Cancelar", "Details", new { id = Model.idPK }, new { @class = "waves-effect red-hover btn red accent-4" })
-                            <button type="submit" class="waves-effect waves-light btn turq">Guardar</button>
+                            @Html.ActionLink("Cancelar", "Details", new { id = Model.idPK }, new { @class = "margin-r waves-effect red-hover btn red accent-4"
+                       } )
+                            <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
                         </div>
 
                         <div class="margin-b section">
@@ -190,9 +234,9 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink( "Back to List" , "Index" )
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render( "~/bundles/jqueryval" )
 }

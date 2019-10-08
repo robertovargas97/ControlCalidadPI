@@ -43,6 +43,20 @@ namespace ControlCalidad.Controllers
             List<Distrito> cantonList = db.Distritoes.Where(x => x.cantonFK == canton && x.provinciaFK == provincia).ToList();
             return Json(cantonList, JsonRequestBehavior.AllowGet);
 
+
+            return new SelectList((from provincias in db.Provincias
+                                   select provincias.nombre).ToList());
+        }
+
+        public SelectList TraerNombreCantones()
+        {
+            return new SelectList((from cantones in db.Cantons
+                                   select cantones.nombre).ToList());
+        }
+        public SelectList TraerNombreDistritos()
+        {
+            return new SelectList((from distritos in db.Distritoes
+                                   select distritos.nombre).ToList());
         }
 
 

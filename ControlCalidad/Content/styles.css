@@ -16,6 +16,8 @@
     background-color: #008d7c;
 }
 
+
+
 .turq-hover:hover {
     background: #008d7c !important;
     transition: ease-in-out 0.2s !important;
@@ -70,3 +72,12 @@
 .padd{
     padding-left: 50px;
 }
+
+.margin-l{
+    margin-left: 10px;
+}
+
+.margin-r {
+    margin-right: 10px;
+}
+

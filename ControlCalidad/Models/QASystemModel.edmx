@@ -276,7 +276,6 @@
           <Property Name="nombreP" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellido1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellido2" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
           <Property Name="telefono" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="provincia" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
@@ -555,7 +554,6 @@
                 <ScalarProperty Name="nombreP" ColumnName="nombreP" />
                 <ScalarProperty Name="apellido1" ColumnName="apellido1" />
                 <ScalarProperty Name="apellido2" ColumnName="apellido2" />
-                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
                 <ScalarProperty Name="telefono" ColumnName="telefono" />
                 <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="provincia" ColumnName="provincia" />

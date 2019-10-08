@@ -22,7 +22,13 @@
             <div class="margin-b section">
 
             </div>
-            @using (Html.BeginForm())
+            @using (Ajax.BeginForm("Create", "Client", new AjaxOptions
+            {
+                HttpMethod = "POST",
+                LoadingElementId = "loading",
+                OnSuccess = "redirectToPage('../../Client/Index')",
+                OnComplete = "complete",
+            }))
             {
                 @Html.AntiForgeryToken()
 
@@ -85,8 +91,7 @@
                 <div class="row margin-b">
                     <div class="input-field col s6 offset-s3">
                         <i class="p-size text-grey material-icons prefix">place</i>
-                        @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DropDownList("prov",null, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -94,8 +99,7 @@
                 <div class="row margin-b">
                     <div class="input-field col s6 offset-s3">
                         <i class="p-size text-grey material-icons prefix">place</i>
-                        @Html.LabelFor(model => model.canton, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DropDownList("cant", null, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.canton, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -103,8 +107,7 @@
                 <div class="row margin-b">
                     <div class="input-field col s6 offset-s3">
                         <i class="p-size text-grey material-icons prefix">place</i>
-                        @Html.LabelFor(model => model.distrito, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DropDownList("dist", null, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.distrito, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -118,9 +121,35 @@
                     </div>
                 </div>
 
+                <div class=" row container center" id="loading" style="display:none;">
+                    <div class="">
+                        <i class="material-icons text-turq ">info_outline</i>
+                    </div>
+                    <div class="">
+                        <p class="text-turq">
+                            Registrando... Por favor espere.
+                        </p>
+                    </div>
+
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+
+                <div class=" row container center hide " id="complete">
+                    <div class="">
+                        <i class="material-icons text-turq ">info_outline</i>
+                    </div>
+                    <div class="">
+                        <p class="text-turq">
+                            Se registró correctamente.
+                        </p>
+                    </div>
+                </div>
+
                 <div class="row center">
-                    <button type="submit" value="Create" class="btn waves-effect waves-light turq white-text">Guardar</button>
-                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "waves-effect red-hover btn red accent-4" })
+                    <button type="submit" value="Create" class="margin-r btn waves-effect waves-light turq white-text">Guardar</button>
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = " margin-l waves-effect red-hover btn red accent-4" })
                 </div>
 
                 <div class="margin-b section">
