@@ -13,7 +13,7 @@ namespace ControlCalidad.Controllers
 {
     public class ClientController : Controller
     {
-        public static localizationsController localizationsController = new localizationsController();
+        private localizationsController localizations = new localizationsController();
 
         private QASystemEntities db = new QASystemEntities();
 
@@ -72,9 +72,7 @@ namespace ControlCalidad.Controllers
         // GET: Client/Create
         public ActionResult Create()
         {
-            //ViewBag.prov = localizationsController.TraerNombreProvincias();
-           // ViewBag.cant = localizationsController.TraerNombreCantones();
-           // ViewBag.dist = localizationsController.TraerNombreDistritos();
+            ViewBag.provinces = this.localizations.provinceList();
             return View();
 
         }
@@ -87,7 +85,13 @@ namespace ControlCalidad.Controllers
 
         public async Task<ActionResult> Create([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta,fechaNacimiento")] Cliente cliente)
         {
-            if( ModelState.IsValid )
+            string provinceName = localizations.provinceName(cliente.provincia);
+            string cantonName = localizations.cantonName(cliente.provincia, cliente.canton);
+            string districtName = localizations.districtName(cliente.provincia, cliente.canton, cliente.distrito);
+            cliente.provincia = provinceName;
+            cliente.canton = cantonName;
+            cliente.distrito = districtName;
+            if ( ModelState.IsValid )
             {
                 db.Clientes.Add( cliente );
                 await db.SaveChangesAsync( );
@@ -100,9 +104,7 @@ namespace ControlCalidad.Controllers
         // GET: Client/Edit/5
         public async Task<ActionResult> Edit( string id )
         {
-            ViewBag.prov = localizationsController.TraerNombreProvincias();
-            ViewBag.cant = localizationsController.TraerNombreCantones();
-            ViewBag.dist = localizationsController.TraerNombreDistritos();
+            ViewBag.provinces = this.localizations.provinceList();
             if (id == null)
             {
                 return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
@@ -123,7 +125,13 @@ namespace ControlCalidad.Controllers
 
         public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta,fechaNacimiento")] Cliente cliente)
         {
-            if( ModelState.IsValid )
+            string provinceName = localizations.provinceName(cliente.provincia);
+            string cantonName = localizations.cantonName(cliente.provincia, cliente.canton);
+            string districtName = localizations.districtName(cliente.provincia, cliente.canton, cliente.distrito);
+            cliente.provincia = provinceName;
+            cliente.canton = cantonName;
+            cliente.distrito = districtName;
+            if ( ModelState.IsValid )
             {
 
                 db.Entry( cliente ).State = EntityState.Modified;
