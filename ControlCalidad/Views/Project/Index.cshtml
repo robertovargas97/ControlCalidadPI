@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<ControlCalidad.Models.Proyecto>
 
+
 @*  {
         ViewBag.Title = "Index";
     }
@@ -40,6 +41,7 @@
 
         @foreach (var item in Model)
         {
+
         <tr>
             <td class="center">
                 @Html.DisplayFor( modelItem => item.nombre )
