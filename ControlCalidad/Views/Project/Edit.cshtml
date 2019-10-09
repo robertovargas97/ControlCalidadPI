@@ -16,6 +16,7 @@
 @{
     List<SelectListItem> clientsId = ( List<SelectListItem> ) ViewBag.allClientsId;
     List<SelectListItem> leaders = ( List<SelectListItem> ) ViewBag.leaders;
+    
 
     if( User.IsInRole( "Jefe" ) )
     {
@@ -51,17 +52,18 @@
                                         @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
-                                <div class="row margin-b">                                                              
-                                    <div class="input-field col s11">
-                                            <i class="p-size material-icons text-grey prefix">person</i>
-                                            @Html.DropDownList( "cedulaClienteFK" , clientsId , "Selecciona el cliente" )
-                                            <label for="cedulaClienteFK">Cliente del proyecto</label>
-                                    </div>
-                                </div>
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new {@class = "validate"})
+                                        @Html.DropDownList("cedulaClienteFK", clientsId, "Selecciona el cliente")
+                                        <label for="cedulaClienteFK">Cliente del proyecto</label>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">person</i>
+                                        @Html.DropDownList("newProjectLeader", leaders, "Selecciona el líder", new { @class = "validate" })
                                         <label for="cedulaClienteFK">Lider del proyecto</label>
                                     </div>
                                 </div>

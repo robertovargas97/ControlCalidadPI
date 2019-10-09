@@ -27,27 +27,27 @@
                     <div class="margin-b">
 
                     </div>
-                    @using( Html.BeginForm( "Create" , "Project" , FormMethod.Post , new {
-                        @onsubmit = "onSubmit()"
-                    } ) )
+                    @using( Html.BeginForm( "Create" , "Project" , FormMethod.Post , new { @onsubmit = "onSubmit()"} ) )
                     {
                         <div class="margin-b section">
 
                         </div>
-                 
 
-                        @Html.AntiForgeryToken( )
+                        @Html.AntiForgeryToken()
 
                         <div class="row">
                             <div class="col s4">
+
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.DropDownList("cedulaClienteFK", clientsId, "Selecciona el cliente", new{
-                                       @class = "validate form-control" , @id="clientId" ,
+                                        @Html.DropDownList("cedulaClienteFK", clientsId, "Selecciona el cliente", new
+                                        {
+                                       @class = "validate form-control",
+                                            @id = "clientId",
                                        onchange = "validateClient(clientId)",
                                        required = "required"
-                                   } )
+                                   })
                                         <label for="clientId">Cliente del proyecto</label>
 
                                         <span class="text-error" id="ClientError"></span>
@@ -57,8 +57,11 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new {
-                                       @class = "validate form-control" ,@id="leader"})
+                                        @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new
+                                        {
+                                            @class = "validate form-control",
+                                            @id = "leader"
+                                        })
                                         <label for="leader">Lider del proyecto</label>
                                     </div>
                                 </div>
@@ -67,7 +70,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size text-grey material-icons prefix">assignment_ind</i>
                                         @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <input name="nombre" type="text" required class="validate form-control" onblur = "validateProjectName()" id="projectName"/>
+                                        <input name="nombre" type="text" required class="validate form-control" onblur="validateProjectName()" id="projectName" />
                                         <span class="text-error" id="nameError"></span>
                                     </div>
                                 </div>
@@ -168,15 +171,12 @@
                         </div>
 
                         <div class="row center">
-                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "margin-r waves-effect red-hover btn red accent-4"
-                       } )
+                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "margin-r waves-effect red-hover btn red accent-4"} )
                             <button type="submit" class="margin-l btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
 
                         </div>
                         <div class="margin-b section">
                         </div>
-
-
                     }
                 </div>
             </div>

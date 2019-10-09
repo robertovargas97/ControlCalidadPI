@@ -130,4 +130,12 @@ namespace ControlCalidad.Models
             get; set;
         }
     }
+
+    public class CedulaLider
+    {
+        public string cedulaPK
+        {
+            get; set;
+        }
+    }
 }   

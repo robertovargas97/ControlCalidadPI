@@ -15,6 +15,7 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities();
         private localizationsController localizations = new localizationsController();
+        private string projectLeader;
         
 
 
@@ -172,19 +173,10 @@ namespace ControlCalidad.Controllers
             return leadersItemList;
         }
 
-        public void SetLeaderToProject(string cedula_empleadoFK, int idPK, string rol)
-        {
-            var TrabajaEn = new TrabajaEn
-            {
-                cedula_empleadoFK = cedula_empleadoFK,
-                id_proyectoFK = idPK,
-                rol = rol
-            };
-            var employee = db.Empleadoes.Find(cedula_empleadoFK);
-            employee.disponibilidad =  employee.disponibilidad.Replace("Disponible", "No disponible");
+        
 
-            db.TrabajaEns.Add(TrabajaEn);
-            db.SaveChangesAsync();
-        }
+        
+
+        
     }
 }
