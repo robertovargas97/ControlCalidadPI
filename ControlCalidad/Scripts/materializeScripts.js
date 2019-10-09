@@ -96,6 +96,27 @@ function validateProjectName() {
         document.getElementById("nameError").innerHTML = "";
     }
 }
+
+function validateDate() {
+    if (document.getElementById("fechaInicio").value.length <= 0) {
+        document.getElementById("dateErrorMessage").innerHTML = "Debe seleccionar una fecha de inicio para el proyecto.";
+    }
+    else {
+        document.getElementById("dateErrorMessage").innerHTML = "";
+    }
+}
+
+function validateDuration() {
+    if (document.getElementById("avrDuration").value.length <= 0) {
+        document.getElementById("avrDurationError").innerHTML = "Debes ingresar una duracion válida.";
+    }
+    else {
+        document.getElementById("avrDurationError").innerHTML = "";
+    }
+}
+//------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------Employee Validations----------------------------------------------------
 function validateEmployeeName(inputtxt) {
     var letters = /^[a-zA-Z\s]*$/;
     if (inputtxt.value.match(letters)) {
@@ -151,23 +172,5 @@ function validateEmployeeEmail(inputtxt) {
     } else {
         var err = document.getElementById("employeeEmailError");
         err.innerHTML = "Digite un correo valido";
-    }
-}
-
-function validateDate() {
-    if (document.getElementById("fechaInicio").value.length <= 0) {
-        document.getElementById("dateErrorMessage").innerHTML = "Debe seleccionar una fecha de inicio para el proyecto.";
-    }
-    else {
-        document.getElementById("dateErrorMessage").innerHTML = "";
-    }
-}
-
-function validateDuration() {
-    if (document.getElementById("avrDuration").value.length <= 0) {
-        document.getElementById("avrDurationError").innerHTML = "Debes ingresar una duracion válida.";
-    }
-    else {
-        document.getElementById("avrDurationError").innerHTML = "";
     }
 }

@@ -120,7 +120,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
                                         <label for="duracionEstimada">Duración Estimada <span class="red-text">  *</span> </label>
-                                        <input name="duracionEstimada" type="number" required class="validate form-control" onblur="validateDuration()" id="avrDuration" />
+                                        <input name="duracionEstimada" type="number" required class="validate form-control" onblur="validateDuration()" onkeyup="validateDuration()" id="avrDuration" />
                                         <span class="text-error" id="avrDurationError"></span>
                                     </div>
                                 </div>
