@@ -49,7 +49,6 @@
                                        required = "required"
                                    })
                                         <label for="clientId">Cliente del proyecto</label>
-
                                         <span class="text-error" id="ClientError"></span>
                                     </div>
                                 </div>
@@ -70,7 +69,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size text-grey material-icons prefix">assignment_ind</i>
                                         @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <input name="nombre" type="text" required class="validate form-control" onblur="validateProjectName()" id="projectName" />
+                                        <input name="nombre" type="text" required class="validate form-control" onblur = "validateProjectName()" onkeyup="validateProjectName()" id="projectName"/>
                                         <span class="text-error" id="nameError"></span>
                                     </div>
                                 </div>
@@ -101,7 +100,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaInicio">Fecha de Inicio</label>
-                                        <input type="text" class="datepicker validate form-control " id="fechaInicio" name="fechaInicio" required onclick="validateDate()" />
+                                        <input type="text" class="datepicker validate form-control " id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
                                         <span class="text-error" id="dateErrorMessage"></span>
                                     </div>
                                 </div>
@@ -137,8 +136,6 @@
                                 </div>
                             </div>
                         </div>
-
-
 
 
                         <div class="hide row container center" id="loading">
@@ -199,11 +196,6 @@
 
 
 }
-
-
-<div>
-    @Html.ActionLink( "Back to List" , "Index" )
-</div>
 
 @section Scripts {
     @Scripts.Render( "~/bundles/jqueryval" )
