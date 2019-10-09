@@ -16,7 +16,7 @@ namespace ControlCalidad.Controllers
         private QASystemEntities db = new QASystemEntities();
         private ClientController clientController = new ClientController( );
         private EmployeeController employeeController = new EmployeeController( );
-        
+        private string projectLeader;
 
         // GET: Project
         public async Task<ActionResult> Index()
@@ -65,10 +65,11 @@ namespace ControlCalidad.Controllers
                
                 db.Proyectoes.Add(proyecto);
                 await db.SaveChangesAsync();
-                employeeController.SetLeaderToProject(cedula_empleadoFK, proyecto.idPK, "Lider");
+                SetLeaderToProject(cedula_empleadoFK, proyecto.idPK, "Lider");
+                ViewBag.leader = cedula_empleadoFK;
                 return RedirectToAction("Index");
             }
-
+            
             ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
             return View(proyecto);
         }
@@ -97,13 +98,14 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK")] Proyecto proyecto)
+        public async Task<ActionResult> Edit([Bind(Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK")] Proyecto proyecto, string newProjectLeader)
         {
             if (ModelState.IsValid)
-            {
-                
+            {    
                 db.Entry(proyecto).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                
+                EditProjectLider(newProjectLeader, proyecto.idPK);
                 return RedirectToAction("Index");
             }
             ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
@@ -191,5 +193,50 @@ namespace ControlCalidad.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public void SetLeaderToProject(string cedula_empleadoFK, int idPK, string rol)
+        {
+            if (cedula_empleadoFK != "")
+            {
+                var TrabajaEn = new TrabajaEn
+                {
+                    cedula_empleadoFK = cedula_empleadoFK,
+                    id_proyectoFK = idPK,
+                    rol = rol
+                };
+                var employee = db.Empleadoes.Find(cedula_empleadoFK);
+                employee.disponibilidad = employee.disponibilidad.Replace("Disponible", "Ocupado");
+
+                db.TrabajaEns.Add(TrabajaEn);
+
+                db.SaveChangesAsync();
+            }
+
+        }
+
+        public void EditProjectLider(string cedulaNuevaLider, int id)
+        {
+            string projectLeader = "";
+
+                string query = "SELECT	E.cedulaPK FROM ControlCalidad.TrabajaEn TE JOIN ControlCalidad.Empleado E ON E.cedulaPK = TE.cedula_empleadoFK " +
+                    "WHERE TE.id_proyectoFK = " + id + " AND TE.rol = 'Lider';";
+                List<CedulaLider> leader = db.Database.SqlQuery<CedulaLider>(query).ToList();
+                if (leader.Count() > 0)
+                {
+                    CedulaLider leaderForProject = leader.Last();
+                    projectLeader = leaderForProject.cedulaPK;
+                }
+
+                //Actualiza el estado del lider anterior a disponible.
+                var employee = db.Empleadoes.Find(projectLeader);
+                employee.disponibilidad = employee.disponibilidad.Replace("Ocupado", "Disponible");
+
+                SetLeaderToProject(cedulaNuevaLider, id, "Lider");
+
+                db.SaveChangesAsync();
+            
+        }
+
+        
     }
 }
