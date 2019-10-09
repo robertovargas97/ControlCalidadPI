@@ -36,7 +36,7 @@
                     <div class="input-field col s6 offset-s3">
                         <i class="p-size text-grey material-icons prefix">mail</i>
                         @Html.TextBoxFor( model => model.UserName , new {
-                       @class = "validate"
+                       @class = "validate form control"
                    } )
                         @Html.LabelFor( model => model.Email , new {
                        @class = ""
@@ -71,13 +71,12 @@
                        @class = "text-error"
                    } )
                         <select id="Role" name="Role">
-                            <option value="" disabled selected>Selecciona un nuevo rol</option>
                             <option value="Jefe">Jefe</option>
                             <option value="Lider">Lider</option>
                             <option value="Tester">Tester</option>
                             <option value="Cliente">Cliente</option>
                         </select>
-                        <label for="Role">Rol</label>
+                        <label for="Role">Selecciona el rol</label>
                     </div>
                 </div>
 

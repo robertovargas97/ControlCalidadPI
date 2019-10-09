@@ -18,14 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems, {
 
-        format : 'yyyy-mm-dd',
+        format: 'yyyy-mm-dd',
         showClearBtn: true,
         i18n: {
-            done : 'Aceptar',
-            cancel : 'Cancelar',
-            clear : 'Borrar'
+            done: 'Aceptar',
+            cancel: 'Cancelar',
+            clear: 'Borrar'
         }
-        
+
 
     });
 });
@@ -39,70 +39,76 @@ function onSubmit() {
 
 //Validation functions for forms
 
+//--------------------------------------Register Validations-------------------------------
+
 function validateEmail(idElement) {
 
-    if (document.getElementById(idElement).value.length < 1  ) {
+    if (document.getElementById(idElement).value.length < 3) {
         document.getElementById("mailError").innerHTML = "Debe introducir un correo válido";
     }
-    
-    else{
-        if(document.getElementById(idElement).value.indexOf("@") == -1 ){
+
+    else {
+        if ((document.getElementById(idElement).value.indexOf("@") == -1) || (document.getElementById(idElement).value.indexOf(".") == -1)) {
             document.getElementById("mailError").innerHTML = "Debe introducir un correo válido";
         }
-        else{
-            document.getElementById("mailError").innerHTML = ""; 
+        else {
+            document.getElementById("mailError").innerHTML = "";
 
         }
-    }  
+    }
 }
 
 function validatePassword(password) {
-   if( document.getElementById(password).value.length < 1 ) {
-    document.getElementById("passwordError").innerHTML = "La contraseña debe tener 1 caracter como mínimo.";
+    if (document.getElementById(password).value.length < 4) {
+        document.getElementById("passwordError").innerHTML = "La contraseña debe tener 5 caracter como mínimo.";
     }
-    else{
-        document.getElementById("passwordError").innerHTML = ""; 
-    }   
+    else {
+        document.getElementById("passwordError").innerHTML = "";
+    }
 }
 
 function validateConfirmPass() {
     let password = document.getElementById("Password").value;
     let passConfirm = document.getElementById("ConfirmPassword").value;
-    if (password != passConfirm){
+
+    if (password != passConfirm) {
         document.getElementById("passwordConfirmError").innerHTML = "Las contraseñas no coinciden.";
     }
-    else{
-        document.getElementById("passwordConfirmError").innerHTML = ""; 
+    else {
+        document.getElementById("passwordConfirmError").innerHTML = "";
     }
 }
 
-function validateClient(idClient){
-if (document.getElementById(idClient).value.length == 0 || document.getElementById(idClient).value.indexOf("Selecciona el cliente") == -1 ){
-    document.getElementById("ClientError").innerHTML = "Debe seleccionar un cliente.";
-}
+//----------------------------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------Project Validations--------------------------------
+function validateClient(idClient) {
+    if (document.getElementById(idClient).value.indexOf("Selecciona el cliente") == -1) {
+        document.getElementById("ClientError").innerHTML = "Debe seleccionar un cliente.";
+    }
 }
 
 function validateProjectName() {
-    if(document.getElementById("projectName").value.length < 5 ){
+    if (document.getElementById("projectName").value.length < 5) {
         document.getElementById("nameError").innerHTML = "Debe colocar un nombre válido al proyecto(5 caracteres como mínimo).";
     }
-    else{
-        document.getElementById("nameError").innerHTML = ""; 
+    else {
+        document.getElementById("nameError").innerHTML = "";
     }
 }
 
 function validateDate() {
-    if(document.getElementById("fechaInicio").value.length <= 0){
+    if (document.getElementById("fechaInicio").value.length <= 0) {
         document.getElementById("dateErrorMessage").innerHTML = "Debe seleccionar una fecha de inicio para el proyecto.";
     }
-    else{
-        document.getElementById("dateErrorMessage").innerHTML = ""; 
+    else {
+        document.getElementById("dateErrorMessage").innerHTML = "";
     }
 }
 
 function validateDuration() {
     if (document.getElementById("avrDuration").value.length <= 0) {
-        document.getElementById("avrDurationError").innerHTML = "Debes ingresar una duracion estimada.";
+        document.getElementById("avrDurationError").innerHTML = "Debes ingresar una duracion válida.";
     }
     else {
         document.getElementById("avrDurationError").innerHTML = "";
