@@ -15,6 +15,7 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities();
         private localizationsController localizations = new localizationsController();
+        private static string editID;
         
 
 
@@ -76,6 +77,8 @@ namespace ControlCalidad.Controllers
         // GET: Employee/Edit/5
         public async Task<ActionResult> Edit(string id)
         {
+            ViewBag.provinces = this.localizations.provinceList();
+            editID = string.Copy(id);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -96,10 +99,33 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,edad,telefono,correo,provincia,canton,distrito,direccionExacta,disponibilidad")] Empleado empleado)
         {
+            var sql =
+                from a in db.Empleadoes
+                where a.cedulaPK == editID
+                select a;
+            foreach (var a in sql)
+            {
+                db.Empleadoes.Remove(a);
+                break;
+            }
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // Provide for exceptions.
+            }
             if (ModelState.IsValid)
             {
-                db.Entry(empleado).State = EntityState.Modified;
-  
+                string provinceName = localizations.provinceName(empleado.provincia);
+                string cantonName = localizations.cantonName(empleado.provincia, empleado.canton);
+                string districtName = localizations.districtName(empleado.provincia, empleado.canton, empleado.distrito);
+                empleado.provincia = provinceName;
+                empleado.canton = cantonName;
+                empleado.distrito = districtName;
+                db.Empleadoes.Add(empleado);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -185,6 +211,12 @@ namespace ControlCalidad.Controllers
 
             db.TrabajaEns.Add(TrabajaEn);
             db.SaveChangesAsync();
+        }
+
+        public string employeeName(string id)
+        {
+            List<Empleado> empleado = db.Empleadoes.Where(x => x.cedulaPK == id).ToList();
+            return empleado[0].nombreP;
         }
     }
 }

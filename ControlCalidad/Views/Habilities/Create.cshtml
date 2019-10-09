@@ -27,7 +27,7 @@
             }))
             {
 
-                <h5 class="text-grey col s10 offset-s3">Registrar nueva habilidad para @ViewBag.cedulaCreate</h5>
+                <h5 class="text-grey col s10 offset-s3">Registrar nueva habilidad para @ViewBag.employeeName</h5>
                 @Html.AntiForgeryToken()
                 <div class="row margin-b">
 
@@ -65,7 +65,7 @@
 
 
                 <div class="row center">
-                    @Html.ActionLink("Cancelar", "Index", new { cedula_empleadoFK = ViewBag.cedula }, new
+                    @Html.ActionLink("Cancelar", "Index", new { cedula_empleadoFK = ViewBag.cedulaCreate }, new
                {
                    @class = "waves-effect red-hover btn red accent-4"
                })

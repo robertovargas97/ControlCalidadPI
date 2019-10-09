@@ -14,6 +14,7 @@ namespace ControlCalidad.Controllers
     public class HabilitiesController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
+        private EmployeeController emp = new EmployeeController();
         private static string cedulaEdit;
         private static string categoriaEdit;
         private static string descripcionEdit;
@@ -22,6 +23,7 @@ namespace ControlCalidad.Controllers
         public async Task<ActionResult> Index(string empleado)
         {
             var habilidades = db.Habilidades.Include(h => h.Empleado);
+            string id;
 
             if (string.IsNullOrEmpty(empleado))
             {
@@ -30,7 +32,9 @@ namespace ControlCalidad.Controllers
 
                 try
                 {
+                    id = splitUrl[1];
                     ViewBag.empleado = splitUrl[1];
+                    ViewBag.employeeName = this.emp.employeeName(id);
                 }
                 catch (Exception e)
                 {
@@ -40,6 +44,7 @@ namespace ControlCalidad.Controllers
             else
             {
                 ViewBag.empleado = empleado;
+                ViewBag.employeeName = this.emp.employeeName(empleado);
             }
             return View(await habilidades.ToListAsync());
         }
@@ -62,6 +67,7 @@ namespace ControlCalidad.Controllers
         // GET: Habilities/Create
         public ActionResult Create(string cedulaEmpleado)
         {
+            string id;
             if (string.IsNullOrEmpty(cedulaEmpleado))
             {
                 string rawUrl = Request.RawUrl;
@@ -69,7 +75,9 @@ namespace ControlCalidad.Controllers
 
                 try
                 {
+                    id = splitUrl[1];
                     ViewBag.cedulaCreate = splitUrl[1];
+                    ViewBag.employeeName = this.emp.employeeName(id);
                 }
                 catch (Exception e)
                 {

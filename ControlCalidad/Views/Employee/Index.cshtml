@@ -5,9 +5,7 @@
 }
 
 <h3 class="text-grey">Empleados</h3>
-<div class="margin-b1">
-    <hr />
-</div>
+
 
 <div class="fixed-action-btn">
     <a href="@Url.Action( "Create New" , "Employee/Create" )" class="btn-floating btn-large black turq-hover">
@@ -68,9 +66,9 @@
                 </td>
                 <td class="center">
                     @*Html.ActionLink("Edit", "Edit", new { id = item.cedulaPK }) |*@
-                    @Html.ActionLink("Detalles", "Details", new { id = item.cedulaPK }, new { @class = "waves-effect waves-light btn black turq-hover" }) 
+                    @Html.ActionLink("Detalles", "Details", new { id = item.cedulaPK }, new { @class = "waves-effect waves-light btn-small black turq-hover" }) 
                     @*Html.ActionLink("Delete", "Delete", new { id = item.cedulaPK }) |*@
-                    @Html.ActionLink("Habilidades", "../Habilities/Index", new { cedula_empleado = item.cedulaPK })
+                    @Html.ActionLink("Habilidades", "../Habilities/Index", new { cedula_empleado = item.cedulaPK },new { @class = "waves-effect waves-light btn-small black turq-hover" })
                 </td>
             </tr>
         }
