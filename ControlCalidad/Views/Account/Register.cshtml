@@ -38,8 +38,8 @@
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">
                                 <i class="text-grey material-icons prefix">mail</i>
-                                <input class="validate form-control" type="email" name="Email" id="Email" onblur="validateEmail('Email')" required />
-                                <label for="Email">Correo</label>
+                                <input class="validate form-control" type="email" name="Email" id="Email" onkeypress="validateEmail('Email')" required />
+                                <label for="Email">Correo <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="mailError"></span>
                             </div>
                         </div>
@@ -48,22 +48,23 @@
                             <i class=" small text-grey col s1 offset-s3 material-icons prefix">work</i>
                             <div class="input-field col s5">
                                 @Html.ValidationMessageFor( m => m.Role , null , new {@class = "text-error"} )
-                                <select id="Role" name="Role" required>
-                                    <option value="" disabled selected>Selecciona un rol</option>
+                                <select id="Role" name="Role" required onchange="validateRole()" onclick="validateRole()">
                                     <option value="Jefe">Jefe</option>
                                     <option value="Lider">Lider</option>
                                     <option value="Tester">Tester</option>
                                     <option value="Cliente">Cliente</option>
                                 </select>
-                                <label for="Role">Rol</label>
+                                <label for="Role">Rol<span class="red-text">  *</span>  </label>
+                                <span class="text-error" id="RoleError"></span>
+
                             </div>
                         </div>
 
                         <div class="row margin-b">
                             <div class="input-field col s6  offset-s3">
                                 <i class="text-grey material-icons prefix">lock</i>
-                                <input class="validate form-control" type="password" name="Password" id="Password" required onblur="validatePassword('Password')" />
-                                @Html.LabelFor( m => m.Password , new {@class = "" } )
+                                <input class="validate form-control" type="password" name="Password" id="Password" required onkeypress="validatePassword('Password')" />
+                                <label for="Password">Contraseña <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="passwordError"></span>
                             </div>
                         </div>
@@ -71,8 +72,8 @@
                         <div class="row margin-b">
                             <div class="input-field col s6  offset-s3">
                                 <i class=" text-grey material-icons prefix">lock</i>
-                                <input class="validate form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" required onblur="validateConfirmPass() " onfocus="validateConfirmPass()" />
-                                @Html.LabelFor( m => m.ConfirmPassword , new {@class = "" } )
+                                <input class="validate form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" required onkeyup="validateConfirmPass()" onfocus="validateConfirmPass()" />
+                                <label for="ConfirmPassword">Confirmaar contraseña <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="passwordConfirmError"></span>
                             </div>
                         </div>

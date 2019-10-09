@@ -17,6 +17,7 @@
     List<SelectListItem> clientsId = ( List<SelectListItem> ) ViewBag.allClientsId;
     List<SelectListItem> leaders = ( List<SelectListItem> ) ViewBag.leaders;
 
+
     if( User.IsInRole( "Jefe" ) )
     {
 
@@ -32,7 +33,7 @@
                         HttpMethod = "POST" ,
                         LoadingElementId = "loading" ,
                         OnSuccess = "redirectToPage('../Index')" ,
-                        OnComplete = "complete" ,
+                        OnComplete = "redirectToPage('../Index')" ,
 
                     } ) )
                     {
@@ -48,20 +49,31 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">assignment_ind</i>
                                         @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
-                                <div class="row margin-b">                                                              
-                                    <div class="input-field col s11">
-                                            <i class="p-size material-icons text-grey prefix">person</i>
-                                            @Html.DropDownList( "cedulaClienteFK" , clientsId , "Selecciona el cliente" )
-                                            <label for="cedulaClienteFK">Cliente del proyecto</label>
+                                        @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" ,@readonly = "readonly"} })
                                     </div>
                                 </div>
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
+                                        <span class="text-error" id="ClientError"></span>
+
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new {@class = "validate"})
+                                        @Html.DropDownList( "cedulaClienteFK" , clientsId , "Selecciona el cliente" , new {
+                                       htmlAttributes = new {
+                                           @readonly = "readonly",
+                                           @class = "form-control" ,
+                                           @id = "client",
+                                           @required = "required",
+                                       }
+                                   } )
+                                        <label for="cedulaClienteFK">Cliente del proyecto</label>
+
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">person</i>
+                                        @Html.DropDownList("newProjectLeader", leaders, "Selecciona el líder", new { @class = "validate" })
                                         <label for="cedulaClienteFK">Lider del proyecto</label>
                                     </div>
                                 </div>
@@ -80,7 +92,9 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaInicio">Fecha de Inicio</label>
-                                        <input type="text" value="@Model.fechaInicio" class="datepicker" id="fechaInicio" name="fechaInicio" />
+                                        <input type="text" value="@Model.fechaInicio.ToShortDateString()" class="datepicker" id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
+                                        <span class="text-error" id="dateErrorMessage"></span>
+
                                     </div>
                                 </div>
 
@@ -110,7 +124,7 @@
                                     <div class="input-field col col s11">
                                         <i class="p-size material-icons text-grey prefix">info</i>
                                         <select name="estado">
-                                            <option value="" disabled selected>Estado del proyecto</option>
+                                            <option value="@Model.estado">@Model.estado</option>
                                             <option value="Inactivo">Inactivo</option>
                                             <option value="Activo">Activo</option>
                                         </select>
@@ -122,7 +136,8 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
                                         @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control" } })
+                                        <input name="duracionEstimada" type="number" value="@Model.duracionEstimada" required class="validate form-control" onkeyup="validateDuration()" onblur="validateDuration()" id="avrDuration" />
+                                        <span class="text-error" id="avrDurationError"></span>
 
                                     </div>
                                 </div>
@@ -131,7 +146,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_full</i>
                                         @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "form-control" , type="number" } })
 
                                     </div>
                                 </div>

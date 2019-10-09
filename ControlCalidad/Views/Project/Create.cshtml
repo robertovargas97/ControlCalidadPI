@@ -27,29 +27,28 @@
                     <div class="margin-b">
 
                     </div>
-                    @using( Html.BeginForm( "Create" , "Project" , FormMethod.Post , new {
-                        @onsubmit = "onSubmit()"
-                    } ) )
+                    @using( Html.BeginForm( "Create" , "Project" , FormMethod.Post , new { @onsubmit = "onSubmit()"} ) )
                     {
                         <div class="margin-b section">
 
                         </div>
-                 
 
-                        @Html.AntiForgeryToken( )
+                        @Html.AntiForgeryToken()
 
                         <div class="row">
                             <div class="col s4">
+
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.DropDownList("cedulaClienteFK", clientsId, "Selecciona el cliente", new{
-                                       @class = "validate form-control" , @id="clientId" ,
+                                        @Html.DropDownList("cedulaClienteFK", clientsId, "Seleccione un cliente", new
+                                        {
+                                       @class = "validate form-control",
+                                            @id = "clientId",
                                        onchange = "validateClient(clientId)",
                                        required = "required"
-                                   } )
-                                        <label for="clientId">Cliente del proyecto</label>
-
+                                   })
+                                        <label for="clientId">Cliente del proyecto <span class="red-text">  *</span></label>
                                         <span class="text-error" id="ClientError"></span>
                                     </div>
                                 </div>
@@ -57,8 +56,11 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new {
-                                       @class = "validate form-control" ,@id="leader"})
+                                        @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new
+                                        {
+                                            @class = "validate form-control",
+                                            @id = "leader"
+                                        })
                                         <label for="leader">Lider del proyecto</label>
                                     </div>
                                 </div>
@@ -66,8 +68,8 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size text-grey material-icons prefix">assignment_ind</i>
-                                        @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <input name="nombre" type="text" required class="validate form-control" onblur = "validateProjectName()" id="projectName"/>
+                                        <label for="nombre">Nombre del proyecto <span class="red-text">  *</span></label>
+                                        <input name="nombre" type="text" required class="validate form-control" onblur="validateProjectName()" onkeyup="validateProjectName()" id="projectName" />
                                         <span class="text-error" id="nameError"></span>
                                     </div>
                                 </div>
@@ -89,7 +91,7 @@
                                             <option value="Inactivo">Inactivo</option>
                                             <option value="Activo">Activo</option>
                                         </select>
-                                        <label for="status">Estado del proyecto</label>
+                                        <label for="status">Estado del proyecto <span class="red-text">  *</span></label>
                                     </div>
                                 </div>
 
@@ -97,8 +99,8 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
-                                        <label for="fechaInicio">Fecha de Inicio</label>
-                                        <input type="text" class="datepicker validate form-control " id="fechaInicio" name="fechaInicio" required onclick="validateDate()" />
+                                        <label for="fechaInicio">Fecha de Inicio <span class="red-text">  *</span></label>
+                                        <input type="text" class="datepicker validate form-control " id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
                                         <span class="text-error" id="dateErrorMessage"></span>
                                     </div>
                                 </div>
@@ -117,8 +119,8 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
-                                        @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2"} )
-                                        <input name="duracionEstimada" type="number" required class="validate form-control" onblur="validateDuration()" id="avrDuration"/>
+                                        <label for="duracionEstimada">Duración Estimada <span class="red-text">  *</span> </label>
+                                        <input name="duracionEstimada" type="number" required class="validate form-control" onblur="validateDuration()" onkeyup="validateDuration()" id="avrDuration" />
                                         <span class="text-error" id="avrDurationError"></span>
                                     </div>
                                 </div>
@@ -134,6 +136,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="hide row container center" id="loading">
                             <div class="">
@@ -165,15 +168,12 @@
                         </div>
 
                         <div class="row center">
-                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "margin-r waves-effect red-hover btn red accent-4"
-                       } )
+                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "margin-r waves-effect red-hover btn red accent-4"} )
                             <button type="submit" class="margin-l btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
 
                         </div>
                         <div class="margin-b section">
                         </div>
-
-
                     }
                 </div>
             </div>
@@ -196,11 +196,6 @@
 
 
 }
-
-
-<div>
-    @Html.ActionLink( "Back to List" , "Index" )
-</div>
 
 @section Scripts {
     @Scripts.Render( "~/bundles/jqueryval" )

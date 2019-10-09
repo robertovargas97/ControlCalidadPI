@@ -52,6 +52,9 @@ namespace ControlCalidad.Controllers
         // GET: Habilities/Details/5
         public async Task<ActionResult> Details(string cedula_empleadoFK, string categoriaPK, string descripcionPK)
         {
+            ViewBag.idDelete = cedula_empleadoFK;
+            ViewBag.categoryID = categoriaPK;
+            ViewBag.descriptionDelete = descripcionPK;
             if (cedula_empleadoFK == null)
             {
                 return RedirectToAction("Index", new { cedula_empleadoFK = cedula_empleadoFK });
@@ -195,6 +198,13 @@ namespace ControlCalidad.Controllers
             db.Habilidades.Remove(habilidade);
             await db.SaveChangesAsync();
             return RedirectToAction("Index",new { cedula_empleadoFK = cedula_empleadoFK});
+        }
+        public ActionResult RemoveHability(string id,string category, string description)
+        {
+            Habilidade habilidad = db.Habilidades.Find(id,category,description);
+            db.Habilidades.Remove(habilidad);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { cedula_empleadoFK = habilidad.cedula_empleadoFK });
         }
 
         protected override void Dispose(bool disposing)
