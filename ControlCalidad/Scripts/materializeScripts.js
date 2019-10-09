@@ -83,7 +83,7 @@ function validateConfirmPass() {
 
 //-------------------------------------------------------------------Project Validations--------------------------------
 function validateClient(idClient) {
-    if (document.getElementById(idClient).value.indexOf("Selecciona el cliente") == -1) {
+    if (document.getElementById(idClient).value.indexOf("Selecciona el cliente") > -1) {
         document.getElementById("ClientError").innerHTML = "Debe seleccionar un cliente.";
     }
 }
