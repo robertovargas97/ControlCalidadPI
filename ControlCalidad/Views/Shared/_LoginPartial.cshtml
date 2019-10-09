@@ -8,7 +8,7 @@
     {
         @Html.AntiForgeryToken( )
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Equipos", "Index", "Team", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
         <li>
             <a class='turq-hover dropdown-trigger' data-target='dropdown1'>@User.Identity.GetUserName()<i class="material-icons right">arrow_drop_down</i></a>
         </li>

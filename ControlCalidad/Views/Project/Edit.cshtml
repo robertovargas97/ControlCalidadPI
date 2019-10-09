@@ -21,7 +21,7 @@
     {
 
         <div class="row container">
-            <div class="col s8 offset-s2">
+            <div class="">
                 <div class="card hoverable">
                     <nav>
                         <div class="nav-wrapper black">
@@ -42,141 +42,99 @@
                         <div class="margin-b section">
                         </div>
 
-                        <div class="row margin-b hide">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">person</i>
-                                @Html.LabelFor(model => model.idPK, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                @Html.EditorFor(model => model.idPK, new { htmlAttributes = new { @class = "form-control" } })
-
-                                @Html.ValidationMessageFor(model => model.idPK, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">assignment_ind</i>
-                                @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-
-                                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b hide">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">person</i>
-                                @Html.LabelFor(model => model.idPK, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                @Html.EditorFor(model => model.idPK, new { htmlAttributes = new { @class = "form-control" } })
-
-                                @Html.ValidationMessageFor(model => model.idPK, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="col s6 offset-s4">
-                                @Html.LabelFor(model => model.cedulaClienteFK, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                            </div>
-
-                            <div class="input-field ">
-                                <div class="col s6 offset-s3">
-                                    <i class="p-size material-icons text-grey prefix">person</i>
-                                    @Html.DropDownList( "cedulaClienteFK" , clientsId , "Selecciona el cliente" )
-                                    @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">assignment_ind</i>
+                                        @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                <div class="row margin-b">                                                              
+                                    <div class="input-field col s11">
+                                            <i class="p-size material-icons text-grey prefix">person</i>
+                                            @Html.DropDownList( "cedulaClienteFK" , clientsId , "Selecciona el cliente" )
+                                            <label for="cedulaClienteFK">Cliente del proyecto</label>
+                                    </div>
+                                </div>
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">person</i>
+                                        @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new {@class = "validate"})
+                                        <label for="cedulaClienteFK">Lider del proyecto</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">person</i>
-                                @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new
-                                {
-                               @class = "validate"
-                                })
-                                @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-error" })
+                            <div class="col s4">
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">assignment</i>
+                                        @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.objetivo, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">date_range</i>
+                                        <label for="fechaInicio">Fecha de Inicio</label>
+                                        <input type="text" value="@Model.fechaInicio" class="datepicker" id="fechaInicio" name="fechaInicio" />
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">date_range</i>
+                                        <label for="fechaFin">Fecha de Finalización</label>
+                                        <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">assignment</i>
+                            <div class="col s4">
+                                <div class="row margin-b hide">
+                                    <div class="input-field col s6 offset-s3">
+                                        <i class="p-size material-icons text-grey prefix">person</i>
+                                        @Html.LabelFor(model => model.idPK, htmlAttributes: new { @class = "control-label col-md-2" })
 
-                                @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.idPK, new { htmlAttributes = new { @class = "form-control" } })
 
-                                @Html.EditorFor(model => model.objetivo, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.idPK, "", new { @class = "text-danger" })
 
-                                @Html.ValidationMessageFor(model => model.objetivo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                            </div>
-                        </div>
+                                <div class="row margin-b">
+                                    <div class="input-field col col s11">
+                                        <i class="p-size material-icons text-grey prefix">info</i>
+                                        <select name="estado">
+                                            <option value="" disabled selected>Estado del proyecto</option>
+                                            <option value="Inactivo">Inactivo</option>
+                                            <option value="Activo">Activo</option>
+                                        </select>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">date_range</i>
-                                <label for="fechaInicio">Fecha de Inicio</label>
-                                <input type="text" value="@Model.fechaInicio" class="datepicker" id="fechaInicio" name="fechaInicio" />
+                                    </div>
+                                </div>
 
-                                @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-danger" })
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
+                                        @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control" } })
 
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">date_range</i>
-                                <label for="fechaFin">Fecha de Finalización</label>
-                                <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">hourglass_full</i>
+                                        @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "form-control" } })
 
-                                @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-
-                                <i class="p-size material-icons text-grey prefix">info</i>
-
-                                <select name="estado">
-                                    <option value="" disabled selected>Estado del proyecto</option>
-                                    <option value="Inactivo">Inactivo</option>
-                                    <option value="Activo">Activo</option>
-                                </select>
-
-                                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-
-                                <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
-                                @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "form-control" } })
-
-                                @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">hourglass_full</i>
-                                @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "form-control" } })
-
-                                @Html.ValidationMessageFor(model => model.duracionReal, "", new { @class = "text-danger" })
-
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -239,12 +197,7 @@
         </div>
     }
 
-
 }
-
-<div>
-    @Html.ActionLink( "Back to List" , "Index" )
-</div>
 
 @section Scripts {
     @Scripts.Render( "~/bundles/jqueryval" )

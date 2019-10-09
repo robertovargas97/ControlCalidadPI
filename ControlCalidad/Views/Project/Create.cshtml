@@ -17,118 +17,126 @@
 
 
         <div class="row container">
-            <div class="col s8 offset-s2">
+            <div class="">
                 <div class="card hoverable">
                     <nav>
                         <div class="nav-wrapper black">
                             <p class="col s4">Quality Expert S.A</p>
                         </div>
                     </nav>
-                    <div class="margin-b section">
+                    <div class="margin-b">
 
                     </div>
-                    @using (Ajax.BeginForm("Create", new AjaxOptions
+                    @using( Html.BeginForm( "Create" , "Project" , FormMethod.Post , new {
+                        @onsubmit = "onSubmit()"
+                    } ) )
                     {
-                        HttpMethod = "POST",
-                        LoadingElementId = "loading",
-                        OnSuccess = "redirectToPage('../Index')",
-                        OnComplete = "complete"
+                        <div class="margin-b section">
 
-                    }))
-                    {
+                        </div>
+                 
 
-                        <h5 class="text-grey col s10 offset-s3">Crear nuevo proyecto</h5>
-                        @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken( )
 
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">person</i>
-                                @Html.DropDownList("cedulaClienteFK", clientsId, "Selecciona el cliente", new
-                                {
-                               @class = "validate"
-                                })
-                                @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-error" })
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">person</i>
+                                        @Html.DropDownList("cedulaClienteFK", clientsId, "Selecciona el cliente", new{
+                                       @class = "validate form-control" , @id="clientId" ,
+                                       onchange = "validateClient(clientId)",
+                                       required = "required"
+                                   } )
+                                        <label for="clientId">Cliente del proyecto</label>
+
+                                        <span class="text-error" id="ClientError"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">person</i>
+                                        @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new {
+                                       @class = "validate form-control" ,@id="leader"})
+                                        <label for="leader">Lider del proyecto</label>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                        @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <input name="nombre" type="text" required class="validate form-control" onblur = "validateProjectName()" id="projectName"/>
+                                        <span class="text-error" id="nameError"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">assignment</i>
+                                        @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.objetivo, new { htmlAttributes = new { @class = "validate" } })
+                                        @Html.ValidationMessageFor(model => model.objetivo, "", new { @class = "text-error" })
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11" data-target="dropdownCreate">
+                                        <i class="p-size material-icons text-grey prefix">info</i>
+                                        <select name="estado" required id="status">
+                                            <option value="Inactivo">Inactivo</option>
+                                            <option value="Activo">Activo</option>
+                                        </select>
+                                        <label for="status">Estado del proyecto</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">date_range</i>
+                                        <label for="fechaInicio">Fecha de Inicio</label>
+                                        <input type="text" class="datepicker validate form-control " id="fechaInicio" name="fechaInicio" required onclick="validateDate()" />
+                                        <span class="text-error" id="dateErrorMessage"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col s4">
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">date_range</i>
+                                        <label for="fechaFin">Fecha de Finalización</label>
+                                        <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
+                                        @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-error" })
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
+                                        @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2"} )
+                                        <input name="duracionEstimada" type="number" required class="validate form-control" onblur="validateDuration()" id="avrDuration"/>
+                                        <span class="text-error" id="avrDurationError"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">hourglass_full</i>
+                                        @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "validate" ,
+                                       @type = "number"
+                                   } })
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">person</i>
-                                @Html.DropDownList("cedula_empleadoFK", leaders, "Selecciona el líder", new
-                                {
-                               @class = "validate"
-                                })
-                                @Html.ValidationMessageFor(model => model.cedulaClienteFK, "", new { @class = "text-error" })
-                            </div>
-                        </div>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size text-grey material-icons prefix">assignment_ind</i>
-                                @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "validate" } })
-                                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-error" })
-                            </div>
-                        </div>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">assignment</i>
-                                @Html.LabelFor(model => model.objetivo, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.objetivo, new { htmlAttributes = new { @class = "validate" } })
-                                @Html.ValidationMessageFor(model => model.objetivo, "", new { @class = "text-error" })
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">date_range</i>
-                                <label for="fechaInicio">Fecha de Inicio</label>
-                                <input type="text" class="datepicker" id="fechaInicio" name="fechaInicio" required />
-                                @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-error" })
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">date_range</i>
-                                <label for="fechaFin">Fecha de Finalización</label>
-                                <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
-                                @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-error" })
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3" data-target="dropdownCreate">
-                                <i class="p-size material-icons text-grey prefix">info</i>
-                                <select name="estado">
-                                    <option value="" disabled selected>Estado del proyecto</option>
-                                    <option value="Inactivo">Inactivo</option>
-                                    <option value="Activo">Activo</option>
-                                </select>
-                                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "error" })
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
-                                @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.duracionEstimada, new { htmlAttributes = new { @class = "validate" } })
-                                @Html.ValidationMessageFor(model => model.duracionEstimada, "", new { @class = "text-error" })
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s6 offset-s3">
-                                <i class="p-size material-icons text-grey prefix">hourglass_full</i>
-                                @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "validate" } })
-                                @Html.ValidationMessageFor(model => model.duracionReal, "", new { @class = "text-error" })
-                            </div>
-                        </div>
 
                         <div class=" row container center" id="loading" style="display:none;">
                             <div class="">

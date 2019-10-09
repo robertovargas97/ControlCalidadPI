@@ -502,7 +502,6 @@
     <Content Include="Views\Habilities\Details.cshtml" />
     <Content Include="Views\Habilities\Edit.cshtml" />
     <Content Include="Views\Habilities\Index.cshtml" />
-    <Content Include="Views\PartialViews\ErrorsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

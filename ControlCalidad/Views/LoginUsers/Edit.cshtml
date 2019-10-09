@@ -21,19 +21,14 @@
 
             </div>
 
-            @using( Ajax.BeginForm( "Edit" , new AjaxOptions {
-                HttpMethod = "POST" ,
-                LoadingElementId = "loading" ,
-                OnSuccess = "redirectToPage('../Index')" ,
-                OnComplete = "complete"
-               
-            } ) )
+            @using( Html.BeginForm( "Edit" ,"LoginUsers" , FormMethod.Post , new {
+                @onsubmit = "onSubmit()"}) )
             {
 
                 @Html.AntiForgeryToken( )
 
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "red-text" })
                 @Html.HiddenFor( model => model.Id )
 
 
@@ -102,7 +97,7 @@
                     </div>
                 </div>
 
-                <div class=" row container center" id="loading" style="display:none;">
+                <div class="hide row container center" id="loading">
                     <div class="">
                         <i class="material-icons text-turq ">info_outline</i>
                     </div>

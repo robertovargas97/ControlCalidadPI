@@ -33,13 +33,78 @@ document.addEventListener('DOMContentLoaded', function () {
 function redirectToPage(address) {
     location.href = address;
 }
-
-function complete() {
-    document.getElementById("complete").classList.remove("hide");
+function onSubmit() {
+    document.getElementById("loading").classList.remove("hide");
 }
 
+//Validation functions for forms
 
-function showError() {
-    alert("Error");
+function validateEmail(idElement) {
+
+    if (document.getElementById(idElement).value.length < 1  ) {
+        document.getElementById("mailError").innerHTML = "Debe introducir un correo válido";
+    }
+    
+    else{
+        if(document.getElementById(idElement).value.indexOf("@") == -1 ){
+            document.getElementById("mailError").innerHTML = "Debe introducir un correo válido";
+        }
+        else{
+            document.getElementById("mailError").innerHTML = ""; 
+
+        }
+    }  
 }
 
+function validatePassword(password) {
+   if( document.getElementById(password).value.length < 1 ) {
+    document.getElementById("passwordError").innerHTML = "La contraseña debe tener 1 caracter como mínimo.";
+    }
+    else{
+        document.getElementById("passwordError").innerHTML = ""; 
+    }   
+}
+
+function validateConfirmPass() {
+    let password = document.getElementById("Password").value;
+    let passConfirm = document.getElementById("ConfirmPassword").value;
+    if (password != passConfirm){
+        document.getElementById("passwordConfirmError").innerHTML = "Las contraseñas no coinciden.";
+    }
+    else{
+        document.getElementById("passwordConfirmError").innerHTML = ""; 
+    }
+}
+
+function validateClient(idClient){
+if (document.getElementById(idClient).value.length == 0 || document.getElementById(idClient).value.indexOf("Selecciona el cliente") == -1 ){
+    document.getElementById("ClientError").innerHTML = "Debe seleccionar un cliente.";
+}
+}
+
+function validateProjectName() {
+    if(document.getElementById("projectName").value.length < 5 ){
+        document.getElementById("nameError").innerHTML = "Debe colocar un nombre válido al proyecto(5 caracteres como mínimo).";
+    }
+    else{
+        document.getElementById("nameError").innerHTML = ""; 
+    }
+}
+
+function validateDate() {
+    if(document.getElementById("fechaInicio").value.length <= 0){
+        document.getElementById("dateErrorMessage").innerHTML = "Debe seleccionar una fecha de inicio para el proyecto.";
+    }
+    else{
+        document.getElementById("dateErrorMessage").innerHTML = ""; 
+    }
+}
+
+function validateDuration() {
+    if (document.getElementById("avrDuration").value.length <= 0) {
+        document.getElementById("avrDurationError").innerHTML = "Debes ingresar una duracion estimada.";
+    }
+    else {
+        document.getElementById("avrDurationError").innerHTML = "";
+    }
+}

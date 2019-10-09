@@ -25,29 +25,22 @@
                     </nav>
                     <div class="margin-b section">
                     </div>
-                    @using( Ajax.BeginForm( "Register" , "Account" , new AjaxOptions {
-                        HttpMethod = "POST" ,
-                        LoadingElementId = "loading" ,
-                        OnSuccess = "redirectToPage('../../LoginUsers/Index')" ,
-                        OnComplete = "complete" ,
-                        //OnFailure = "showError"*/
-
+                    @using( Html.BeginForm( "Register" , "Account" , FormMethod.Post , new {
+                        @onsubmit = "onSubmit()"
                     } ) )
                     {
-
-                        <h5 class="text-grey col s10 offset-s3">Registrar nuevo usuario</h5>
                         @Html.AntiForgeryToken( );
-                        @Html.ValidationSummary(true, "errorR", new { @class = "text-error"} )
-                        @Ajax.ViewContext.ViewBag.errorR;
 
+                        <div class="row center">
+                            @Html.ValidationSummary(true, "", new { @class = "red-text"} )
+                        </div>
 
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">
                                 <i class="text-grey material-icons prefix">mail</i>
-                                <input class="validate form-control" type="email" name="Email" id="Email" required />
+                                <input class="validate form-control" type="email" name="Email" id="Email" onblur="validateEmail('Email')" required />
                                 <label for="Email">Correo</label>
-                                @Html.LabelFor( m => m.Email , new { @class = ""} )
-                                @Html.ValidationMessageFor( m => m.Email , null , new { @class = "text-error"} )
+                                <span class="text-error" id="mailError"></span>
                             </div>
                         </div>
 
@@ -69,24 +62,22 @@
                         <div class="row margin-b">
                             <div class="input-field col s6  offset-s3">
                                 <i class="text-grey material-icons prefix">lock</i>
-                                <input class="validate form-control" type="password" name="Password" id="Password" required />
+                                <input class="validate form-control" type="password" name="Password" id="Password" required onblur="validatePassword('Password')" />
                                 @Html.LabelFor( m => m.Password , new {@class = "" } )
-                                @Html.ValidationMessageFor( m => m.Password , null , new {@class = "text-error"} )
+                                <span class="text-error" id="passwordError"></span>
                             </div>
                         </div>
 
                         <div class="row margin-b">
                             <div class="input-field col s6  offset-s3">
                                 <i class=" text-grey material-icons prefix">lock</i>
-                                <input class="validate form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" required />
+                                <input class="validate form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" required onblur="validateConfirmPass() " onfocus="validateConfirmPass()" />
                                 @Html.LabelFor( m => m.ConfirmPassword , new {@class = "" } )
-                                @Html.ValidationMessageFor( m => m.ConfirmPassword , null , new { @class = "text-error" } )
+                                <span class="text-error" id="passwordConfirmError"></span>
                             </div>
                         </div>
 
-
-
-                        <div class=" row container center" id="loading" style="display:none;">
+                        <div class="hide row container center" id="loading">
                             <div class="">
                                 <i class="material-icons text-turq ">info_outline</i>
                             </div>
@@ -118,7 +109,6 @@
                             @Html.ActionLink("Cancelar", "../LoginUsers/Index", null, new {@class = "margin-r waves-effect red-hover btn red accent-4"} )
                             <button type="submit" class=" margin-l btn waves-effect waves-light turq btn-login modal-trigger">REGISTRAR</button>
                         </div>
-
                         <div class="margin-b section">
                         </div>
                     }

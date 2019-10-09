@@ -61,6 +61,7 @@ namespace ControlCalidad.Controllers
         // GET: LoginUsers/Edit/5
         public ActionResult Edit( string id )
         {
+
             if( id == null )
             {
                 return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
@@ -82,6 +83,8 @@ namespace ControlCalidad.Controllers
         {
             if( ModelState.IsValid )
             {
+                //if( db.AspNetUsers.Find( aspNetUser.UserName ) != null )
+                //{
                 var roleId = "";
                 switch( aspNetUser.Role )
                 {
@@ -102,12 +105,6 @@ namespace ControlCalidad.Controllers
                     roleId = "1";
                     break;
                 }
-                /*
-                if( ( userRoles.AspNetUserRoles.Where( userExist => userExist.UserId == aspNetUser.Id ).Any( ) == true) )
-                {
-                   AspNetUserRole userRoleToDelete = userRoles.AspNetUserRoles.Find( aspNetUser.Id);
-                    userRoles.AspNetUserRoles.Remove( userRoleToDelete );
-                }*/
 
                 AspNetUser aspNetUserToDelete = db.AspNetUsers.Find( aspNetUser.Id );
                 db.AspNetUsers.Remove( aspNetUserToDelete );
@@ -121,12 +118,25 @@ namespace ControlCalidad.Controllers
                 db.AspNetUsers.Add( aspNetUser );
                 userRoles.AspNetUserRoles.Add( userRole );
 
-                db.SaveChanges( );
-                userRoles.SaveChanges( );
+                try
+                {
+                    db.SaveChanges( );
+                    userRoles.SaveChanges( );
 
-                return RedirectToAction( "Index" );
+                    return RedirectToAction( "Index" );
+                }
+                catch( Exception e )
+                {
+                    return RedirectToAction( "Edit" , new {
+                        id = aspNetUser.Id
+                    } );
+                }
+
+                //}
             }
-            return View( aspNetUser );
+            return RedirectToAction( "Edit" , new {
+                id = aspNetUser.Id
+            } );
         }
 
         // GET: LoginUsers/Delete/5
