@@ -23,22 +23,17 @@
 
             </div>
 
-            @using( Ajax.BeginForm( "Edit" , new AjaxOptions {
-                HttpMethod = "POST" ,
-                LoadingElementId = "loading" ,
-                OnSuccess = "redirectToPage('../Index')" ,
-                OnComplete = "complete" ,
-
-            } ) )
+            @using (Html.BeginForm())
             {
-                @Html.AntiForgeryToken( )
+                List<SelectListItem> provinces = (List<SelectListItem>)ViewBag.provinces;
+                @Html.AntiForgeryToken()
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor( model => model.cedulaPK )
+                @Html.HiddenFor(model => model.cedulaPK)
 
 
                 <div class="row">
-                    <div class="col s6">
+                    <div class="col s4">
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">account_circle</i>
@@ -65,7 +60,9 @@
                                 @Html.ValidationMessageFor(model => model.apellido2, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
 
+                    <div class="col s4">
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">perm_identity</i>
@@ -83,9 +80,7 @@
                                 @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col s6">
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">mail</i>
@@ -94,46 +89,30 @@
                                 @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
 
-                        @* /*
-        <div class="row margin-b">
-            <i class=" small text-grey col s1 offset-s3 material-icons prefix">place</i>
-            <div class="input-field col s5">
-                @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
-                <Select id="Provincia" name="Provincia">
-                    <option value="" disabled selected>Seleccione una provincia.</option>
-                    @Html.DropDownList("prov", null, htmlAttributes: new { @class = "form-control" })
-                </Select>
-                <label for="Provinicia">Provincia</label>
-            </div>
-        </div>
-        */
-                        *@
+                    <div class="col s4">
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">place</i>
-                                @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger" })
+                                @if (ViewBag.provinces != null)
+                                {
+                                    @Html.DropDownList("provincia", provinces, "Seleccione una provincia")
+                                }
                             </div>
                         </div>
 
                         <div class="row margin-b">
-                            <i class=" small text-grey col s1 offset-s1 material-icons prefix">place</i>
-                            <div class="input-field col s9">
-                                @Html.LabelFor(model => model.canton, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.canton, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.canton, "", new { @class = "text-danger" })
+                            <div class="input-field col s10 offset-s1">
+                                <i class="p-size text-grey material-icons prefix">place</i>
+                                @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione un canton", new { @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="row margin-b">
-                            <i class="small text-grey col s1 offset-s1 material-icons prefix">place</i>
-                            <div class="input-field col s9">
-                                @Html.LabelFor(model => model.distrito, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.distrito, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.distrito, "", new { @class = "text-danger" })
-                                <label for="distrito">Distrito</label>
+                            <div class="input-field col s10 offset-s1">
+                                <i class="p-size text-grey material-icons prefix">place</i>
+                                @Html.DropDownListFor(model => model.distrito, new SelectList(" "), "Seleccione un distrito", new { @class = "form-control" })
                             </div>
                         </div>
 
@@ -147,32 +126,6 @@
                         </div>
                     </div>
 
-                </div>
-
-                <div class=" row container center" id="loading" style="display:none;">
-                    <div class="">
-                        <i class="material-icons text-turq ">info_outline</i>
-                    </div>
-                    <div class="">
-                        <p class="text-turq">
-                            Editando... Por favor espere.
-                        </p>
-                    </div>
-
-                    <div class="progress">
-                        <div class="indeterminate"></div>
-                    </div>
-                </div>
-
-                <div class=" row container center hide " id="complete">
-                    <div class="">
-                        <i class="material-icons text-turq ">info_outline</i>
-                    </div>
-                    <div class="">
-                        <p class="text-turq">
-                            Se editó correctamente.
-                        </p>
-                    </div>
                 </div>
 
                 <div class="margin-b1">
@@ -195,4 +148,42 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/materializeD")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/ajax")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#provincia").change(function () {
+
+                var output = "";
+                $.get("/localizations/cantonesList", { provincia: $("#provincia").val() }, function (data) {
+                    $('#canton').children().remove().end()
+                    $.each(data, function (index, row) {
+                        $("#canton").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
+                    });
+                    $('select').formSelect();
+                });
+            })
+        });
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            $("#canton").change(function () {
+
+                var output = "";
+                $.get("/localizations/districtsList", { provincia: $("#provincia").val(),canton: $("#canton").val() }, function (data) {
+                    $('#distrito').children().remove().end()
+                    $.each(data, function (index, row) {
+                        $("#distrito").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
+                    });
+                    $('select').formSelect();
+                });
+            })
+        });
+    </script>
 }
