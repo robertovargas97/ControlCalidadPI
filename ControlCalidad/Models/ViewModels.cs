@@ -86,7 +86,7 @@ namespace ControlCalidad.Models
         {
             get; set;
         }
-           
+
         public string apellido1
         {
             get; set;
@@ -103,6 +103,29 @@ namespace ControlCalidad.Models
         }
 
         public string disponibilidad
+        {
+            get; set;
+        }
+    }
+
+    public class Leader
+    {
+        public string nombreP
+        {
+            get; set;
+        }
+
+        public string apellido1
+        {
+            get; set;
+        }
+
+        public string apellido2
+        {
+            get; set; 
+        }
+            
+        public string nombreCompleto
         {
             get; set;
         }

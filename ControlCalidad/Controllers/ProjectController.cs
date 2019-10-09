@@ -38,6 +38,7 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.projectLeader = GetLeaderName(id);
             return View(proyecto);
         }
 
@@ -84,6 +85,7 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound();
             }
+            
             ViewBag.leaders = employeeController.GetLeaders( );
             ViewBag.allClientsId = clientController.GetClients( );
             ViewBag.cedulaClienteFK = proyecto.cedulaClienteFK;
@@ -155,6 +157,30 @@ namespace ControlCalidad.Controllers
             db.Proyectoes.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public string GetLeaderName(int? id)
+        {
+            string projectLeader = "";
+            if (id != null)
+            {
+                string query = "SELECT	E.nombreP, E.apellido1, E.apellido2 FROM ControlCalidad.TrabajaEn TE JOIN ControlCalidad.Empleado E ON E.cedulaPK = TE.cedula_empleadoFK " +
+                    "WHERE TE.id_proyectoFK = " + id + " AND TE.rol = 'Lider';";
+                List<Leader> leader = db.Database.SqlQuery<Leader>(query).ToList();
+                foreach (Leader l in leader)
+                {
+                    l.nombreCompleto = l.nombreP + " " + l.apellido1 + " " + l.apellido2;
+
+                }
+                if (leader.Count() > 0)
+                {
+                    Leader leaderForProject = leader.Last();
+                    projectLeader = leaderForProject.nombreCompleto;
+                }
+                
+            }
+            
+            return projectLeader;
         }
 
         protected override void Dispose(bool disposing)
