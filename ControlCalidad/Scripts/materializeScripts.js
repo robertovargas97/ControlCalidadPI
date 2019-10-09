@@ -108,3 +108,39 @@ function validateDuration() {
         document.getElementById("avrDurationError").innerHTML = "";
     }
 }
+
+function validateNameClient() {
+    if (document.getElementById("nameClient").value.length <= 0) {
+        document.getElementById("nameClientError").innerHTML = "Debes ingresar un nombre.";
+    }
+    else {
+        document.getElementById("nameClientError").innerHTML = "";
+    }
+}
+
+function validateSurnameClient() {
+    if (document.getElementById("surnameClient").value.length <= 0) {
+        document.getElementById("surnameClientError").innerHTML = "Debes ingresar el primer apellido.";
+    }
+    else {
+        document.getElementById("surnameClientError").innerHTML = "";
+    }
+}
+
+function validateSecondSurnameClient() {
+    if (document.getElementById("secondSurnameClient").value.length <= 0) {
+        document.getElementById("secondSurnameClientError").innerHTML = "Debes ingresar el segundo apellido.";
+    }
+    else {
+        document.getElementById("secondSurnameClientError").innerHTML = "";
+    }
+}
+
+function validateIdClient() {
+    if (document.getElementById("idClient").value.length <= 0) {
+        document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula.";
+    }
+    else {
+        document.getElementById("idClientError").innerHTML = "";
+    }
+}

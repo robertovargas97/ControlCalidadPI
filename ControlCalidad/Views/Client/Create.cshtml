@@ -22,7 +22,11 @@
             <div class="margin-b section">
 
             </div>
-            @using (Html.BeginForm())
+
+            @using (Html.BeginForm("Create", "Client", FormMethod.Post, new
+            {
+                @onsubmit = "onSubmit()"
+            }))
             {
                 List<SelectListItem> provinces = (List<SelectListItem>)ViewBag.provinces;
                 @Html.AntiForgeryToken()
@@ -35,8 +39,8 @@
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">account_circle</i>
                                 @Html.LabelFor(model => model.nombreP, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.nombreP, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.nombreP, "", new { @class = "text-danger" })
+                                <input name="nombreP" type="text" required class="validate form-control" onblur="validateNameClient()" id="nameClient" />
+                                <span class="text-error" id="nameClientError"></span>
                             </div>
                         </div>
 
@@ -44,8 +48,8 @@
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">account_circle</i>
                                 @Html.LabelFor(model => model.apellido1, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.apellido1, "", new { @class = "text-danger" })
+                                <input name="apellido1" type="text" required class="validate form-control" onblur="validateSurnameClient()" id="surnameClient" />
+                                <span class="text-error" id="surnameClientError"></span>
                             </div>
                         </div>
 
@@ -53,8 +57,8 @@
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">account_circle</i>
                                 @Html.LabelFor(model => model.apellido2, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.apellido2, "", new { @class = "text-danger" })
+                                <input name="apellido2" type="text" required class="validate form-control" onblur="validateSecondSurnameClient()" id="secondSurnameClient" />
+                                <span class="text-error" id="secondSurnameClientError"></span>
                             </div>
                         </div>
 
@@ -65,8 +69,8 @@
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">perm_identity</i>
                                 @Html.LabelFor(model => model.cedulaPK, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.cedulaPK, "", new { @class = "text-danger" })
+                                <input name="cedulaPK" type="text" required class="validate form-control" onblur="validateIdClient()" id="idClient" />
+                                <span class="text-error" id="idClientError"></span>
                             </div>
                         </div>
 
@@ -79,22 +83,22 @@
                             </div>
                         </div>
 
+
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">mail</i>
-                                @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
+                                <input class="validate form-control" type="email" name="correo" id="Email" onblur="validateEmail('Email')" required />
+                                <label for="correo">Correo</label>
+                                <span class="text-error" id="mailError"></span>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="col s4">
 
 
                         <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
+                            <div class="input-field col s10 offset-1">
                                 <i class="p-size text-grey material-icons prefix">place</i>
                                 @if (ViewBag.provinces != null)
                                 {
@@ -104,30 +108,29 @@
                         </div>
 
                         <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
+                            <div class="input-field col s10 offset-1">
                                 <i class="p-size text-grey material-icons prefix">place</i>
                                 @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione un canton", new { @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
+                            <div class="input-field col s10 offset-1">
                                 <i class="p-size text-grey material-icons prefix">place</i>
                                 @Html.DropDownListFor(model => model.distrito, new SelectList(" "), "Seleccione un distrito", new { @class = "form-control" })
                             </div>
                         </div>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
-                                <i class="p-size text-grey material-icons prefix">place</i>
-                                @Html.LabelFor(model => model.direccionExacta, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.direccionExacta, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.direccionExacta, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
                     </div>
 
+                    <div class="row margin-b">
+                        <div class="input-field col s10 offset-s1">
+                            <i class="p-size text-grey material-icons prefix">place</i>
+                            @Html.LabelFor(model => model.direccionExacta, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.direccionExacta, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.direccionExacta, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
 
                 <div class="margin-b1">
