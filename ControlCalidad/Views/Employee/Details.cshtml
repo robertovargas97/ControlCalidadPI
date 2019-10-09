@@ -22,7 +22,7 @@
                     <div class="col s6">
                         <div class="col s12 margin-b1">
                             <p class="p-size">
-                                <i class="material-icons left text-grey">person</i>
+                                <i class="material-icons left text-grey">description</i>
                                 <span class="text-turq"> Nombre de empleado </span>
                                 : @Html.DisplayFor(model => model.nombreP)
                             </p>
@@ -30,7 +30,7 @@
 
                         <div class="col s12 margin-b1">
                             <p class="p-size">
-                                <i class="material-icons left text-grey">person</i>
+                                <i class="material-icons left text-grey">description</i>
                                 <span class="text-turq"> Primer apellido  </span>
                                 : @Html.DisplayFor(model => model.apellido1)
                             </p>
@@ -175,8 +175,9 @@
                 <hr />
             </div>
             <div class="modal-footer">
-                @Html.ActionLink("Aceptar", "RemoveEmployee", new { employeeId = Model.cedulaPK }, new { @class = "waves-effect red-hover btn red accent-4" })
-                <a class="modal-close btn waves-effect waves-light turq white-text">Cancelar</a>
+                
+                    @Html.ActionLink("Aceptar", "RemoveEmployee",null, new { employeeId = Model.cedulaPK }, new { @class = "waves-effect red-hover btn red accent-4" })
+                    <a class="modal-close btn waves-effect waves-light turq white-text">Cancelar</a>
             </div>
         </div>
     </div>
