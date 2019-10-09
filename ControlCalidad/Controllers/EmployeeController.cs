@@ -199,10 +199,14 @@ namespace ControlCalidad.Controllers
             return leadersItemList;
         }
 
-        
 
-        
 
-        
+
+        public string employeeName(string id)
+        {
+            List<Empleado> empleado = db.Empleadoes.Where(x => x.cedulaPK == id).ToList();
+            return empleado[0].nombreP;
+        }
+
     }
 }
