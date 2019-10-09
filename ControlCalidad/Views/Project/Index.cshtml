@@ -20,42 +20,50 @@
     <table class="table striped">
         <tr>
             <th class="center black white-text">
-                @Html.DisplayNameFor(model => model.nombre)
+                @Html.DisplayNameFor( model => model.nombre )
             </th>
-           
+
             <th class="center black white-text">
-                @Html.DisplayNameFor(model => model.estado)
+                @Html.DisplayNameFor( model => model.estado )
             </th>
-           
+
             <th class="center black white-text">
-                @Html.DisplayName("Nombre Cliente")
+                @Html.DisplayName( "Nombre Cliente" )
             </th>
             <th class="center black white-text">
-                @Html.DisplayName("Acción")
+                @Html.DisplayName( "Acción" )
+            </th>
+            <th class="center black white-text">
+                @Html.DisplayName( "Equipo" )
             </th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td class="center">
-                    @Html.DisplayFor(modelItem => item.nombre)
-                </td>
- 
-                <td class="center">
-                    @Html.DisplayFor(modelItem => item.estado)
-                </td>
-   
-                <td class="center">
-                    @Html.DisplayFor(modelItem => item.Cliente.nombreP)
-                </td>
-                <td class="center">
-                  
-                    @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
-                    new { @class =  "waves-effect waves-light btn black turq-hover"}
-                    ) 
-                </td>
-            </tr>
+        <tr>
+            <td class="center">
+                @Html.DisplayFor( modelItem => item.nombre )
+            </td>
+
+            <td class="center">
+                @Html.DisplayFor( modelItem => item.estado )
+            </td>
+
+            <td class="center">
+                @Html.DisplayFor( modelItem => item.Cliente.nombreP )
+            </td>
+            <td class="center">
+
+                @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
+                new { @class =  "waves-effect waves-light btn black turq-hover"}
+                )
+            </td>
+            <td class="center">
+                @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id = item.idPK },
+                new { @class =  "waves-effect waves-light btn black turq-hover"}
+                )
+            </td>
+        </tr>
         }
 
     </table>
