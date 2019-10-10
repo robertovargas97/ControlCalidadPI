@@ -10,12 +10,12 @@
 <div class="margin-b1">
     <hr />
 </div>
-@{ 
+@{
 
     int? projectId = ViewBag.projectId;
-    
 
-    <div class="fixed-action-btn">
+
+    <div id="btn-add" class="fixed-action-btn">
         <a href="@Url.Action("Create New", "Project/Create")" class="btn-floating btn-large black turq-hover">
             <i class="large material-icons">add</i>
         </a>
@@ -25,41 +25,41 @@
         <table class="table striped">
             <tr>
                 <th class="center black white-text">
-                    @Html.DisplayNameFor(model => model.nombre)
+                    @Html.DisplayNameFor( model => model.nombre )
                 </th>
 
                 <th class="center black white-text">
-                    @Html.DisplayNameFor(model => model.estado)
+                    @Html.DisplayNameFor( model => model.estado )
                 </th>
 
                 <th class="center black white-text">
-                    @Html.DisplayName("Nombre Cliente")
+                    @Html.DisplayName( "Nombre Cliente" )
                 </th>
                 <th class="center black white-text">
-                    @Html.DisplayName("Acción")
+                    @Html.DisplayName( "Acción" )
                 </th>
                 <th class="center black white-text">
-                    @Html.DisplayName("Equipo")
+                    @Html.DisplayName( "Equipo" )
                 </th>
             </tr>
 
-            @foreach (var item in Model)
+            @foreach( var item in Model )
             {
-                if ((User.IsInRole("Tester") || User.IsInRole("Lider")) && projectId != null)
+                if( ( User.IsInRole( "Tester" ) || User.IsInRole( "Lider" ) ) && projectId != null )
                 {
-                    if (item.idPK == projectId)
+                    if( item.idPK == projectId )
                     {
                         <tr>
                             <td class="center">
-                                @Html.DisplayFor(modelItem => item.nombre)
+                                @Html.DisplayFor( modelItem => item.nombre )
                             </td>
 
                             <td class="center">
-                                @Html.DisplayFor(modelItem => item.estado)
+                                @Html.DisplayFor( modelItem => item.estado )
                             </td>
 
                             <td class="center">
-                                @Html.DisplayFor(modelItem => item.Cliente.nombreP)
+                                @Html.DisplayFor( modelItem => item.Cliente.nombreP )
                             </td>
                             <td class="center">
 
@@ -73,22 +73,22 @@
                           )
                             </td>
                         </tr>
-                        
+
                     }
                 }
                 else
                 {
                     <tr>
                         <td class="center">
-                            @Html.DisplayFor(modelItem => item.nombre)
+                            @Html.DisplayFor( modelItem => item.nombre )
                         </td>
 
                         <td class="center">
-                            @Html.DisplayFor(modelItem => item.estado)
+                            @Html.DisplayFor( modelItem => item.estado )
                         </td>
 
                         <td class="center">
-                            @Html.DisplayFor(modelItem => item.Cliente.nombreP)
+                            @Html.DisplayFor( modelItem => item.Cliente.nombreP )
                         </td>
                         <td class="center">
 
@@ -108,4 +108,14 @@
         </table>
 
     </div>
+}
+
+@{
+
+    if( User.IsInRole( "Lider" ) || User.IsInRole( "Tester" ) || User.IsInRole( "Cliente" ) )
+    {
+        <script>
+            document.getElementById("btn-add").classList.add("hide");
+        </script>
+    }
 }
