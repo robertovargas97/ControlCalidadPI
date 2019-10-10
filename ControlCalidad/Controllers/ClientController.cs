@@ -94,7 +94,17 @@ namespace ControlCalidad.Controllers
             if ( ModelState.IsValid )
             {
                 db.Clientes.Add( cliente );
-                await db.SaveChangesAsync( );
+                try
+                {
+                    await db.SaveChangesAsync( );
+                }
+
+                catch
+                {
+                    ModelState.AddModelError( "" , "No puede crear clientes con la misma cédula" );
+                    return View( cliente );
+
+                }
                 return RedirectToAction( "Index" );
             }
 
