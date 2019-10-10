@@ -100,24 +100,7 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,edad,telefono,correo,provincia,canton,distrito,direccionExacta,disponibilidad")] Empleado empleado)
         {
-            var sql =
-                from a in db.Empleadoes
-                where a.cedulaPK == editID
-                select a;
-            foreach (var a in sql)
-            {
-                db.Empleadoes.Remove(a);
-                break;
-            }
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                // Provide for exceptions.
-            }
+           
             if (ModelState.IsValid)
             {
                 string provinceName = localizations.provinceName(empleado.provincia);
@@ -126,7 +109,7 @@ namespace ControlCalidad.Controllers
                 empleado.provincia = provinceName;
                 empleado.canton = cantonName;
                 empleado.distrito = districtName;
-                db.Empleadoes.Add(empleado);
+                db.Entry(empleado).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
