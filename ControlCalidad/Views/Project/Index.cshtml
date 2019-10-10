@@ -10,64 +10,102 @@
 <div class="margin-b1">
     <hr />
 </div>
+@{ 
+
+    int? projectId = ViewBag.projectId;
     
-<div class="fixed-action-btn">
-    <a href="@Url.Action( "Create New" , "Project/Create" )" class="btn-floating btn-large black turq-hover">
-        <i class="large material-icons">add</i>
-    </a>
-</div>
 
-<div class="card">
-    <table class="table striped">
-        <tr>
-            <th class="center black white-text">
-                @Html.DisplayNameFor( model => model.nombre )
-            </th>
+    <div class="fixed-action-btn">
+        <a href="@Url.Action("Create New", "Project/Create")" class="btn-floating btn-large black turq-hover">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
 
-            <th class="center black white-text">
-                @Html.DisplayNameFor( model => model.estado )
-            </th>
+    <div class="card">
+        <table class="table striped">
+            <tr>
+                <th class="center black white-text">
+                    @Html.DisplayNameFor(model => model.nombre)
+                </th>
 
-            <th class="center black white-text">
-                @Html.DisplayName( "Nombre Cliente" )
-            </th>
-            <th class="center black white-text">
-                @Html.DisplayName( "Acción" )
-            </th>
-            <th class="center black white-text">
-                @Html.DisplayName( "Equipo" )
-            </th>
-        </tr>
+                <th class="center black white-text">
+                    @Html.DisplayNameFor(model => model.estado)
+                </th>
 
-        @foreach (var item in Model)
-        {
+                <th class="center black white-text">
+                    @Html.DisplayName("Nombre Cliente")
+                </th>
+                <th class="center black white-text">
+                    @Html.DisplayName("Acción")
+                </th>
+                <th class="center black white-text">
+                    @Html.DisplayName("Equipo")
+                </th>
+            </tr>
 
-        <tr>
-            <td class="center">
-                @Html.DisplayFor( modelItem => item.nombre )
-            </td>
+            @foreach (var item in Model)
+            {
+                if ((User.IsInRole("Tester") || User.IsInRole("Lider")) && projectId != null)
+                {
+                    if (item.idPK == projectId)
+                    {
+                        <tr>
+                            <td class="center">
+                                @Html.DisplayFor(modelItem => item.nombre)
+                            </td>
 
-            <td class="center">
-                @Html.DisplayFor( modelItem => item.estado )
-            </td>
+                            <td class="center">
+                                @Html.DisplayFor(modelItem => item.estado)
+                            </td>
 
-            <td class="center">
-                @Html.DisplayFor( modelItem => item.Cliente.nombreP )
-            </td>
-            <td class="center">
+                            <td class="center">
+                                @Html.DisplayFor(modelItem => item.Cliente.nombreP)
+                            </td>
+                            <td class="center">
 
-                @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
-                new { @class =  "waves-effect waves-light btn black turq-hover"}
-                )
-            </td>
-            <td class="center">
-                @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id = item.idPK },
-                new { @class =  "waves-effect waves-light btn black turq-hover"}
-                )
-            </td>
-        </tr>
-        }
+                                @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
+                          new { @class = "waves-effect waves-light btn black turq-hover" }
+                          )
+                            </td>
+                            <td class="center">
+                                @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id = item.idPK },
+                          new { @class = "waves-effect waves-light btn black turq-hover" }
+                          )
+                            </td>
+                        </tr>
+                        
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="center">
+                            @Html.DisplayFor(modelItem => item.nombre)
+                        </td>
 
-    </table>
+                        <td class="center">
+                            @Html.DisplayFor(modelItem => item.estado)
+                        </td>
 
-</div>
+                        <td class="center">
+                            @Html.DisplayFor(modelItem => item.Cliente.nombreP)
+                        </td>
+                        <td class="center">
+
+                            @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
+                         new { @class = "waves-effect waves-light btn black turq-hover" }
+                         )
+                        </td>
+                        <td class="center">
+                            @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id = item.idPK },
+                         new { @class = "waves-effect waves-light btn black turq-hover" }
+                         )
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+
+    </div>
+}
