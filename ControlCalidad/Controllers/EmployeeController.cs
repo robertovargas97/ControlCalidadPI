@@ -67,7 +67,16 @@ namespace ControlCalidad.Controllers
             if (ModelState.IsValid)
             {
                 db.Empleadoes.Add(empleado);
-                await db.SaveChangesAsync();
+                try
+                {
+                    await db.SaveChangesAsync( );
+                }
+                catch
+                {
+                    ModelState.AddModelError( "" , "No puedo agregar usuarios con la misma cédula." );
+                    return View( empleado );
+                }
+               
                 return RedirectToAction("../Habilities/Index",new {cedula_empleado = empleado.cedulaPK });
             }
 
