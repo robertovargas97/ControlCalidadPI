@@ -34,7 +34,8 @@
                                 <div class="input-field col  s12">
                                     <i class="text-grey material-icons prefix">perm_identity</i>
                                     @Html.LabelFor(m => m.cedulaPK, "Cedula", new { @class = "" })
-                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control" }, @onkeydown = "validateEmployeeID(this)", @onkeyup = "validateEmployeeID(this)" })
+                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeID(this)", @onkeyup = "validateEmployeeID(this)" } })
+                                    @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
                                     @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
                                 </div>
                                 <div id="employeeIDError" class="center">
