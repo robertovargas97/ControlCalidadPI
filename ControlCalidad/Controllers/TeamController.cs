@@ -79,6 +79,13 @@ namespace ControlCalidad.Controllers
             {
                 cedulaPK = fc["IdNew"];
                 id_proyecto = Convert.ToInt32(fc["Project"]);
+                string sqls = "SELECT E.cedulaPK, E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'nombreP' FROM ControlCalidad.Empleado E JOIN ControlCalidad.TrabajaEn T ON T.cedula_empleadoFK = E.cedulaPK WHERE T.id_proyectoFK = " + id_proyecto;
+                List<DbResultE> team = db.Database.SqlQuery<DbResultE>(sqls).ToList();
+                if (team.Count == 5)
+                {
+                    return RedirectToAction("Edit", new { id_proyecto = id_proyecto });
+                }
+
                 sql = "INSERT INTO ControlCalidad.TrabajaEn VALUES('" + cedulaPK + "'," + id_proyecto + ", 'Tester')";
                 try
                 {
@@ -101,6 +108,8 @@ namespace ControlCalidad.Controllers
                 try
                 {
                     result = db.Database.ExecuteSqlCommand(sql);
+                    sql = "DELETE FROM ControlCalidad.Tester WHERE cedula_empleadoFK = '" +cedulaPK + "';";
+                    result = db.Database.ExecuteSqlCommand(sql);
                     sql = "UPDATE ControlCalidad.Empleado SET disponibilidad = 'Disponible' WHERE cedulaPK = '" + cedulaPK + "'";
                     result = db.Database.ExecuteSqlCommand(sql);
                 }
@@ -109,7 +118,7 @@ namespace ControlCalidad.Controllers
                     Console.WriteLine(e);
                 }
             }
-            return RedirectToAction("../Project/Index");
+            return RedirectToAction("Edit", new { id_proyecto = id_proyecto });
         }
 
         protected override void Dispose(bool disposing)

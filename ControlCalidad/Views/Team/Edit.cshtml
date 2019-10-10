@@ -116,6 +116,7 @@
                 </div>
                 <div class="margin-b section">
                 </div>
+                @*<label id="Error" style="color: red; font-size: 19px; vertical-align: 30px; padding-left: 260px;">*El equipo tiene 5 miembros</label>*@
             </div>
         </div>
     </div>
@@ -129,10 +130,10 @@
      * Return: None
      * */
     function setIdNew(id) {
-        if ($('#CedulaN').val() != "") {
-            $('#' + $('#CedulaN').val()).removeClass("active");
+        if ($('#IdNew').val() != "") {
+            $('#' + $('#IdNew').val()).removeClass("active");
         }
-        $('#CedulaN').val(id);
+        $('#IdNew').val(id);
         $('#' + id).addClass("active");
     }
 
@@ -142,10 +143,10 @@
      * Return: None
      * */
     function setIdMember(id) {
-        if ($('#CedulaT').val() != "") {
-            $('#' + $('#CedulaT').val()).removeClass("active");
+        if ($('#IdMember').val() != "") {
+            $('#' + $('#IdMember').val()).removeClass("active");
         }
-        $('#CedulaT').val(id);
+        $('#IdMember').val(id);
         $('#' + id).addClass("active");
     }
 
