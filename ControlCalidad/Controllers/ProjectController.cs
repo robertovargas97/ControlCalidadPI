@@ -103,9 +103,11 @@ namespace ControlCalidad.Controllers
             if (ModelState.IsValid)
             {    
                 db.Entry(proyecto).State = EntityState.Modified;
+                EditProjectLeader(newProjectLeader, proyecto.idPK);
+                
                 await db.SaveChangesAsync();
                 
-                EditProjectLider(newProjectLeader, proyecto.idPK);
+                
                 return RedirectToAction("Index");
             }
             ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
@@ -209,14 +211,16 @@ namespace ControlCalidad.Controllers
 
                 db.TrabajaEns.Add(TrabajaEn);
 
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
 
         }
 
-        public void EditProjectLider(string cedulaNuevaLider, int id)
+        public void EditProjectLeader(string newProjectLeader, int id)
         {
-            string projectLeader = "";
+            if (newProjectLeader != "")
+            {
+                string projectLeader = "";
 
                 string query = "SELECT	E.cedulaPK FROM ControlCalidad.TrabajaEn TE JOIN ControlCalidad.Empleado E ON E.cedulaPK = TE.cedula_empleadoFK " +
                     "WHERE TE.id_proyectoFK = " + id + " AND TE.rol = 'Lider';";
@@ -225,15 +229,23 @@ namespace ControlCalidad.Controllers
                 {
                     CedulaLider leaderForProject = leader.Last();
                     projectLeader = leaderForProject.cedulaPK;
+
+
+                    //Actualiza el estado del lider anterior a disponible.
+                    var employee = db.Empleadoes.Find(projectLeader);
+                    employee.disponibilidad = employee.disponibilidad.Replace("Ocupado", "Disponible");
+                    //Extrae la tupla del lider en el equipo
+                    var leaderInfo = db.TrabajaEns.Find(employee.cedulaPK, id);
+                    db.TrabajaEns.Remove(leaderInfo);
+
+                    SetLeaderToProject(newProjectLeader, id, "Lider");
+                }
+                else {
+                    SetLeaderToProject(newProjectLeader, id, "Lider");
                 }
 
-                //Actualiza el estado del lider anterior a disponible.
-                var employee = db.Empleadoes.Find(projectLeader);
-                employee.disponibilidad = employee.disponibilidad.Replace("Ocupado", "Disponible");
-
-                SetLeaderToProject(cedulaNuevaLider, id, "Lider");
-
-                db.SaveChangesAsync();
+                db.SaveChanges();
+            }
             
         }
 

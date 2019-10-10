@@ -125,7 +125,8 @@ function validateEmployeeName(inputtxt) {
     }
     else {
         var err = document.getElementById("employeeNameError");
-        err.innerHTML = "Digite caracteres validos";
+        err.innerHTML = "<span class=red-text>Digite caracteres validos</span>";
+
     }
 }
 function validateEmployeeSurname(inputtxt) {
@@ -136,7 +137,7 @@ function validateEmployeeSurname(inputtxt) {
     }
     else {
         var err = document.getElementById("employeeSurnameError1");
-        err.innerHTML = "Digite caracteres validos";
+        err.innerHTML = "<span class=red-text>Digite caracteres validos</span>";
     }
 }
 function validateEmployeeSurname2(inputtxt) {
@@ -147,20 +148,20 @@ function validateEmployeeSurname2(inputtxt) {
     }
     else {
         var err = document.getElementById("employeeSurnameError2");
-        err.innerHTML = "Digite caracteres validos";
+        err.innerHTML = "<span class=red-text>Digite caracteres validos</span>";
     }
 }
 function validateEmployeeAge(inputtxt) {
     var letters = /^[a-zA-Z\s-]*$/;
     var err = document.getElementById("employeeAgeError");
     if (inputtxt.value.match(letters)) {
-        err.innerHTML = "Digite caracteres validos";
+        err.innerHTML = "<span class=red-text>Digite caracteres numericos</span>";
     }
     else {
         if (parseInt(inputtxt.value, 10) > 18 && parseInt(inputtxt.value, 10) < 100) {
             err.innerHTML = " "
         } else {
-            err.innerHTML = "Digite una edad valida";
+            err.innerHTML = "<span class=red-text>Digite una edad valida</span>";
         }
 
     }
@@ -171,7 +172,27 @@ function validateEmployeeEmail(inputtxt) {
         err.innerHTML = "";
     } else {
         var err = document.getElementById("employeeEmailError");
-        err.innerHTML = "Digite un correo valido";
+        err.innerHTML = "<span class=red-text>Digite un correo valido</span>";
+    }
+}
+function validateEmployeePhoneNumber(inputtxt) {
+    var letters = /^[0-9]*$/;
+    var err = document.getElementById("employeePhoneError");
+    if (inputtxt.value.match(letters)) {
+        err.innerHTML = "";
+    }
+    else {
+        err.innerHTML = `<span class=red-text>Digite un valores numericos </span>`;
+    }
+}
+function validateEmployeeID(inputtxt) {
+    var letters = /^[0-9]*$/;
+    var err = document.getElementById("employeeIDError");
+    if (inputtxt.value.match(letters)) {
+        err.innerHTML = "";
+    }
+    else {
+        err.innerHTML = `<span class=red-text>Digite un valores numericos </span>`;
     }
 }
 

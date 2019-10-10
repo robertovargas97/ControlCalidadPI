@@ -11,7 +11,6 @@ namespace ControlCalidad.Models
 {
     using System;
     using System.Collections.Generic;
-    
     public partial class TrabajaEn
     {
         public string cedula_empleadoFK { get; set; }
