@@ -31,97 +31,104 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("CedulaN", "", new { @id = "CedulaN" })
-    @Html.Hidden("CedulaT", "", new { @id = "CedulaT" })
-    @Html.Hidden("Hability", "", new { @id = "Hability" })
-    @Html.Hidden("Proyecto", "", new { Value = ViewBag.id_proyecto, @id = "Proyecto" })
+    @Html.Hidden("IdNew", "", new { @id = "IdNew" })
+    @Html.Hidden("IdMember", "", new { @id = "IdMember" })
+    @Html.Hidden("Ability", "", new { @id = "Ability" })
+    @Html.Hidden("Project", "", new { Value = ViewBag.id_proyecto, @id = "Project" })
 
 
-    <div class="form-horizontal">
-        <h3 class="text-grey">Proyecto @ViewBag.project_name</h3>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    <h3 class="text-grey">Proyecto @ViewBag.project_name</h3>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+    <!-- Search box -->
     <form action="Edit">
         <i class="material-icons fixed">search</i>
-        <input type="text" id="hability" placeholder="Buscar por habilidades" style="width: 50%;">
-        <button type="submit" onclick="getHability()" class="btn btn-default" name="Buscar" value="Buscar" title="Buscar">Buscar</button>
+        <input type="text" id="ability" placeholder="Buscar por habilidades" style="width: 50%;">
+        <button type="submit" onclick="getAbility()" class="btn btn-default" name="Search" value="Search" title="Search">Buscar</button>
     </form>
 
-        <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-        <div class="row">
-            <div class="col s6">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="table-responsive collection">
-                            <table class="table striped">
-                                <tr>
-                                    <th class="center black white-text" style="width: 200%;">
-                                        @Html.DisplayName("Disponibles")
-                                    </th>
-                                </tr>
-                            </table>
-                            <table>
+    <div class="row">
+        <!-- Card for Available Employees -->
+        <div class="col s6">
+            <div class="card">
+                <div class="card-content">
+                    <div class="table-responsive collection">
+                        <table class="table striped">
+                            <tr>
+                                <th class="center black white-text" style="width: 200%;">
+                                    @Html.DisplayName("Disponibles")
+                                </th>
+                            </tr>
+                        </table>
+                        <table>
 
-                                <tbody>
-                                    @foreach (var tester in ViewBag.disponibles as SelectList)
-                                    {
-                                        <a href="javascript:setCedulaN(@tester.Value)" id="@tester.Value" class="collection-item">@tester.Text</a>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row center">
-                        <button type="submit" name="Asignar" value="Asignar" class="margin-l btn waves-effect waves-light turq white-text">Asignar</button>
-                    </div>
-                    <div class="margin-b section">
+                            <tbody>
+                                @foreach (var tester in ViewBag.disponibles as SelectList)
+                                {
+                                    <a href="javascript:setIdNew(@tester.Value)" id="@tester.Value" class="collection-item">@tester.Text</a>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+                <div class="row center">
+                    <button type="submit" name="Allocate" value="Allocate" class="margin-l btn waves-effect waves-light turq white-text">Asignar</button>
+                </div>
+                <div class="margin-b section">
+                </div>
             </div>
-            <div class="col s6">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="table-responsive collection">
-                            <table class="table striped">
-                                <tr>
-                                    <th class="center black white-text" style="width: 200%;">
-                                        @Html.DisplayName("Equipo")
-                                    </th>
-                                </tr>
-                            </table>
-                            <table>
+        </div>
+        <!-- Card for all employees in a team -->
+        <div class="col s6">
+            <div class="card">
+                <div class="card-content">
+                    <div class="table-responsive collection">
+                        <table class="table striped">
+                            <tr>
+                                <th class="center black white-text" style="width: 200%;">
+                                    @Html.DisplayName("Equipo")
+                                </th>
+                            </tr>
+                        </table>
+                        <table>
 
-                                <tbody>
-                                    @foreach (var team in ViewBag.cedula_empleadoFK as SelectList)
-                                    {
-                                        <a href="javascript:setCedulaT(@team.Value)" id="@team.Value" class="collection-item">@team.Text</a>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                            <tbody>
+                                @foreach (var team in ViewBag.cedula_empleadoFK as SelectList)
+                                {
+                                    <a href="javascript:setIdMember(@team.Value)" id="@team.Value" class="collection-item">@team.Text</a>
+                                }
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="row center">
-                        <button type="submit" name="Desasignar" value="Desasignar" class="margin-l btn waves-effect waves-light turq white-text">Desasignar</button>
-                    </div>
-                    <div class="margin-b section">
-                    </div>
+                </div>
+                <div class="row center">
+                    <button type="submit" name="Deallocate" value="Deallocate" class="margin-l btn waves-effect waves-light turq white-text">Desasignar</button>
+                </div>
+                <div class="margin-b section">
                 </div>
             </div>
         </div>
     </div>
+</div>
 }
 <script>
 
-
-    function setCedulaN(id) {
+    /*
+     * Function that extracts the ID if you add a new member, actuated by selecting a member in the table
+     * Parameters: id, represents the ID of the selected employee
+     * Return: None
+     * */
+    function setIdNew(id) {
         if ($('#CedulaN').val() != "") {
             $('#' + $('#CedulaN').val()).removeClass("active");
         }
@@ -129,7 +136,12 @@
         $('#' + id).addClass("active");
     }
 
-    function setCedulaT(id) {
+    /*
+     * Function that extracts the ID if you delete a member in a team, actuated by selecting a member in the table
+     * Parameters: id, represents the ID of the selected employee
+     * Return: None
+     * */
+    function setIdMember(id) {
         if ($('#CedulaT').val() != "") {
             $('#' + $('#CedulaT').val()).removeClass("active");
         }
@@ -137,8 +149,13 @@
         $('#' + id).addClass("active");
     }
 
-    function getHability() {
-        $('#Hability').val(document.getElementById("hability").value);
+    /*
+     * Function extract the skill inserted in the input, powered by submit
+     * Parameters: None
+     * Return: None
+     * */
+    function getAbility() {
+        $('#Ability').val(document.getElementById("ability").value);
     }
 
 </script>

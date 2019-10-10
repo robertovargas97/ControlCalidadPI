@@ -68,7 +68,7 @@
                           )
                             </td>
                             <td class="center">
-                                @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id = item.idPK },
+                                @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id_proyecto = item.idPK },
                           new { @class = "waves-effect waves-light btn black turq-hover" }
                           )
                             </td>
@@ -97,9 +97,9 @@
                          )
                         </td>
                         <td class="center">
-                            @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id = item.idPK },
-                         new { @class = "waves-effect waves-light btn black turq-hover" }
-                         )
+                            @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id_proyecto = item.idPK },
+                          new { @class = "waves-effect waves-light btn black turq-hover" }
+                          )
                         </td>
                     </tr>
                 }
