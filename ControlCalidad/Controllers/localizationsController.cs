@@ -62,7 +62,7 @@ namespace ControlCalidad.Controllers
         }
         public string cantonName(string strProvince,string strCanton)
         {
-            if (strProvince == null)
+            if (strProvince == null || strCanton == null)
             {
                 string empty = " ";
                 return empty;
@@ -74,7 +74,7 @@ namespace ControlCalidad.Controllers
         }
         public string districtName(string strProvince,  string strCanton, string strDistrict)
         {
-            if (strProvince == null)
+            if (strProvince == null || strCanton == null || strDistrict == null)
             {
                 string empty = " ";
                 return empty;
