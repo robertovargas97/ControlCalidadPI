@@ -57,3 +57,13 @@
         </div>
 
     </div>
+
+@{
+
+    if( User.IsInRole( "Jefe" ) )
+    {
+        <script>
+            alert("hola");
+        </script>
+    }
+}
