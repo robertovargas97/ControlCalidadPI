@@ -29,9 +29,12 @@
                         <div class="row margin-b">
                             <div class="input-field col  s12">
                                 <i class="text-grey material-icons prefix">perm_identity</i>
-                                <input class="validate form-control" type="text" name="cedulaPK" id="cedulaPK" required />
+                                <input class="validate form-control" type="text" name="cedulaPK" id="cedulaPK" required onkeydown="validateEmployeeID(this)" onkeyup="validateEmployeeID(this)" />
                                 @Html.LabelFor(m => m.cedulaPK, "Cedula", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
+                            </div>
+                            <div id="employeeIDError" class="center">
+
                             </div>
                         </div>
                         <div class="row margin-b">
@@ -52,7 +55,7 @@
                                 @Html.LabelFor(m => m.apellido1, "Primer apellido", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.apellido1, null, new { @class = "text-error" })
                             </div>
-                            <div id="employeeSurnameError1">
+                            <div id="employeeSurnameError1" class="center">
 
                             </div>
                         </div>
@@ -63,7 +66,7 @@
                                 @Html.LabelFor(m => m.apellido2, "Segundo apellido", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.apellido2, null, new { @class = "text-error" })
                             </div>
-                            <div id="employeeSurnameError2">
+                            <div id="employeeSurnameError2" class="center">
 
                             </div>
                         </div>
@@ -84,16 +87,19 @@
                                 @Html.LabelFor(m => m.edad, "Edad", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.edad, null, new { @class = "text-error" })
                             </div>
-                            <div id="employeeAgeError">
+                            <div id="employeeAgeError" class="center">
 
                             </div>
                         </div>
                         <div class="row margin-b">
                             <div class="input-field col s12">
                                 <i class="text-grey material-icons prefix">phone</i>
-                                <input class="validate form-control" type="text" name="telefono" id="telefono" required />
+                                <input class="validate form-control" type="text" name="telefono" id="telefono" required onkeydown="validateEmployeePhoneNumber(this)" onkeyup="validateEmployeePhoneNumber(this)"/>
                                 @Html.LabelFor(m => m.telefono, "Telefono", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.telefono, null, new { @class = "text-error" })
+                            </div>
+                            <div id="employeePhoneError" class="center">
+
                             </div>
                         </div>
                         <div class="row margin-b">
@@ -144,7 +150,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="text-grey material-icons prefix">date_range</i>
-                                <input class="validate form-control" type="text" name="direccionExacta" id="direccionExacta" required />
+                                <input class="validate form-control" type="text" name="direccionExacta" id="direccionExacta" />
                                 @Html.LabelFor(m => m.direccionExacta, "Direccion exacta", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.direccionExacta, null, new { @class = "text-error" })
                             </div>

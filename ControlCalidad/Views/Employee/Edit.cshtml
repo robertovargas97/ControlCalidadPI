@@ -34,32 +34,44 @@
                                 <div class="input-field col  s12">
                                     <i class="text-grey material-icons prefix">perm_identity</i>
                                     @Html.LabelFor(m => m.cedulaPK, "Cedula", new { @class = "" })
-                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control" }, @onkeydown = "validateEmployeeID(this)", @onkeyup = "validateEmployeeID(this)" })
                                     @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeIDError" class="center">
+
                                 </div>
                             </div>
                             <div class="row margin-b">
                                 <div class="input-field col s11 offset-1 ">
                                     <i class="text-grey material-icons prefix">account_circle</i>
-                                    @Html.LabelFor(m => m.nombreP, "Cedula", new { @class = "" })
-                                    @Html.EditorFor(model => model.nombreP, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.LabelFor(m => m.nombreP, "Nombre", new { @class = "" })
+                                    @Html.EditorFor(model => model.nombreP, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeName(this)", @onkeyup = "validateEmployeeName(this)" } })
                                     @Html.ValidationMessageFor(m => m.nombreP, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeNameError" class="center">
+
                                 </div>
                             </div>
                             <div class="row margin-b">
                                 <div class="input-field col  s11 offset-1">
                                     <i class="text-grey material-icons prefix">account_circle</i>
                                     @Html.LabelFor(m => m.apellido1, "Primer apellido", new { @class = "" })
-                                    @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control",@onkeydown="validateEmployeeSurname(this)" ,@onkeyup="validateEmployeeSurname(this)" } })
                                     @Html.ValidationMessageFor(m => m.apellido1, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeSurnameError1" class="center">
+
                                 </div>
                             </div>
                             <div class="row margin-b">
                                 <div class="input-field col  s11 offset-1">
                                     <i class="text-grey material-icons prefix">account_circle</i>
                                     @Html.LabelFor(m => m.apellido2, "Segundo apellido", new { @class = "" })
-                                    @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control",@onkeydown="validateEmployeeSurname2(this)" ,@onkeyup="validateEmployeeSurname2(this)" } })
                                     @Html.ValidationMessageFor(m => m.apellido2, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeSurnameError2" class="center">
+
                                 </div>
                             </div>
                         </div>
@@ -76,24 +88,33 @@
                                 <div class="input-field col s12">
                                     <i class="text-grey material-icons prefix">date_range</i>
                                     @Html.LabelFor(m => m.edad, "Edad", new { @class = "" })
-                                    @Html.EditorFor(model => model.edad, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.edad, new { htmlAttributes = new { @class = "form-control" ,@onkeyup="validateEmployeeAge(this)" , @onkeydown="validateEmployeeAge(this)"} })
                                     @Html.ValidationMessageFor(m => m.edad, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeAgeError" class="center">
+
                                 </div>
                             </div>
                             <div class="row margin-b">
                                 <div class="input-field col s12">
                                     <i class="text-grey material-icons prefix">phone</i>
                                     @Html.LabelFor(m => m.telefono, "Telefono", new { @class = "" })
-                                    @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control",@onkeydown ="validateEmployeePhoneNumber(this)",@onkeyup ="validateEmployeePhoneNumber(this)" } })
                                     @Html.ValidationMessageFor(m => m.telefono, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeePhoneError" class="center">
+
                                 </div>
                             </div>
                             <div class="row margin-b">
                                 <div class="input-field col s12">
                                     <i class="text-grey material-icons prefix">mail</i>
                                     @Html.LabelFor(m => m.correo, "Email", new { @class = "" })
-                                    @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" ,@onkeydown="validateEmployeeEmail(this)"  ,@onkeyup="validateEmployeeEmail(this)"} })
                                     @Html.ValidationMessageFor(m => m.correo, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeEmailError" class="center">
+
                                 </div>
                             </div>
                             <div class="row margin-b">
