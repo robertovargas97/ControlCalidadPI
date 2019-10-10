@@ -83,7 +83,7 @@ function validateConfirmPass() {
 
 //-------------------------------------------------------------------Project Validations--------------------------------
 function validateClient(idClient) {
-    if (document.getElementById(idClient).value.indexOf("Selecciona el cliente") == -1) {
+    if (document.getElementById(idClient).value.indexOf("Selecciona el cliente") > -1) {
         document.getElementById("ClientError").innerHTML = "Debe seleccionar un cliente.";
     }
 }
@@ -112,5 +112,65 @@ function validateDuration() {
     }
     else {
         document.getElementById("avrDurationError").innerHTML = "";
+    }
+}
+//------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------Employee Validations----------------------------------------------------
+function validateEmployeeName(inputtxt) {
+    var letters = /^[a-zA-Z\s]*$/;
+    if (inputtxt.value.match(letters)) {
+        var err = document.getElementById("employeeNameError");
+        err.innerHTML = " ";
+    }
+    else {
+        var err = document.getElementById("employeeNameError");
+        err.innerHTML = "Digite caracteres validos";
+    }
+}
+function validateEmployeeSurname(inputtxt) {
+    var letters = /^[a-zA-Z\s-]*$/;
+    if (inputtxt.value.match(letters)) {
+        var err = document.getElementById("employeeSurnameError1");
+        err.innerHTML = " ";
+    }
+    else {
+        var err = document.getElementById("employeeSurnameError1");
+        err.innerHTML = "Digite caracteres validos";
+    }
+}
+function validateEmployeeSurname2(inputtxt) {
+    var letters = /^[a-zA-Z\s-]*$/;
+    if (inputtxt.value.match(letters)) {
+        var err = document.getElementById("employeeSurnameError2");
+        err.innerHTML = " ";
+    }
+    else {
+        var err = document.getElementById("employeeSurnameError2");
+        err.innerHTML = "Digite caracteres validos";
+    }
+}
+function validateEmployeeAge(inputtxt) {
+    var letters = /^[a-zA-Z\s-]*$/;
+    var err = document.getElementById("employeeAgeError");
+    if (inputtxt.value.match(letters)) {
+        err.innerHTML = "Digite caracteres validos";
+    }
+    else {
+        if (parseInt(inputtxt.value, 10) > 18 && parseInt(inputtxt.value, 10) < 100) {
+            err.innerHTML = " "
+        } else {
+            err.innerHTML = "Digite una edad valida";
+        }
+
+    }
+}
+function validateEmployeeEmail(inputtxt) {
+    if (inputtxt.value.includes("@") && (inputtxt.value.includes(".com") || inputtxt.value.includes(".net"))) {
+        var err = document.getElementById("employeeEmailError");
+        err.innerHTML = "";
+    } else {
+        var err = document.getElementById("employeeEmailError");
+        err.innerHTML = "Digite un correo valido";
     }
 }

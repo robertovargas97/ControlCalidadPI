@@ -39,7 +39,7 @@
                             <div class="input-field col s6 offset-s3">
                                 <i class="text-grey material-icons prefix">mail</i>
                                 <input class="validate form-control" type="email" name="Email" id="Email" onkeypress="validateEmail('Email')" required />
-                                <label for="Email">Correo</label>
+                                <label for="Email">Correo <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="mailError"></span>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                     <option value="Tester">Tester</option>
                                     <option value="Cliente">Cliente</option>
                                 </select>
-                                <label for="Role">Rol </label>
+                                <label for="Role">Rol<span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="RoleError"></span>
 
                             </div>
@@ -64,7 +64,7 @@
                             <div class="input-field col s6  offset-s3">
                                 <i class="text-grey material-icons prefix">lock</i>
                                 <input class="validate form-control" type="password" name="Password" id="Password" required onkeypress="validatePassword('Password')" />
-                                @Html.LabelFor( m => m.Password , new {@class = "" } )
+                                <label for="Password">Contraseña <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="passwordError"></span>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                             <div class="input-field col s6  offset-s3">
                                 <i class=" text-grey material-icons prefix">lock</i>
                                 <input class="validate form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" required onkeyup="validateConfirmPass()" onfocus="validateConfirmPass()" />
-                                @Html.LabelFor( m => m.ConfirmPassword , new {@class = "" } )
+                                <label for="ConfirmPassword">Confirmaar contraseña <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="passwordConfirmError"></span>
                             </div>
                         </div>
