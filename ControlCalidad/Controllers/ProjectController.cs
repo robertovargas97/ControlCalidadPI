@@ -265,9 +265,10 @@ namespace ControlCalidad.Controllers
                 string query = "SELECT	TE.id_proyectoFK FROM ControlCalidad.TrabajaEn TE " +
                     "WHERE TE.cedula_empleadoFK = '" + idEmployee + "'";
                 List<ProjectId> projectIdList = db.Database.SqlQuery<ProjectId>(query).ToList();
-                var project = projectIdList.Last();
-                projectId = project.id_proyectoFK;
-
+                if (projectIdList.Count() > 0) {
+                    var project = projectIdList.Last();
+                    projectId = project.id_proyectoFK;
+                }
             }
 
             return projectId;
