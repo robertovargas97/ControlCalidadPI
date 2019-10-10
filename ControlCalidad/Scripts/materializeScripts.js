@@ -175,6 +175,9 @@ function validateEmployeeEmail(inputtxt) {
     }
 }
 
+//------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------Client Validations----------------------------------------------------
 function validateNameClient() {
     if (document.getElementById("nameClient").value.length <= 0) {
         document.getElementById("nameClientError").innerHTML = "Debes ingresar un nombre.";
@@ -202,11 +205,11 @@ function validateSecondSurnameClient() {
     }
 }
 
-function validateIdClient() {
-    if (document.getElementById("idClient").value.length <= 0) {
-        document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula.";
-    }
-    else {
-        document.getElementById("idClientError").innerHTML = "";
-    }
+function validateIdClient(inputId) {
+        if (document.getElementById("idClient").value.length <= 7) {
+            document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula válida.";
+        }
+        else {
+            document.getElementById("idClientError").innerHTML = "";
+        }
 }
