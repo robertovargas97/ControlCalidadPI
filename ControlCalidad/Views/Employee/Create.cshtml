@@ -5,7 +5,7 @@
 }
 
 
-<h2>Create</h2>
+<h2>Registar Empleado</h2>
 <div class="row container">
     <div class="col s12">
         <div class="card hoverable">
@@ -29,8 +29,8 @@
                         <div class="row margin-b">
                             <div class="input-field col  s12">
                                 <i class="text-grey material-icons prefix">perm_identity</i>
+                                <label for="cedulaPK">Cedula<span class="red-text">*</span></label>
                                 <input class="validate form-control" type="text" name="cedulaPK" id="cedulaPK" required onkeydown="validateEmployeeID(this)" onkeyup="validateEmployeeID(this)" />
-                                @Html.LabelFor(m => m.cedulaPK, "Cedula", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
                             </div>
                             <div id="employeeIDError" class="center">
@@ -40,8 +40,8 @@
                         <div class="row margin-b">
                             <div class="input-field col s11 offset-1 ">
                                 <i class="text-grey material-icons prefix">account_circle</i>
+                                <label for="nombreP">Nombre<span class="red-text">*</span></label>
                                 <input class="validate form-control" type="text" name="nombreP" id="nombreP" required onkeydown="validateEmployeeName(this)" onkeyup="validateEmployeeName(this)" />
-                                @Html.LabelFor(m => m.nombreP, "Nombre", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.nombreP, null, new { @class = "text-error" })
                             </div>
                             <div id="employeeNameError">
@@ -51,8 +51,8 @@
                         <div class="row margin-b">
                             <div class="input-field col  s11 offset-1">
                                 <i class="text-grey material-icons prefix">account_circle</i>
+                                <label for="apellido1">Primer apellido<span class="red-text">*</span></label>
                                 <input class="validate form-control" type="text" name="apellido1" id="apellido1" required onkeydown="validateEmployeeSurname(this)" onkeyup="validateEmployeeSurname(this)" />
-                                @Html.LabelFor(m => m.apellido1, "Primer apellido", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.apellido1, null, new { @class = "text-error" })
                             </div>
                             <div id="employeeSurnameError1" class="center">
@@ -62,8 +62,8 @@
                         <div class="row margin-b">
                             <div class="input-field col  s11 offset-1">
                                 <i class="text-grey material-icons prefix">account_circle</i>
+                                <label for="apellido2">Segundo apellido<span class="red-text">*</span></label>
                                 <input class="validate form-control" type="text" name="apellido2" id="apellido2" required onkeydown="validateEmployeeSurname2(this)" onkeyup="validateEmployeeSurname2(this)" />
-                                @Html.LabelFor(m => m.apellido2, "Segundo apellido", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.apellido2, null, new { @class = "text-error" })
                             </div>
                             <div id="employeeSurnameError2" class="center">
@@ -76,14 +76,14 @@
                             <div class="input-field col  s12">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaInicio">Fecha de nacimiento</label>
-                                <input type="text" class="datepicker" id="fechaNacimiento" name="fechaNacimiento" required />
+                                <input type="text" class="datepicker" id="fechaNacimiento" name="fechaNacimiento" />
                                 @Html.ValidationMessageFor(model => model.fechaNacimiento, "", new { @class = "text-error" })
                             </div>
                         </div>
                         <div class="row margin-b">
                             <div class="input-field col s12">
                                 <i class="text-grey material-icons prefix">date_range</i>
-                                <input class="validate form-control" type="text" name="edad" id="edad" required onkeyup="validateEmployeeAge(this)"  onkeydown="validateEmployeeAge(this)"/>
+                                <input class="validate form-control" type="text" name="edad" id="edad" onkeyup="validateEmployeeAge(this)"  onkeydown="validateEmployeeAge(this)"/>
                                 @Html.LabelFor(m => m.edad, "Edad", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.edad, null, new { @class = "text-error" })
                             </div>
@@ -94,7 +94,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s12">
                                 <i class="text-grey material-icons prefix">phone</i>
-                                <input class="validate form-control" type="text" name="telefono" id="telefono" required onkeydown="validateEmployeePhoneNumber(this)" onkeyup="validateEmployeePhoneNumber(this)"/>
+                                <input class="validate form-control" type="text" name="telefono" id="telefono" onkeydown="validateEmployeePhoneNumber(this)" onkeyup="validateEmployeePhoneNumber(this)"/>
                                 @Html.LabelFor(m => m.telefono, "Telefono", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.telefono, null, new { @class = "text-error" })
                             </div>
@@ -105,7 +105,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s12">
                                 <i class="text-grey material-icons prefix">mail</i>
-                                <input class="validate form-control" type="text" name="correo" id="correo" required onkeydown="validateEmployeeEmail(this)" onkeyup="validateEmployeeEmail(this)" />
+                                <input class="validate form-control" type="text" name="correo" id="correo"  onkeydown="validateEmployeeEmail(this)" onkeyup="validateEmployeeEmail(this)" />
                                 @Html.LabelFor(m => m.correo, "Email", new { @class = "" })
                                 @Html.ValidationMessageFor(m => m.correo, null, new { @class = "text-error" })
                             </div>

@@ -5,7 +5,7 @@
     List<SelectListItem> provinces = (List<SelectListItem>)ViewBag.provinces;
 }
 
-<h2>Edit</h2>
+<h2>Editar informacion de Empleado</h2>
 
 
 @using (Html.BeginForm())
@@ -31,12 +31,13 @@
                     <div class="row">
                         <div class="col s4 center">
                             <div class="row margin-b">
+           
                                 <div class="input-field col  s12">
                                     <i class="text-grey material-icons prefix">perm_identity</i>
-                                    @Html.LabelFor(m => m.cedulaPK, "Cedula", new { @class = "" })
+                                    <label for="cedulaPK">Cedula<span class="red-text">*</span></label>
                                     @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeID(this)", @onkeyup = "validateEmployeeID(this)" } })
                                     @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
-                                    @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
+
                                 </div>
                                 <div id="employeeIDError" class="center">
 
@@ -45,7 +46,7 @@
                             <div class="row margin-b">
                                 <div class="input-field col s11 offset-1 ">
                                     <i class="text-grey material-icons prefix">account_circle</i>
-                                    @Html.LabelFor(m => m.nombreP, "Nombre", new { @class = "" })
+                                    <label for="nombreP">Nombre<span class="red-text">*</span></label>
                                     @Html.EditorFor(model => model.nombreP, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeName(this)", @onkeyup = "validateEmployeeName(this)" } })
                                     @Html.ValidationMessageFor(m => m.nombreP, null, new { @class = "text-error" })
                                 </div>
@@ -56,7 +57,7 @@
                             <div class="row margin-b">
                                 <div class="input-field col  s11 offset-1">
                                     <i class="text-grey material-icons prefix">account_circle</i>
-                                    @Html.LabelFor(m => m.apellido1, "Primer apellido", new { @class = "" })
+                                    <label for="apellido1">Primer apellido<span class="red-text">*</span></label>
                                     @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control",@onkeydown="validateEmployeeSurname(this)" ,@onkeyup="validateEmployeeSurname(this)" } })
                                     @Html.ValidationMessageFor(m => m.apellido1, null, new { @class = "text-error" })
                                 </div>
@@ -67,7 +68,7 @@
                             <div class="row margin-b">
                                 <div class="input-field col  s11 offset-1">
                                     <i class="text-grey material-icons prefix">account_circle</i>
-                                    @Html.LabelFor(m => m.apellido2, "Segundo apellido", new { @class = "" })
+                                    <label for="apellido2">Segundo apellido<span class="red-text">*</span></label>
                                     @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control",@onkeydown="validateEmployeeSurname2(this)" ,@onkeyup="validateEmployeeSurname2(this)" } })
                                     @Html.ValidationMessageFor(m => m.apellido2, null, new { @class = "text-error" })
                                 </div>
@@ -81,7 +82,7 @@
                                 <div class="input-field col  s12">
                                     <i class="p-size material-icons text-grey prefix">date_range</i>
                                     <label for="fechaInicio">Fecha de nacimiento</label>
-                                    <input type="text" class="datepicker" id="fechaNacimiento" name="fechaNacimiento" required />
+                                    <input type="text" class="datepicker" id="fechaNacimiento" name="fechaNacimiento"  />
                                     @Html.ValidationMessageFor(model => model.fechaNacimiento, "", new { @class = "text-error" })
                                 </div>
                             </div>
@@ -136,20 +137,20 @@
                                     <i class="text-grey material-icons prefix">place</i>
                                     @if (ViewBag.provinces != null)
                                     {
-                                        @Html.DropDownList("provincia", provinces, "Selecciona una provincia")
+                                        @Html.DropDownList("provincia", provinces, "Selecciona una provincia*")
                                     }
                                 </div>
                             </div>
                             <div class="row margin-b">
                                 <div class="input-field col s11">
                                     <i class="text-grey material-icons prefix">place</i>
-                                    @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione Canton", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione Canton*", new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="row margin-b">
                                 <div class="input-field col s11">
                                     <i class="text-grey material-icons prefix">place</i>
-                                    @Html.DropDownListFor(model => model.distrito, new SelectList(" "), "Seleccione distrito", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.distrito, new SelectList(" "), "Seleccione distrito*", new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="row margin-b">
