@@ -35,9 +35,9 @@
                             @Html.HiddenFor(model => model.cedulaPK)
                             @Html.ValidationSummary(true, "errorR", new { @class = "text-error" })
                             <div class="row">
-                                <div class="col s4 center">
-                                    <div class="row margin-b">
-                                        <div class="input-field col s11 offset-1 ">
+                                <div class="col s4">
+                                    <div class="row margin-b center">
+                                        <div class="input-field col s12 ">
                                             <i class="text-grey material-icons prefix">account_circle</i>
                                             <label for="nombreP">Nombre<span class="red-text">*</span></label>
                                             @Html.EditorFor(model => model.nombreP, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeName(this)", @onkeyup = "validateEmployeeName(this)" } })
@@ -47,8 +47,8 @@
 
                                         </div>
                                     </div>
-                                    <div class="row margin-b">
-                                        <div class="input-field col  s11 offset-1">
+                                    <div class="row margin-b center">
+                                        <div class="input-field col  s12">
                                             <i class="text-grey material-icons prefix">account_circle</i>
                                             <label for="apellido1">Primer apellido<span class="red-text">*</span></label>
                                             @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeSurname(this)", @onkeyup = "validateEmployeeSurname(this)" } })
@@ -58,8 +58,8 @@
 
                                         </div>
                                     </div>
-                                    <div class="row margin-b">
-                                        <div class="input-field col  s11 offset-1">
+                                    <div class="row margin-b center">
+                                        <div class="input-field col  s12">
                                             <i class="text-grey material-icons prefix">account_circle</i>
                                             <label for="apellido2">Segundo apellido<span class="red-text">*</span></label>
                                             @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeSurname2(this)", @onkeyup = "validateEmployeeSurname2(this)" } })
@@ -70,10 +70,10 @@
                                         </div>
                                     </div>
                                     <div class="row margin-b">
-                                        <div class="input-field col  s11 offset-1">
-                                            <i class="p-size text-grey material-icons prefix">mail</i>
+                                        <div class="input-field col s11" style="margin:15px 15px;">
+                                            <i class="p-size text-grey material-icons prefix" style="padding: 0 5px">mail</i>
                                             <select id="disponibilidad" name="disponibilidad">
-                                                <option value="">Seleccione una disponibilidad</option>
+                                                <option value="">Disponibilidad</option>
                                                 <option value="Disponible">Disponible</option>
                                                 <option value="Ocupado">Ocupado</option>
                                             </select>
@@ -173,10 +173,6 @@
                         }
                     </div>
                 </div>
-
-            </div><div>
-                @Html.ActionLink("Back to List", "Index")
-            </div>
         }
 
         <div class="fixed-action-btn">
