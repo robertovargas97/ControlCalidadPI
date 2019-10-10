@@ -78,14 +78,17 @@
                             </div>
                         </div>
 
-                                <div class="row margin-b">
-                                    <div class="input-field col s10 offset-s1">
-                                        <i class="p-size text-grey material-icons prefix">call</i>
-                                        @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+                        <div class="row margin-b">
+                            <div class="input-field col s10 offset-s1">
+                                <i class="p-size text-grey material-icons prefix">phone</i>
+                                <input class="validate form-control" type="text" name="telefono" id="telefono" onkeydown="validateEmployeePhoneNumber(this)" onkeyup="validateEmployeePhoneNumber(this)" />
+                                @Html.LabelFor(m => m.telefono, "Teléfono", new { @class = "" })
+                                @Html.ValidationMessageFor(m => m.telefono, null, new { @class = "text-error" })
+                            </div>
+                            <div id="employeePhoneError" class="center">
+
+                            </div>
+                        </div>
 
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">

@@ -182,7 +182,7 @@ function validateEmployeePhoneNumber(inputtxt) {
         err.innerHTML = "";
     }
     else {
-        err.innerHTML = `<span class=red-text>Digite un valores numericos </span>`;
+        err.innerHTML = `<span class=red-text>Digite valores numericos </span>`;
     }
 }
 function validateEmployeeID(inputtxt) {
