@@ -138,4 +138,12 @@ namespace ControlCalidad.Models
             get; set;
         }
     }
+
+    public class ProjectId
+    {
+        public int id_proyectoFK
+        {
+            get; set;
+        }
+    }
 }   

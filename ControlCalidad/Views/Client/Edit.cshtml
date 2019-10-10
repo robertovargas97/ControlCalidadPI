@@ -4,24 +4,28 @@
     ViewBag.Title = "Edit";
 }
 
-<h3 class="text-grey">Editar Cliente</h3>
-<div class="margin-b1">
-    <hr />
-</div>
+@{
 
-<div class="row container ">
-    <div class="col s12">
-        <div class="card hoverable">
+    if (User.IsInRole("Jefe"))
+    {
+        <h3 class="text-grey">Editar Cliente</h3>
+        <div class="margin-b1">
+            <hr />
+        </div>
 
-            <nav>
-                <div class="nav-wrapper black">
-                    <p class="col s4">Quality Expert S.A</p>
-                </div>
-            </nav>
+        <div class="row container ">
+            <div class="col s12">
+                <div class="card hoverable">
 
-            <div class="margin-b section">
+                    <nav>
+                        <div class="nav-wrapper black">
+                            <p class="col s4">Quality Expert S.A</p>
+                        </div>
+                    </nav>
 
-            </div>
+                    <div class="margin-b section">
+
+                    </div>
 
             @using (Html.BeginForm("Edit", "Client", FormMethod.Post, new
             {
@@ -31,8 +35,8 @@
                 List<SelectListItem> provinces = (List<SelectListItem>)ViewBag.provinces;
                 @Html.AntiForgeryToken()
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.cedulaPK)
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.cedulaPK)
 
 
                 <div class="row">
@@ -75,14 +79,14 @@
                             </div>
                         </div>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
-                                <i class="p-size text-grey material-icons prefix">call</i>
-                                @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                <div class="row margin-b">
+                                    <div class="input-field col s10 offset-s1">
+                                        <i class="p-size text-grey material-icons prefix">call</i>
+                                        @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
@@ -95,23 +99,23 @@
                         </div>
                     </div>
 
-                    <div class="col s4">
-                        <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
-                                <i class="p-size text-grey material-icons prefix">place</i>
-                                @if (ViewBag.provinces != null)
-                                {
-                                    @Html.DropDownList("provincia", provinces, "Seleccione una provincia")
-                                }
-                            </div>
-                        </div>
+                            <div class="col s4">
+                                <div class="row margin-b">
+                                    <div class="input-field col s10 offset-s1">
+                                        <i class="p-size text-grey material-icons prefix">place</i>
+                                        @if (ViewBag.provinces != null)
+                                        {
+                                            @Html.DropDownList("provincia", provinces, "Seleccione una provincia")
+                                        }
+                                    </div>
+                                </div>
 
-                        <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
-                                <i class="p-size text-grey material-icons prefix">place</i>
-                                @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione un canton", new { @class = "form-control" })
-                            </div>
-                        </div>
+                                <div class="row margin-b">
+                                    <div class="input-field col s10 offset-s1">
+                                        <i class="p-size text-grey material-icons prefix">place</i>
+                                        @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione un canton", new { @class = "form-control" })
+                                    </div>
+                                </div>
 
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
@@ -131,24 +135,43 @@
                         </div>
                     </div>
 
-                </div>
+                        </div>
 
-                <div class="margin-b1">
-                </div>
+                        <div class="margin-b1">
+                        </div>
 
-                <div class="row center">
-                    @Html.ActionLink("Cancelar", "Details", new { id = Model.cedulaPK }, new { @class = "margin-r waves-effect red-hover btn red accent-4"
-               } )
-                    <button type="submit" value="Save" class="margin-l btn waves-effect waves-light turq white-text">Guardar</button>
-                </div>
+                        <div class="row center">
+                            @Html.ActionLink("Cancelar", "Details", new { id = Model.cedulaPK }, new
+                            {
+                                @class = "margin-r waves-effect red-hover btn red accent-4"
+                       })
+                            <button type="submit" value="Save" class="margin-l btn waves-effect waves-light turq white-text">Guardar</button>
+                        </div>
 
-                <div class="margin-b section">
+                        <div class="margin-b section">
 
+                        </div>
+                    }
                 </div>
-            }
+            </div>
         </div>
-    </div>
-</div>
+    }
+    else
+    {
+        <div class="row container center top-m-block">
+
+            <div class="card hoverable s10 section">
+
+                <h3>Lo sentimos.<br />Debes iniciar sesión como <span class="red-text"> jefe </span> para editar un cliente.</h3>
+                <i class="large material-icons red-text">block</i>
+
+            </div>
+        </div>
+    }
+
+}
+
+
 
 
 @section Scripts {
@@ -181,7 +204,7 @@
             $("#canton").change(function () {
 
                 var output = "";
-                $.get("/localizations/districtsList", { provincia: $("#provincia").val(),canton: $("#canton").val() }, function (data) {
+                $.get("/localizations/districtsList", { provincia: $("#provincia").val(), canton: $("#canton").val() }, function (data) {
                     $('#distrito').children().remove().end()
                     $.each(data, function (index, row) {
                         $("#distrito").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
