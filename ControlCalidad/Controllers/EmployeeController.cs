@@ -219,6 +219,19 @@ namespace ControlCalidad.Controllers
             List<Empleado> empleado = db.Empleadoes.Where(x => x.cedulaPK == id).ToList();
             return empleado[0].nombreP;
         }
+        public bool isMailTaken(string input)
+        {
+            List<Empleado> empleado = db.Empleadoes.Where(x => x.correo == input).ToList();
+            if(empleado != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
 
     }
 }
