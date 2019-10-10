@@ -40,7 +40,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">account_circle</i>
-                                <input name="nombreP" type="text" required class="validate form-control" onblur="validateNameClient()" id="nameClient" />
+                                <input value=@Model.nombreP name="nombreP" type="text" required class="validate form-control" onblur="validateNameClient()" id="nameClient" />
                                 <label for="nombreP">Nombre <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="nameClientError"></span>
                             </div>
@@ -49,8 +49,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">account_circle</i>
-                                @Html.LabelFor(model => model.apellido1, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <input name="apellido1" type="text" required class="validate form-control" onblur="validateSurnameClient()" id="surnameClient" />
+                                <input value=@Model.apellido1 name="apellido1" type="text" required class="validate form-control" onblur="validateSurnameClient()" id="surnameClient" />
                                 <label for="apellido1">Primer Apellido <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="surnameClientError"></span>
                             </div>
@@ -59,7 +58,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">account_circle</i>
-                                <input name="apellido2" type="text" required class="validate form-control" onblur="validateSecondSurnameClient()" id="secondSurnameClient" />
+                                <input value=@Model.apellido2 name="apellido2" type="text" required class="validate form-control" onblur="validateSecondSurnameClient()" id="secondSurnameClient" />
                                 <label for="apellido2">Segundo Apellido <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="secondSurnameClientError"></span>
                             </div>
@@ -70,7 +69,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">perm_identity</i>
-                                <input name="cedulaPK" type="text" required class="validate form-control" onkeypress="validateIdClient()" id="idClient" />
+                                <input value=@Model.cedulaPK name="cedulaPK" type="text" required class="validate form-control" onkeypress="validateIdClient(this)" id="idClient" />
                                 <label for="cedulaPK">Cédula <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="idClientError"></span>
                             </div>
@@ -89,7 +88,7 @@
                             <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">mail</i>
                                 @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <input class="validate form-control" type="email" name="correo" id="Email" onkeypress="validateEmail('Email')" required />
+                                <input value=@Model.correo class="validate form-control" type="email" name="correo" id="Email" onkeypress="validateEmail('Email')" required />
                                 <label for="correo">Correo <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="mailError"></span>
                             </div>

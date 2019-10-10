@@ -226,11 +226,16 @@ function validateSecondSurnameClient() {
     }
 }
 
-function validateIdClient(inputId) {
-        if (document.getElementById("idClient").value.length <= 7) {
+function validateIdClient(input) {
+    var letters = /^[0-9]*$/;
+    if (document.getElementById("idClient").value.length <= 7) {
             document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula válida.";
         }
-        else {
+    else {
+        if (input.value.match(letters)) {
             document.getElementById("idClientError").innerHTML = "";
+        } else {
+            document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula válida.";
         }
+    }
 }
