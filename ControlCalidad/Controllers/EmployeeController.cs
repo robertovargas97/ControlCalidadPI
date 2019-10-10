@@ -200,7 +200,19 @@ namespace ControlCalidad.Controllers
         }
 
 
-
+        public string GetEmployeeIdByEmail(string email)
+        {
+            string employeeId = "";
+            if (email != null) {
+                string query = "SELECT E.cedulaPK FROM ControlCalidad.Empleado E " +
+                               "WHERE  E.correo = '" + email +"'";
+                List<idEmpleado> employeeList = db.Database.SqlQuery<idEmpleado>(query).ToList();
+                var employee = employeeList.Last();
+                employeeId = employee.cedulaPk;
+            }
+            
+            return employeeId;
+        }
 
         public string employeeName(string id)
         {

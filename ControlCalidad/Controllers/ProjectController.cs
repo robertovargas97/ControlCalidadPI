@@ -22,6 +22,12 @@ namespace ControlCalidad.Controllers
         public async Task<ActionResult> Index()
         {
             var proyectoes = db.Proyectoes.Include(p => p.Cliente);
+            string email = User.Identity.Name;
+            if (User.IsInRole("Tester") || User.IsInRole("Lider"))
+            {
+                ViewBag.projectId = GetProjectIdByEmail(email);
+            }
+            
             return View(await proyectoes.ToListAsync());
             
         }
@@ -247,6 +253,24 @@ namespace ControlCalidad.Controllers
                 db.SaveChanges();
             }
             
+        }
+
+        public int GetProjectIdByEmail(string email)
+        {
+            int projectId = 0;
+            if (email != null)
+            {
+                string idEmployee = employeeController.GetEmployeeIdByEmail(email);
+
+                string query = "SELECT	TE.id_proyectoFK FROM ControlCalidad.TrabajaEn TE " +
+                    "WHERE TE.cedula_empleadoFK = '" + idEmployee + "'";
+                List<ProjectId> projectIdList = db.Database.SqlQuery<ProjectId>(query).ToList();
+                var project = projectIdList.Last();
+                projectId = project.id_proyectoFK;
+
+            }
+
+            return projectId;
         }
 
         
