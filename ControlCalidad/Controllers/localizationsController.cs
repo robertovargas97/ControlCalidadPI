@@ -50,12 +50,23 @@ namespace ControlCalidad.Controllers
 
         public string provinceName(string strProvince)
         {
+            if(strProvince == null)
+            {
+                string empty = " ";
+                return empty;
+            }
+
             int provinceIndex = System.Convert.ToInt32(strProvince);
             List<Provincia> provincia = db.Provincias.Where(x => x.codigoPK == provinceIndex).ToList();
             return provincia[0].nombre;
         }
         public string cantonName(string strProvince,string strCanton)
         {
+            if (strProvince == null)
+            {
+                string empty = " ";
+                return empty;
+            }
             int province = System.Convert.ToInt32(strProvince);
             int cantonIndex = System.Convert.ToInt32(strCanton);
             List<Canton> canton = db.Cantons.Where(x => x.codigoPK == cantonIndex && x.provinciaFK == province).ToList();
@@ -63,6 +74,11 @@ namespace ControlCalidad.Controllers
         }
         public string districtName(string strProvince,  string strCanton, string strDistrict)
         {
+            if (strProvince == null)
+            {
+                string empty = " ";
+                return empty;
+            }
             int province = System.Convert.ToInt32(strProvince);
             int canton = System.Convert.ToInt32(strCanton);
             int districtIndex = System.Convert.ToInt32(strDistrict);
