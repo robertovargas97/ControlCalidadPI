@@ -13,7 +13,7 @@
         <h3>Editar informacion de Empleado</h3>
 
 
-        @using (Html.BeginForm())
+        using (Html.BeginForm())
         {
             <div class="row container">
                 <div class="col s12">
@@ -191,8 +191,10 @@
             </div>
         }
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
+        <div class="fixed-action-btn">
+            <a href="@Url.Action( "Index" , "Employee/Index" )" class="btn-floating btn-large black turq-hover left">
+                <i class="large material-icons">arrow_back</i>
+            </a>
         </div>
     }
     else
