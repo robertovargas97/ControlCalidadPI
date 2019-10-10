@@ -107,13 +107,35 @@ namespace ControlCalidad.Controllers
         // GET: Team/Edit/5
         public ActionResult Edit(int id_proyecto, string hability)
         {
-            string sql = "SELECT E.cedulaPK, E.nombreP FROM ControlCalidad.Empleado E JOIN ControlCalidad.TrabajaEn T ON T.cedula_empleadoFK = E.cedulaPK WHERE T.id_proyectoFK = " + id_proyecto;
+            string[] habilities = null;
+            string sqlHabilities= "";
+            if (hability != null) {
+                habilities = hability.Split(',');
+                string template = "H.descripcionPK LIKE '%";
+                for (int index = 0; index < habilities.Length; ++index)
+                {
+                    if (index == 0) {
+                        sqlHabilities = template + habilities[index].Trim() + "%'";
+                    }
+                    else
+                    {
+                        sqlHabilities += " AND " + template + habilities[index].Trim() + "%'";
+                    }
+                }
+            }
+            string sqlp = "SELECT nombre FROM ControlCalidad.Proyecto WHERE idPK=" + id_proyecto;
+            string name = db.Database.SqlQuery<string>(sqlp).ToList()[0];
+            ViewBag.project_name = name;
+            string sql = "SELECT E.cedulaPK, E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'nombreP' FROM ControlCalidad.Empleado E JOIN ControlCalidad.TrabajaEn T ON T.cedula_empleadoFK = E.cedulaPK WHERE T.id_proyectoFK = " + id_proyecto;
             List<DbResultE> team = db.Database.SqlQuery<DbResultE>(sql).ToList();
             ViewBag.cedula_empleadoFK = new SelectList(team, "cedulaPK", "nombreP", "Equipo");
-            string sqle = "SELECT E.cedulaPK , E.nombreP FROM ControlCalidad.Empleado E JOIN ControlCalidad.Habilidades H ON H.cedula_empleadoFK = E.cedulaPK WHERE H.descripcionPK LIKE '%" + hability + "%' AND E.disponibilidad = 'Disponible'";
+            string sqle = "SELECT E.cedulaPK , E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'nombreP' " +
+                "FROM ControlCalidad.Empleado E JOIN ControlCalidad.Habilidades H ON H.cedula_empleadoFK = E.cedulaPK " +
+                "WHERE "+ sqlHabilities +
+                " AND E.disponibilidad = 'Disponible'";
             if (hability == null)
             {
-                sqle = " SELECT E.cedulaPK , E.nombreP FROM ControlCalidad.Empleado E WHERE E.disponibilidad = 'Disponible'";
+                sqle = " SELECT E.cedulaPK , E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'nombreP' FROM ControlCalidad.Empleado E WHERE E.disponibilidad = 'Disponible'";
             }
             List<DbResultE> disponibles = db.Database.SqlQuery<DbResultE>(sqle).ToList();
             ViewBag.disponibles = new SelectList(disponibles, "cedulaPK", "nombreP", "Disponibles");
@@ -141,6 +163,8 @@ namespace ControlCalidad.Controllers
                 sql = "INSERT INTO ControlCalidad.TrabajaEn VALUES('" + cedulaPK + "'," + id_proyecto + ", 'Tester')";
                 try
                 {
+                    result = db.Database.ExecuteSqlCommand(sql);
+                    sql = "INSERT INTO ControlCalidad.Tester VALUES('" + cedulaPK + "', 0)";
                     result = db.Database.ExecuteSqlCommand(sql);
                     sql = "UPDATE ControlCalidad.Empleado SET disponibilidad = 'Ocupado' WHERE cedulaPK = '" + cedulaPK + "'";
                     result = db.Database.ExecuteSqlCommand(sql);

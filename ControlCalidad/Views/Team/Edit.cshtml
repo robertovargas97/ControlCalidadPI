@@ -13,29 +13,40 @@
         -webkit-overflow-scrolling: touch;
         -ms-overflow-style: -ms-autohiding-scrollbar;
     }
+
+    .material-icons.fixed {
+        position: fixed;
+        font-size: 35px;
+        vertical-align: -14px;
+        position: relative;
+    }
+
+    .material-icons{
+        display: inline-flex;
+        vertical-align: top;
+        padding-top: 20px;
+    }
 </style>
+
 @using (Html.BeginForm())
 {
-
-
     @Html.AntiForgeryToken()
     @Html.Hidden("CedulaN", "", new { @id = "CedulaN" })
     @Html.Hidden("CedulaT", "", new { @id = "CedulaT" })
     @Html.Hidden("Hability", "", new { @id = "Hability" })
     @Html.Hidden("Proyecto", "", new { Value = ViewBag.id_proyecto, @id = "Proyecto" })
 
+
     <div class="form-horizontal">
-        <h4>Equipos</h4>
+        <h3 class="text-grey">Proyecto @ViewBag.project_name</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="input-field col s4">
-                <i class="material-icons prefix">search</i>
-                <textarea id="hability" class="materialize-textarea" style="width: 50%;"></textarea>
-                <label for="icon_prefix2">Buscar por habilidades</label>
-                <button type="submit" class="btn btn-default" name="Buscar" value="Buscar" title="Buscar" onclick="getHability()" align="center">Buscar</button>
-            </div>
-        </div>
+
+    <form action="Edit">
+        <i class="material-icons fixed">search</i>
+        <input type="text" id="hability" placeholder="Buscar por habilidades" style="width: 50%;">
+        <button type="submit" onclick="getHability()" class="btn btn-default" name="Buscar" value="Buscar" title="Buscar">Buscar</button>
+    </form>
 
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -44,12 +55,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+
         <div class="row">
             <div class="col s6">
                 <div class="card">
                     <div class="card-content">
-                        <span class="card-title">Disponibles</span>
                         <div class="table-responsive collection">
+                            <table class="table striped">
+                                <tr>
+                                    <th class="center black white-text" style="width: 200%;">
+                                        @Html.DisplayName("Disponibles")
+                                    </th>
+                                </tr>
+                            </table>
                             <table>
 
                                 <tbody>
@@ -61,16 +79,24 @@
                             </table>
                         </div>
                     </div>
-                    <p align="center">
-                        <button type="submit" class="btn btn-default" name="Asignar" value="Asignar" title="Asignar">Asignar</button>
-                    </p>
+                    <div class="row center">
+                        <button type="submit" name="Asignar" value="Asignar" class="margin-l btn waves-effect waves-light turq white-text">Asignar</button>
+                    </div>
+                    <div class="margin-b section">
+                    </div>
                 </div>
             </div>
             <div class="col s6">
                 <div class="card">
                     <div class="card-content">
-                        <span class="card-title">Equipo</span>
                         <div class="table-responsive collection">
+                            <table class="table striped">
+                                <tr>
+                                    <th class="center black white-text" style="width: 200%;">
+                                        @Html.DisplayName("Equipo")
+                                    </th>
+                                </tr>
+                            </table>
                             <table>
 
                                 <tbody>
@@ -82,9 +108,11 @@
                             </table>
                         </div>
                     </div>
-                    <p align="center">
-                        <button type="submit" class="btn btn-default" name="Desasignar" value="Desasignar" title="Desasignar">Desasignar</button>
-                    </p>
+                    <div class="row center">
+                        <button type="submit" name="Desasignar" value="Desasignar" class="margin-l btn waves-effect waves-light turq white-text">Desasignar</button>
+                    </div>
+                    <div class="margin-b section">
+                    </div>
                 </div>
             </div>
         </div>
