@@ -9,12 +9,13 @@
         @Scripts.Render( "~/bundles/modernizr" )
     *@
 
+
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
-    @Styles.Render( "~/Content/css" )
+    @Styles.Render("~/Content/css")
 
 </head>
 <body class="">
@@ -23,12 +24,23 @@
             <ul class="right hide-on-med-and-down">
                 <li><a class="turq-hover" href=" @Url.Action( "Index" , "Home" )">Inicio</a></li>
                 @{
-                    if (User.IsInRole("Jefe"))
+                    if (User.IsInRole("Jefe") || User.IsInRole("Tester") || User.IsInRole("Lider"))
                     {
-                        <li><a class="turq-hover" href=" @Url.Action( "Index" , "LoginUsers" )">Perfiles</a></li>
-                        <li><a class="turq-hover" href=" @Url.Action( "Index" , "Client" )">Clientes</a></li>
-                        <li><a class="turq-hover" href=" @Url.Action( "Index" , "Employee" )">Empleados</a></li>
+                        if (User.IsInRole("Jefe") || User.IsInRole("Lider"))
+                        {
+                            if (User.IsInRole("Jefe"))
+                            {
+                                <li><a class="turq-hover" href=" @Url.Action("Index", "LoginUsers")">Perfiles</a></li>
+                                <li><a class="turq-hover" href=" @Url.Action("Index", "Client")">Clientes</a></li>
+
+                            }
+                           
+                            <li><a class="turq-hover" href=" @Url.Action( "Index" , "Employee" )">Empleados</a></li>
+                            
+
+                        }
                         <li><a class="turq-hover" href="@Url.Action( "Index" , "Project" )">Proyectos</a></li>
+                        <li>@Html.ActionLink("Equipos", "Index", "Team", routeValues: null, htmlAttributes: new { @class = "turq-hover", id = "loginLink" })</li>
                     }
                 }
 

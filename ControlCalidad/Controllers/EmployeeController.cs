@@ -15,6 +15,8 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities();
         private localizationsController localizations = new localizationsController();
+        private static string editID;
+        private string projectLeader;
         
 
 
@@ -76,6 +78,8 @@ namespace ControlCalidad.Controllers
         // GET: Employee/Edit/5
         public async Task<ActionResult> Edit(string id)
         {
+            ViewBag.provinces = this.localizations.provinceList();
+            editID = string.Copy(id);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -96,10 +100,33 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,edad,telefono,correo,provincia,canton,distrito,direccionExacta,disponibilidad")] Empleado empleado)
         {
+            var sql =
+                from a in db.Empleadoes
+                where a.cedulaPK == editID
+                select a;
+            foreach (var a in sql)
+            {
+                db.Empleadoes.Remove(a);
+                break;
+            }
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // Provide for exceptions.
+            }
             if (ModelState.IsValid)
             {
-                db.Entry(empleado).State = EntityState.Modified;
-  
+                string provinceName = localizations.provinceName(empleado.provincia);
+                string cantonName = localizations.cantonName(empleado.provincia, empleado.canton);
+                string districtName = localizations.districtName(empleado.provincia, empleado.canton, empleado.distrito);
+                empleado.provincia = provinceName;
+                empleado.canton = cantonName;
+                empleado.distrito = districtName;
+                db.Empleadoes.Add(empleado);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -172,19 +199,39 @@ namespace ControlCalidad.Controllers
             return leadersItemList;
         }
 
-        public void SetLeaderToProject(string cedula_empleadoFK, int idPK, string rol)
-        {
-            var TrabajaEn = new TrabajaEn
-            {
-                cedula_empleadoFK = cedula_empleadoFK,
-                id_proyectoFK = idPK,
-                rol = rol
-            };
-            var employee = db.Empleadoes.Find(cedula_empleadoFK);
-            employee.disponibilidad =  employee.disponibilidad.Replace("Disponible", "No disponible");
 
-            db.TrabajaEns.Add(TrabajaEn);
-            db.SaveChangesAsync();
+        public string GetEmployeeIdByEmail(string email)
+        {
+            string employeeId = "";
+            if (email != null) {
+                string query = "SELECT E.cedulaPK FROM ControlCalidad.Empleado E " +
+                               "WHERE  E.correo = '" + email +"'";
+                List<idEmpleado> employeeList = db.Database.SqlQuery<idEmpleado>(query).ToList();
+                var employee = employeeList.Last();
+                employeeId = employee.cedulaPk;
+            }
+            
+            return employeeId;
         }
+
+        public string employeeName(string id)
+        {
+            List<Empleado> empleado = db.Empleadoes.Where(x => x.cedulaPK == id).ToList();
+            return empleado[0].nombreP;
+        }
+        public bool isMailTaken(string input)
+        {
+            List<Empleado> empleado = db.Empleadoes.Where(x => x.correo == input).ToList();
+            if(empleado != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
     }
 }

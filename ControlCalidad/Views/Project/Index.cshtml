@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<ControlCalidad.Models.Proyecto>
 
+
 @*  {
         ViewBag.Title = "Index";
     }
@@ -9,55 +10,102 @@
 <div class="margin-b1">
     <hr />
 </div>
+@{ 
+
+    int? projectId = ViewBag.projectId;
     
-<div class="fixed-action-btn">
-    <a href="@Url.Action( "Create New" , "Project/Create" )" class="btn-floating btn-large black turq-hover">
-        <i class="large material-icons">add</i>
-    </a>
-</div>
 
-<div class="card">
-    <table class="table striped">
-        <tr>
-            <th class="center black white-text">
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-           
-            <th class="center black white-text">
-                @Html.DisplayNameFor(model => model.estado)
-            </th>
-           
-            <th class="center black white-text">
-                @Html.DisplayName("Nombre Cliente")
-            </th>
-            <th class="center black white-text">
-                @Html.DisplayName("Acción")
-            </th>
-        </tr>
+    <div class="fixed-action-btn">
+        <a href="@Url.Action("Create New", "Project/Create")" class="btn-floating btn-large black turq-hover">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
 
-        @foreach (var item in Model)
-        {
+    <div class="card">
+        <table class="table striped">
             <tr>
-                <td class="center">
-                    @Html.DisplayFor(modelItem => item.nombre)
-                </td>
- 
-                <td class="center">
-                    @Html.DisplayFor(modelItem => item.estado)
-                </td>
-   
-                <td class="center">
-                    @Html.DisplayFor(modelItem => item.Cliente.nombreP)
-                </td>
-                <td class="center">
-                  
-                    @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
-                    new { @class =  "waves-effect waves-light btn black turq-hover"}
-                    ) 
-                </td>
+                <th class="center black white-text">
+                    @Html.DisplayNameFor(model => model.nombre)
+                </th>
+
+                <th class="center black white-text">
+                    @Html.DisplayNameFor(model => model.estado)
+                </th>
+
+                <th class="center black white-text">
+                    @Html.DisplayName("Nombre Cliente")
+                </th>
+                <th class="center black white-text">
+                    @Html.DisplayName("Acción")
+                </th>
+                <th class="center black white-text">
+                    @Html.DisplayName("Equipo")
+                </th>
             </tr>
-        }
 
-    </table>
+            @foreach (var item in Model)
+            {
+                if ((User.IsInRole("Tester") || User.IsInRole("Lider")) && projectId != null)
+                {
+                    if (item.idPK == projectId)
+                    {
+                        <tr>
+                            <td class="center">
+                                @Html.DisplayFor(modelItem => item.nombre)
+                            </td>
 
-</div>
+                            <td class="center">
+                                @Html.DisplayFor(modelItem => item.estado)
+                            </td>
+
+                            <td class="center">
+                                @Html.DisplayFor(modelItem => item.Cliente.nombreP)
+                            </td>
+                            <td class="center">
+
+                                @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
+                          new { @class = "waves-effect waves-light btn black turq-hover" }
+                          )
+                            </td>
+                            <td class="center">
+                                @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id = item.idPK },
+                          new { @class = "waves-effect waves-light btn black turq-hover" }
+                          )
+                            </td>
+                        </tr>
+                        
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="center">
+                            @Html.DisplayFor(modelItem => item.nombre)
+                        </td>
+
+                        <td class="center">
+                            @Html.DisplayFor(modelItem => item.estado)
+                        </td>
+
+                        <td class="center">
+                            @Html.DisplayFor(modelItem => item.Cliente.nombreP)
+                        </td>
+                        <td class="center">
+
+                            @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
+                         new { @class = "waves-effect waves-light btn black turq-hover" }
+                         )
+                        </td>
+                        <td class="center">
+                            @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id = item.idPK },
+                         new { @class = "waves-effect waves-light btn black turq-hover" }
+                         )
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+
+    </div>
+}

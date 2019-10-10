@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ControlCalidad.Models;
+using System.Web.UI;
 
 namespace ControlCalidad.Controllers
 {
@@ -159,6 +160,7 @@ namespace ControlCalidad.Controllers
 
                 if( result.Succeeded )
                 {
+
                     //Esto hace que se inicie sesion automaticamente con el usario 
                     //await SignInManager.SignInAsync( user , isPersistent: false , rememberBrowser: false );
 
@@ -189,6 +191,7 @@ namespace ControlCalidad.Controllers
                         RoleId = roleId
                     };
 
+                   //Llamar la funcion de javascrip para load desde aca
 
                     netUserRoles.AspNetUserRoles.Add( userRole );
                     netUserRoles.SaveChanges( );
@@ -201,9 +204,8 @@ namespace ControlCalidad.Controllers
 
                     return RedirectToAction( "Index" , "LoginUsers" );
                 }
-                AddErrors( result );
-                ViewBag.errorR = "kksks";
-                ModelState.AddModelError( "errorR" , "Mejaja" );
+                ModelState.AddModelError("", "El correo ya existe...Ingrese otro." );
+
             }
 
             // If we got this far, something failed, redisplay form

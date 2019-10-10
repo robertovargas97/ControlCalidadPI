@@ -8,7 +8,7 @@
 
 @{ 
 
-    string leader = @ViewBag.projectLeader;
+    string leader = ViewBag.projectLeader;
 
 
 
@@ -59,7 +59,7 @@
                             <p class="p-size">
                                 <i class="material-icons left text-grey">date_range</i>
                                 <span class="text-turq">Fecha de finalizacion</span>
-                                : @Html.DisplayFor(model => model.fechaFin)
+                                : @Html.DisplayFor(model => model.fechaFin )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
@@ -116,7 +116,7 @@
     <div class="row">
         <div class="">
             <nav>
-                <div class="nav-wrapper turq">
+                <div class="nav-wrapper black">
                     <p class="col s4 offset-s5">Quality Expert S.A</p>
                 </div>
             </nav>
@@ -146,4 +146,4 @@
     </div>
 </div>
 
-    }
+}

@@ -14,6 +14,7 @@ namespace ControlCalidad.Controllers
     public class HabilitiesController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
+        private EmployeeController emp = new EmployeeController();
         private static string cedulaEdit;
         private static string categoriaEdit;
         private static string descripcionEdit;
@@ -22,6 +23,7 @@ namespace ControlCalidad.Controllers
         public async Task<ActionResult> Index(string empleado)
         {
             var habilidades = db.Habilidades.Include(h => h.Empleado);
+            string id;
 
             if (string.IsNullOrEmpty(empleado))
             {
@@ -30,7 +32,9 @@ namespace ControlCalidad.Controllers
 
                 try
                 {
+                    id = splitUrl[1];
                     ViewBag.empleado = splitUrl[1];
+                    ViewBag.employeeName = this.emp.employeeName(id);
                 }
                 catch (Exception e)
                 {
@@ -40,6 +44,7 @@ namespace ControlCalidad.Controllers
             else
             {
                 ViewBag.empleado = empleado;
+                ViewBag.employeeName = this.emp.employeeName(empleado);
             }
             return View(await habilidades.ToListAsync());
         }
@@ -47,6 +52,9 @@ namespace ControlCalidad.Controllers
         // GET: Habilities/Details/5
         public async Task<ActionResult> Details(string cedula_empleadoFK, string categoriaPK, string descripcionPK)
         {
+            ViewBag.idDelete = cedula_empleadoFK;
+            ViewBag.categoryID = categoriaPK;
+            ViewBag.descriptionDelete = descripcionPK;
             if (cedula_empleadoFK == null)
             {
                 return RedirectToAction("Index", new { cedula_empleadoFK = cedula_empleadoFK });
@@ -62,6 +70,7 @@ namespace ControlCalidad.Controllers
         // GET: Habilities/Create
         public ActionResult Create(string cedulaEmpleado)
         {
+            string id;
             if (string.IsNullOrEmpty(cedulaEmpleado))
             {
                 string rawUrl = Request.RawUrl;
@@ -69,7 +78,9 @@ namespace ControlCalidad.Controllers
 
                 try
                 {
+                    id = splitUrl[1];
                     ViewBag.cedulaCreate = splitUrl[1];
+                    ViewBag.employeeName = this.emp.employeeName(id);
                 }
                 catch (Exception e)
                 {
@@ -187,6 +198,13 @@ namespace ControlCalidad.Controllers
             db.Habilidades.Remove(habilidade);
             await db.SaveChangesAsync();
             return RedirectToAction("Index",new { cedula_empleadoFK = cedula_empleadoFK});
+        }
+        public ActionResult RemoveHability(string id,string category, string description)
+        {
+            Habilidade habilidad = db.Habilidades.Find(id,category,description);
+            db.Habilidades.Remove(habilidad);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { cedula_empleadoFK = habilidad.cedula_empleadoFK });
         }
 
         protected override void Dispose(bool disposing)
