@@ -182,7 +182,7 @@ function validateEmployeePhoneNumber(inputtxt) {
         err.innerHTML = "";
     }
     else {
-        err.innerHTML = `<span class=red-text>Digite un valores numericos </span>`;
+        err.innerHTML = `<span class=red-text>Digite valores numericos </span>`;
     }
 }
 function validateEmployeeID(inputtxt) {
@@ -193,5 +193,49 @@ function validateEmployeeID(inputtxt) {
     }
     else {
         err.innerHTML = `<span class=red-text>Digite un valores numericos </span>`;
+    }
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------Client Validations----------------------------------------------------
+function validateNameClient() {
+    if (document.getElementById("nameClient").value.length <= 0) {
+        document.getElementById("nameClientError").innerHTML = "Debes ingresar un nombre.";
+    }
+    else {
+        document.getElementById("nameClientError").innerHTML = "";
+    }
+}
+
+function validateSurnameClient() {
+    if (document.getElementById("surnameClient").value.length <= 0) {
+        document.getElementById("surnameClientError").innerHTML = "Debes ingresar el primer apellido.";
+    }
+    else {
+        document.getElementById("surnameClientError").innerHTML = "";
+    }
+}
+
+function validateSecondSurnameClient() {
+    if (document.getElementById("secondSurnameClient").value.length <= 0) {
+        document.getElementById("secondSurnameClientError").innerHTML = "Debes ingresar el segundo apellido.";
+    }
+    else {
+        document.getElementById("secondSurnameClientError").innerHTML = "";
+    }
+}
+
+function validateIdClient(input) {
+    var letters = /^[0-9]*$/;
+    if (document.getElementById("idClient").value.length <= 7) {
+            document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula válida.";
+        }
+    else {
+        if (input.value.match(letters)) {
+            document.getElementById("idClientError").innerHTML = "";
+        } else {
+            document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula válida.";
+        }
     }
 }
