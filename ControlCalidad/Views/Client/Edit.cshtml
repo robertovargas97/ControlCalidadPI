@@ -42,12 +42,64 @@
                     <div class="col s4">
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
+                                <i class="p-size text-grey material-icons prefix">perm_identity</i>
+                                <input value=@Model.cedulaPK name="cedulaPK" type="text" required class="validate form-control" onkeypress="validateIdClient(this)" id="idClient" />
+                                <label for="cedulaPK">Cédula <span class="red-text">  *</span>  </label>
+                                <span class="text-error" id="idClientError"></span>
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s10 offset-s1">
+                                <i class="p-size text-grey material-icons prefix">account_circle</i>
+                                <input value=@Model.apellido2 name="apellido2" type="text" required class="validate form-control" onblur="validateSecondSurnameClient()" id="secondSurnameClient" />
+                                <label for="apellido2">Segundo Apellido <span class="red-text">  *</span>  </label>
+                                <span class="text-error" id="secondSurnameClientError"></span>
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s10 offset-s1">
+                                <i class="p-size text-grey material-icons prefix">place</i>
+                                @if (ViewBag.provinces != null)
+                                {
+                                    @Html.DropDownList("provincia", provinces, "Seleccione una provincia")
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s4">
+                        <div class="row margin-b">
+                            <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">account_circle</i>
                                 <input value=@Model.nombreP name="nombreP" type="text" required class="validate form-control" onblur="validateNameClient()" id="nameClient" />
                                 <label for="nombreP">Nombre <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="nameClientError"></span>
                             </div>
                         </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s10">
+                                <i class="text-grey material-icons prefix">phone</i>
+                                @Html.LabelFor(m => m.telefono, "Telefono", new { @class = "" })
+                                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeePhoneNumber(this)", @onkeyup = "validateEmployeePhoneNumber(this)" } })
+                                @Html.ValidationMessageFor(m => m.telefono, null, new { @class = "text-error" })
+                            </div>
+                            <div id="employeePhoneError" class="center">
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s10 offset-s1">
+                                <i class="p-size text-grey material-icons prefix">place</i>
+                                @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione un canton", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s4">
 
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
@@ -60,38 +112,6 @@
 
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
-                                <i class="p-size text-grey material-icons prefix">account_circle</i>
-                                <input value=@Model.apellido2 name="apellido2" type="text" required class="validate form-control" onblur="validateSecondSurnameClient()" id="secondSurnameClient" />
-                                <label for="apellido2">Segundo Apellido <span class="red-text">  *</span>  </label>
-                                <span class="text-error" id="secondSurnameClientError"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col s4">
-                        <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
-                                <i class="p-size text-grey material-icons prefix">perm_identity</i>
-                                <input value=@Model.cedulaPK name="cedulaPK" type="text" required class="validate form-control" onkeypress="validateIdClient(this)" id="idClient" />
-                                <label for="cedulaPK">Cédula <span class="red-text">  *</span>  </label>
-                                <span class="text-error" id="idClientError"></span>
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
-                                <i class="p-size text-grey material-icons prefix">phone</i>
-                                <input class="validate form-control" type="text" name="telefono" id="telefono" onkeydown="validateEmployeePhoneNumber(this)" onkeyup="validateEmployeePhoneNumber(this)" />
-                                @Html.LabelFor(m => m.telefono, "Teléfono", new { @class = "" })
-                                @Html.ValidationMessageFor(m => m.telefono, null, new { @class = "text-error" })
-                            </div>
-                            <div id="employeePhoneError" class="center">
-
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s10 offset-s1">
                                 <i class="p-size text-grey material-icons prefix">mail</i>
                                 @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <input value=@Model.correo class="validate form-control" type="email" name="correo" id="Email" onkeypress="validateEmail('Email')" required />
@@ -99,25 +119,6 @@
                                 <span class="text-error" id="mailError"></span>
                             </div>
                         </div>
-                    </div>
-
-                            <div class="col s4">
-                                <div class="row margin-b">
-                                    <div class="input-field col s10 offset-s1">
-                                        <i class="p-size text-grey material-icons prefix">place</i>
-                                        @if (ViewBag.provinces != null)
-                                        {
-                                            @Html.DropDownList("provincia", provinces, "Seleccione una provincia")
-                                        }
-                                    </div>
-                                </div>
-
-                                <div class="row margin-b">
-                                    <div class="input-field col s10 offset-s1">
-                                        <i class="p-size text-grey material-icons prefix">place</i>
-                                        @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione un canton", new { @class = "form-control" })
-                                    </div>
-                                </div>
 
                         <div class="row margin-b">
                             <div class="input-field col s10 offset-s1">
