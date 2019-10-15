@@ -111,6 +111,25 @@ function validateConfirmPass() {
 
 //-------------------------------------------Project Validations--------------------------------
 
+function removeProject() {
+    var id = document.getElementById("idProject").value;
+    $.ajax({
+        url: '/Project/activeProject',
+        data: { id: $('#idProject').val() },
+
+        success: function (active) {
+           
+            if (active == 'Inactivo') {
+                document.getElementById("loading").classList.remove("hide");
+                location.href = '/Project/RemoveProject/' + parseInt(id);
+            }
+            else {
+                document.getElementById("activeError").innerHTML = "No puedes eliminar un  proyecto activo... Debe estár inactivo o finalizado.";
+            }
+        },
+    });
+}
+
 //<summary> :   validates that a client is selected
 //<param>   : idClient,represents the id of the html input to be validated.
 function validateClient(idClient) {

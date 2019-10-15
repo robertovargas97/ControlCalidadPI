@@ -184,6 +184,19 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" );
         }
 
+        public string activeProject(string id )
+        {
+            string status = "SELECT	P.estado " +
+                "FROM ControlCalidad.Proyecto P " +
+                "WHERE P.idPk = " + id + ";";
+
+            List<string> projectStatus = db.Database.SqlQuery<string>( status ).ToList( );
+
+
+            return projectStatus[ 0 ];
+
+        }
+
         //DOCUMENTAR
         public string GetLeaderName( int? id )
         {
