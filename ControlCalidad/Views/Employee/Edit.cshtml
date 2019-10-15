@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
     List<SelectListItem> provinces = (List<SelectListItem>)ViewBag.provinces;
+    string prov = Model.provincia.ToString();
 }
 
 
@@ -34,128 +35,157 @@
                             @Html.AntiForgeryToken();
                             @Html.HiddenFor(model => model.cedulaPK)
                             @Html.ValidationSummary(true, "errorR", new { @class = "text-error" })
-                            <div class="row">
-                                <div class="col s4">
-                                    <div class="row margin-b center">
-                                        <div class="input-field col s12 ">
-                                            <i class="text-grey material-icons prefix">account_circle</i>
-                                            <label for="nombreP">Nombre<span class="red-text">*</span></label>
-                                            @Html.EditorFor(model => model.nombreP, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeName(this)", @onkeyup = "validateEmployeeName(this)" } })
-                                            @Html.ValidationMessageFor(m => m.nombreP, null, new { @class = "text-error" })
-                                        </div>
-                                        <div id="employeeNameError" class="center">
-
-                                        </div>
-                                    </div>
-                                    <div class="row margin-b center">
-                                        <div class="input-field col  s12">
-                                            <i class="text-grey material-icons prefix">account_circle</i>
-                                            <label for="apellido1">Primer apellido<span class="red-text">*</span></label>
-                                            @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeSurname(this)", @onkeyup = "validateEmployeeSurname(this)" } })
-                                            @Html.ValidationMessageFor(m => m.apellido1, null, new { @class = "text-error" })
-                                        </div>
-                                        <div id="employeeSurnameError1" class="center">
-
-                                        </div>
-                                    </div>
-                                    <div class="row margin-b center">
-                                        <div class="input-field col  s12">
-                                            <i class="text-grey material-icons prefix">account_circle</i>
-                                            <label for="apellido2">Segundo apellido<span class="red-text">*</span></label>
-                                            @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeSurname2(this)", @onkeyup = "validateEmployeeSurname2(this)" } })
-                                            @Html.ValidationMessageFor(m => m.apellido2, null, new { @class = "text-error" })
-                                        </div>
-                                        <div id="employeeSurnameError2" class="center">
-
-                                        </div>
-                                    </div>
-                                    <div class="row margin-b">
-                                        <div class="input-field col s11" style="margin:15px 15px;">
-                                            <i class="p-size text-grey material-icons prefix" style="padding: 0 5px">mail</i>
-                                            <select id="disponibilidad" name="disponibilidad">
-                                                <option value="">Disponibilidad</option>
-                                                <option value="Disponible">Disponible</option>
-                                                <option value="Ocupado">Ocupado</option>
-                                            </select>
-                                            <label for="disponibilidad">Disponibilidad</label>
-                                        </div>
-                                    </div>
+                    <div class="row">
+                        <div class="col s3">
+                            <div class="row margin-b center">
+                                <div class="input-field col s12 ">
+                                    <i class="text-grey material-icons prefix">account_circle</i>
+                                    <label for="cedula">cedula<span class="red-text">*</span></label>
+                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeName(this)", @onkeyup = "validateEmployeeName(this)", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
                                 </div>
-                                <div class="col s4">
-                                    <div class="row margin-b">
-                                        <div class="input-field col  s12">
-                                            <i class="p-size material-icons text-grey prefix">date_range</i>
-                                            <label for="fechaInicio">Fecha de nacimiento</label>
-                                            <input type="text" class="datepicker" id="fechaNacimiento" name="fechaNacimiento" />
-                                            @Html.ValidationMessageFor(model => model.fechaNacimiento, "", new { @class = "text-error" })
-                                        </div>
-                                    </div>
-                                    <div class="row margin-b">
-                                        <div class="input-field col s12">
-                                            <i class="text-grey material-icons prefix">date_range</i>
-                                            @Html.LabelFor(m => m.edad, "Edad", new { @class = "" })
-                                            @Html.EditorFor(model => model.edad, new { htmlAttributes = new { @class = "form-control", @onkeyup = "validateEmployeeAge(this)", @onkeydown = "validateEmployeeAge(this)" } })
-                                            @Html.ValidationMessageFor(m => m.edad, null, new { @class = "text-error" })
-                                        </div>
-                                        <div id="employeeAgeError" class="center">
+                                <div id="employeeNameError" class="center">
 
-                                        </div>
-                                    </div>
-                                    <div class="row margin-b">
-                                        <div class="input-field col s12">
-                                            <i class="text-grey material-icons prefix">phone</i>
-                                            @Html.LabelFor(m => m.telefono, "Telefono", new { @class = "" })
-                                            @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeePhoneNumber(this)", @onkeyup = "validateEmployeePhoneNumber(this)" } })
-                                            @Html.ValidationMessageFor(m => m.telefono, null, new { @class = "text-error" })
-                                        </div>
-                                        <div id="employeePhoneError" class="center">
-
-                                        </div>
-                                    </div>
-                                    <div class="row margin-b">
-                                        <div class="input-field col s12">
-                                            <i class="text-grey material-icons prefix">mail</i>
-                                            @Html.LabelFor(m => m.correo, "Email", new { @class = "" })
-                                            @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeEmail(this)", @onkeyup = "validateEmployeeEmail(this)" } })
-                                            @Html.ValidationMessageFor(m => m.correo, null, new { @class = "text-error" })
-                                        </div>
-                                        <div id="employeeEmailError" class="center">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s4">
-                                    <div class="row margin-b">
-                                        <div class="input-field col s11">
-                                            <i class="text-grey material-icons prefix">place</i>
-                                            @if (ViewBag.provinces != null)
-                                            {
-                                                @Html.DropDownList("provincia", provinces, "Selecciona una provincia*")
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="row margin-b">
-                                        <div class="input-field col s11">
-                                            <i class="text-grey material-icons prefix">place</i>
-                                            @Html.DropDownListFor(model => model.canton, new SelectList(" "), "Seleccione Canton*", new { @class = "form-control" })
-                                        </div>
-                                    </div>
-                                    <div class="row margin-b">
-                                        <div class="input-field col s11">
-                                            <i class="text-grey material-icons prefix">place</i>
-                                            @Html.DropDownListFor(model => model.distrito, new SelectList(" "), "Seleccione distrito*", new { @class = "form-control" })
-                                        </div>
-                                    </div>
-                                    <div class="row margin-b">
-                                        <div class="input-field col s11">
-                                            <i class="text-grey material-icons prefix">date_range</i>
-                                            @Html.LabelFor(m => m.direccionExacta, "Direccion exacta", new { @class = "" })
-                                            @Html.EditorFor(model => model.direccionExacta, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(m => m.direccionExacta, null, new { @class = "text-error" })
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
+                            <div class="row margin-b center">
+                                <div class="input-field col  s12">
+                                    <i class="p-size material-icons text-grey prefix">date_range</i>
+                                    <label for="fechaInicio">Fecha de nacimiento</label>
+                                    <input type="text" class="datepicker" id="fechaNacimiento" name="fechaNacimiento" />
+                                    @Html.ValidationMessageFor(model => model.fechaNacimiento, "", new { @class = "text-error" })
+                                </div>
+                            </div>
+                            <div class="row margin-b">
+                                <div class="input-field col s11" style="margin:15px 15px;">
+                                    <i class="p-size text-grey material-icons prefix" style="padding: 0 5px">mail</i>
+                                    <select id="disponibilidad" name="disponibilidad">
+                                        <option value="">Disponibilidad</option>
+                                        <option value="Disponible">Disponible</option>
+                                        <option value="Ocupado">Ocupado</option>
+                                    </select>
+                                    <label for="disponibilidad">Disponibilidad</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col s3">
+                            <div class="row margin-b ">
+                                <div class="input-field col s12 ">
+                                    <i class="text-grey material-icons prefix">account_circle</i>
+                                    <label for="nombreP">Nombre<span class="red-text">*</span></label>
+                                    @Html.EditorFor(model => model.nombreP, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeName(this)", @onkeyup = "validateEmployeeName(this)" } })
+                                    @Html.ValidationMessageFor(m => m.nombreP, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeNameError" class="center">
+
+                                </div>
+                            </div>
+                            <div class="row margin-b">
+                                <div class="input-field col s12">
+                                    <i class="text-grey material-icons prefix">date_range</i>
+                                    @Html.LabelFor(m => m.edad, "Edad", new { @class = "" })
+                                    @Html.EditorFor(model => model.edad, new { htmlAttributes = new { @class = "form-control", @onkeyup = "validateEmployeeAge(this)", @onkeydown = "validateEmployeeAge(this)" } })
+                                    @Html.ValidationMessageFor(m => m.edad, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeAgeError" class="center">
+
+                                </div>
+                            </div>
+                            <div class="row margin-b">
+                                <div class="input-field col s11">
+                                    <i class="text-grey material-icons prefix">place</i>
+                                    <select id="provincia" name="provincia">
+
+                                        <option value="@Model.provincia">@Model.provincia</option>
+                                    </select>
+                                    <label for="provincia">provinca </label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col s3">
+                            <div class="row margin-b ">
+                                <div class="input-field col  s12">
+                                    <i class="text-grey material-icons prefix">account_circle</i>
+                                    <label for="apellido1">Primer apellido<span class="red-text">*</span></label>
+                                    @Html.EditorFor(model => model.apellido1, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeSurname(this)", @onkeyup = "validateEmployeeSurname(this)" } })
+                                    @Html.ValidationMessageFor(m => m.apellido1, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeSurnameError1" class="center">
+
+                                </div>
+                            </div>
+                            <div class="row margin-b">
+                                <div class="input-field col s12">
+                                    <i class="text-grey material-icons prefix">phone</i>
+                                    @Html.LabelFor(m => m.telefono, "Telefono", new { @class = "" })
+                                    @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeePhoneNumber(this)", @onkeyup = "validateEmployeePhoneNumber(this)" } })
+                                    @Html.ValidationMessageFor(m => m.telefono, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeePhoneError" class="center">
+
+                                </div>
+                            </div>
+
+                            <div class="row margin-b">
+                                <div class="input-field col s11">
+                                    <i class="text-grey material-icons prefix">place</i>
+                                    <select id="canton" name="canton">
+
+                                        <option value="@Model.canton">@Model.canton</option>
+                                    </select>
+                                    <label for="canton">Canton </label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col s3">
+                            <div class="row margin-b ">
+                                <div class="input-field col  s12">
+                                    <i class="text-grey material-icons prefix">account_circle</i>
+                                    <label for="apellido2">Segundo apellido<span class="red-text">*</span></label>
+                                    @Html.EditorFor(model => model.apellido2, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeSurname2(this)", @onkeyup = "validateEmployeeSurname2(this)" } })
+                                    @Html.ValidationMessageFor(m => m.apellido2, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeSurnameError2" class="center">
+
+                                </div>
+                            </div>
+                            <div class="row margin-b ">
+                                <div class="input-field col s12">
+                                    <i class="text-grey material-icons prefix">mail</i>
+                                    @Html.LabelFor(m => m.correo, "Email", new { @class = "" })
+                                    @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeEmail(this)", @onkeyup = "validateEmployeeEmail(this)" } })
+                                    @Html.ValidationMessageFor(m => m.correo, null, new { @class = "text-error" })
+                                </div>
+                                <div id="employeeEmailError" class="center">
+
+                                </div>
+                            </div>
+                            <div class="row margin-b">
+                                <div class="input-field col s11">
+                                    <i class="text-grey material-icons prefix">place</i>
+                                    <select id="distrito" name="distrito">
+
+                                        <option value="@Model.distrito">@Model.distrito</option>
+                                    </select>
+                                    <label for="distrito">Distrito </label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row margin-b center">
+                            <div class="input-field col s11">
+                                <i class="text-grey material-icons prefix">date_range</i>
+                                @Html.LabelFor(m => m.direccionExacta, "Direccion exacta", new { @class = "" })
+                                @Html.EditorFor(model => model.direccionExacta, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(m => m.direccionExacta, null, new { @class = "text-error" })
+                            </div>
+                        </div>
+
+                    </div>
 
 
                             <div class="row center">
@@ -206,6 +236,42 @@
     @Scripts.Render("~/bundles/ajax")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+    <script>
+
+            $(document).ready(function () {
+
+                var output = "";
+                var provinceID = -1;
+                 var cantonID  = -1;
+                    $.get("/localizations/provinceEditList", { provincia: $("#provincia").val() }, function (data) {
+                        $.each(data, function (index, row) {
+                            $("#provincia").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
+                        });
+                        $('select').formSelect();
+                    });
+
+                $.get("/localizations/provinceID", { name: '@Model.provincia' }, function (data) {
+                        provinceID = data;
+                        $.get("/localizations/cantonesList", { provincia: data }, function (data2) {
+                            $.each(data2, function (index, row) {
+                                $("#canton").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
+                            });
+                            $('select').formSelect();
+                        });
+                    });
+                $.get("/localizations/cantonID", { name: '@Model.provincia', canton: '@Model.canton' }, function (data3) {
+                    cantonID = data3;
+                    $.get("/localizations/districtsList", { provincia: provinceID, canton : cantonID }, function (data4) {
+                            alert("entre2")
+                            $.each(data4, function (index, row) {
+                                $("#distrito").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
+                            });
+                            $('select').formSelect();
+                        });
+                    });
+            
+            });
+    </script>
     <script>
 
         $(document).ready(function () {
