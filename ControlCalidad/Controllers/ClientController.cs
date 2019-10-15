@@ -101,7 +101,7 @@ namespace ControlCalidad.Controllers
 
                 catch
                 {
-                    ModelState.AddModelError( "" , "No puede crear clientes con la misma cédula" );
+                    ModelState.AddModelError( "" , "No puede crear clientes con la misma cédula." );
                     return View( cliente );
 
                 }
