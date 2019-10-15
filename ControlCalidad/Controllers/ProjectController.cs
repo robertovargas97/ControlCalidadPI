@@ -184,17 +184,16 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" );
         }
 
+        //<summary> :   It is used to validates the status of a project.
+        //<param>   :   id,this parameter is an identifier for the project. . 
+        //<return>  : projectStatus,the status of the project
         public string activeProject(string id )
         {
             string status = "SELECT	P.estado " +
                 "FROM ControlCalidad.Proyecto P " +
                 "WHERE P.idPk = " + id + ";";
-
             List<string> projectStatus = db.Database.SqlQuery<string>( status ).ToList( );
-
-
             return projectStatus[ 0 ];
-
         }
 
         //DOCUMENTAR

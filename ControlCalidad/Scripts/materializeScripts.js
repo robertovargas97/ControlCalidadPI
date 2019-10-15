@@ -111,6 +111,7 @@ function validateConfirmPass() {
 
 //-------------------------------------------Project Validations--------------------------------
 
+//<summary> : validates the status of a project,if it status is active the project can not be deleted (using ajax)
 function removeProject() {
     var id = document.getElementById("idProject").value;
     $.ajax({
