@@ -178,6 +178,9 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" );
         }
 
+        //<summary> :   It is used to remove a client from the database.
+        //<param>   :   clientID, this parameter identifies the client that will be removed from the database. 
+        //<return>  :   Redirect to Index.
         public ActionResult RemoveClient(string clientId)
         {  
             Cliente client= db.Clientes.Find(clientId);

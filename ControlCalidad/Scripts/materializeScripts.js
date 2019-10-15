@@ -254,6 +254,8 @@ function validateEmployeeID(inputtxt) {
 //------------------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------Client Validations----------------------------------------------------
+
+//<summary> :   validates the name of the client that will be placed in the input.
 function validateNameClient() {
     if (document.getElementById("nameClient").value.length <= 0) {
         document.getElementById("nameClientError").innerHTML = "Debes ingresar un nombre.";
@@ -263,6 +265,7 @@ function validateNameClient() {
     }
 }
 
+//<summary> :   validates the surname that will be placed in the input.
 function validateSurnameClient() {
     if (document.getElementById("surnameClient").value.length <= 0) {
         document.getElementById("surnameClientError").innerHTML = "Debes ingresar el primer apellido.";
@@ -272,6 +275,7 @@ function validateSurnameClient() {
     }
 }
 
+//<summary> :   validates the second surname that will be placed in the input.
 function validateSecondSurnameClient() {
     if (document.getElementById("secondSurnameClient").value.length <= 0) {
         document.getElementById("secondSurnameClientError").innerHTML = "Debes ingresar el segundo apellido.";
@@ -281,6 +285,8 @@ function validateSecondSurnameClient() {
     }
 }
 
+//<summary> :   validates the client id that will be placed in the input.
+//<param>   :   input, represents id of the client to be validated.
 function validateIdClient(input) {
     var letters = /^[0-9]*$/;
     if (document.getElementById("idClient").value.length <= 7) {
