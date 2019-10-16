@@ -27,6 +27,36 @@ namespace ControlCalidad.Controllers
              });
             return provinceList;
         }
+        public JsonResult provinceEditList()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Provincia> provinceList = db.Provincias.ToList();
+            return Json(provinceList, JsonRequestBehavior.AllowGet);
+
+        }
+        public int provinceID(string name)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Provincia> provinceList = db.Provincias.Where(x => x.nombre == name).ToList();
+            return provinceList[0].codigoPK;
+        }
+        
+        public int cantonID(string name, string canton)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Provincia> provinceList = db.Provincias.Where(x => x.nombre == name).ToList();
+            int provinceID = provinceList[0].codigoPK;
+            List<Canton> cantonList = db.Cantons.Where(x => x.provinciaFK == provinceID).ToList();
+            for(int i = 0; i< cantonList.Count; ++i)
+            {
+                if(cantonList[i].nombre == canton)
+                {
+                    return cantonList[i].codigoPK;
+                }
+
+            }
+            return -1;
+        }
 
 
         public JsonResult cantonesList(int provincia)
@@ -47,6 +77,8 @@ namespace ControlCalidad.Controllers
             //return new SelectList((from provincias in db.Provincias
             //                       select provincias.nombre).ToList());
         }
+
+       
 
         public string provinceName(string strProvince)
         {

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ControlCalidad.Models;
+using System.Text.RegularExpressions;
 
 namespace ControlCalidad.Controllers
 {
@@ -109,15 +110,39 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,edad,telefono,correo,provincia,canton,distrito,direccionExacta,disponibilidad")] Empleado empleado)
         {
-           
+            var editProvince = Regex.Match(empleado.provincia, @"\d+").Value;
+            var editCanton = Regex.Match(empleado.canton, @"\d+").Value;
+            var editDistrict = Regex.Match(empleado.distrito, @"\d+").Value;
+            
+            string provinceName = null;
+            string cantonName = null;
+            string districtName = null;
+            string provinceID = null;
+
+            if (editProvince != "")
+            {
+                provinceName = localizations.provinceName(empleado.provincia);
+                empleado.provincia = provinceName;
+
+            }
+            if (editCanton != "")
+            {
+                provinceID = this.localizations.provinceID(provinceName).ToString();
+                cantonName = localizations.cantonName(provinceID, empleado.canton);
+                empleado.canton = cantonName;
+
+            }
+            if (editDistrict != "")
+            {
+                string cantonID = this.localizations.cantonID(provinceName,empleado.canton).ToString();
+                districtName = localizations.districtName(provinceID, cantonID, empleado.distrito);
+                empleado.distrito = districtName;
+            }
+
+
             if (ModelState.IsValid)
             {
-                string provinceName = localizations.provinceName(empleado.provincia);
-                string cantonName = localizations.cantonName(empleado.provincia, empleado.canton);
-                string districtName = localizations.districtName(empleado.provincia, empleado.canton, empleado.distrito);
-                empleado.provincia = provinceName;
-                empleado.canton = cantonName;
-                empleado.distrito = districtName;
+
                 db.Entry(empleado).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
