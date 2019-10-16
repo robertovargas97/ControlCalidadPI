@@ -38,7 +38,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s6 offset-s3">
                                 <i class="text-grey material-icons prefix">mail</i>
-                                <input class="validate form-control" type="email" name="Email" id="Email" onkeypress="validateEmail('Email')" required />
+                                <input class="validate form-control" type="email" name="Email" id="Email" onblur="validateEmail('Email')" onchange="validateEmail('Email')" onkeyup="validateEmail('Email')" required />
                                 <label for="Email">Correo <span class="red-text">  *</span>  </label>
                                 <span class="text-error" id="mailError"></span>
                             </div>
@@ -49,6 +49,7 @@
                             <div class="input-field col s5">
                                 @Html.ValidationMessageFor( m => m.Role , null , new {@class = "text-error"} )
                                 <select id="Role" name="Role" required onchange="validateRole()" onclick="validateRole()">
+                                    <option value="" disabled selected>Seleccione un rol</option>
                                     <option value="Jefe">Jefe</option>
                                     <option value="Lider">Lider</option>
                                     <option value="Tester">Tester</option>
@@ -103,22 +104,31 @@
                             </div>
                         </div>
 
+                        <div class="margin-required">
+                            <p class="text-error">
+                                Los campos con * son requeridos.
+                            </p>
+                        </div>
+
                         <div class="margin-b1">
                         </div>
 
                         <div class="row center">
+
                             @Html.ActionLink("Cancelar", "../LoginUsers/Index", null, new {@class = "margin-r waves-effect red-hover btn red accent-4"} )
-                            <button type="submit" class=" margin-l btn waves-effect waves-light turq btn-login modal-trigger">ACEPTAR</button>
+                            <button type="submit" id="btn-submit" class=" margin-l btn waves-effect waves-light turq btn-login modal-trigger">ACEPTAR</button>
                         </div>
                         <div class="margin-b section">
                         </div>
                     }
                 </div>
             </div>
-
-
         </div>
-
+        <div class="fixed-action-btn">
+            <a href="@Url.Action( "Index" , "LoginUsers/Index" )" class="black btn-floating btn-large left turq-hover">
+                <i class="large material-icons">arrow_back</i>
+            </a>
+        </div>
     }
     else
     {
@@ -139,4 +149,3 @@
 @section Scripts {
     @Scripts.Render( "~/bundles/jqueryval" )
 }
-

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    //Material Design initializations for html components
     var elems = document.querySelectorAll('.parallax');
     var instances = M.Parallax.init(elems);
 
@@ -30,17 +31,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+//  <summary> : redirect to specific address
+//  <param> : the address to redirect
 function redirectToPage(address) {
     location.href = address;
 }
+
+// <sumary> : show a loading component to give feedback to the user
 function onSubmit() {
     document.getElementById("loading").classList.remove("hide");
 }
 
-//Validation functions for forms
+//------------------------------------Validation functions for inputs-----------------------
 
 //--------------------------------------Register Validations-------------------------------
 
+//<summary> :   validates the email that will be placed in the inputs.
+//<param>   : idElement,represents the id of the html input to be validated.
 function validateEmail(idElement) {
 
     if (document.getElementById(idElement).value.length < 3) {
@@ -53,11 +60,31 @@ function validateEmail(idElement) {
         }
         else {
             document.getElementById("mailError").innerHTML = "";
-
+            existMail();
         }
     }
 }
 
+//<summary> :   validates if the mail placed existe in the database using ajax.
+function existMail() {
+    $.ajax({
+        url: '/LoginUsers/validateEmail',
+        data: { mail: $('#Email').val() },
+        success: function (exist) {
+            if (exist == 'True') {
+                document.getElementById("mailError").innerHTML = "El correo ya existe... Por favor ingrese otro";
+                document.getElementById('btn-submit').disabled = true;
+            }
+            else {
+                document.getElementById("mailError").innerHTML = "";
+                document.getElementById('btn-submit').disabled = false;
+            }
+        },
+    });
+}
+
+//<summary> :   validates the password that will be placed in the inputs.
+//<param>   : password,represents the id of the html input to be validated.
 function validatePassword(password) {
     if (document.getElementById(password).value.length < 4) {
         document.getElementById("passwordError").innerHTML = "La contraseña debe tener 5 caracter como mínimo.";
@@ -67,6 +94,7 @@ function validatePassword(password) {
     }
 }
 
+//<summary> :   validates that the password and the confirm password are the same.
 function validateConfirmPass() {
     let password = document.getElementById("Password").value;
     let passConfirm = document.getElementById("ConfirmPassword").value;
@@ -78,16 +106,40 @@ function validateConfirmPass() {
         document.getElementById("passwordConfirmError").innerHTML = "";
     }
 }
+//----------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------------------------------------
 
-//-------------------------------------------------------------------Project Validations--------------------------------
+//-------------------------------------------Project Validations--------------------------------
+
+//<summary> : validates the status of a project,if it status is active the project can not be deleted (using ajax)
+function removeProject() {
+    var id = document.getElementById("idProject").value;
+    $.ajax({
+        url: '/Project/activeProject',
+        data: { id: $('#idProject').val() },
+
+        success: function (active) {
+           
+            if (active == 'Inactivo') {
+                document.getElementById("loading").classList.remove("hide");
+                location.href = '/Project/RemoveProject/' + parseInt(id);
+            }
+            else {
+                document.getElementById("activeError").innerHTML = "No puedes eliminar un  proyecto activo... Debe estár inactivo o finalizado.";
+            }
+        },
+    });
+}
+
+//<summary> :   validates that a client is selected
+//<param>   : idClient,represents the id of the html input to be validated.
 function validateClient(idClient) {
     if (document.getElementById(idClient).value.indexOf("Selecciona el cliente") > -1) {
         document.getElementById("ClientError").innerHTML = "Debe seleccionar un cliente.";
     }
 }
 
+//<summary> :   validates that a project name has a minimun length. (there may be projects with the same name)
 function validateProjectName() {
     if (document.getElementById("projectName").value.length < 5) {
         document.getElementById("nameError").innerHTML = "Debe colocar un nombre válido al proyecto(5 caracteres como mínimo).";
@@ -97,6 +149,7 @@ function validateProjectName() {
     }
 }
 
+//<summary> :   validates that the user select a begin date to the project.
 function validateDate() {
     if (document.getElementById("fechaInicio").value.length <= 0) {
         document.getElementById("dateErrorMessage").innerHTML = "Debe seleccionar una fecha de inicio para el proyecto.";
@@ -106,6 +159,7 @@ function validateDate() {
     }
 }
 
+//<summary> :   validates that the user sets a correct duration for the project.
 function validateDuration() {
     if (document.getElementById("avrDuration").value.length <= 0) {
         document.getElementById("avrDurationError").innerHTML = "Debes ingresar una duracion válida.";
@@ -129,6 +183,7 @@ function validateEmployeeName(inputtxt) {
 
     }
 }
+
 function validateEmployeeSurname(inputtxt) {
     var letters = /^[a-zA-Z\s-]*$/;
     if (inputtxt.value.match(letters)) {
@@ -199,6 +254,8 @@ function validateEmployeeID(inputtxt) {
 //------------------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------Client Validations----------------------------------------------------
+
+//<summary> :   validates the name of the client that will be placed in the input.
 function validateNameClient() {
     if (document.getElementById("nameClient").value.length <= 0) {
         document.getElementById("nameClientError").innerHTML = "Debes ingresar un nombre.";
@@ -208,6 +265,7 @@ function validateNameClient() {
     }
 }
 
+//<summary> :   validates the surname that will be placed in the input.
 function validateSurnameClient() {
     if (document.getElementById("surnameClient").value.length <= 0) {
         document.getElementById("surnameClientError").innerHTML = "Debes ingresar el primer apellido.";
@@ -217,6 +275,7 @@ function validateSurnameClient() {
     }
 }
 
+//<summary> :   validates the second surname that will be placed in the input.
 function validateSecondSurnameClient() {
     if (document.getElementById("secondSurnameClient").value.length <= 0) {
         document.getElementById("secondSurnameClientError").innerHTML = "Debes ingresar el segundo apellido.";
@@ -226,11 +285,13 @@ function validateSecondSurnameClient() {
     }
 }
 
+//<summary> :   validates the client id that will be placed in the input.
+//<param>   :   input, represents id of the client to be validated.
 function validateIdClient(input) {
     var letters = /^[0-9]*$/;
     if (document.getElementById("idClient").value.length <= 7) {
-            document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula válida.";
-        }
+        document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula válida.";
+    }
     else {
         if (input.value.match(letters)) {
             document.getElementById("idClientError").innerHTML = "";

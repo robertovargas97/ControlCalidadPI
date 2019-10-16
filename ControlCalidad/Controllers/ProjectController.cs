@@ -13,7 +13,9 @@ namespace ControlCalidad.Controllers
 {
     public class ProjectController : Controller
     {
-        private QASystemEntities db = new QASystemEntities();
+        private QASystemEntities db = new QASystemEntities( );
+
+        //Controllers to get values from other models
         private ClientController clientController = new ClientController( );
         private EmployeeController employeeController = new EmployeeController( );
         private string projectLeader;
@@ -21,31 +23,31 @@ namespace ControlCalidad.Controllers
         // GET: Project
         public async Task<ActionResult> Index()
         {
-            var proyectoes = db.Proyectoes.Include(p => p.Cliente);
+            var proyectoes = db.Proyectoes.Include( p => p.Cliente );
             string email = User.Identity.Name;
-            if (User.IsInRole("Tester") || User.IsInRole("Lider"))
+            if( User.IsInRole( "Tester" ) || User.IsInRole( "Lider" ) )
             {
-                ViewBag.projectId = GetProjectIdByEmail(email);
+                ViewBag.projectId = GetProjectIdByEmail( email );
             }
-            
-            return View(await proyectoes.ToListAsync());
-            
+
+            return View( await proyectoes.ToListAsync( ) );
+
         }
 
         // GET: Project/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details( int? id )
         {
-            if (id == null)
+            if( id == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
             }
-            Proyecto proyecto = await db.Proyectoes.FindAsync(id);
-            if (proyecto == null)
+            Proyecto proyecto = await db.Proyectoes.FindAsync( id );
+            if( proyecto == null )
             {
-                return HttpNotFound();
+                return HttpNotFound( );
             }
-            ViewBag.projectLeader = GetLeaderName(id);
-            return View(proyecto);
+            ViewBag.projectLeader = GetLeaderName( id );
+            return View( proyecto );
         }
 
         // GET: Project/Create
@@ -53,8 +55,8 @@ namespace ControlCalidad.Controllers
         {
             ViewBag.leaders = employeeController.GetLeaders( );
             ViewBag.allClientsId = clientController.GetClients( );
-           // ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP");
-            return View();
+            // ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP");
+            return View( );
         }
 
         // POST: Project/Create
@@ -62,41 +64,41 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK")] Proyecto proyecto, string cedula_empleadoFK)
+        public async Task<ActionResult> Create( [Bind( Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK" )] Proyecto proyecto , string cedula_empleadoFK )
         {
             //Console.WriteLine(cedula_empleadoFK);
-            
-            if (ModelState.IsValid)
+
+            if( ModelState.IsValid )
             {
-               
-                db.Proyectoes.Add(proyecto);
-                await db.SaveChangesAsync();
-                SetLeaderToProject(cedula_empleadoFK, proyecto.idPK, "Lider");
+
+                db.Proyectoes.Add( proyecto );
+                await db.SaveChangesAsync( );
+                SetLeaderToProject( cedula_empleadoFK , proyecto.idPK , "Lider" );
                 ViewBag.leader = cedula_empleadoFK;
-                return RedirectToAction("Index");
+                return RedirectToAction( "Index" );
             }
-            
-            ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
-            return View(proyecto);
+
+            ViewBag.cedulaClienteFK = new SelectList( db.Clientes , "cedulaPK" , "nombreP" , proyecto.cedulaClienteFK );
+            return View( proyecto );
         }
 
         // GET: Project/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit( int? id )
         {
-            if (id == null)
+            if( id == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
             }
-            Proyecto proyecto = await db.Proyectoes.FindAsync(id);
-            if (proyecto == null)
+            Proyecto proyecto = await db.Proyectoes.FindAsync( id );
+            if( proyecto == null )
             {
-                return HttpNotFound();
+                return HttpNotFound( );
             }
-            
+
             ViewBag.leaders = employeeController.GetLeaders( );
             ViewBag.allClientsId = clientController.GetClients( );
             ViewBag.cedulaClienteFK = proyecto.cedulaClienteFK;
-            return View(proyecto);
+            return View( proyecto );
         }
 
         // POST: Project/Edit/5
@@ -104,177 +106,190 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK")] Proyecto proyecto, string newProjectLeader)
+        public async Task<ActionResult> Edit( [Bind( Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK" )] Proyecto proyecto , string newProjectLeader )
         {
-            if (ModelState.IsValid)
-            {    
-                db.Entry(proyecto).State = EntityState.Modified;
-                EditProjectLeader(newProjectLeader, proyecto.idPK);
-                
-                await db.SaveChangesAsync();
-                
-                
-                return RedirectToAction("Index");
+            if( ModelState.IsValid )
+            {
+                db.Entry( proyecto ).State = EntityState.Modified;
+                EditProjectLeader( newProjectLeader , proyecto.idPK );
+
+                await db.SaveChangesAsync( );
+
+
+                return RedirectToAction( "Index" );
             }
-            ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
-            return View(proyecto);
+            ViewBag.cedulaClienteFK = new SelectList( db.Clientes , "cedulaPK" , "nombreP" , proyecto.cedulaClienteFK );
+            return View( proyecto );
         }
 
-        public ActionResult EditProject([Bind(Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK")] Proyecto proyecto)
+        public ActionResult EditProject( [Bind( Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK" )] Proyecto proyecto )
         {
-            if (ModelState.IsValid)
+            if( ModelState.IsValid )
             {
 
-                db.Entry(proyecto).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.Entry( proyecto ).State = EntityState.Modified;
+                db.SaveChanges( );
+                return RedirectToAction( "Index" );
             }
-            ViewBag.cedulaClienteFK = new SelectList(db.Clientes, "cedulaPK", "nombreP", proyecto.cedulaClienteFK);
-            return RedirectToAction("Index");
+            ViewBag.cedulaClienteFK = new SelectList( db.Clientes , "cedulaPK" , "nombreP" , proyecto.cedulaClienteFK );
+            return RedirectToAction( "Index" );
         }
 
 
         // GET: Project/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete( int? id )
         {
-            if (id == null)
+            if( id == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
             }
-            Proyecto proyecto = await db.Proyectoes.FindAsync(id);
-            if (proyecto == null)
+            Proyecto proyecto = await db.Proyectoes.FindAsync( id );
+            if( proyecto == null )
             {
-                return HttpNotFound();
+                return HttpNotFound( );
             }
-            return View(proyecto);
+            return View( proyecto );
         }
 
         // POST: Project/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName( "Delete" )]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed( int id )
         {
-            Proyecto proyecto = await db.Proyectoes.FindAsync(id);
-            db.Proyectoes.Remove(proyecto);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            Proyecto proyecto = await db.Proyectoes.FindAsync( id );
+            db.Proyectoes.Remove( proyecto );
+            await db.SaveChangesAsync( );
+            return RedirectToAction( "Index" );
         }
 
-        //COMENTAR ESTE METODO****************************************
-        public ActionResult RemoveProject(int id)
+        protected override void Dispose( bool disposing )
         {
-            Proyecto project = db.Proyectoes.Find(id);
-            db.Proyectoes.Remove(project);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if( disposing )
+            {
+                db.Dispose( );
+            }
+            base.Dispose( disposing );
         }
 
-        public string GetLeaderName(int? id)
+        //--------------------------------------FUNCTIONS AND METHODS CREATED BY THE TEAM-----------------------------------------------
+
+        //<summary> :   It is used to remove a project from the database.
+        //<param>   :   The id,this parameter is an identifier for the project that will be removed from the database. 
+        //<return>  : Redirect to Index,where the project appears
+        public ActionResult RemoveProject( int id )
+        {
+            Proyecto project = db.Proyectoes.Find( id );
+            db.Proyectoes.Remove( project );
+            db.SaveChanges( );
+            return RedirectToAction( "Index" );
+        }
+
+        //<summary> :   It is used to validates the status of a project.
+        //<param>   :   id,this parameter is an identifier for the project. . 
+        //<return>  : projectStatus,the status of the project
+        public string activeProject(string id )
+        {
+            string status = "SELECT	P.estado " +
+                "FROM ControlCalidad.Proyecto P " +
+                "WHERE P.idPk = " + id + ";";
+            List<string> projectStatus = db.Database.SqlQuery<string>( status ).ToList( );
+            return projectStatus[ 0 ];
+        }
+
+        //DOCUMENTAR
+        public string GetLeaderName( int? id )
         {
             string projectLeader = "";
-            if (id != null)
+            if( id != null )
             {
                 string query = "SELECT	E.nombreP, E.apellido1, E.apellido2 FROM ControlCalidad.TrabajaEn TE JOIN ControlCalidad.Empleado E ON E.cedulaPK = TE.cedula_empleadoFK " +
                     "WHERE TE.id_proyectoFK = " + id + " AND TE.rol = 'Lider';";
-                List<Leader> leader = db.Database.SqlQuery<Leader>(query).ToList();
-                foreach (Leader l in leader)
+                List<Leader> leader = db.Database.SqlQuery<Leader>( query ).ToList( );
+                foreach( Leader l in leader )
                 {
                     l.nombreCompleto = l.nombreP + " " + l.apellido1 + " " + l.apellido2;
 
                 }
-                if (leader.Count() > 0)
+                if( leader.Count( ) > 0 )
                 {
-                    Leader leaderForProject = leader.Last();
+                    Leader leaderForProject = leader.Last( );
                     projectLeader = leaderForProject.nombreCompleto;
                 }
-                
             }
-            
             return projectLeader;
         }
 
-        protected override void Dispose(bool disposing)
+        //DOCUMENTAR
+        public void SetLeaderToProject( string cedula_empleadoFK , int idPK , string rol )
         {
-            if (disposing)
+            if( cedula_empleadoFK != "" )
             {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        public void SetLeaderToProject(string cedula_empleadoFK, int idPK, string rol)
-        {
-            if (cedula_empleadoFK != "")
-            {
-                var TrabajaEn = new TrabajaEn
-                {
-                    cedula_empleadoFK = cedula_empleadoFK,
-                    id_proyectoFK = idPK,
+                var TrabajaEn = new TrabajaEn {
+                    cedula_empleadoFK = cedula_empleadoFK ,
+                    id_proyectoFK = idPK ,
                     rol = rol
                 };
-                var employee = db.Empleadoes.Find(cedula_empleadoFK);
-                employee.disponibilidad = employee.disponibilidad.Replace("Disponible", "Ocupado");
+                var employee = db.Empleadoes.Find( cedula_empleadoFK );
+                employee.disponibilidad = employee.disponibilidad.Replace( "Disponible" , "Ocupado" );
 
-                db.TrabajaEns.Add(TrabajaEn);
+                db.TrabajaEns.Add( TrabajaEn );
 
-                db.SaveChanges();
+                db.SaveChanges( );
             }
-
         }
 
-        public void EditProjectLeader(string newProjectLeader, int id)
+        //DOCUMENTAR
+        public void EditProjectLeader( string newProjectLeader , int id )
         {
-            if (newProjectLeader != "")
+            if( newProjectLeader != "" )
             {
                 string projectLeader = "";
 
                 string query = "SELECT	E.cedulaPK FROM ControlCalidad.TrabajaEn TE JOIN ControlCalidad.Empleado E ON E.cedulaPK = TE.cedula_empleadoFK " +
                     "WHERE TE.id_proyectoFK = " + id + " AND TE.rol = 'Lider';";
-                List<CedulaLider> leader = db.Database.SqlQuery<CedulaLider>(query).ToList();
-                if (leader.Count() > 0)
+                List<CedulaLider> leader = db.Database.SqlQuery<CedulaLider>( query ).ToList( );
+                if( leader.Count( ) > 0 )
                 {
-                    CedulaLider leaderForProject = leader.Last();
+                    CedulaLider leaderForProject = leader.Last( );
                     projectLeader = leaderForProject.cedulaPK;
 
 
                     //Actualiza el estado del lider anterior a disponible.
-                    var employee = db.Empleadoes.Find(projectLeader);
-                    employee.disponibilidad = employee.disponibilidad.Replace("Ocupado", "Disponible");
+                    var employee = db.Empleadoes.Find( projectLeader );
+                    employee.disponibilidad = employee.disponibilidad.Replace( "Ocupado" , "Disponible" );
                     //Extrae la tupla del lider en el equipo
-                    var leaderInfo = db.TrabajaEns.Find(employee.cedulaPK, id);
-                    db.TrabajaEns.Remove(leaderInfo);
+                    var leaderInfo = db.TrabajaEns.Find( employee.cedulaPK , id );
+                    db.TrabajaEns.Remove( leaderInfo );
 
-                    SetLeaderToProject(newProjectLeader, id, "Lider");
+                    SetLeaderToProject( newProjectLeader , id , "Lider" );
                 }
-                else {
-                    SetLeaderToProject(newProjectLeader, id, "Lider");
+                else
+                {
+                    SetLeaderToProject( newProjectLeader , id , "Lider" );
                 }
 
-                db.SaveChanges();
+                db.SaveChanges( );
             }
-            
         }
 
-        public int GetProjectIdByEmail(string email)
+        //DOCUMENTAR
+        public int GetProjectIdByEmail( string email )
         {
             int projectId = 0;
-            if (email != null)
+            if( email != null )
             {
-                string idEmployee = employeeController.GetEmployeeIdByEmail(email);
+                string idEmployee = employeeController.GetEmployeeIdByEmail( email );
 
                 string query = "SELECT	TE.id_proyectoFK FROM ControlCalidad.TrabajaEn TE " +
                     "WHERE TE.cedula_empleadoFK = '" + idEmployee + "'";
-                List<ProjectId> projectIdList = db.Database.SqlQuery<ProjectId>(query).ToList();
-
-                if (projectIdList.Count() > 0) {
-                    var project = projectIdList.Last();
+                List<ProjectId> projectIdList = db.Database.SqlQuery<ProjectId>( query ).ToList( );
+                if( projectIdList.Count( ) > 0 )
+                {
+                    var project = projectIdList.Last( );
                     projectId = project.id_proyectoFK;
                 }
             }
-
             return projectId;
         }
-
-        
     }
 }

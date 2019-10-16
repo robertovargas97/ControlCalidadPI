@@ -12,6 +12,7 @@ namespace ControlCalidad.Controllers
 {
     public class LoginUsersController : Controller
     {
+        //These entities belongs to the same model (for some reason VS creates 2 different models of one)
         private S3G4CEntity db = new S3G4CEntity( );
         private S3G4CUREntity userRoles = new S3G4CUREntity( );
 
@@ -155,7 +156,20 @@ namespace ControlCalidad.Controllers
 
         }
 
-        //COMENTAR ESTE METODO****************************************
+        protected override void Dispose( bool disposing )
+        {
+            if( disposing )
+            {
+                db.Dispose( );
+            }
+            base.Dispose( disposing );
+        }
+
+   //--------------------------------------FUNCTIONS AND METHODS CREATED BY THE TEAM------------------------------------------------------
+
+        //<summary> :   It is used to remove a user from the database.
+        //<param>   :   The userId,this parameter is an identifier for the user that will be removed from the database. 
+        //<return>  : Redirect to Index,where the system users appears
         public ActionResult RemoveUser( string userId )
         {
             AspNetUser aspNetUser = db.AspNetUsers.Find( userId );
@@ -164,13 +178,13 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" );
         }
 
-        protected override void Dispose( bool disposing )
+        //<summary> : Validates if a mail exist in the database
+        //<param>   : the mail for validate in the database
+        //<return>  : true if mail exist in the database,false otherwise
+        public bool validateEmail(string mail)
         {
-            if( disposing )
-            {
-                db.Dispose( );
-            }
-            base.Dispose( disposing );
+            var exist = db.AspNetUsers.Any( user => user.Email == mail );
+            return exist;
         }
     }
 }
