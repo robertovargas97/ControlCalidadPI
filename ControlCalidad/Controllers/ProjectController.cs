@@ -196,7 +196,9 @@ namespace ControlCalidad.Controllers
             return projectStatus[ 0 ];
         }
 
-        //DOCUMENTAR
+        //<summary> : This method is used to know the name of an especific leader just by passing his identifier.
+        //<param>   : id : The identifier of the leader, it could be null if it's not beign updated.
+        //<return>  Returns the name of the leader.
         public string GetLeaderName( int? id )
         {
             string projectLeader = "";
@@ -219,7 +221,11 @@ namespace ControlCalidad.Controllers
             return projectLeader;
         }
 
-        //DOCUMENTAR
+        //<summary> : This method is in charge to set the new leader to an especific project
+        //<param>   : cedula_empleadoFK : Represents the identifier of the leader.
+        //<param>   : idPK              : Represente the identifier of the project involved.
+        //<param>   : rol               : Represents the role of the employee, in this case always be "Leader"
+        //<return>  : None
         public void SetLeaderToProject( string cedula_empleadoFK , int idPK , string rol )
         {
             if( cedula_empleadoFK != "" )
@@ -238,15 +244,22 @@ namespace ControlCalidad.Controllers
             }
         }
 
-        //DOCUMENTAR
+        //<summary> : this method is used to edit or add a new leader dependig on if is there a leader or not.
+        //<param>   : newProjectLeader : The identifier of the new leader we want to set.
+        //<param>   : id               : The identifier of the project involved.
+        //<return>  : None
         public void EditProjectLeader( string newProjectLeader , int id )
         {
+
             if( newProjectLeader != "" )
             {
+                //If the new leader is not empty in the post.
                 string projectLeader = "";
 
                 string query = "SELECT	E.cedulaPK FROM ControlCalidad.TrabajaEn TE JOIN ControlCalidad.Empleado E ON E.cedulaPK = TE.cedula_empleadoFK " +
                     "WHERE TE.id_proyectoFK = " + id + " AND TE.rol = 'Lider';";
+                
+                //List with de id of the leader.
                 List<CedulaLider> leader = db.Database.SqlQuery<CedulaLider>( query ).ToList( );
                 if( leader.Count( ) > 0 )
                 {
@@ -254,10 +267,10 @@ namespace ControlCalidad.Controllers
                     projectLeader = leaderForProject.cedulaPK;
 
 
-                    //Actualiza el estado del lider anterior a disponible.
+                    //Updates the status of the previous leader to 'Available'
                     var employee = db.Empleadoes.Find( projectLeader );
                     employee.disponibilidad = employee.disponibilidad.Replace( "Ocupado" , "Disponible" );
-                    //Extrae la tupla del lider en el equipo
+                    //Extracts the tuple of the leader in the team.
                     var leaderInfo = db.TrabajaEns.Find( employee.cedulaPK , id );
                     db.TrabajaEns.Remove( leaderInfo );
 
@@ -274,16 +287,20 @@ namespace ControlCalidad.Controllers
         }
 
         //Hacer el mismo metodo para jalar los clientes.
-        //<summary> 
+        //<summary> : This method is used to get a project from where an employee is working by only passing the email of the employee.
+        //<params>  : email : The email of the employee that we want to no know in wich project is working.
+        //<return>  : Returns the identifier of the project in wich is involved.
         public int GetProjectIdByEmail(string email)
         {
             int projectId = 0;
             if( email != null )
             {
+                //We need the identifier of the employee to execute the query.
                 string idEmployee = employeeController.GetEmployeeIdByEmail( email );
 
                 string query = "SELECT	TE.id_proyectoFK FROM ControlCalidad.TrabajaEn TE " +
                     "WHERE TE.cedula_empleadoFK = '" + idEmployee + "'";
+
                 List<ProjectId> projectIdList = db.Database.SqlQuery<ProjectId>( query ).ToList( );
                 if( projectIdList.Count( ) > 0 )
                 {

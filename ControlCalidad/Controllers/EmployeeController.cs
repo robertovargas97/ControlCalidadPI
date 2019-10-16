@@ -194,6 +194,9 @@ namespace ControlCalidad.Controllers
             base.Dispose(disposing);
         }
 
+        //<summary> : This method is used to know what employees are available to be a leader of a project.
+        //<params>  : None
+        //<return>  : Returns a list of type "SelectListItem" that contains values of the employees that are available to be a leader.
         public List<SelectListItem> GetLeaders()
         {
             string query = "SELECT	E.nombreP, E.apellido1, E.apellido2, E.cedulaPK, E.disponibilidad FROM ControlCalidad.Empleado E WHERE E.cedulaPK NOT IN(SELECT  T.cedula_empleadoFk FROM    ControlCalidad.Tester T) " +
@@ -216,7 +219,9 @@ namespace ControlCalidad.Controllers
             return leadersItemList;
         }
 
-
+        //<summary> : This method is used to know the identifier of an employee just by passing his email.
+        //<params>  : email : The email of the employee we want to know his id.
+        //<return>  : Returns the identifier of an employee.
         public string GetEmployeeIdByEmail(string email)
         {
             string employeeId = "";
@@ -231,11 +236,18 @@ namespace ControlCalidad.Controllers
             return employeeId;
         }
 
+        //<summary> : This method is used to know the name of an employee just by passing his id.
+        //<params>  : id : Identifier of an employee we want to know his name.
+        //<return>  : Returns the name of an employee.
         public string employeeName(string id)
         {
             List<Empleado> empleado = db.Empleadoes.Where(x => x.cedulaPK == id).ToList();
             return empleado[0].nombreP;
         }
+
+        //<summary> : This method is used to know if one email has been taken from another employee or client.
+        //<params>  : input : It's the email we want to validate if is taken or not.
+        //<return>  : Returns a boolean value, true if the email was taken, false the otherwise.
         public bool isMailTaken(string input)
         {
             List<Empleado> empleado = db.Empleadoes.Where(x => x.correo == input).ToList();
