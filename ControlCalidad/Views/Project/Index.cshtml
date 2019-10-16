@@ -45,7 +45,7 @@
 
             @foreach( var item in Model )
             {
-                if( ( User.IsInRole( "Tester" ) || User.IsInRole( "Lider" ) ) && projectId != null )
+                if( User.IsInRole("Cliente") || ( User.IsInRole( "Tester" ) || User.IsInRole( "Lider" ) ) && projectId != null )
                 {
                     if( item.idPK == projectId )
                     {

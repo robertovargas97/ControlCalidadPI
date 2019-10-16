@@ -24,9 +24,9 @@
             <ul class="right hide-on-med-and-down">
                 <li><a class="turq-hover" href=" @Url.Action( "Index" , "Home" )">Inicio</a></li>
                 @{
-                    if (User.IsInRole("Jefe") || User.IsInRole("Tester") || User.IsInRole("Lider"))
+                    if (User.IsInRole("Jefe") || User.IsInRole("Tester") || User.IsInRole("Lider") || User.IsInRole("Cliente"))
                     {
-                        if (User.IsInRole("Jefe") || User.IsInRole("Lider"))
+                        if (User.IsInRole("Jefe") || User.IsInRole("Lider") || User.IsInRole("Cliente"))
                         {
                             if (User.IsInRole("Jefe"))
                             {

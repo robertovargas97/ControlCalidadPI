@@ -23,7 +23,7 @@ namespace ControlCalidad.Controllers
         {
             var proyectoes = db.Proyectoes.Include(p => p.Cliente);
             string email = User.Identity.Name;
-            if (User.IsInRole("Tester") || User.IsInRole("Lider"))
+            if (User.IsInRole("Tester") || User.IsInRole("Lider") || User.IsInRole("Cliente"))
             {
                 ViewBag.projectId = GetProjectIdByEmail(email);
             }
@@ -252,9 +252,11 @@ namespace ControlCalidad.Controllers
 
                 db.SaveChanges();
             }
-            
+
         }
 
+        //Hacer el mismo metodo para jalar los clientes.
+        //<summary> 
         public int GetProjectIdByEmail(string email)
         {
             int projectId = 0;
