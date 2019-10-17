@@ -15,6 +15,8 @@ namespace ControlCalidad.Controllers
         private localizacoinesEntities db = new localizacoinesEntities();
 
         // GET: Province
+        //<summary> : This method obtain all the provinces in Costa rica
+        //<return>  : Returns the pronvince list with select items
         public List<SelectListItem> provinceList()
         {
             List<Provincia> provinces = db.Provincias.ToList();
@@ -27,6 +29,10 @@ namespace ControlCalidad.Controllers
              });
             return provinceList;
         }
+
+        // GET: Province
+        //<summary> : This method obtain all the provinces in Costa rica for the edit method
+        //<return>  : Returns the  a JSON with provinces and the ID
         public JsonResult provinceEditList()
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -34,13 +40,20 @@ namespace ControlCalidad.Controllers
             return Json(provinceList, JsonRequestBehavior.AllowGet);
 
         }
+        // GET: Province
+        //<summary> : This method obtain the province id based on their name
+        //<params> : Name, province name
+        //<return>  : Returns the province id
         public int provinceID(string name)
         {
             db.Configuration.ProxyCreationEnabled = false;
             List<Provincia> provinceList = db.Provincias.Where(x => x.nombre == name).ToList();
             return provinceList[0].codigoPK;
         }
-        
+
+        //<summary> : This method obtain the canton id based on their name
+        //<params> : Name, province name | canton, canton name
+        //<return>  : Returns the canton  id
         public int cantonID(string name, string canton)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -59,6 +72,10 @@ namespace ControlCalidad.Controllers
         }
 
 
+
+        //<summary> : This method obtain the list of the cantones inside a province
+        //<params> : provincia, id from the respective province
+        //<return>  : Returns a JSON with the canton name and their id
         public JsonResult cantonesList(int provincia)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -67,6 +84,9 @@ namespace ControlCalidad.Controllers
 
         }
 
+        //<summary> : This method obtain the list of the districts inside a province and insde a canton
+        //<params> : provincia, id from the respective province, canton, id from the respective canton
+        //<return>  : Returns a JSON with the districts name and their id
         public JsonResult districtsList(int provincia,int canton)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -78,8 +98,12 @@ namespace ControlCalidad.Controllers
             //                       select provincias.nombre).ToList());
         }
 
-       
 
+
+
+        //<summary> : This method obtain name of a province based on his id
+        //<params> :strprovince, string id
+        //<return>  : Returns a string with the name of the province
         public string provinceName(string strProvince)
         {
             if(strProvince == null)
@@ -92,6 +116,9 @@ namespace ControlCalidad.Controllers
             List<Provincia> provincia = db.Provincias.Where(x => x.codigoPK == provinceIndex).ToList();
             return provincia[0].nombre;
         }
+        //<summary> : This method obtain name of a canton based on his id
+        //<params> :strprovince, string id, ctrcanton, canton id
+        //<return>  : Returns a string with the name of the canton
         public string cantonName(string strProvince,string strCanton)
         {
             if (strProvince == null || strCanton == null)
@@ -104,6 +131,9 @@ namespace ControlCalidad.Controllers
             List<Canton> canton = db.Cantons.Where(x => x.codigoPK == cantonIndex && x.provinciaFK == province).ToList();
             return canton[0].nombre;
         }
+        //<summary> : This method obtain name of a district based on his id
+        //<params> :strprovince, string id, ctrcanton, canton id,strdistrict, district id
+        //<return>  : Returns a string with the name of the district
         public string districtName(string strProvince,  string strCanton, string strDistrict)
         {
             if (strProvince == null || strCanton == null || strDistrict == null)
@@ -118,17 +148,6 @@ namespace ControlCalidad.Controllers
             return distrito[0].nombre;
         }
 
-        public SelectList TraerNombreCantones()
-        { 
-            return new SelectList((from cantones in db.Cantons
-                                   select cantones.nombre).ToList());
-        }
-
-        public SelectList TraerNombreDistritos()
-        {
-            return new SelectList((from distritos in db.Distritoes
-                                   select distritos.nombre).ToList());
-        }
 
 
     }
