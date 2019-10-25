@@ -14,7 +14,7 @@ namespace ControlCalidad.Controllers
 {
     public class EmployeeController : Controller
     {
-        private QASystemEntities db = new QASystemEntities();
+        private QASystemEntity db = new QASystemEntity();
         private localizationsController localizations = new localizationsController();
         private static string editID;
         private string projectLeader;

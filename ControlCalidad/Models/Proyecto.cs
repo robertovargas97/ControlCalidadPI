@@ -21,25 +21,51 @@ namespace ControlCalidad.Models
             this.Requerimientoes = new HashSet<Requerimiento>();
             this.TrabajaEns = new HashSet<TrabajaEn>();
         }
-
         [Display( Name = "Id" )]
-        public int idPK { get; set; }
+        public int idPK
+        {
+            get; set;
+        }
         [Display( Name = "Nombre" )]
-        public string nombre { get; set; }
+        public string nombre
+        {
+            get; set;
+        }
         [Display( Name = "Objetivo" )]
-        public string objetivo { get; set; }
+        public string objetivo
+        {
+            get; set;
+        }
         [Display( Name = "Fecha de Inicio" )]
-        public System.DateTime fechaInicio { get; set; }
+        public System.DateTime fechaInicio
+        {
+            get; set;
+        }
         [Display( Name = "Fecha de Finalización" )]
-        public Nullable<System.DateTime> fechaFin { get; set; }
+        public Nullable<System.DateTime> fechaFin
+        {
+            get; set;
+        }
         [Display( Name = "Estado" )]
-        public string estado { get; set; }
+        public string estado
+        {
+            get; set;
+        }
         [Display( Name = "Duración Estimada" )]
-        public float duracionEstimada { get; set; }
+        public float duracionEstimada
+        {
+            get; set;
+        }
         [Display( Name = "Duración Real" )]
-        public Nullable<float> duracionReal { get; set; }
+        public Nullable<float> duracionReal
+        {
+            get; set;
+        }
         [Display( Name = "Cliente" )]
-        public string cedulaClienteFK { get; set; }
+        public string cedulaClienteFK
+        {
+            get; set;
+        }
     
         public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

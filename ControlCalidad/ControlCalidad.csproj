@@ -294,6 +294,9 @@
     <Compile Include="Models\Tester.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TieneAsignado.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TrabajaEn.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
@@ -388,19 +391,19 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <EntityDeploy Include="Models\QASystemModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QASystemModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\QASystemModel.edmx.diagram">
-      <DependentUpon>QASystemModel.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\localizacionesModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>localizacionesModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\localizacionesModel.edmx.diagram">
       <DependentUpon>localizacionesModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\QASystemModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QASystemModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QASystemModel.edmx.diagram">
+      <DependentUpon>QASystemModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

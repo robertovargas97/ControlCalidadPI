@@ -13,7 +13,7 @@ namespace ControlCalidad.Controllers
 {
     public class TesterController : Controller
     {
-        private QASystemEntities db = new QASystemEntities();
+        private QASystemEntity db = new QASystemEntity();
 
         // GET: Tester
         public async Task<ActionResult> Index()
@@ -40,7 +40,7 @@ namespace ControlCalidad.Controllers
         // GET: Tester/Create
         public ActionResult Create()
         {
-            ViewBag.cedula_empleadoFk = new SelectList(db.Empleadoes, "cedulaPK", "nombreP");
+            ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP");
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "cedula_empleadoFk,cantidadReqAsignados")] Tester tester)
+        public async Task<ActionResult> Create([Bind(Include = "cedula_empleadoFK,cantidadReqAsignados")] Tester tester)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace ControlCalidad.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.cedula_empleadoFk = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", tester.cedula_empleadoFk);
+            ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", tester.cedula_empleadoFK);
             return View(tester);
         }
 
@@ -74,7 +74,7 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cedula_empleadoFk = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", tester.cedula_empleadoFk);
+            ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", tester.cedula_empleadoFK);
             return View(tester);
         }
 
@@ -83,7 +83,7 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "cedula_empleadoFk,cantidadReqAsignados")] Tester tester)
+        public async Task<ActionResult> Edit([Bind(Include = "cedula_empleadoFK,cantidadReqAsignados")] Tester tester)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace ControlCalidad.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.cedula_empleadoFk = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", tester.cedula_empleadoFk);
+            ViewBag.cedula_empleadoFK = new SelectList(db.Empleadoes, "cedulaPK", "nombreP", tester.cedula_empleadoFK);
             return View(tester);
         }
 

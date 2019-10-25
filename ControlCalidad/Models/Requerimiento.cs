@@ -18,9 +18,11 @@ namespace ControlCalidad.Models
         public Requerimiento()
         {
             this.Pruebas = new HashSet<Prueba>();
+            this.TieneAsignadoes = new HashSet<TieneAsignado>();
         }
     
         public int idPK { get; set; }
+        public string nombre { get; set; }
         public int id_proyectoFK { get; set; }
         public System.DateTime fechaInicio { get; set; }
         public Nullable<System.DateTime> fechaFinalizacion { get; set; }
@@ -28,11 +30,14 @@ namespace ControlCalidad.Models
         public Nullable<int> tiempoReal { get; set; }
         public string estado { get; set; }
         public string complejidad { get; set; }
-        public string cedula_testerFK { get; set; }
+        public string descripcion { get; set; }
+        public float duracionEstimada { get; set; }
+        public Nullable<float> duracionReal { get; set; }
     
         public virtual Proyecto Proyecto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prueba> Pruebas { get; set; }
-        public virtual Tester Tester { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TieneAsignado> TieneAsignadoes { get; set; }
     }
 }

@@ -4,23 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e7de5bb1297e4475ac31bcea39f0a3e9" Name="Diagram1">
-        <EntityTypeShape EntityType="QASystemModel.Cliente" Width="1.5" PointX="1.5" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QASystemModel.Empleado" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QASystemModel.Habilidade" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QASystemModel.Proyecto" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QASystemModel.Prueba" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="QASystemModel.Requerimiento" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="QASystemModel.Tester" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QASystemModel.TrabajaEn" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
-        <AssociationConnector Association="QASystemModel.FK_Proyecto_Cliente" ManuallyRouted="false" />
-        <AssociationConnector Association="QASystemModel.FK_Empleado" ManuallyRouted="false" />
-        <AssociationConnector Association="QASystemModel.FK_Habilidades_Empleado" ManuallyRouted="false" />
-        <AssociationConnector Association="QASystemModel.FK_TrabajaEn_Empleado" ManuallyRouted="false" />
-        <AssociationConnector Association="QASystemModel.FK_Requerimiento_Proyecto" ManuallyRouted="false" />
-        <AssociationConnector Association="QASystemModel.FK_TrabajaEn_Proyecto" ManuallyRouted="false" />
-        <AssociationConnector Association="QASystemModel.FK_Prueba_Requerimiento" ManuallyRouted="false" />
-        <AssociationConnector Association="QASystemModel.FK_Requerimiento_Tester" ManuallyRouted="false" />
+      <Diagram DiagramId="9972efac88a34e8f8604b8bd42228afd" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="QASystemEntities.Cliente" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QASystemEntities.Empleado" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QASystemEntities.Habilidade" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QASystemEntities.Proyecto" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QASystemEntities.Prueba" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QASystemEntities.Requerimiento" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QASystemEntities.Tester" Width="1.5" PointX="8.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QASystemEntities.TieneAsignado" Width="1.5" PointX="10.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QASystemEntities.TrabajaEn" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="QASystemEntities.FK_Proyecto_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="QASystemEntities.FK_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="QASystemEntities.FK_Habilidades_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="QASystemEntities.FK_TrabajaEn_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="QASystemEntities.FK_Requerimiento_Proyecto" ManuallyRouted="false" />
+        <AssociationConnector Association="QASystemEntities.FK_TrabajaEn_Proyecto" ManuallyRouted="false" />
+        <AssociationConnector Association="QASystemEntities.FK_Prueba_Requerimiento" ManuallyRouted="false" />
+        <AssociationConnector Association="QASystemEntities.FK_TieneAsignado_Requerimiento" ManuallyRouted="false" />
+        <AssociationConnector Association="QASystemEntities.FK_TieneAsignado_Tester" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -20,7 +20,7 @@ namespace ControlCalidad.Controllers
 
     public class TeamController : Controller
     {
-        private QASystemEntities db = new QASystemEntities();
+        private QASystemEntity db = new QASystemEntity();
 
         // GET: Team/Edit/5
         //<summary> :   View for teams, prepare several queries, to select the skills of an employee 
