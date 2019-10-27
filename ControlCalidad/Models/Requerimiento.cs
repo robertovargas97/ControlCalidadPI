@@ -11,7 +11,8 @@ namespace ControlCalidad.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Requerimiento
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +22,10 @@ namespace ControlCalidad.Models
             this.TieneAsignadoes = new HashSet<TieneAsignado>();
         }
     
+        [Key]
         public int idPK { get; set; }
         public string nombre { get; set; }
+        [Key]
         public int id_proyectoFK { get; set; }
         public System.DateTime fechaInicio { get; set; }
         public Nullable<System.DateTime> fechaFinalizacion { get; set; }

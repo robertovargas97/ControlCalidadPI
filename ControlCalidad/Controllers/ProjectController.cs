@@ -196,6 +196,15 @@ namespace ControlCalidad.Controllers
             return projectStatus[ 0 ];
         }
 
+        //<summary> : Validates if a mail exist in the database
+        //<param>   : the mail for validate in the database
+        //<return>  : true if mail exist in the database,false otherwise
+        public bool validateName( string name )
+        {
+            var exist = db.Proyectoes.Any( project => project.nombre == name );
+            return exist;
+        }
+
         //<summary> : This method is used to know the name of an especific leader just by passing his identifier.
         //<param>   : id : The identifier of the leader, it could be null if it's not beign updated.
         //<return>  Returns the name of the leader.
