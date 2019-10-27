@@ -15,10 +15,10 @@ namespace ControlCalidad.Models
 
     public partial class Cliente
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Usage" , "CA2214:DoNotCallOverridableMethodsInConstructors" )]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cliente()
         {
-            this.Proyectoes = new HashSet<Proyecto>( );
+            this.Proyectoes = new HashSet<Proyecto>();
         }
 
         [Display( Name = "Cédula" )]
@@ -71,15 +71,9 @@ namespace ControlCalidad.Models
         {
             get; set;
         }
-        public Nullable<System.DateTime> fechaNacimiento
-        {
-            get; set;
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Usage" , "CA2227:CollectionPropertiesShouldBeReadOnly" )]
-        public virtual ICollection<Proyecto> Proyectoes
-        {
-            get; set;
-        }
+        public Nullable<System.DateTime> fechaNacimiento { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proyecto> Proyectoes { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace ControlCalidad.Controllers
 {
     public class HabilitiesController : Controller
     {
-        private QASystemEntity db = new QASystemEntity();
+        private QASystemEntities db = new QASystemEntities();
         private EmployeeController emp = new EmployeeController();
         private static string cedulaEdit;
         private static string categoriaEdit;

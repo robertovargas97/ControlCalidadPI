@@ -13,10 +13,10 @@ namespace ControlCalidad.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QASystemEntity : DbContext
+    public partial class QASystemEntities : DbContext
     {
-        public QASystemEntity()
-            : base("name=QASystemEntity")
+        public QASystemEntities()
+            : base("name=QASystemEntities")
         {
         }
     

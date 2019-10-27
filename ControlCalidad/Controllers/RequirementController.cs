@@ -13,7 +13,7 @@ namespace ControlCalidad.Controllers
 {
     public class RequirementController : Controller
     {
-        private QASystemEntity db = new QASystemEntity( );
+        private QASystemEntities db = new QASystemEntities( );
 
         // GET: Requirement
         public async Task<ActionResult> Index( int id_proyecto )
@@ -52,7 +52,7 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,tiempoReal,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento )
+        public async Task<ActionResult> Create( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento )
         {
             if( ModelState.IsValid )
             {
@@ -86,7 +86,7 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,tiempoReal,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento )
+        public async Task<ActionResult> Edit( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento )
         {
             if( ModelState.IsValid )
             {

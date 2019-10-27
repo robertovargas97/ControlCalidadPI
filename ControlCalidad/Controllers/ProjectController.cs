@@ -13,7 +13,7 @@ namespace ControlCalidad.Controllers
 {
     public class ProjectController : Controller
     {
-        private QASystemEntity db = new QASystemEntity( );
+        private QASystemEntities db = new QASystemEntities( );
 
         //Controllers to get values from other models
         private ClientController clientController = new ClientController( );

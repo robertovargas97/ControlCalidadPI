@@ -13,7 +13,7 @@ namespace ControlCalidad.Controllers
 {
     public class TesterController : Controller
     {
-        private QASystemEntity db = new QASystemEntity();
+        private QASystemEntities db = new QASystemEntities();
 
         // GET: Tester
         public async Task<ActionResult> Index()

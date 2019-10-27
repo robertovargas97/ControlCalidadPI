@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QASystemEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="QASystemEntity.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="cedulaPK" />
@@ -93,7 +93,6 @@
           <Property Name="fechaInicio" Type="date" Nullable="false" />
           <Property Name="fechaFinalizacion" Type="date" />
           <Property Name="fechaAsignacion" Type="date" />
-          <Property Name="tiempoReal" Type="int" />
           <Property Name="estado" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="complejidad" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="400" />
@@ -255,7 +254,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QASystemEntitiesStoreContainer">
+        <EntityContainer Name="QASystemEntityStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="ControlCalidad" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="ControlCalidad" store:Type="Tables" />
           <EntitySet Name="Habilidades" EntityType="Self.Habilidades" Schema="ControlCalidad" store:Type="Tables" />
@@ -306,7 +305,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="QASystemEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="QASystemEntity" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="cedulaPK" />
@@ -404,7 +403,6 @@
           <Property Name="fechaInicio" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="fechaFinalizacion" Type="DateTime" Precision="0" />
           <Property Name="fechaAsignacion" Type="DateTime" Precision="0" />
-          <Property Name="tiempoReal" Type="Int32" />
           <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="complejidad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
@@ -575,7 +573,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QASystemEntity" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="QASystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clientes" EntityType="Self.Cliente" />
           <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
           <EntitySet Name="Habilidades" EntityType="Self.Habilidade" />
@@ -627,9 +625,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QASystemEntitiesStoreContainer" CdmEntityContainer="QASystemEntity">
+        <EntityContainerMapping StorageEntityContainer="QASystemEntityStoreContainer" CdmEntityContainer="QASystemEntities">
           <EntitySetMapping Name="Clientes">
-            <EntityTypeMapping TypeName="QASystemEntities.Cliente">
+            <EntityTypeMapping TypeName="QASystemEntity.Cliente">
               <MappingFragment StoreEntitySet="Cliente">
                 <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
                 <ScalarProperty Name="nombreP" ColumnName="nombreP" />
@@ -646,7 +644,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Empleadoes">
-            <EntityTypeMapping TypeName="QASystemEntities.Empleado">
+            <EntityTypeMapping TypeName="QASystemEntity.Empleado">
               <MappingFragment StoreEntitySet="Empleado">
                 <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
                 <ScalarProperty Name="nombreP" ColumnName="nombreP" />
@@ -665,7 +663,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Habilidades">
-            <EntityTypeMapping TypeName="QASystemEntities.Habilidade">
+            <EntityTypeMapping TypeName="QASystemEntity.Habilidade">
               <MappingFragment StoreEntitySet="Habilidades">
                 <ScalarProperty Name="cedula_empleadoFK" ColumnName="cedula_empleadoFK" />
                 <ScalarProperty Name="categoriaPK" ColumnName="categoriaPK" />
@@ -674,7 +672,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Proyectoes">
-            <EntityTypeMapping TypeName="QASystemEntities.Proyecto">
+            <EntityTypeMapping TypeName="QASystemEntity.Proyecto">
               <MappingFragment StoreEntitySet="Proyecto">
                 <ScalarProperty Name="idPK" ColumnName="idPK" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -689,7 +687,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pruebas">
-            <EntityTypeMapping TypeName="QASystemEntities.Prueba">
+            <EntityTypeMapping TypeName="QASystemEntity.Prueba">
               <MappingFragment StoreEntitySet="Prueba">
                 <ScalarProperty Name="idPK" ColumnName="idPK" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -707,7 +705,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requerimientoes">
-            <EntityTypeMapping TypeName="QASystemEntities.Requerimiento">
+            <EntityTypeMapping TypeName="QASystemEntity.Requerimiento">
               <MappingFragment StoreEntitySet="Requerimiento">
                 <ScalarProperty Name="idPK" ColumnName="idPK" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -715,7 +713,6 @@
                 <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
                 <ScalarProperty Name="fechaFinalizacion" ColumnName="fechaFinalizacion" />
                 <ScalarProperty Name="fechaAsignacion" ColumnName="fechaAsignacion" />
-                <ScalarProperty Name="tiempoReal" ColumnName="tiempoReal" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="complejidad" ColumnName="complejidad" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -725,7 +722,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Testers">
-            <EntityTypeMapping TypeName="QASystemEntities.Tester">
+            <EntityTypeMapping TypeName="QASystemEntity.Tester">
               <MappingFragment StoreEntitySet="Tester">
                 <ScalarProperty Name="cedula_empleadoFK" ColumnName="cedula_empleadoFK" />
                 <ScalarProperty Name="cantidadReqAsignados" ColumnName="cantidadReqAsignados" />
@@ -733,7 +730,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TieneAsignadoes">
-            <EntityTypeMapping TypeName="QASystemEntities.TieneAsignado">
+            <EntityTypeMapping TypeName="QASystemEntity.TieneAsignado">
               <MappingFragment StoreEntitySet="TieneAsignado">
                 <ScalarProperty Name="cedula_empleadoFK" ColumnName="cedula_empleadoFK" />
                 <ScalarProperty Name="id_requerimientoFK" ColumnName="id_requerimientoFK" />
@@ -743,7 +740,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TrabajaEns">
-            <EntityTypeMapping TypeName="QASystemEntities.TrabajaEn">
+            <EntityTypeMapping TypeName="QASystemEntity.TrabajaEn">
               <MappingFragment StoreEntitySet="TrabajaEn">
                 <ScalarProperty Name="cedula_empleadoFK" ColumnName="cedula_empleadoFK" />
                 <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />

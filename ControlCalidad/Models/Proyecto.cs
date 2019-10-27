@@ -21,6 +21,7 @@ namespace ControlCalidad.Models
             this.Requerimientoes = new HashSet<Requerimiento>();
             this.TrabajaEns = new HashSet<TrabajaEn>();
         }
+
         [Display( Name = "Id" )]
         public int idPK
         {
@@ -66,7 +67,7 @@ namespace ControlCalidad.Models
         {
             get; set;
         }
-    
+
         public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Requerimiento> Requerimientoes { get; set; }

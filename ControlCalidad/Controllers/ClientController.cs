@@ -15,7 +15,7 @@ namespace ControlCalidad.Controllers
     {
         private localizationsController localizations = new localizationsController( );
 
-        private QASystemEntity db = new QASystemEntity( );
+        private QASystemEntities db = new QASystemEntities( );
 
 
         //<summary> : gets clients from database to put them in a list
