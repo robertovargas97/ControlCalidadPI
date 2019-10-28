@@ -180,6 +180,7 @@
     <Compile Include="Controllers\localizationsController.cs" />
     <Compile Include="Controllers\RequirementController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TesterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -512,6 +513,11 @@
     <Content Include="Views\Requirement\Details.cshtml" />
     <Content Include="Views\Requirement\Edit.cshtml" />
     <Content Include="Views\Requirement\Index.cshtml" />
+    <Content Include="Views\Test\Create.cshtml" />
+    <Content Include="Views\Test\Delete.cshtml" />
+    <Content Include="Views\Test\Details.cshtml" />
+    <Content Include="Views\Test\Edit.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
