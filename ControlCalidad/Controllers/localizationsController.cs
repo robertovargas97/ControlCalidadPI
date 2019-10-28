@@ -46,6 +46,10 @@ namespace ControlCalidad.Controllers
         //<return>  : Returns the province id
         public int provinceID(string name)
         {
+            if(name == " ")
+            {
+                return 0;
+            }
             db.Configuration.ProxyCreationEnabled = false;
             List<Provincia> provinceList = db.Provincias.Where(x => x.nombre == name).ToList();
             return provinceList[0].codigoPK;
@@ -58,7 +62,15 @@ namespace ControlCalidad.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             List<Provincia> provinceList = db.Provincias.Where(x => x.nombre == name).ToList();
-            int provinceID = provinceList[0].codigoPK;
+            int provinceID = 0;
+            try
+            {
+                provinceID = provinceList[0].codigoPK;
+            }
+            catch
+            {
+                return 0;
+            }
             List<Canton> cantonList = db.Cantons.Where(x => x.provinciaFK == provinceID).ToList();
             for(int i = 0; i< cantonList.Count; ++i)
             {
@@ -68,7 +80,7 @@ namespace ControlCalidad.Controllers
                 }
 
             }
-            return -1;
+            return 0;
         }
 
 

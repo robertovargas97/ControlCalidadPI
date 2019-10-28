@@ -196,6 +196,7 @@ function validateEmployeeName(inputtxt) {
     else {
         var err = document.getElementById("employeeNameError");
         err.innerHTML = "<span class=red-text>Digite caracteres validos</span>";
+        document.getElementById('btn-submit').disabled = true;
 
     }
 }
@@ -205,10 +206,12 @@ function validateEmployeeSurname(inputtxt) {
     if (inputtxt.value.match(letters)) {
         var err = document.getElementById("employeeSurnameError1");
         err.innerHTML = " ";
+        document.getElementById('btn-submit').disabled = false;
     }
     else {
         var err = document.getElementById("employeeSurnameError1");
         err.innerHTML = "<span class=red-text>Digite caracteres validos</span>";
+        document.getElementById('btn-submit').disabled = true;
     }
 }
 function validateEmployeeSurname2(inputtxt) {
@@ -216,10 +219,12 @@ function validateEmployeeSurname2(inputtxt) {
     if (inputtxt.value.match(letters)) {
         var err = document.getElementById("employeeSurnameError2");
         err.innerHTML = " ";
+        document.getElementById('btn-submit').disabled = false;
     }
     else {
         var err = document.getElementById("employeeSurnameError2");
         err.innerHTML = "<span class=red-text>Digite caracteres validos</span>";
+        document.getElementById('btn-submit').disabled = true;
     }
 }
 function validateEmployeeAge(inputtxt) {
@@ -227,12 +232,15 @@ function validateEmployeeAge(inputtxt) {
     var err = document.getElementById("employeeAgeError");
     if (inputtxt.value.match(letters)) {
         err.innerHTML = "<span class=red-text>Digite caracteres numericos</span>";
+        document.getElementById('btn-submit').disabled = true;
     }
     else {
         if (parseInt(inputtxt.value, 10) > 18 && parseInt(inputtxt.value, 10) < 100) {
             err.innerHTML = " "
+            document.getElementById('btn-submit').disabled = false;
         } else {
             err.innerHTML = "<span class=red-text>Digite una edad valida</span>";
+            document.getElementById('btn-submit').disabled = true;
         }
 
     }
@@ -240,7 +248,22 @@ function validateEmployeeAge(inputtxt) {
 function validateEmployeeEmail(inputtxt) {
     if (inputtxt.value.includes("@") && (inputtxt.value.includes(".com") || inputtxt.value.includes(".net"))) {
         var err = document.getElementById("employeeEmailError");
-        err.innerHTML = "";
+        $.ajax({
+            url: '/Employee/isMailTaken',
+            data: { id: inputtxt.value },
+
+            success: function (exist) {
+
+                if (exist == 'True') {
+                    err.innerHTML = `<span class=red-text>Correo previamente registrado </span>`;
+                    document.getElementById('btn-submit').disabled = true;
+
+                } else {
+                    err.innerHTML = "";
+                    document.getElementById('btn-submit').disabled = false;
+                }
+            },
+        });
     } else {
         var err = document.getElementById("employeeEmailError");
         err.innerHTML = "<span class=red-text>Digite un correo valido</span>";
@@ -251,19 +274,39 @@ function validateEmployeePhoneNumber(inputtxt) {
     var err = document.getElementById("employeePhoneError");
     if (inputtxt.value.match(letters)) {
         err.innerHTML = "";
+        document.getElementById('btn-submit').disabled = false;
     }
     else {
-        err.innerHTML = `<span class=red-text>Digite valores numericos </span>`;
+        err.innerHTML = `<span class=red-text>Digite valores numericos </span>`
+        document.getElementById('btn-submit').disabled = true;
+
     }
 }
 function validateEmployeeID(inputtxt) {
     var letters = /^[0-9]*$/;
     var err = document.getElementById("employeeIDError");
     if (inputtxt.value.match(letters)) {
-        err.innerHTML = "";
+        $.ajax({
+            url: '/Employee/existID',
+            data: { id: inputtxt.value },
+
+            success: function (exist) {
+
+                if (exist == 'True') {
+                    err.innerHTML = `<span class=red-text>Cedula previamente registrada </span>`;
+                    document.getElementById('btn-submit').disabled = true;
+
+                } else {
+                    err.innerHTML = "";
+                    document.getElementById('btn-submit').disabled = false;
+                }
+            },
+        });
+        
     }
     else {
         err.innerHTML = `<span class=red-text>Digite un valores numericos </span>`;
+        inputtxt.value = inputtxt.value.substring(0, inputtxt.value.length)
     }
 }
 

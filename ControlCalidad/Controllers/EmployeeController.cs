@@ -145,7 +145,7 @@ namespace ControlCalidad.Controllers
 
                 db.Entry(empleado).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit");
             }
             ViewBag.cedulaPK = new SelectList(db.Testers, "cedula_empleadoFk", "cedula_empleadoFk", empleado.cedulaPK);
             return View(empleado);
@@ -259,6 +259,21 @@ namespace ControlCalidad.Controllers
             {
                 return false;
             }
+
+        }
+
+        //<summary> : This method is used to verify if an ID has already been taken from another employee.
+        //<params>  : input : It's the ID we want to validate if is taken or not.
+        //<return>  : Returns a boolean value, true if the ID was registered, false the otherwise.
+        public bool existID(string id)
+        {
+            List<Empleado> empleado = db.Empleadoes.Where(x => x.cedulaPK == id).ToList();
+            if(empleado.Count >= 1)
+            {
+                return true;
+            }
+
+            return false;
 
         }
 
