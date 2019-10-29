@@ -4,85 +4,74 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h3 class="text-grey">Requerimientos del proyecto @ViewBag.projectName </h3>
+<div class="margin-b1">
+    <hr />
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create", new {id_proyecto = ViewBag.id_proyecto} )
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaInicio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaFinalizacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaAsignacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.complejidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duracionEstimada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duracionReal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Proyecto.nombre)
-        </th>
-        <th></th>
-    </tr>
+<div class="card">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaFinalizacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaAsignacion)
-        </td>
+    <table class="table striped">
+        <tr>
+            <th class="center black white-text">
+                Requerimiento
+            </th>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.complejidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duracionEstimada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duracionReal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Proyecto.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.idPK ,projectId = item.id_proyectoFK } ) |
-            @Html.ActionLink("Details", "Details", new {id = item.idPK ,projectId = item.id_proyectoFK} ) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idPK, projectId = item.id_proyectoFK })
-        </td>
-    </tr>
-}
+            <th class="center black white-text">
+                @Html.DisplayNameFor( model => model.estado )
+            </th>
 
-</table>
+            <th class="center black white-text">
+                @Html.DisplayNameFor( model => model.complejidad )
+            </th>
+
+            <th class="center black white-text">
+                Acción
+            </th>
+        </tr>
+
+        @foreach( var item in Model )
+        {
+            <tr>
+                <td class="center">
+                    @Html.DisplayFor( modelItem => item.nombre )
+                </td>
+                <td class="center">
+                    @Html.DisplayFor( modelItem => item.estado )
+                </td>
+                <td class="center">
+                    @Html.DisplayFor( modelItem => item.complejidad )
+                </td>
+                <td class="center">
+                    @Html.ActionLink("Detalles", "Details", new {
+                   id = item.idPK ,
+                   projectId = item.id_proyectoFK
+               } ,
+                    new { @class = "waves-effect waves-light btn black turq-hover" }
+                    )
+
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large black">
+        <i class="large material-icons">menu</i>
+    </a>
+    <ul>
+        <li>
+            <a href="@Url.Action("Index", "Project")" class="btn-floating btn-large black turq-hover ">
+                <i class="large material-icons">arrow_back</i>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("Create", "Requirement",new {projectId = ViewBag.projectId})" class="btn-floating btn-large black turq-hover left">
+                <i class="large material-icons">add</i>
+            </a>
+        </li>
+
+    </ul>
+</div>
