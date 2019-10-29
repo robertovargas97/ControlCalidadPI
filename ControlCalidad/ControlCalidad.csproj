@@ -514,15 +514,17 @@
     <Content Include="Views\Requirement\Details.cshtml" />
     <Content Include="Views\Requirement\Edit.cshtml" />
     <Content Include="Views\Requirement\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Reportes\Index.cshtml" />
-=======
+<!--
+    <<<<<<< HEAD
+    <Content Include="Views\Reportes\Index.cshtml" />
+    =======-->
     <Content Include="Views\Test\Create.cshtml" />
     <Content Include="Views\Test\Delete.cshtml" />
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Test\Edit.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
->>>>>>> 91b9123ccc5740e8901ca5fecd88a17c3fa99318
+   <!-- >>>>>>> 91b9123ccc5740e8901ca5fecd88a17c3fa99318-->
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
