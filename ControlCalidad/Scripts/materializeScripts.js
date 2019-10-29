@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     //Material Design initializations for html components
+  
     var elems = document.querySelectorAll('.parallax');
     var instances = M.Parallax.init(elems);
 
@@ -18,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems, {
-
         format: 'yyyy-mm-dd',
         showClearBtn: true,
         i18n: {
@@ -26,9 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
             cancel: 'Cancelar',
             clear: 'Borrar'
         }
-
-
     });
+
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems);
+
 });
 
 //  <summary> : redirect to specific address

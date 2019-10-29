@@ -173,6 +173,15 @@ namespace ControlCalidad.Controllers
 
         //--------------------------------------FUNCTIONS AND METHODS CREATED BY THE TEAM-----------------------------------------------
 
+        public string getProjectName(int id)
+        {
+            string name = "SELECT	P.nombre " +
+               "FROM ControlCalidad.Proyecto P " +
+               "WHERE P.idPk = " + id + ";";
+            List<string> projectName = db.Database.SqlQuery<string>( name ).ToList( );
+            return projectName[ 0 ];
+        }
+
         //<summary> :   It is used to remove a project from the database.
         //<param>   :   The id,this parameter is an identifier for the project that will be removed from the database. 
         //<return>  : Redirect to Index,where the project appears
