@@ -49,9 +49,45 @@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
+                                <label for="fechaAsignacion">Fecha de Asignación</label>
+                                <input type="text" class="datepicker" id="fechaAsignacion" name="fechaAsignacion" />
+                                @Html.ValidationMessageFor(model => model.fechaAsignacion , "", new { @class = "text-error" })
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s11" data-target="dropdownCreate">
+                                <i class="p-size material-icons text-grey prefix">info_outline</i>
+                                <select name="complejidad" required id="complejidad">
+                                    <option value="" disabled selected>Seleccione una complejidad</option>
+                                    <option value="Facil">Facil</option>
+                                    <option value="Mediano">Mediano</option>
+                                    <option value="Complejo">Complejo</option>
+                                    <option value="Muy complejo">Muy complejo</option>
+
+                                </select>
+                                <label for="complejidad">Complejidad del Requerimiento <span class="red-text">  *</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s4">
+                        <div class="row margin-b">
+                            <div class="input-field col s11">
+                                <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaInicio">Fecha de Inicio <span class="red-text">  *</span></label>
                                 <input type="text" class="datepicker" required id="fechaInicio" name="fechaInicio" />
                                 @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-error" })
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s11" data-target="dropdownCreate">
+                                <i class="p-size material-icons text-grey prefix">person</i>
+                                <select name=" " id="">
+                                    <option value="" disabled selected>Tester</option>
+                                </select>
+                                <label for="">Deberia de haber tester<span class="red-text">  *</span></label>
                             </div>
                         </div>
 
@@ -63,62 +99,9 @@
                                 <span class="text-error" id="avrTimeError"></span>
                             </div>
                         </div>
-
-
-                    </div>
-
-
-                    <div class="col s4">
-                        <div class="row margin-b">
-                            <div class="input-field col s11" data-target="dropdownCreate">
-                                <i class="p-size material-icons text-grey prefix">info_outline</i>
-                                <select name="estado" required id="estado">
-                                    <option value="" disabled selected>Seleccione un estado</option>
-                                    <option value="No iniciado">No iniciado</option>
-                                    <option value="En ejecucion">En ejecución</option>
-                                    <option value="Incompleto">Incompleto</option>
-                                    <option value="Finalizado Exitoso">Finalizado Exitoso</option>
-                                    <option value="Finalizado Incompleto">Finalizado Incompleto</option>
-                                    <option value="Cancelado">Cancelado</option>
-                                </select>
-                                <label for="estado">Estado del Requerimiento <span class="red-text">  *</span></label>
-                            </div>
-                        </div>
-
-
-                        <div class="row margin-b">
-                            <div class="input-field col s11">
-                                <i class="p-size material-icons text-grey prefix">date_range</i>
-                                <label for="fechaAsignacion">Fecha de Asignación</label>
-                                <input type="text" class="datepicker" id="fechaAsignacion" name="fechaAsignacion" />
-                                @Html.ValidationMessageFor(model => model.fechaAsignacion , "", new { @class = "text-error" })
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s11">
-                                <i class="p-size material-icons text-grey prefix">hourglass_full</i>
-                                <label for="duracionReal">Duración Real  </label>
-                                <input name="duracionReal" type="number" class="validate form-control" onblur="" onkeyup="" id="RealDur" />
-                                <span class="text-error" id="realDurError"></span>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col s4">
-                        <div class="row margin-b">
-                            <div class="input-field col s11" data-target="dropdownCreate">
-                                <i class="p-size material-icons text-grey prefix">info_outline</i>
-                                <select name="complejidad" required id="complejidad">
-                                    <option value="" disabled selected>Seleccione una complejidad</option>
-                                    <option value="Facil">Fácil</option>
-                                    <option value="Intermedio">Intermedio</option>
-                                    <option value="Dificil">Difícil</option>
-                                </select>
-                                <label for="complejidad">Complejidad del Requerimiento <span class="red-text">  *</span></label>
-                            </div>
-                        </div>
-
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
@@ -130,12 +113,24 @@
 
                         <div class="row margin-b">
                             <div class="input-field col s11" data-target="dropdownCreate">
-                                <i class="p-size material-icons text-grey prefix">person</i>
-                                <select name=" " id="">
-                                    <option value="" disabled selected>Tester</option>
-
+                                <i class="p-size material-icons text-grey prefix">info_outline</i>
+                                <select name="estado" required id="estado">
+                                    <option value="" disabled selected>Seleccione un estado</option>
+                                    <option value="No iniciado">No iniciado</option>
+                                    <option value="En ejecucion">En ejecución</option>
+                                    <option value="Finalizado Exitoso">Finalizado Exitoso</option>
+                                    <option value="Finalizado Incompleto">Finalizado Incompleto</option>
+                                    <option value="Cancelado">Cancelado</option>
                                 </select>
-                                <label for="">Deberia de haber tester<span class="red-text">  *</span></label>
+                                <label for="estado">Estado del Requerimiento <span class="red-text">  *</span></label>
+                            </div>
+                        </div>
+                        <div class="row margin-b">
+                            <div class="input-field col s11">
+                                <i class="p-size material-icons text-grey prefix">hourglass_full</i>
+                                <label for="duracionReal">Duración Real  </label>
+                                <input name="duracionReal" type="number" class="validate form-control" onblur="" onkeyup="" id="RealDur" />
+                                <span class="text-error" id="realDurError"></span>
                             </div>
                         </div>
                     </div>
