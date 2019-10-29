@@ -1,87 +1,71 @@
 ﻿@model IEnumerable<ControlCalidad.Models.Prueba>
 
+@*{
+        ViewBag.Title = "Index";
+    }*@
+
+<h3>Pruebas</h3>
+<div class="margin-b1">
+    <hr />
+</div>
+
 @{
-    ViewBag.Title = "Index";
+
+    int? projectId = ViewBag.projectId;
+    int? requirementId = ViewBag.requierementId;
+
+    <div id="btn-add" class="fixed-action-btn">
+        <a href="@Url.Action("Create New", "Test/Create")" class="btn-floating btn-large black turq-hover">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+
+    <div class="card">
+
+        <table class="table striped">
+            <tr>
+                <th class="center black white-text">
+                    @Html.DisplayNameFor(model => model.nombre)
+                </th>
+                <th class="center black white-text">
+                    @Html.DisplayNameFor(model => model.resultadoFinal)
+                </th>
+                <th class="center black white-text">
+                    @Html.DisplayName("Acción")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                //if (item.id_proyectoFK == projectId && item.id_requerimientoFK == requirementId) Para mostrar las pruebas asociadas a un proy y req especifico
+                //{  Se debe guardar en el ViewBag los valores correspondientes
+                    <tr>
+                        <td class="center">
+                            @Html.DisplayFor(modelItem => item.nombre)
+                        </td>
+                        <td class="center">
+                            @Html.DisplayFor(modelItem => item.resultadoFinal)
+                        </td>
+                        <td class="center">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK }) |
+                            @Html.ActionLink("Detalles", "Details", new { id = item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK,
+                                                                        reqName = item.Requerimiento.nombre }, new {@class = "waves-effect waves-light btn black turq-hover" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK })
+                        </td>
+                    </tr>
+                //}
+
+            }
+
+        </table>
+
+    </div>
+
+
+   
+
+
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.proposito)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.entradaDatos)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.flujo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.resultadoFinal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.resultadoEsperado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imgError)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descError)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Requerimiento.nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.proposito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.entradaDatos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.flujo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.resultadoFinal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.resultadoEsperado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.imgError)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descError)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Requerimiento.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK })
-        </td>
-    </tr>
-}
-
-</table>

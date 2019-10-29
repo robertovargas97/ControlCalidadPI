@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="QASystemEntity.Empleado" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QASystemEntity.Habilidade" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QASystemEntity.Proyecto" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QASystemEntity.Prueba" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QASystemEntity.Requerimiento" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="QASystemEntity.Tester" Width="1.5" PointX="8.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="QASystemEntity.TieneAsignado" Width="1.5" PointX="10.5" PointY="4.75" IsExpanded="true" />
@@ -20,9 +19,10 @@
         <AssociationConnector Association="QASystemEntity.FK_TrabajaEn_Empleado" ManuallyRouted="false" />
         <AssociationConnector Association="QASystemEntity.FK_Requerimiento_Proyecto" ManuallyRouted="false" />
         <AssociationConnector Association="QASystemEntity.FK_TrabajaEn_Proyecto" ManuallyRouted="false" />
-        <AssociationConnector Association="QASystemEntity.FK_Prueba_Requerimiento" ManuallyRouted="false" />
         <AssociationConnector Association="QASystemEntity.FK_TieneAsignado_Requerimiento" ManuallyRouted="false" />
         <AssociationConnector Association="QASystemEntity.FK_TieneAsignado_Tester" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QASystemEntity.Prueba" Width="1.5" PointX="7.5" PointY="4.625" />
+        <AssociationConnector Association="QASystemEntity.FK_Prueba_Requerimiento" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
