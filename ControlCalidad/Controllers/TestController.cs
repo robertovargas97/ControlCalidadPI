@@ -23,9 +23,10 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Test/Details/5
-        public async Task<ActionResult> Details(int id, int projectID, int requirementID)
+        public async Task<ActionResult> Details(int? id, int? projectID, int? requirementID)
         {
-            if (id == null)
+            
+            if (id == null || projectID == null || requirementID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -49,7 +50,7 @@ namespace ControlCalidad.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idPK,nombre,id_proyectoFK,id_requerimientoFK,proposito,entradaDatos,flujo,resultadoFinal,resultadoEsperado,imgError,descError,estado")] Prueba prueba)
+        public async Task<ActionResult> Create([Bind(Include = "idPK, id_proyectoFK, id_requerimientoFK, nombre, detalleResultado, resultadoFinal")] Prueba prueba)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +81,7 @@ namespace ControlCalidad.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idPK,nombre,id_proyectoFK,id_requerimientoFK,proposito,entradaDatos,flujo,resultadoFinal,resultadoEsperado,imgError,descError,estado")] Prueba prueba)
+        public async Task<ActionResult> Edit([Bind(Include = "idPK, id_proyectoFK, id_requerimientoFK, nombre, detalleResultado, resultadoFinal")] Prueba prueba)
         {
             if (ModelState.IsValid)
             {
@@ -93,9 +94,9 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Test/Delete/5
-        public async Task<ActionResult> Delete(int id, int projectID, int requirementID)
+        public async Task<ActionResult> Delete(int? id, int? projectID, int? requirementID)
         {
-            if (id == null)
+            if (id == null || projectID == null || requirementID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

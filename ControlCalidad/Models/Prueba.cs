@@ -15,17 +15,11 @@ namespace ControlCalidad.Models
     public partial class Prueba
     {
         public int idPK { get; set; }
-        public string nombre { get; set; }
         public int id_proyectoFK { get; set; }
         public int id_requerimientoFK { get; set; }
-        public string proposito { get; set; }
-        public string entradaDatos { get; set; }
-        public string flujo { get; set; }
+        public string nombre { get; set; }
+        public string detalleResultado { get; set; }
         public string resultadoFinal { get; set; }
-        public string resultadoEsperado { get; set; }
-        public byte[] imgError { get; set; }
-        public string descError { get; set; }
-        public string estado { get; set; }
     
         public virtual Requerimiento Requerimiento { get; set; }
     }

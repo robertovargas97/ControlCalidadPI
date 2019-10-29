@@ -14,12 +14,14 @@ namespace ControlCalidad.Controllers
     public class RequirementController : Controller
     {
         private QASystemEntities db = new QASystemEntities( );
+        private ProjectController projectController = new ProjectController( );
 
         // GET: Requirement
-        public async Task<ActionResult> Index( int id_proyecto )
+        public async Task<ActionResult> Index( int projectId )
         {
-            var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == id_proyecto );
-            ViewBag.id_proyecto = id_proyecto;
+            var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId );
+            ViewBag.projectId = projectId ;
+            ViewBag.projectName = projectController.getProjectName( projectId );
             return View( await requerimientoes.ToListAsync( ) );
         }
 
@@ -39,10 +41,10 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Requirement/Create
-        public ActionResult Create(int id_proyecto)
+        public ActionResult Create(int projectId )
         {
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" );
-            ViewBag.id_proyecto = id_proyecto;
+            ViewBag.projectId = projectId;
 
             return View( );
         }
@@ -58,7 +60,7 @@ namespace ControlCalidad.Controllers
             {
                 db.Requerimientoes.Add( requerimiento );
                 await db.SaveChangesAsync( );
-                return RedirectToAction( "Index" , new {id_proyecto = requerimiento.id_proyectoFK} );
+                return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK} );
             }
 
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
@@ -92,7 +94,7 @@ namespace ControlCalidad.Controllers
             {
                 db.Entry( requerimiento ).State = EntityState.Modified;
                 await db.SaveChangesAsync( );
-                return RedirectToAction( "Index" , new {id_proyecto = requerimiento.id_proyectoFK} );
+                return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK} );
             }
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
             return View( requerimiento );
@@ -121,7 +123,7 @@ namespace ControlCalidad.Controllers
             Requerimiento requerimiento = await db.Requerimientoes.FindAsync( id , projectId );
             db.Requerimientoes.Remove( requerimiento );
             await db.SaveChangesAsync( );
-            return RedirectToAction( "Index" , new {id_proyecto = projectId} );
+            return RedirectToAction( "Index" , new {projectId = projectId} );
         }
 
         protected override void Dispose( bool disposing )
