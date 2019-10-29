@@ -248,6 +248,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="QASystemEntityStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="ControlCalidad" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="ControlCalidad" store:Type="Tables" />
@@ -576,6 +579,9 @@
             <End Role="Requerimiento" EntitySet="Requerimientoes" />
             <End Role="Prueba" EntitySet="Pruebas" />
           </AssociationSet>
+          <FunctionImport Name="USP_calcularEdadEmpleado">
+            <Parameter Name="cedula" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Prueba">
           <Key>
@@ -729,6 +735,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_calcularEdadEmpleado" FunctionName="QASystemEntity.Store.USP_calcularEdadEmpleado" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

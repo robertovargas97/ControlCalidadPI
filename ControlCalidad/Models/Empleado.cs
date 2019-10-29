@@ -11,7 +11,7 @@ namespace ControlCalidad.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Empleado
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +20,7 @@ namespace ControlCalidad.Models
             this.Habilidades = new HashSet<Habilidade>();
             this.TrabajaEns = new HashSet<TrabajaEn>();
         }
-
+    
         public string cedulaPK { get; set; }
         public string nombreP { get; set; }
         public string apellido1 { get; set; }
@@ -34,14 +34,13 @@ namespace ControlCalidad.Models
         public string distrito { get; set; }
         public string direccionExacta { get; set; }
         public string disponibilidad { get; set; }
-
+    
         public virtual Tester Tester { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Habilidade> Habilidades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrabajaEn> TrabajaEns { get; set; }
     }
-
     public class idEmpleado
     {
         public string cedulaPk

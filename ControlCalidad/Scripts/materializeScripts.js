@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
             done: 'Aceptar',
             cancel: 'Cancelar',
             clear: 'Borrar'
-        }
+        },
+        yearRange : [1940,2001]
     });
 
     var elems = document.querySelectorAll('.fixed-action-btn');

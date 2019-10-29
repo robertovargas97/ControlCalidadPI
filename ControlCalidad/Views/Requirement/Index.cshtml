@@ -28,30 +28,45 @@
             <th class="center black white-text">
                 Acción
             </th>
+
+
+            <th class="center black white-text">
+                Pruebas
+            </th>
         </tr>
 
         @foreach( var item in Model )
         {
-            <tr>
-                <td class="center">
-                    @Html.DisplayFor( modelItem => item.nombre )
-                </td>
-                <td class="center">
-                    @Html.DisplayFor( modelItem => item.estado )
-                </td>
-                <td class="center">
-                    @Html.DisplayFor( modelItem => item.complejidad )
-                </td>
-                <td class="center">
-                    @Html.ActionLink("Detalles", "Details", new {
-                   id = item.idPK ,
-                   projectId = item.id_proyectoFK
-               } ,
-                    new { @class = "waves-effect waves-light btn black turq-hover" }
-                    )
+        <tr>
+            <td class="center">
+                @Html.DisplayFor( modelItem => item.nombre )
+            </td>
+            <td class="center">
+                @Html.DisplayFor( modelItem => item.estado )
+            </td>
+            <td class="center">
+                @Html.DisplayFor( modelItem => item.complejidad )
+            </td>
+            <td class="center">
+                @Html.ActionLink("Detalles", "Details", new {
+               id = item.idPK ,
+               projectId = item.id_proyectoFK
+           } ,
+                new { @class = "waves-effect waves-light btn black turq-hover" }
+                )
 
-                </td>
-            </tr>
+            </td>
+
+            <td class="center">
+                @Html.ActionLink("Ver pruebas", "../Test/Index", new {
+               id = item.idPK ,
+               projectId = item.id_proyectoFK
+           } ,
+                new { @class = "waves-effect waves-light btn black turq-hover" }
+                )
+
+            </td>
+        </tr>
         }
     </table>
 

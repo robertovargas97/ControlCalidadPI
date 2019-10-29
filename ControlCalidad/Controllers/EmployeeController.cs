@@ -32,6 +32,8 @@ namespace ControlCalidad.Controllers
         // GET: Employee/Details/5
         public async Task<ActionResult> Details(string id)
         {
+
+            db.USP_calcularEdadEmpleado( id );
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -253,11 +255,11 @@ namespace ControlCalidad.Controllers
             List<Empleado> empleado = db.Empleadoes.Where(x => x.correo == input).ToList();
             if(empleado != null)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
 
         }

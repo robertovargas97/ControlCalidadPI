@@ -11,8 +11,7 @@ namespace ControlCalidad.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Cliente
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,58 +20,58 @@ namespace ControlCalidad.Models
             this.Proyectoes = new HashSet<Proyecto>();
         }
 
-        [Display(Name = "Cédula")]
+        [Display( Name = "Cédula" )]
         public string cedulaPK
         {
             get; set;
         }
-        [Display(Name = "Nombre")]
+        [Display( Name = "Nombre" )]
         public string nombreP
         {
             get; set;
         }
-        [Display(Name = "Primer Apellido")]
+        [Display( Name = "Primer Apellido" )]
         public string apellido1
         {
             get; set;
         }
-        [Display(Name = "Segundo Apellido")]
+        [Display( Name = "Segundo Apellido" )]
         public string apellido2
         {
             get; set;
         }
-        [Display(Name = "Teléfono")]
+        [Display( Name = "Teléfono" )]
         public string telefono
         {
             get; set;
         }
-        [Display(Name = "Correo")]
+        [Display( Name = "Correo" )]
         public string correo
         {
             get; set;
         }
-        [Display(Name = "Provincia")]
+        [Display( Name = "Provincia" )]
         public string provincia
         {
             get; set;
         }
-        [Display(Name = "Cantón")]
+        [Display( Name = "Cantón" )]
         public string canton
         {
             get; set;
         }
-        [Display(Name = "Distrito")]
+        [Display( Name = "Distrito" )]
         public string distrito
         {
             get; set;
         }
-        [Display(Name = "Dirección Exacta")]
+        [Display( Name = "Dirección Exacta" )]
         public string direccionExacta
         {
             get; set;
         }
         public Nullable<System.DateTime> fechaNacimiento { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proyecto> Proyectoes { get; set; }
     }

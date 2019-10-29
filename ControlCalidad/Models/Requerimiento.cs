@@ -18,15 +18,12 @@ namespace ControlCalidad.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Requerimiento()
         {
-            this.Pruebas = new HashSet<Prueba>();
             this.TieneAsignadoes = new HashSet<TieneAsignado>();
+            this.Pruebas = new HashSet<Prueba>();
         }
-
-        public int idPK
-        {
-            get; set;
-        }
-        [Display(Name = "Nombre")]
+    
+        public int idPK { get; set; }
+        [Display( Name = "Nombre" )]
         public string nombre
         {
             get; set;
@@ -35,62 +32,51 @@ namespace ControlCalidad.Models
         {
             get; set;
         }
-        [Display(Name = "Fecha de Inicio")]
+        [Display( Name = "Fecha de Inicio" )]
         public System.DateTime fechaInicio
         {
             get; set;
         }
-        [Display(Name = "Fecha de Finalización")]
+        [Display( Name = "Fecha de Finalización" )]
         public Nullable<System.DateTime> fechaFinalizacion
         {
             get; set;
         }
-        [Display(Name = "Fecha de Asignación")]
+        [Display( Name = "Fecha de Asignación" )]
         public Nullable<System.DateTime> fechaAsignacion
         {
             get; set;
         }
-        [Display(Name = "Estado")]
+        [Display( Name = "Estado" )]
         public string estado
         {
             get; set;
         }
-        [Display(Name = "Complejidad")]
+        [Display( Name = "Complejidad" )]
         public string complejidad
         {
             get; set;
         }
-        [Display(Name = "Descripción")]
+        [Display( Name = "Descripción" )]
         public string descripcion
         {
             get; set;
         }
-        [Display(Name = "Duración Estimada")]
+        [Display( Name = "Duración Estimada" )]
         public float duracionEstimada
         {
             get; set;
         }
-        [Display(Name = "Duración Real")]
+        [Display( Name = "Duración Real" )]
         public Nullable<float> duracionReal
         {
             get; set;
         }
 
-        public virtual Proyecto Proyecto
-        {
-            get; set;
-        }
-
+        public virtual Proyecto Proyecto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Prueba> Pruebas
-        {
-            get; set;
-        }
-
+        public virtual ICollection<TieneAsignado> TieneAsignadoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TieneAsignado> TieneAsignadoes
-        {
-            get; set;
-        }
+        public virtual ICollection<Prueba> Pruebas { get; set; }
     }
 }
