@@ -62,66 +62,8 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
-                                        <label for="fechaInicio">Fecha de Inicio</label>
-                                        <input type="text" value="@Model.fechaInicio.ToShortDateString()" class="datepicker" id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
-                                        <span class="text-error" id="dateErrorMessage"></span>
-
-                                    </div>
-                                </div>
-
-                                <div class="row margin-b">
-                                    <div class="input-field col s11">
-                                        <i class="p-size material-icons text-grey prefix">date_range</i>
-                                        <label for="fechaFin">Fecha de Finalización</label>
-                                        <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
-                                    </div>
-                                </div>
-
-                                <div class="row margin-b">
-                                    <div class="input-field col s11">
-                                        <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaFin">Fecha de Asignacion</label>
                                         <input type="text" class="datepicker" id="fechaAsig" name="fechaAsig" />
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col s4">
-                                <div class="row margin-b">
-                                    <div class="input-field col s11">
-                                        <i class="p-size material-icons text-grey prefix">assignment</i>
-                                        @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
-
-                                
-
-                            <div class="col s4">
-                                <div class="row margin-b hide">
-                                    <div class="input-field col s6 offset-s3">
-                                        <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.LabelFor(model => model.idPK, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                        @Html.EditorFor(model => model.idPK, new { htmlAttributes = new { @class = "form-control" } })
-
-                                        @Html.ValidationMessageFor(model => model.idPK, "", new { @class = "text-danger" })
-
-                                    </div>
-                                </div>
-
-                                <div class="row margin-b">
-                                    <div class="input-field col col s11">
-                                        <i class="p-size material-icons text-grey prefix">info</i>
-                                        <select name="estado">
-                                            <option value="@Model.estado">@Model.estado</option>
-                                            <option value="Inactivo">No iniciado</option>
-                                            <option value="Activo">En ejecucion</option>
-                                            <option value="Activo">Cancelado</option>
-                                            <option value="Finalizado">Finalizado</option>
-                                        </select>
-
                                     </div>
                                 </div>
 
@@ -134,7 +76,30 @@
                                             <option value="Intermedio">Intermedio</option>
                                             <option value="Dificil">Dificil</option>
                                         </select>
+                                        <label for="complejidad">Complejidad del Requerimiento</label>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="col s4">
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">date_range</i>
+                                        <label for="fechaInicio">Fecha de Inicio</label>
+                                        <input type="text" value="@Model.fechaInicio.ToShortDateString()" class="datepicker" id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
+                                        <span class="text-error" id="dateErrorMessage"></span>
+
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11" data-target="dropdownCreate">
+                                        <i class="p-size material-icons text-grey prefix">person</i>
+                                        <select name=" " id="">
+                                            <option value="" disabled selected>Tester</option>
+                                        </select>
+                                        <label for="">Tester asignado</label>
                                     </div>
                                 </div>
 
@@ -147,6 +112,32 @@
 
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="col s4">
+
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">date_range</i>
+                                        <label for="fechaFin">Fecha de Finalización</label>
+                                        <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
+                                    </div>
+                                </div>
+
+                                <div class="row margin-b">
+                                    <div class="input-field col col s11">
+                                        <i class="p-size material-icons text-grey prefix">info_outline</i>
+                                        <select name="estado">
+                                            <option value="@Model.estado">@Model.estado</option>
+                                            <option value="No iniciado">No iniciado</option>
+                                            <option value="En ejecucion">En ejecución</option>
+                                            <option value="Finalizado Exitoso">Finalizado Exitoso</option>
+                                            <option value="Finalizado Incompleto">Finalizado Incompleto</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                        </select>
+                                        <label for="estado">Estado del Requerimiento </label>
+                                    </div>
+                                </div>
 
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
@@ -157,50 +148,60 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class=" row container center" id="loading" style="display:none;">
-                            <div class="">
-                                <i class="material-icons text-turq ">info_outline</i>
-                            </div>
-                            <div class="">
-                                <p class="text-turq">
-                                    Editando... Por favor espere.
-                                </p>
-                            </div>
-
-                            <div class="progress">
-                                <div class="indeterminate"></div>
+                            <div class="col s10 offset-s1">
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">assignment</i>
+                                        @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class=" row container center hide " id="complete">
-                            <div class="">
-                                <i class="material-icons text-turq ">info_outline</i>
+                            <div class=" row container center" id="loading" style="display:none;">
+                                <div class="">
+                                    <i class="material-icons text-turq ">info_outline</i>
+                                </div>
+                                <div class="">
+                                    <p class="text-turq">
+                                        Editando... Por favor espere.
+                                    </p>
+                                </div>
+
+                                <div class="progress">
+                                    <div class="indeterminate"></div>
+                                </div>
                             </div>
-                            <div class="">
-                                <p class="text-turq">
-                                    Se edito correctamente.
-                                </p>
+
+                            <div class=" row container center hide " id="complete">
+                                <div class="">
+                                    <i class="material-icons text-turq ">info_outline</i>
+                                </div>
+                                <div class="">
+                                    <p class="text-turq">
+                                        Se edito correctamente.
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="margin-b1">
-                        </div>
+                            <div class="margin-b1">
+                            </div>
 
-                        <div class="row center">
-                            @Html.ActionLink("Cancelar", "Details", new { id = Model.idPK, projectId = Model.id_proyectoFK }, new
-                       {
-                           @class = "margin-r waves-effect red-hover btn red accent-4"
-                       })
-                            <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
-                        </div>
+                            <div class="row center">
+                                @Html.ActionLink("Cancelar", "Details", new { id = Model.idPK, projectId = Model.id_proyectoFK }, new
+                           {
+                               @class = "margin-r waves-effect red-hover btn red accent-4"
+                           })
+                                <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
+                            </div>
 
-                        <div class="margin-b section">
-                        </div>
-                    }
+                            <div class="margin-b section">
+                            </div>
+                            }
 
-                </div>
+                        </div>
 
             </div>
 
@@ -218,8 +219,8 @@
 
             </div>
         </div>
-        }
     }
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
