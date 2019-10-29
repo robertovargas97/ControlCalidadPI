@@ -17,14 +17,14 @@ namespace ControlCalidad.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tester()
         {
-            this.Requerimientoes = new HashSet<Requerimiento>();
+            this.TieneAsignadoes = new HashSet<TieneAsignado>();
         }
     
-        public string cedula_empleadoFk { get; set; }
+        public string cedula_empleadoFK { get; set; }
         public Nullable<int> cantidadReqAsignados { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Requerimiento> Requerimientoes { get; set; }
+        public virtual ICollection<TieneAsignado> TieneAsignadoes { get; set; }
     }
 }

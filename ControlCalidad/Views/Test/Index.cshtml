@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ControlCalidad.Models.Prueba>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proposito)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.entradaDatos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.flujo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resultadoFinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resultadoEsperado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imgError)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descError)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Requerimiento.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proposito)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.entradaDatos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.flujo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resultadoFinal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resultadoEsperado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.imgError)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descError)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Requerimiento.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK })
+        </td>
+    </tr>
+}
+
+</table>

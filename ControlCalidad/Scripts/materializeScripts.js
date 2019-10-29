@@ -111,6 +111,32 @@ function validateConfirmPass() {
 
 //-------------------------------------------Project Validations--------------------------------
 
+//<summary> :   validates that a project name has a minimun length and that project does not exist in the db
+function validateProjectName() {
+
+    if (document.getElementById("projectName").value.length < 5) {
+        document.getElementById("nameError").innerHTML = "Debe colocar un nombre válido al proyecto(5 caracteres como mínimo).";
+    }
+    else {
+        document.getElementById("nameError").innerHTML = "";
+        console.log("acv");
+        $.ajax({
+            url: '/Project/validateName',
+            data: { name: $('#projectName').val() },
+            success: function (exist) {
+                if (exist == 'True') {
+                    document.getElementById("nameError").innerHTML = "El nombre del proyecto ya existe... Por favor ingrese otro";
+                    document.getElementById('btn-submit').disabled = true;
+                }
+                else {
+                    document.getElementById("nameError").innerHTML = "";
+                    document.getElementById('btn-submit').disabled = false;
+                }
+            },
+        });
+    }
+}
+
 //<summary> : validates the status of a project,if it status is active the project can not be deleted (using ajax)
 function removeProject() {
     var id = document.getElementById("idProject").value;
@@ -119,7 +145,7 @@ function removeProject() {
         data: { id: $('#idProject').val() },
 
         success: function (active) {
-           
+
             if (active == 'Inactivo') {
                 document.getElementById("loading").classList.remove("hide");
                 location.href = '/Project/RemoveProject/' + parseInt(id);
@@ -136,16 +162,6 @@ function removeProject() {
 function validateClient(idClient) {
     if (document.getElementById(idClient).value.indexOf("Selecciona el cliente") > -1) {
         document.getElementById("ClientError").innerHTML = "Debe seleccionar un cliente.";
-    }
-}
-
-//<summary> :   validates that a project name has a minimun length. (there may be projects with the same name)
-function validateProjectName() {
-    if (document.getElementById("projectName").value.length < 5) {
-        document.getElementById("nameError").innerHTML = "Debe colocar un nombre válido al proyecto(5 caracteres como mínimo).";
-    }
-    else {
-        document.getElementById("nameError").innerHTML = "";
     }
 }
 
@@ -180,6 +196,7 @@ function validateEmployeeName(inputtxt) {
     else {
         var err = document.getElementById("employeeNameError");
         err.innerHTML = "<span class=red-text>Digite caracteres validos</span>";
+        document.getElementById('btn-submit').disabled = true;
 
     }
 }
@@ -189,10 +206,12 @@ function validateEmployeeSurname(inputtxt) {
     if (inputtxt.value.match(letters)) {
         var err = document.getElementById("employeeSurnameError1");
         err.innerHTML = " ";
+        document.getElementById('btn-submit').disabled = false;
     }
     else {
         var err = document.getElementById("employeeSurnameError1");
         err.innerHTML = "<span class=red-text>Digite caracteres validos</span>";
+        document.getElementById('btn-submit').disabled = true;
     }
 }
 function validateEmployeeSurname2(inputtxt) {
@@ -200,10 +219,12 @@ function validateEmployeeSurname2(inputtxt) {
     if (inputtxt.value.match(letters)) {
         var err = document.getElementById("employeeSurnameError2");
         err.innerHTML = " ";
+        document.getElementById('btn-submit').disabled = false;
     }
     else {
         var err = document.getElementById("employeeSurnameError2");
         err.innerHTML = "<span class=red-text>Digite caracteres validos</span>";
+        document.getElementById('btn-submit').disabled = true;
     }
 }
 function validateEmployeeAge(inputtxt) {
@@ -211,12 +232,15 @@ function validateEmployeeAge(inputtxt) {
     var err = document.getElementById("employeeAgeError");
     if (inputtxt.value.match(letters)) {
         err.innerHTML = "<span class=red-text>Digite caracteres numericos</span>";
+        document.getElementById('btn-submit').disabled = true;
     }
     else {
         if (parseInt(inputtxt.value, 10) > 18 && parseInt(inputtxt.value, 10) < 100) {
             err.innerHTML = " "
+            document.getElementById('btn-submit').disabled = false;
         } else {
             err.innerHTML = "<span class=red-text>Digite una edad valida</span>";
+            document.getElementById('btn-submit').disabled = true;
         }
 
     }
@@ -224,7 +248,22 @@ function validateEmployeeAge(inputtxt) {
 function validateEmployeeEmail(inputtxt) {
     if (inputtxt.value.includes("@") && (inputtxt.value.includes(".com") || inputtxt.value.includes(".net"))) {
         var err = document.getElementById("employeeEmailError");
-        err.innerHTML = "";
+        $.ajax({
+            url: '/Employee/isMailTaken',
+            data: { id: inputtxt.value },
+
+            success: function (exist) {
+
+                if (exist == 'True') {
+                    err.innerHTML = `<span class=red-text>Correo previamente registrado </span>`;
+                    document.getElementById('btn-submit').disabled = true;
+
+                } else {
+                    err.innerHTML = "";
+                    document.getElementById('btn-submit').disabled = false;
+                }
+            },
+        });
     } else {
         var err = document.getElementById("employeeEmailError");
         err.innerHTML = "<span class=red-text>Digite un correo valido</span>";
@@ -235,19 +274,39 @@ function validateEmployeePhoneNumber(inputtxt) {
     var err = document.getElementById("employeePhoneError");
     if (inputtxt.value.match(letters)) {
         err.innerHTML = "";
+        document.getElementById('btn-submit').disabled = false;
     }
     else {
-        err.innerHTML = `<span class=red-text>Digite valores numericos </span>`;
+        err.innerHTML = `<span class=red-text>Digite valores numericos </span>`
+        document.getElementById('btn-submit').disabled = true;
+
     }
 }
 function validateEmployeeID(inputtxt) {
     var letters = /^[0-9]*$/;
     var err = document.getElementById("employeeIDError");
     if (inputtxt.value.match(letters)) {
-        err.innerHTML = "";
+        $.ajax({
+            url: '/Employee/existID',
+            data: { id: inputtxt.value },
+
+            success: function (exist) {
+
+                if (exist == 'True') {
+                    err.innerHTML = `<span class=red-text>Cedula previamente registrada </span>`;
+                    document.getElementById('btn-submit').disabled = true;
+
+                } else {
+                    err.innerHTML = "";
+                    document.getElementById('btn-submit').disabled = false;
+                }
+            },
+        });
+        
     }
     else {
         err.innerHTML = `<span class=red-text>Digite un valores numericos </span>`;
+        inputtxt.value = inputtxt.value.substring(0, inputtxt.value.length)
     }
 }
 

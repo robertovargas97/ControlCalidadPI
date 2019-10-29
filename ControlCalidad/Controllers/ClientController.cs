@@ -13,36 +13,36 @@ namespace ControlCalidad.Controllers
 {
     public class ClientController : Controller
     {
-        private localizationsController localizations = new localizationsController();
+        private localizationsController localizations = new localizationsController( );
 
-        private QASystemEntities db = new QASystemEntities();
+        private QASystemEntities db = new QASystemEntities( );
 
 
-        //<summary> : Toma todos lo clientes de la base de datos para convertirlos en una lista
-        //<return> : List<SelectListItem> que corresponde a los clientes en la base de datos.
+        //<summary> : gets clients from database to put them in a list
+        //<param>   : None
+        //<return>  : List<SelectListItem>, a client list
         public List<SelectListItem> GetClients()
         {
             List<ClientForproject> clientsList =
                 ( from client in db.Clientes
                   select new ClientForproject {
                       cedulaPK = client.cedulaPK ,
-                      nombreP = client.nombreP,
-                      apellido1 = client.apellido1,
-                      apellido2 = client.apellido2,
+                      nombreP = client.nombreP ,
+                      apellido1 = client.apellido1 ,
+                      apellido2 = client.apellido2 ,
                       nombreCompleto = client.nombreP + " " + client.apellido1 + " " + client.apellido2
-                      
-                      
+
+
                   } ).ToList( );
 
-
             List<SelectListItem> allClients = clientsList.ConvertAll(
-                client => { return new SelectListItem( )
-                {
-                    Text = client.nombreCompleto ,
-                    Value = client.cedulaPK.ToString( ) ,
-                    Selected = false
-                };
-            } );
+                client => {
+                    return new SelectListItem( ) {
+                        Text = client.nombreCompleto ,
+                        Value = client.cedulaPK.ToString( ) ,
+                        Selected = false
+                    };
+                } );
 
             return allClients;
         }
@@ -72,8 +72,8 @@ namespace ControlCalidad.Controllers
         // GET: Client/Create
         public ActionResult Create()
         {
-            ViewBag.provinces = this.localizations.provinceList();
-            return View();
+            ViewBag.provinces = this.localizations.provinceList( );
+            return View( );
 
         }
 
@@ -83,15 +83,15 @@ namespace ControlCalidad.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<ActionResult> Create([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta,fechaNacimiento")] Cliente cliente)
+        public async Task<ActionResult> Create( [Bind( Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta,fechaNacimiento" )] Cliente cliente )
         {
-            string provinceName = localizations.provinceName(cliente.provincia);
-            string cantonName = localizations.cantonName(cliente.provincia, cliente.canton);
-            string districtName = localizations.districtName(cliente.provincia, cliente.canton, cliente.distrito);
+            string provinceName = localizations.provinceName( cliente.provincia );
+            string cantonName = localizations.cantonName( cliente.provincia , cliente.canton );
+            string districtName = localizations.districtName( cliente.provincia , cliente.canton , cliente.distrito );
             cliente.provincia = provinceName;
             cliente.canton = cantonName;
             cliente.distrito = districtName;
-            if ( ModelState.IsValid )
+            if( ModelState.IsValid )
             {
                 db.Clientes.Add( cliente );
                 try
@@ -114,8 +114,8 @@ namespace ControlCalidad.Controllers
         // GET: Client/Edit/5
         public async Task<ActionResult> Edit( string id )
         {
-            ViewBag.provinces = this.localizations.provinceList();
-            if (id == null)
+            ViewBag.provinces = this.localizations.provinceList( );
+            if( id == null )
             {
                 return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
             }
@@ -133,15 +133,15 @@ namespace ControlCalidad.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta,fechaNacimiento")] Cliente cliente)
+        public async Task<ActionResult> Edit( [Bind( Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta,fechaNacimiento" )] Cliente cliente )
         {
-            string provinceName = localizations.provinceName(cliente.provincia);
-            string cantonName = localizations.cantonName(cliente.provincia, cliente.canton);
-            string districtName = localizations.districtName(cliente.provincia, cliente.canton, cliente.distrito);
+            string provinceName = localizations.provinceName( cliente.provincia );
+            string cantonName = localizations.cantonName( cliente.provincia , cliente.canton );
+            string districtName = localizations.districtName( cliente.provincia , cliente.canton , cliente.distrito );
             cliente.provincia = provinceName;
             cliente.canton = cantonName;
             cliente.distrito = districtName;
-            if ( ModelState.IsValid )
+            if( ModelState.IsValid )
             {
 
                 db.Entry( cliente ).State = EntityState.Modified;
@@ -181,15 +181,15 @@ namespace ControlCalidad.Controllers
         //<summary> :   It is used to remove a client from the database.
         //<param>   :   clientID, this parameter identifies the client that will be removed from the database. 
         //<return>  :   Redirect to Index.
-        public ActionResult RemoveClient(string clientId)
-        {  
-            Cliente client= db.Clientes.Find(clientId);
-            db.Clientes.Remove(client);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+        public ActionResult RemoveClient( string clientId )
+        {
+            Cliente client = db.Clientes.Find( clientId );
+            db.Clientes.Remove( client );
+            db.SaveChanges( );
+            return RedirectToAction( "Index" );
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose( bool disposing )
         {
             if( disposing )
             {

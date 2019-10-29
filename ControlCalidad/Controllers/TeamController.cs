@@ -11,7 +11,7 @@ using ControlCalidad.Models;
 
 namespace ControlCalidad.Controllers
 {
-
+    // <class> : Class designed to receive the results of the queries of employee table
     class DbResultE
     {
         public string cedulaPK { get; set; }
@@ -23,6 +23,13 @@ namespace ControlCalidad.Controllers
         private QASystemEntities db = new QASystemEntities();
 
         // GET: Team/Edit/5
+        //<summary> :   View for teams, prepare several queries, to select the skills of an employee 
+        //              in case a search is made by skills, also searches all available employees and 
+        //              all employees linked to the specific project
+        //<param>   :   int id_proyecto: represents the primary key of the project table, 
+        //                               this to bring the team and the name of the project.
+        //              string ability: represents the selected skills in the filter
+        //<return>  : View of teams, with all data
         public ActionResult Edit(int id_proyecto, string ability)
         {
             //This vector works to accumulate all comma separated abilities and then perform the query
@@ -62,6 +69,13 @@ namespace ControlCalidad.Controllers
             return View();
         }
 
+        //<summary> :   Class that reacts by submit button, it extracts all the necessary data in case of assignment, 
+        //              deallocation or search
+        //<param>   :   FormCollection fc: represents all view forms
+        //              string allocate: represents the action of allocate
+        //              string deallocate: represents the action of deallocate
+        //              string search: represents the action of search
+        //<return>  : Redirect to viwe of teams, with all new data
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(FormCollection fc, string allocate, string deallocate, string search)

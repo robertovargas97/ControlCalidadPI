@@ -21,28 +21,58 @@ namespace ControlCalidad.Models
             this.Proyectoes = new HashSet<Proyecto>();
         }
 
-        [Display(Name = "Cédula")]
-        public string cedulaPK { get; set; }
-        [Display(Name = "Nombre")]
-        public string nombreP { get; set; }
-        [Display(Name = "Primer Apellido")]
-        public string apellido1 { get; set; }
-        [Display(Name = "Segundo Apellido")]
-        public string apellido2 { get; set; }
-        [Display(Name = "Teléfono")]
-        public string telefono { get; set; }
-        [Display(Name = "Correo")]
-        public string correo { get; set; }
-        [Display(Name = "Provincia")]
-        public string provincia { get; set; }
-        [Display(Name = "Cantón")]
-        public string canton { get; set; }
-        [Display(Name = "Distrito")]
-        public string distrito { get; set; }
-        [Display(Name = "Dirección Exacta")]
-        public string direccionExacta { get; set; }
+        [Display( Name = "Cédula" )]
+        public string cedulaPK
+        {
+            get; set;
+        }
+        [Display( Name = "Nombre" )]
+        public string nombreP
+        {
+            get; set;
+        }
+        [Display( Name = "Primer Apellido" )]
+        public string apellido1
+        {
+            get; set;
+        }
+        [Display( Name = "Segundo Apellido" )]
+        public string apellido2
+        {
+            get; set;
+        }
+        [Display( Name = "Teléfono" )]
+        public string telefono
+        {
+            get; set;
+        }
+        [Display( Name = "Correo" )]
+        public string correo
+        {
+            get; set;
+        }
+        [Display( Name = "Provincia" )]
+        public string provincia
+        {
+            get; set;
+        }
+        [Display( Name = "Cantón" )]
+        public string canton
+        {
+            get; set;
+        }
+        [Display( Name = "Distrito" )]
+        public string distrito
+        {
+            get; set;
+        }
+        [Display( Name = "Dirección Exacta" )]
+        public string direccionExacta
+        {
+            get; set;
+        }
         public Nullable<System.DateTime> fechaNacimiento { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proyecto> Proyectoes { get; set; }
     }

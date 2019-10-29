@@ -178,7 +178,10 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\localizationsController.cs" />
+    <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Controllers\RequirementController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TesterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -294,6 +297,9 @@
     <Compile Include="Models\Tester.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TieneAsignado.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TrabajaEn.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
@@ -388,19 +394,19 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <EntityDeploy Include="Models\QASystemModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QASystemModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\QASystemModel.edmx.diagram">
-      <DependentUpon>QASystemModel.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\localizacionesModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>localizacionesModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\localizacionesModel.edmx.diagram">
       <DependentUpon>localizacionesModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\QASystemModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QASystemModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QASystemModel.edmx.diagram">
+      <DependentUpon>QASystemModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -426,7 +432,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -483,7 +491,6 @@
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Project\Create.cshtml" />
-    <Content Include="Views\Project\Delete.cshtml" />
     <Content Include="Views\Project\Details.cshtml" />
     <Content Include="Views\Project\Edit.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
@@ -502,6 +509,20 @@
     <Content Include="Views\Habilities\Details.cshtml" />
     <Content Include="Views\Habilities\Edit.cshtml" />
     <Content Include="Views\Habilities\Index.cshtml" />
+    <Content Include="Views\Requirement\Create.cshtml" />
+    <Content Include="Views\Requirement\Delete.cshtml" />
+    <Content Include="Views\Requirement\Details.cshtml" />
+    <Content Include="Views\Requirement\Edit.cshtml" />
+    <Content Include="Views\Requirement\Index.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Reportes\Index.cshtml" />
+=======
+    <Content Include="Views\Test\Create.cshtml" />
+    <Content Include="Views\Test\Delete.cshtml" />
+    <Content Include="Views\Test\Details.cshtml" />
+    <Content Include="Views\Test\Edit.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+>>>>>>> 91b9123ccc5740e8901ca5fecd88a17c3fa99318
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

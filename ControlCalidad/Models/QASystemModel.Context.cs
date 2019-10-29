@@ -32,6 +32,7 @@ namespace ControlCalidad.Models
         public virtual DbSet<Prueba> Pruebas { get; set; }
         public virtual DbSet<Requerimiento> Requerimientoes { get; set; }
         public virtual DbSet<Tester> Testers { get; set; }
+        public virtual DbSet<TieneAsignado> TieneAsignadoes { get; set; }
         public virtual DbSet<TrabajaEn> TrabajaEns { get; set; }
     }
 }

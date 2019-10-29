@@ -144,7 +144,7 @@
                                 </div>
                             </div>
                             <div class="row margin-b">
-                                <div class="input-field col s12">
+                                <div class="input-field col  s11 offset-1">
                                     <i class="text-grey material-icons prefix">mail</i>
                                     <input class="validate form-control" type="text" name="correo" id="correo" onkeydown="validateEmployeeEmail(this)" onkeyup="validateEmployeeEmail(this)" />
                                     @Html.LabelFor(m => m.correo, "Email", new { @class = "" })
@@ -180,7 +180,7 @@
                        {
                            @class = "waves-effect red-hover btn red accent-4"
                        })
-                            <button type="submit" class="btn waves-effect waves-light turq btn-login modal-trigger">Aceptar</button>
+                            <button type="submit" id="btn-submit" class="btn waves-effect waves-light turq btn-login modal-trigger">Aceptar</button>
 
 
                         </div>
