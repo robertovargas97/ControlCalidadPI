@@ -31,54 +31,47 @@
 
                 <div class="form-group hide">
                     <div class="col-md-10">
-                        <input value="@ViewBag.id_proyecto" name="id_proyectoFK" type="text" required class="validate form-control" onblur="" onkeyup="" id="projectId" />
-                    </div>
-                </div>
-
-
-                <div class="col s4">
-                    <div class="row margin-b">
-                        <div class="input-field col s11">
-                            <i class="p-size text-grey material-icons prefix">assignment_ind</i>
-                            <label for="nombre">Nombre del requerimiento <span class="red-text">  *</span></label>
-                            <input name="nombre" type="text" required class="validate form-control" onblur="" onkeyup="" id="requirementName" />
-                            <span class="text-error" id="requirementError"></span>
-                        </div>
-                    </div>
-
-                    <div class="row margin-b">
-                        <div class="input-field col s11">
-                            <i class="p-size material-icons text-grey prefix">date_range</i>
-                            <label for="fechaInicio">Fecha de Inicio <span class="red-text">  *</span></label>
-                            <input type="text" class="datepicker" required id="fechaInicio" name="fechaInicio" />
-                            @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-error" })
-                        </div>
-                    </div>
-
-                    <div class="row margin-b">
-                        <div class="input-field col s11">
-                            <i class="p-size material-icons text-grey prefix">date_range</i>
-                            <label for="fechaFinalizacion">Fecha de Finalización</label>
-                            <input type="text" class="datepicker" id="fechaFinalizacion" name="fechaFinalizacion" />
-                            @Html.ValidationMessageFor(model => model.fechaFinalizacion , "", new { @class = "text-error" })
-                        </div>
-                    </div>
-
-                    <div class="row margin-b">
-                        <div class="input-field col s11">
-                            <i class="p-size material-icons text-grey prefix">date_range</i>
-                            <label for="fechaAsignacion">Fecha de Asignación</label>
-                            <input type="text" class="datepicker" id="fechaAsignacion" name="fechaAsignacion" />
-                            @Html.ValidationMessageFor(model => model.fechaAsignacion , "", new { @class = "text-error" })
-                        </div>
+                        <input value="@ViewBag.projectId" name="id_proyectoFK" type="text" required class="validate form-control" onblur="" onkeyup="" id="projectId" />
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col s4">
                         <div class="row margin-b">
+                            <div class="input-field col s11">
+                                <i class="p-size text-grey material-icons prefix">assignment_turned_in</i>
+                                <label for="nombre">Nombre del requerimiento <span class="red-text">  *</span></label>
+                                <input name="nombre" type="text" required class="validate form-control" onblur="" onkeyup="" id="requirementName" />
+                                <span class="text-error" id="requirementError"></span>
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s11">
+                                <i class="p-size material-icons text-grey prefix">date_range</i>
+                                <label for="fechaInicio">Fecha de Inicio <span class="red-text">  *</span></label>
+                                <input type="text" class="datepicker" required id="fechaInicio" name="fechaInicio" />
+                                @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-error" })
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s11">
+                                <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
+                                <label for="duracionEstimada">Duración Estimada <span class="red-text">  *</span> </label>
+                                <input name="duracionEstimada" type="number" required class="validate form-control" onblur="" onkeyup="" id="avrTime" />
+                                <span class="text-error" id="avrTimeError"></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="col s4">
+                        <div class="row margin-b">
                             <div class="input-field col s11" data-target="dropdownCreate">
-                                <i class="p-size material-icons text-grey prefix">info</i>
+                                <i class="p-size material-icons text-grey prefix">info_outline</i>
                                 <select name="estado" required id="estado">
                                     <option value="" disabled selected>Seleccione un estado</option>
                                     <option value="No iniciado">No iniciado</option>
@@ -92,9 +85,30 @@
                             </div>
                         </div>
 
+
+                        <div class="row margin-b">
+                            <div class="input-field col s11">
+                                <i class="p-size material-icons text-grey prefix">date_range</i>
+                                <label for="fechaAsignacion">Fecha de Asignación</label>
+                                <input type="text" class="datepicker" id="fechaAsignacion" name="fechaAsignacion" />
+                                @Html.ValidationMessageFor(model => model.fechaAsignacion , "", new { @class = "text-error" })
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s11">
+                                <i class="p-size material-icons text-grey prefix">hourglass_full</i>
+                                <label for="duracionReal">Duración Real  </label>
+                                <input name="duracionReal" type="number" class="validate form-control" onblur="" onkeyup="" id="RealDur" />
+                                <span class="text-error" id="realDurError"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s4">
                         <div class="row margin-b">
                             <div class="input-field col s11" data-target="dropdownCreate">
-                                <i class="p-size material-icons text-grey prefix">info</i>
+                                <i class="p-size material-icons text-grey prefix">info_outline</i>
                                 <select name="complejidad" required id="complejidad">
                                     <option value="" disabled selected>Seleccione una complejidad</option>
                                     <option value="Facil">Fácil</option>
@@ -107,32 +121,39 @@
 
                         <div class="row margin-b">
                             <div class="input-field col s11">
+                                <i class="p-size material-icons text-grey prefix">date_range</i>
+                                <label for="fechaFinalizacion">Fecha de Finalización</label>
+                                <input type="text" class="datepicker" id="fechaFinalizacion" name="fechaFinalizacion" />
+                                @Html.ValidationMessageFor(model => model.fechaFinalizacion , "", new { @class = "text-error" })
+                            </div>
+                        </div>
+
+                        <div class="row margin-b">
+                            <div class="input-field col s11" data-target="dropdownCreate">
+                                <i class="p-size material-icons text-grey prefix">person</i>
+                                <select name=" " id="">
+                                    <option value="" disabled selected>Tester</option>
+
+                                </select>
+                                <label for="">Deberia de haber tester<span class="red-text">  *</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s10 offset-s1">
+                        <div class="row margin-b">
+                            <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">assignment</i>
                                 @Html.LabelFor(model => model.descripcion , htmlAttributes: new { @class = "control-label col-md-2" })
                                 @Html.EditorFor(model => model.descripcion , new { htmlAttributes = new { @class = "validate" } })
                                 @Html.ValidationMessageFor(model => model.descripcion , "", new { @class = "text-error" })
                             </div>
                         </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s11">
-                                <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
-                                <label for="duracionEstimada">Duración Estimada <span class="red-text">  *</span> </label>
-                                <input name="duracionEstimada" type="number" required class="validate form-control" onblur="" onkeyup="" id="avrTime" />
-                                <span class="text-error" id="avrTimeError"></span>
-                            </div>
-                        </div>
-
-                        <div class="row margin-b">
-                            <div class="input-field col s11">
-                                <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
-                                <label for="duracionReal">Duración Real  </label>
-                                <input name="duracionReal" type="number"class="validate form-control" onblur="" onkeyup="" id="RealDur" />
-                                <span class="text-error" id="realDurError"></span>
-                            </div>
-                        </div>
                     </div>
                 </div>
+
 
                 <div class="hide row container center" id="loading">
                     <div class="">
@@ -169,22 +190,18 @@
                 <div class="margin-b1">
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
+                <div class="row center">
+                    @Html.ActionLink("Cancelar", "Index", new {projectId = ViewBag.projectId} , new { @class = "margin-r waves-effect red-hover btn red accent-4"} )
+                    <button id="btn-submit" type="submit" class="margin-l btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
 
+                </div>
+                <div class="margin-b section">
                 </div>
 
             }
         </div>
     </div>
 </div>
-
-<div>
-    @Html.ActionLink( "Back to List" , "Index" )
-</div>
-
 @section Scripts {
     @Scripts.Render( "~/bundles/jqueryval" )
 }
