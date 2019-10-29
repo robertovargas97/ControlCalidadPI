@@ -58,17 +58,6 @@
                                    })
                                     </div>
                                 </div>
-                                
-                            </div>
-
-                            <div class="col s4">
-                                <div class="row margin-b">
-                                    <div class="input-field col s11">
-                                        <i class="p-size material-icons text-grey prefix">assignment</i>
-                                        @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
 
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
@@ -95,7 +84,19 @@
                                         <input type="text" class="datepicker" id="fechaAsig" name="fechaAsig" />
                                     </div>
                                 </div>
+
                             </div>
+
+                            <div class="col s4">
+                                <div class="row margin-b">
+                                    <div class="input-field col s11">
+                                        <i class="p-size material-icons text-grey prefix">assignment</i>
+                                        @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+
+                                
 
                             <div class="col s4">
                                 <div class="row margin-b hide">
