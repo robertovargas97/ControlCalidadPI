@@ -1,127 +1,156 @@
 ﻿@model ControlCalidad.Models.Prueba
 
+@*{
+        ViewBag.Title = "Create";
+    }*@
+
 @{
-    ViewBag.Title = "Create";
-}
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Prueba</h4>
+    <h3 class="text-grey">Crear prueba</h3>
+    <div class="margin-b1">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.idPK, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.idPK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.idPK, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.id_proyectoFK, "id_proyectoFK", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.id_proyectoFK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.id_proyectoFK, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.id_requerimientoFK, "id_requerimientoFK", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.id_requerimientoFK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.id_requerimientoFK, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.proposito, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.proposito, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.proposito, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.entradaDatos, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.entradaDatos, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.entradaDatos, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.flujo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.flujo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.flujo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.resultadoFinal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.resultadoFinal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.resultadoFinal, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.resultadoEsperado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.resultadoEsperado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.resultadoEsperado, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.imgError, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.imgError, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.imgError, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.descError, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.descError, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.descError, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
     </div>
+
+    <div class="row container">
+
+        <div class="">
+
+            <div class="card hoverable">
+
+                <nav>
+                    <div class="nav-wrapper black">
+                        <p class="col s4">Quality Expert S.A</p>
+                    </div>
+                </nav>
+
+                <div class="margin-b">
+
+                </div>
+
+                @using(Html.BeginForm("Create", "Test", FormMethod.Post))
+                {
+                    <div class="margin-b section">
+
+                    </div>
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                    
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                    <div class="row">
+
+                        <div class="col s4">
+
+                            <div class="row margin-b">
+
+                                <div class="input-field col s11">
+
+                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                    <label for="idPK">Id de la prueba <span class="red-text">  *</span></label>
+                                    <input name="idPK" type="text" />
+                                    <span class="text-error" id="nameError"></span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row margin-b">
+
+                                <div class="input-field col s11">
+
+                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                    <label for="nombre">Nombre de la prueba <span class="red-text">  *</span></label>
+                                    <input name="nombre" type="text" />
+                                    <span class="text-error" id="nameError"></span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row margin-b">
+
+                                <div class="input-field col s11">
+
+                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                    <label for="id_proyectoFK">Id del proyecto <span class="red-text">  *</span></label>
+                                    <input name="id_proyectoFK" type="text" />
+                                    <span class="text-error" id="nameError"></span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row margin-b">
+
+                                <div class="input-field col s11">
+
+                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                    <label for="id_requerimientoFK">Id del requerimiento <span class="red-text">  *</span></label>
+                                    <input name="id_requerimientoFK" type="text" />
+                                    <span class="text-error" id="nameError"></span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row margin-b">
+
+                                <div class="input-field col s11">
+
+                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                    <label for="proposito">Proposito <span class="red-text">  *</span></label>
+                                    <input name="proposito" type="text" />
+                                    <span class="text-error" id="nameError"></span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row margin-b">
+
+                                <div class="input-field col s11">
+
+                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                    <label for="entradaDatos">Entrada de datos <span class="red-text">  *</span></label>
+                                    <input name="entradaDatos" type="text" />
+                                    <span class="text-error" id="nameError"></span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                       
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+  
+
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -1,98 +1,127 @@
 ﻿@model ControlCalidad.Models.Prueba
 
+@*{
+        ViewBag.Title = "Details";
+    }*@
+
 @{
-    ViewBag.Title = "Details";
+
+
+    <h3 class="text-grey">@Html.DisplayFor(model => model.nombre) </h3>
+    <div class="margin-b1">
+        <hr />
+    </div>
+
+    <div>
+        
+        <div class="row">
+
+            <div class="col s6 offset-s3">
+
+                <div class="card hoverable">
+
+                    <nav>
+
+                        <div class="nav-wrapper black">
+                            <p class="col s4"> Quality Expert S.A</p>
+                        </div>
+
+                    </nav>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.nombre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.proposito)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.proposito)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.entradaDatos)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.entradaDatos)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.flujo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.flujo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.resultadoFinal)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.resultadoFinal)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.resultadoEsperado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.resultadoEsperado)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.imgError)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.imgError)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.descError)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.descError)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.estado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.estado)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Requerimiento.nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Requerimiento.nombre)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Prueba</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.proposito)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.proposito)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.entradaDatos)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.entradaDatos)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.flujo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.flujo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.resultadoFinal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.resultadoFinal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.resultadoEsperado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.resultadoEsperado)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.imgError)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.imgError)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.descError)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.descError)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.estado)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Requerimiento.nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Requerimiento.nombre)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
