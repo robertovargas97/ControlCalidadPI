@@ -203,6 +203,7 @@ function validateEmployeeName(inputtxt) {
     if (inputtxt.value.match(letters)) {
         var err = document.getElementById("employeeNameError");
         err.innerHTML = " ";
+        document.getElementById('btn-submit').disabled = false;
     }
     else {
         var err = document.getElementById("employeeNameError");

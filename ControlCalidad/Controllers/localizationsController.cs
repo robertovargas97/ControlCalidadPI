@@ -51,7 +51,7 @@ namespace ControlCalidad.Controllers
                 return 0;
             }
             db.Configuration.ProxyCreationEnabled = false;
-            List<Provincia> provinceList = db.Provincias.Where(x => x.nombre == name).ToList();
+            List<Provincia> provinceList = db.Provincias.Where(x =>x.nombre == name).ToList();
             return provinceList[0].codigoPK;
         }
 
