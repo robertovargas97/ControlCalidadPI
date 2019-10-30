@@ -50,7 +50,7 @@
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaAsignacion">Fecha de Asignación</label>
-                                <input type="text" class="datepicker" id="fechaAsignacion" name="fechaAsignacion" />
+                                <input type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" />
                                 @Html.ValidationMessageFor(model => model.fechaAsignacion , "", new { @class = "text-error" })
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaInicio">Fecha de Inicio <span class="red-text">  *</span></label>
-                                <input type="text" class="datepicker" required id="fechaInicio" name="fechaInicio" />
+                                <input type="text" class="datepickerDate datepicker" required id="fechaInicio" name="fechaInicio" />
                                 @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-error" })
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaFinalizacion">Fecha de Finalización</label>
-                                <input type="text" class="datepicker" id="fechaFinalizacion" name="fechaFinalizacion" />
+                                <input type="text" class="datepickerDate datepicker" id="fechaFinalizacion" name="fechaFinalizacion" />
                                 @Html.ValidationMessageFor(model => model.fechaFinalizacion , "", new { @class = "text-error" })
                             </div>
                         </div>
