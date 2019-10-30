@@ -95,7 +95,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaInicio">Fecha de Inicio</label>
-                                        <input type="text" value="@Model.fechaInicio.ToShortDateString()" class="datepicker" id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
+                                        <input type="text" value="@Model.fechaInicio.ToShortDateString()" class="datepickerDate datepicker" id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
                                         <span class="text-error" id="dateErrorMessage"></span>
 
                                     </div>
@@ -105,7 +105,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaFin">Fecha de Finalización</label>
-                                        <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
+                                        <input type="text" class="datepickerDate datepicker" id="fechaFin" name="fechaFin" />
                                     </div>
                                 </div>
                             </div>

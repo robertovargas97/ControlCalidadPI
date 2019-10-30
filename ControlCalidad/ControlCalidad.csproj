@@ -246,6 +246,7 @@
     <Compile Include="Models\Prueba.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QADataAnnotations.cs" />
     <Compile Include="Models\QASystemModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -520,7 +521,6 @@
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Test\Edit.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

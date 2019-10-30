@@ -27,7 +27,6 @@ namespace ControlCalidad.Models
         {
             get; set;
         }
-        [Display( Name = "Nombre" )]
         public string nombre
         {
             get; set;
