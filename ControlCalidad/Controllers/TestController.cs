@@ -66,7 +66,11 @@ namespace ControlCalidad.Controllers
         // GET: Test/Edit/5
         public async Task<ActionResult> Edit(int id, int projectID, int requirementID)
         {
-           
+            if (id == 0)
+            {
+                return HttpNotFound();
+            }
+
             Prueba prueba = await db.Pruebas.FindAsync(id, projectID, requirementID);
             if (prueba == null)
             {

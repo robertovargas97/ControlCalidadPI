@@ -43,29 +43,6 @@
                 @Html.DisplayFor(model => model.nombre)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.proposito)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.proposito)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.entradaDatos)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.entradaDatos)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.flujo)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.flujo)
-            </dd>
 
             <dt>
                 @Html.DisplayNameFor(model => model.resultadoFinal)
@@ -73,38 +50,6 @@
 
             <dd>
                 @Html.DisplayFor(model => model.resultadoFinal)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.resultadoEsperado)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.resultadoEsperado)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.imgError)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.imgError)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.descError)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.descError)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.estado)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.estado)
             </dd>
 
             <dt>
@@ -118,7 +63,7 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Edit", "Edit", new { id = Model.idPK, projectID = Model.id_proyectoFK, requirementID = Model.id_requerimientoFK }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
 
