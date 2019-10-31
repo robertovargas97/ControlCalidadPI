@@ -21,20 +21,21 @@
 
             </div>
 
-            @using( Html.BeginForm( "Create" , "Requirement" , FormMethod.Post , new {
-                @onsubmit = "onSubmit()"
-            } ) )
+            @using (Html.BeginForm("Create", "Requirement", FormMethod.Post, new
             {
-                @Html.AntiForgeryToken( )
+                @onsubmit = "onSubmit()"
+            }))
+            {
+                @Html.AntiForgeryToken()
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+                @Html.Hidden("idTester", "", new { @id = "idTester" })
                 <div class="form-group hide">
                     <div class="col-md-10">
                         <input value="@ViewBag.projectId" name="id_proyectoFK" type="text" required class="validate form-control" onblur="" onkeyup="" id="projectId" />
                     </div>
                 </div>
-
+                List<SelectListItem> testerId = (List<SelectListItem>)ViewBag.testers;
                 <div class="row">
                     <div class="col s4">
                         <div class="row margin-b">
@@ -50,8 +51,8 @@
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaAsignacion">Fecha de Asignación</label>
-                                <input type="text" class="datepicker" id="fechaAsignacion" name="fechaAsignacion" />
-                                @Html.ValidationMessageFor(model => model.fechaAsignacion , "", new { @class = "text-error" })
+                                <input type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" />
+                                @Html.ValidationMessageFor(model => model.fechaAsignacion, "", new { @class = "text-error" })
                             </div>
                         </div>
 
@@ -76,20 +77,21 @@
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaInicio">Fecha de Inicio <span class="red-text">  *</span></label>
-                                <input type="text" class="datepicker" required id="fechaInicio" name="fechaInicio" />
+                                <input type="text" class="datepickerDate datepicker" required id="fechaInicio" name="fechaInicio" />
                                 @Html.ValidationMessageFor(model => model.fechaInicio, "", new { @class = "text-error" })
                             </div>
                         </div>
 
                         <div class="row margin-b">
-                            <div class="input-field col s11" data-target="dropdownCreate">
+                            <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">person</i>
-                                <select name=" " id="">
-                                    <option value="" disabled selected>Tester</option>
-                                </select>
-                                <label for="">Deberia de haber tester<span class="red-text">  *</span></label>
+                                @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()",@id = "dropdown"})
+                                <label for="testerId"> Tester asignado <span class="red-text">  *</span></label>
+                                <span class="text-error" id="ClientError"></span>
                             </div>
                         </div>
+
+
 
                         <div class="row margin-b">
                             <div class="input-field col s11">
@@ -106,8 +108,8 @@
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaFinalizacion">Fecha de Finalización</label>
-                                <input type="text" class="datepicker" id="fechaFinalizacion" name="fechaFinalizacion" />
-                                @Html.ValidationMessageFor(model => model.fechaFinalizacion , "", new { @class = "text-error" })
+                                <input type="text" class="datepickerDate datepicker" id="fechaFinalizacion" name="fechaFinalizacion" />
+                                @Html.ValidationMessageFor(model => model.fechaFinalizacion, "", new { @class = "text-error" })
                             </div>
                         </div>
 
@@ -141,9 +143,9 @@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">assignment</i>
-                                @Html.LabelFor(model => model.descripcion , htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.descripcion , new { htmlAttributes = new { @class = "validate" } })
-                                @Html.ValidationMessageFor(model => model.descripcion , "", new { @class = "text-error" })
+                                @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "validate" } })
+                                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-error" })
                             </div>
                         </div>
                     </div>
@@ -186,7 +188,7 @@
                 </div>
 
                 <div class="row center">
-                    @Html.ActionLink("Cancelar", "Index", new {projectId = ViewBag.projectId} , new { @class = "margin-r waves-effect red-hover btn red accent-4"} )
+                    @Html.ActionLink("Cancelar", "Index", new { projectId = ViewBag.projectId }, new { @class = "margin-r waves-effect red-hover btn red accent-4" })
                     <button id="btn-submit" type="submit" class="margin-l btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
 
                 </div>
@@ -197,6 +199,20 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    /*
+     * Function that extracts the ID if you add a new member, actuated by selecting a member in the table
+     * Parameters: id, represents the ID of the selected employee
+     * Return: None
+     * */
+    
+    function setIdTester() {
+        $('#idTester').val($('#dropdown').val());
+    }
+</script>
+
 @section Scripts {
     @Scripts.Render( "~/bundles/jqueryval" )
 }

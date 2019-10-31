@@ -248,6 +248,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_Conseguir_testers_req" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
+          <Parameter Name="id_proyecto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_estaAsignado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_requerimiento" Type="int" Mode="InOut" />
+        </Function>
         <EntityContainer Name="QASystemEntityStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="ControlCalidad" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="ControlCalidad" store:Type="Tables" />
@@ -576,6 +585,15 @@
             <End Role="Requerimiento" EntitySet="Requerimientoes" />
             <End Role="Prueba" EntitySet="Pruebas" />
           </AssociationSet>
+          <FunctionImport Name="USP_calcularEdadEmpleado">
+          <Parameter Name="cedula" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Conseguir_testers_req" ReturnType="Collection(QASystemEntity.SP_Conseguir_testers_req_Result)">
+            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_estaAsignado" ReturnType="Collection(Int32)">
+            <Parameter Name="id_requerimiento" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Prueba">
           <Key>
@@ -607,6 +625,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="SP_Conseguir_testers_req_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -729,6 +751,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_calcularEdadEmpleado" FunctionName="QASystemEntity.Store.USP_calcularEdadEmpleado" />
+          <FunctionImportMapping FunctionImportName="SP_Conseguir_testers_req" FunctionName="QASystemEntity.Store.SP_Conseguir_testers_req">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_Conseguir_testers_req_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_estaAsignado" FunctionName="QASystemEntity.Store.USP_estaAsignado" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

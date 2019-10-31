@@ -183,6 +183,7 @@
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TesterController.cs" />
+    <Compile Include="Controllers\TesterRequirementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,6 +247,7 @@
     <Compile Include="Models\Prueba.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QADataAnnotations.cs" />
     <Compile Include="Models\QASystemModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -293,6 +295,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>S3G4CURModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Conseguir_testers_req_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tester.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
@@ -520,10 +525,10 @@
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Test\Edit.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\TesterRequeriment\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

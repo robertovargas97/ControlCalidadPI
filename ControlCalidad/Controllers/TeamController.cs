@@ -21,6 +21,14 @@ namespace ControlCalidad.Controllers
     public class TeamController : Controller
     {
         private QASystemEntities db = new QASystemEntities();
+        public string[] badCommands = { "--", "insert", "drop", "update", "delete", "or", "and", "join",";", "" + '"', "%", "=" };
+        public bool goodQuery(string ability) {
+            for (int index = 0; index < badCommands.Length; ++index) {
+                if (ability.ToLower().Contains(badCommands[index]))
+                    return false;
+            }
+            return true;
+        }
 
         // GET: Team/Edit/5
         //<summary> :   View for teams, prepare several queries, to select the skills of an employee 
@@ -35,7 +43,7 @@ namespace ControlCalidad.Controllers
             //This vector works to accumulate all comma separated abilities and then perform the query
             string[] abilities = null;
             string sqlAbilities= "";
-            if (ability != null) {
+            if (ability != null ){
                 abilities = ability.Split(',');
                 string template = "H.descripcionPK LIKE '%";
                 for (int index = 0; index < abilities.Length; ++index)
@@ -62,6 +70,12 @@ namespace ControlCalidad.Controllers
             if (ability == null)
             {
                 sqle = " SELECT E.cedulaPK , E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'nombreP' FROM ControlCalidad.Empleado E WHERE E.disponibilidad = 'Disponible'";
+            }
+            else {
+                if (!goodQuery(ability))
+                {
+                    sqle = " SELECT E.cedulaPK , E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'nombreP' FROM ControlCalidad.Empleado E WHERE E.disponibilidad = 'Disponible'";
+                }
             }
             List<DbResultE> available = db.Database.SqlQuery<DbResultE>(sqle).ToList();
             ViewBag.disponibles = new SelectList(available, "cedulaPK", "nombreP", "Disponibles");

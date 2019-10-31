@@ -32,6 +32,8 @@ namespace ControlCalidad.Controllers
         // GET: Employee/Details/5
         public async Task<ActionResult> Details(string id)
         {
+
+            db.USP_calcularEdadEmpleado( id );
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -110,10 +112,23 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "cedulaPK,nombreP,apellido1,apellido2,fechaNacimiento,edad,telefono,correo,provincia,canton,distrito,direccionExacta,disponibilidad")] Empleado empleado)
         {
-            var editProvince = Regex.Match(empleado.provincia, @"\d+").Value;
-            var editCanton = Regex.Match(empleado.canton, @"\d+").Value;
-            var editDistrict = Regex.Match(empleado.distrito, @"\d+").Value;
-            
+            var editProvince = "";
+            var editCanton = "";
+            var editDistrict ="";
+
+            if(empleado.provincia != null)
+            {
+                editProvince = Regex.Match(empleado.provincia, @"\d+").Value;
+            }
+            if (empleado.provincia != null)
+            {
+                editCanton = Regex.Match(empleado.canton, @"\d+").Value;
+            }
+            if (empleado.provincia != null)
+            {
+                editDistrict = Regex.Match(empleado.distrito, @"\d+").Value;
+            }
+
             string provinceName = null;
             string cantonName = null;
             string districtName = null;
@@ -253,11 +268,11 @@ namespace ControlCalidad.Controllers
             List<Empleado> empleado = db.Empleadoes.Where(x => x.correo == input).ToList();
             if(empleado != null)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
 
         }

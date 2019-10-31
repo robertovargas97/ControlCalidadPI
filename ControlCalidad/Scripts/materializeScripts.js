@@ -14,10 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.dropdown-trigger');
     var instances = M.Dropdown.init(elems, { coverTrigger: false, closeOnClick: true });
 
-    var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems);
-
-    var elems = document.querySelectorAll('.datepicker');
+    var elems = document.querySelectorAll('.datepickerDate');
     var instances = M.Datepicker.init(elems, {
         format: 'yyyy-mm-dd',
         showClearBtn: true,
@@ -26,6 +23,18 @@ document.addEventListener('DOMContentLoaded', function () {
             cancel: 'Cancelar',
             clear: 'Borrar'
         }
+    });
+
+    var elems = document.querySelectorAll('.datepickerAge');
+    var instances = M.Datepicker.init(elems, {
+        format: 'yyyy-mm-dd',
+        showClearBtn: true,
+        i18n: {
+            done: 'Aceptar',
+            cancel: 'Cancelar',
+            clear: 'Borrar'
+        },
+        yearRange : [1940,2001]
     });
 
     var elems = document.querySelectorAll('.fixed-action-btn');
@@ -188,12 +197,42 @@ function validateDuration() {
 }
 //------------------------------------------------------------------------------------------------------------------------
 
+//------------------------------------------------Requirements Validations------------------------------------------------
+function deleteReq(id) {
+    alert("aaa");
+    location.href = '../../TesterRequirement/isAssigned/' + id;
+}
+
+
+function removeRequeriment(id) {
+    alert();
+    
+   /* var id = document.getElementById("idProject").value;
+    $.ajax({
+        url: '/Requeriment/isAssigned',
+        data: { id: $('#idProject').val() },
+
+        success: function (active) {
+
+            if (active == 'Inactivo') {
+                document.getElementById("loading").classList.remove("hide");
+                location.href = '/Project/RemoveProject/' + parseInt(id);
+            }
+            else {
+                document.getElementById("activeError").innerHTML = "No puedes eliminar un  proyecto activo... Debe estár inactivo o finalizado.";
+            }
+        },
+    });*/
+}
+
+
 //------------------------------------------------Employee Validations----------------------------------------------------
 function validateEmployeeName(inputtxt) {
     var letters = /^[a-zA-Z\s]*$/;
     if (inputtxt.value.match(letters)) {
         var err = document.getElementById("employeeNameError");
         err.innerHTML = " ";
+        document.getElementById('btn-submit').disabled = false;
     }
     else {
         var err = document.getElementById("employeeNameError");
