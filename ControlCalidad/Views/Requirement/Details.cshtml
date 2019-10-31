@@ -135,7 +135,7 @@
                 <i class="material-icons medium red-text text-darken-4">warning</i>
             </div>
             <div class="s8">
-                <h5>Está seguro que desea <span class="red-text text-darken-4 "> borrar </span> el proyecto  @Model.nombre ?</h5>
+                <h5>Está seguro que desea <span class="red-text text-darken-4 "> borrar </span> el requerimiento @Model.nombre ?</h5>
             </div>
             <div class="left">
                 <span class="text-error" id="activeError"></span>
@@ -166,9 +166,12 @@
 
         <div class="modal-footer">
 
-            <a onclick="removeProject()" class="waves-effect waves-effect waves-light btn turq">Aceptar</a>
+            <a onclick="removeRequeriment(@Model.idPK)" class="waves-effect waves-effect waves-light btn turq">Aceptar</a>
 
             <a class="modal-close btn red-hover  red accent-4 white-text">Cancelar</a>
+
+            <a onclick="deleteReq(@Model.idPK)" class="modal-close btn red-hover  red accent-4 white-text">Prue</a>
+
         </div>
     </div>
 </div>

@@ -7,121 +7,87 @@
 @{
 
 
-    <h3 class="text-grey">@Html.DisplayFor(model => model.nombre) </h3>
-    <div class="margin-b1">
-        <hr />
-    </div>
+    <div class="row">
+        <div class="col s8 offset-s2">
+            <div class="card hoverable">
+                <nav>
+                    <div class="nav-wrapper black">
+                        <p class="col s4">Quality Expert S.A</p>
+                    </div>
+                </nav>
+                <div class="card-content black-text">
+                    <div class="row">
 
-    <div>
-        
-        <div class="row">
-
-            <div class="col s6 offset-s3">
-
-                <div class="card hoverable">
-
-                    <nav>
-
-                        <div class="nav-wrapper black">
-                            <p class="col s4"> Quality Expert S.A</p>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">Resultado final</i>
+                                <span class="text-turq"> Categoria </span>
+                                : @Html.DisplayFor(model => model.resultadoFinal)
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">Detalle del resultado</i>
+                                <span class="text-turq"> Descripcion </span>
+                                : @Html.DisplayFor(model => model.detalleResultado)
+                            </p>
                         </div>
 
-                    </nav>
 
+
+
+
+                    </div>
                 </div>
-
+                <div class="card-action center">
+                    <a id="delete-btn" class="margin-r waves-effect btn red accent-4 red-hover modal-trigger" href="#modal1">Borrar</a>
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.idPK, projectID = Model.id_proyectoFK, requirementID = Model.id_requerimientoFK }, new
+                    {
+                   @class = " margin-l waves-effect waves-light btn turq",
+                        @id = "edit-btn"
+               })
+                </div>
             </div>
+        </div>
+    </div>
 
+    <div class="fixed-action-btn">
+        <a href="@Url.Action("Index", new { id = Model.idPK, projectID = Model.id_proyectoFK, requirementID = Model.id_requerimientoFK })" class="btn-floating btn-large black turq-hover left">
+            <i class="large material-icons">arrow_back</i>
+        </a>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="row">
+            <div class="">
+                <nav>
+                    <div class="nav-wrapper black">
+                        <p class="col s4 offset-s5">Quality Expert S.A</p>
+                    </div>
+                </nav>
+            </div>
         </div>
 
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.nombre)
-            </dt>
+        <div class="modal-content ">
+            <div class="row">
+                <div class="col s2">
+                    <i class="material-icons medium red-text text-darken-4">warning</i>
+                </div>
+                <div class="s8">
+                    <h5>Está seguro que desea <span class="red-text text-darken-4 "> borrar </span> esta habilidad ?</h5>
+                </div>
+            </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.nombre)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.proposito)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.proposito)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.entradaDatos)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.entradaDatos)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.flujo)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.flujo)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.resultadoFinal)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.resultadoFinal)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.resultadoEsperado)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.resultadoEsperado)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.imgError)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.imgError)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.descError)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.descError)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.estado)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.estado)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Requerimiento.nombre)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Requerimiento.nombre)
-            </dd>
-
-        </dl>
+            <div class="margin-b1">
+                <hr />
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("Aceptar", "RemoveTest" ,new { id = Model.idPK, project = Model.id_proyectoFK, requirement = Model.id_requerimientoFK }, new { @class = "waves-effect red-hover btn red accent-4" })
+                <a class="modal-close btn waves-effect waves-light turq white-text">Cancelar</a>
+            </div>
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-
 }
 
 

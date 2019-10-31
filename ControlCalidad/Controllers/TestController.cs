@@ -16,10 +16,17 @@ namespace ControlCalidad.Controllers
         private QASystemEntities db = new QASystemEntities();
 
         // GET: Test
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? id, int? projectId)
         {
-            var pruebas = db.Pruebas.Include(p => p.Requerimiento);
-            return View(await pruebas.ToListAsync());
+            if (id != null && projectId != null) {
+                ViewBag.requirementId = id;
+                ViewBag.projectId = projectId;
+                var pruebas = db.Pruebas.Include(p => p.Requerimiento);
+                return View(await pruebas.ToListAsync());
+            }
+
+            return HttpNotFound();
+            
         }
 
         // GET: Test/Details/5
@@ -66,7 +73,11 @@ namespace ControlCalidad.Controllers
         // GET: Test/Edit/5
         public async Task<ActionResult> Edit(int id, int projectID, int requirementID)
         {
-           
+            if (id == 0)
+            {
+                return HttpNotFound();
+            }
+
             Prueba prueba = await db.Pruebas.FindAsync(id, projectID, requirementID);
             if (prueba == null)
             {
@@ -117,6 +128,14 @@ namespace ControlCalidad.Controllers
             db.Pruebas.Remove(prueba);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult RemoveTest(int? id, int project, int requirement)
+        {
+            Prueba prueba = db.Pruebas.Find(id, project, requirement);
+            db.Pruebas.Remove(prueba);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { id = prueba.idPK, projectID = prueba.id_proyectoFK, requirementID = prueba.id_requerimientoFK });
         }
 
         protected override void Dispose(bool disposing)

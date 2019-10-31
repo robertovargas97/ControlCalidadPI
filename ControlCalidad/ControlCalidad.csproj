@@ -183,6 +183,7 @@
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TesterController.cs" />
+    <Compile Include="Controllers\TesterRequirementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -527,6 +528,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\TesterRequeriment\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
