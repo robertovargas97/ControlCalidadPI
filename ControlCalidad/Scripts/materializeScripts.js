@@ -197,6 +197,35 @@ function validateDuration() {
 }
 //------------------------------------------------------------------------------------------------------------------------
 
+//------------------------------------------------Requirements Validations------------------------------------------------
+function deleteReq(id) {
+    alert("aaa");
+    location.href = '../../TesterRequirement/isAssigned/' + id;
+}
+
+
+function removeRequeriment(id) {
+    alert();
+    
+   /* var id = document.getElementById("idProject").value;
+    $.ajax({
+        url: '/Requeriment/isAssigned',
+        data: { id: $('#idProject').val() },
+
+        success: function (active) {
+
+            if (active == 'Inactivo') {
+                document.getElementById("loading").classList.remove("hide");
+                location.href = '/Project/RemoveProject/' + parseInt(id);
+            }
+            else {
+                document.getElementById("activeError").innerHTML = "No puedes eliminar un  proyecto activo... Debe estár inactivo o finalizado.";
+            }
+        },
+    });*/
+}
+
+
 //------------------------------------------------Employee Validations----------------------------------------------------
 function validateEmployeeName(inputtxt) {
     var letters = /^[a-zA-Z\s]*$/;
