@@ -45,5 +45,13 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_calcularEdadEmpleado", cedulaParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> USP_estaAsignado(int id_requerimiento)
+        {
+            var idParameter = id_requerimiento != null ?
+              new ObjectParameter( "id_requerimiento" , id_requerimiento ) :
+              new ObjectParameter( "id_requerimiento" , typeof( int ) );
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("USP_estaAsignado", idParameter );
+        }
     }
 }
