@@ -16,7 +16,7 @@ namespace ControlCalidad.Controllers
         private QASystemEntities db = new QASystemEntities();
 
         // GET: Test
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int id, int projectID = -1, int requirementID = -1)
         {
             var pruebas = db.Pruebas.Include(p => p.Requerimiento);
             return View(await pruebas.ToListAsync());
@@ -117,6 +117,14 @@ namespace ControlCalidad.Controllers
             db.Pruebas.Remove(prueba);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult RemoveTest(int? id, int project, int requirement)
+        {
+            Prueba prueba = db.Pruebas.Find(id, project, requirement);
+            db.Pruebas.Remove(prueba);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { id = prueba.idPK, projectID = prueba.id_proyectoFK, requirementID = prueba.id_requerimientoFK });
         }
 
         protected override void Dispose(bool disposing)
