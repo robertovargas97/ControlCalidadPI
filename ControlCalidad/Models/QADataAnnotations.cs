@@ -67,7 +67,7 @@ namespace ControlCalidad.Models
         {
             get; set;
         }
-        [Display( Name = "Nombrevvvv" )]
+        [Display( Name = "Nombre" )]
         public string nombre
         {
             get; set;
@@ -131,7 +131,7 @@ namespace ControlCalidad.Models
         {
             get; set;
         }
-        [Display( Name = "Estadobbbb" )]
+        [Display( Name = "Estado" )]
         public string estado
         {
             get; set;
