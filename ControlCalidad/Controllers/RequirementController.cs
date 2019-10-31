@@ -33,7 +33,7 @@ namespace ControlCalidad.Controllers
                 return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
             }
             Requerimiento requerimiento = await db.Requerimientoes.FindAsync( id , projectId );
-            if( requerimiento == null )
+            if ( requerimiento == null )
             {
                 return HttpNotFound( );
             }
@@ -45,6 +45,17 @@ namespace ControlCalidad.Controllers
         {
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" );
             ViewBag.projectId = projectId;
+            List<ControlCalidad.Models.SP_Conseguir_testers_req_Result> employees = db.SP_Conseguir_testers_req(projectId).ToList();
+            List<SelectListItem> allEmployess = employees.ConvertAll(
+                employee => {
+                    return new SelectListItem()
+                    {
+                        Text = employee.nombreP,
+                        Value = employee.cedulaPK,
+                        Selected = false
+                    };
+                });
+            ViewBag.testers = allEmployess;
 
             return View( );
         }
@@ -54,10 +65,11 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento )
+        public async Task<ActionResult> Create( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento , FormCollection fc)
         {
             if( ModelState.IsValid )
             {
+                string idTester = fc["idTester"];
                 db.Requerimientoes.Add( requerimiento );
                 await db.SaveChangesAsync( );
                 return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK} );
