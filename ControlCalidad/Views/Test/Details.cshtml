@@ -5,9 +5,10 @@
     }*@
 
 @{
-
+    <h3>Detalles</h3>
 
     <div class="row">
+
         <div class="col s8 offset-s2">
             <div class="card hoverable">
                 <nav>
@@ -20,15 +21,23 @@
 
                         <div class="col s12 margin-b1">
                             <p class="p-size">
-                                <i class="material-icons left text-grey">Resultado final</i>
-                                <span class="text-turq"> Categoria </span>
+                                <i class="material-icons left text-grey">place</i>
+                                <span class="text-turq"> Nombre </span>
+                                : @Html.DisplayFor(model => model.nombre)
+                            </p>
+                        </div>
+
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">place</i>
+                                <span class="text-turq"> Resultado Final </span>
                                 : @Html.DisplayFor(model => model.resultadoFinal)
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
-                                <i class="material-icons left text-grey">Detalle del resultado</i>
-                                <span class="text-turq"> Descripcion </span>
+                                <i class="material-icons left text-grey">place</i>
+                                <span class="text-turq"> Detalle de resultado </span>
                                 : @Html.DisplayFor(model => model.detalleResultado)
                             </p>
                         </div>
@@ -83,7 +92,7 @@
                 <hr />
             </div>
             <div class="modal-footer">
-                @Html.ActionLink("Aceptar", "RemoveTest" ,new { id = Model.idPK, project = Model.id_proyectoFK, requirement = Model.id_requerimientoFK }, new { @class = "waves-effect red-hover btn red accent-4" })
+                @Html.ActionLink("Aceptar", "RemoveTest", new { id = Model.idPK, project = Model.id_proyectoFK, requirement = Model.id_requerimientoFK }, new { @class = "waves-effect red-hover btn red accent-4" })
                 <a class="modal-close btn waves-effect waves-light turq white-text">Cancelar</a>
             </div>
         </div>
