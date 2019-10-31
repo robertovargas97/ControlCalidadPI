@@ -130,6 +130,14 @@ namespace ControlCalidad.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult RemoveTest(int? id, int project, int requirement)
+        {
+            Prueba prueba = db.Pruebas.Find(id, project, requirement);
+            db.Pruebas.Remove(prueba);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { id = prueba.idPK, projectID = prueba.id_proyectoFK, requirementID = prueba.id_requerimientoFK });
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
