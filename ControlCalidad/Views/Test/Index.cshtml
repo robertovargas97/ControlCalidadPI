@@ -12,7 +12,9 @@
 @{
 
     int? projectId = ViewBag.projectId;
-    int? requirementId = ViewBag.requierementId;
+    int? requirementId = ViewBag.requirementId;
+
+    
 
     <div id="btn-add" class="fixed-action-btn">
         <a href="@Url.Action("Create New", "Test/Create")" class="btn-floating btn-large black turq-hover">
@@ -37,8 +39,8 @@
 
             @foreach (var item in Model)
             {
-                //if (item.id_proyectoFK == projectId && item.id_requerimientoFK == requirementId) Para mostrar las pruebas asociadas a un proy y req especifico
-                //{  Se debe guardar en el ViewBag los valores correspondientes
+                if (item.id_proyectoFK == projectId && item.id_requerimientoFK == requirementId) //Para mostrar las pruebas asociadas a un proy y req especifico
+                {  
                     <tr>
                         <td class="center">
                             @Html.DisplayFor(modelItem => item.nombre)
@@ -53,7 +55,7 @@
                             @Html.ActionLink("Delete", "Delete", new { id = item.idPK, projectID = item.id_proyectoFK, requirementID = item.id_requerimientoFK })
                         </td>
                     </tr>
-                //}
+                }
 
             }
 

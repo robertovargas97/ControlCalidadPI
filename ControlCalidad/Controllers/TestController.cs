@@ -16,10 +16,17 @@ namespace ControlCalidad.Controllers
         private QASystemEntities db = new QASystemEntities();
 
         // GET: Test
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? id, int? projectId)
         {
-            var pruebas = db.Pruebas.Include(p => p.Requerimiento);
-            return View(await pruebas.ToListAsync());
+            if (id != null && projectId != null) {
+                ViewBag.requirementId = id;
+                ViewBag.projectId = projectId;
+                var pruebas = db.Pruebas.Include(p => p.Requerimiento);
+                return View(await pruebas.ToListAsync());
+            }
+
+            return HttpNotFound();
+            
         }
 
         // GET: Test/Details/5
