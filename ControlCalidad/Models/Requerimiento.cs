@@ -15,17 +15,14 @@ namespace ControlCalidad.Models
 
     public partial class Requerimiento
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Usage" , "CA2214:DoNotCallOverridableMethodsInConstructors" )]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Requerimiento()
         {
-            this.Pruebas = new HashSet<Prueba>( );
-            this.TieneAsignadoes = new HashSet<TieneAsignado>( );
+            this.TieneAsignadoes = new HashSet<TieneAsignado>();
+            this.Pruebas = new HashSet<Prueba>();
         }
-
-        public int idPK
-        {
-            get; set;
-        }
+    
+        public int idPK { get; set; }
         [Display( Name = "Nombre" )]
         public string nombre
         {
@@ -76,21 +73,10 @@ namespace ControlCalidad.Models
             get; set;
         }
 
-        public virtual Proyecto Proyecto
-        {
-            get; set;
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Usage" , "CA2227:CollectionPropertiesShouldBeReadOnly" )]
-        public virtual ICollection<Prueba> Pruebas
-        {
-            get; set;
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Usage" , "CA2227:CollectionPropertiesShouldBeReadOnly" )]
-        public virtual ICollection<TieneAsignado> TieneAsignadoes
-        {
-            get; set;
-        }
+        public virtual Proyecto Proyecto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TieneAsignado> TieneAsignadoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Prueba> Pruebas { get; set; }
     }
 }

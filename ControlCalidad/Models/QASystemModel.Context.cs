@@ -12,6 +12,8 @@ namespace ControlCalidad.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class QASystemEntities : DbContext
     {
@@ -29,10 +31,19 @@ namespace ControlCalidad.Models
         public virtual DbSet<Empleado> Empleadoes { get; set; }
         public virtual DbSet<Habilidade> Habilidades { get; set; }
         public virtual DbSet<Proyecto> Proyectoes { get; set; }
-        public virtual DbSet<Prueba> Pruebas { get; set; }
         public virtual DbSet<Requerimiento> Requerimientoes { get; set; }
         public virtual DbSet<Tester> Testers { get; set; }
         public virtual DbSet<TieneAsignado> TieneAsignadoes { get; set; }
         public virtual DbSet<TrabajaEn> TrabajaEns { get; set; }
+        public virtual DbSet<Prueba> Pruebas { get; set; }
+    
+        public virtual int USP_calcularEdadEmpleado(string cedula)
+        {
+            var cedulaParameter = cedula != null ?
+                new ObjectParameter("cedula", cedula) :
+                new ObjectParameter("cedula", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_calcularEdadEmpleado", cedulaParameter);
+        }
     }
 }

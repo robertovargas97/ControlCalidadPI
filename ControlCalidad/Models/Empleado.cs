@@ -41,12 +41,4 @@ namespace ControlCalidad.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrabajaEn> TrabajaEns { get; set; }
     }
-
-    public class idEmpleado
-    {
-        public string cedulaPk
-        {
-            get; set;
-        }
-    }
 }

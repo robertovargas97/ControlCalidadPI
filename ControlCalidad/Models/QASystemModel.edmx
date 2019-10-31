@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QASystemEntity.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QASystemEntity.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="cedulaPK" />
@@ -70,17 +70,11 @@
             <PropertyRef Name="id_requerimientoFK" />
           </Key>
           <Property Name="idPK" Type="int" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="id_proyectoFK" Type="int" Nullable="false" />
           <Property Name="id_requerimientoFK" Type="int" Nullable="false" />
-          <Property Name="proposito" Type="varchar" MaxLength="50" />
-          <Property Name="entradaDatos" Type="varchar" MaxLength="99" />
-          <Property Name="flujo" Type="varchar" MaxLength="99" />
-          <Property Name="resultadoFinal" Type="varchar" MaxLength="10" />
-          <Property Name="resultadoEsperado" Type="varchar" MaxLength="10" />
-          <Property Name="imgError" Type="image" />
-          <Property Name="descError" Type="varchar" MaxLength="99" />
-          <Property Name="estado" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="detalleResultado" Type="varchar" MaxLength="500" />
+          <Property Name="resultadoFinal" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Requerimiento">
           <Key>
@@ -254,6 +248,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="QASystemEntityStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="ControlCalidad" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="ControlCalidad" store:Type="Tables" />
@@ -301,8 +298,7 @@
             <End Role="TrabajaEn" EntitySet="TrabajaEn" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QASystemEntity" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -372,26 +368,6 @@
           <NavigationProperty Name="Requerimientoes" Relationship="Self.FK_Requerimiento_Proyecto" FromRole="Proyecto" ToRole="Requerimiento" />
           <NavigationProperty Name="TrabajaEns" Relationship="Self.FK_TrabajaEn_Proyecto" FromRole="Proyecto" ToRole="TrabajaEn" />
         </EntityType>
-        <EntityType Name="Prueba">
-          <Key>
-            <PropertyRef Name="idPK" />
-            <PropertyRef Name="id_proyectoFK" />
-            <PropertyRef Name="id_requerimientoFK" />
-          </Key>
-          <Property Name="idPK" Type="Int32" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_proyectoFK" Type="Int32" Nullable="false" />
-          <Property Name="id_requerimientoFK" Type="Int32" Nullable="false" />
-          <Property Name="proposito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="entradaDatos" Type="String" MaxLength="99" FixedLength="false" Unicode="false" />
-          <Property Name="flujo" Type="String" MaxLength="99" FixedLength="false" Unicode="false" />
-          <Property Name="resultadoFinal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="resultadoEsperado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="imgError" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="descError" Type="String" MaxLength="99" FixedLength="false" Unicode="false" />
-          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Requerimiento" Relationship="Self.FK_Prueba_Requerimiento" FromRole="Prueba" ToRole="Requerimiento" />
-        </EntityType>
         <EntityType Name="Requerimiento">
           <Key>
             <PropertyRef Name="idPK" />
@@ -409,8 +385,8 @@
           <Property Name="duracionEstimada" Type="Single" Nullable="false" />
           <Property Name="duracionReal" Type="Single" />
           <NavigationProperty Name="Proyecto" Relationship="Self.FK_Requerimiento_Proyecto" FromRole="Requerimiento" ToRole="Proyecto" />
-          <NavigationProperty Name="Pruebas" Relationship="Self.FK_Prueba_Requerimiento" FromRole="Requerimiento" ToRole="Prueba" />
           <NavigationProperty Name="TieneAsignadoes" Relationship="Self.FK_TieneAsignado_Requerimiento" FromRole="Requerimiento" ToRole="TieneAsignado" />
+          <NavigationProperty Name="Pruebas" Relationship="QASystemEntity.FK_Prueba_Requerimiento" FromRole="Requerimiento" ToRole="Prueba" />
         </EntityType>
         <EntityType Name="Tester">
           <Key>
@@ -527,22 +503,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Prueba_Requerimiento">
-          <End Role="Requerimiento" Type="Self.Requerimiento" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Prueba" Type="Self.Prueba" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Requerimiento">
-              <PropertyRef Name="idPK" />
-              <PropertyRef Name="id_proyectoFK" />
-            </Principal>
-            <Dependent Role="Prueba">
-              <PropertyRef Name="id_requerimientoFK" />
-              <PropertyRef Name="id_proyectoFK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TieneAsignado_Requerimiento">
           <End Role="Requerimiento" Type="Self.Requerimiento" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -578,7 +538,6 @@
           <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
           <EntitySet Name="Habilidades" EntityType="Self.Habilidade" />
           <EntitySet Name="Proyectoes" EntityType="Self.Proyecto" />
-          <EntitySet Name="Pruebas" EntityType="Self.Prueba" />
           <EntitySet Name="Requerimientoes" EntityType="Self.Requerimiento" />
           <EntitySet Name="Testers" EntityType="Self.Tester" />
           <EntitySet Name="TieneAsignadoes" EntityType="Self.TieneAsignado" />
@@ -607,10 +566,6 @@
             <End Role="Proyecto" EntitySet="Proyectoes" />
             <End Role="TrabajaEn" EntitySet="TrabajaEns" />
           </AssociationSet>
-          <AssociationSet Name="FK_Prueba_Requerimiento" Association="Self.FK_Prueba_Requerimiento">
-            <End Role="Requerimiento" EntitySet="Requerimientoes" />
-            <End Role="Prueba" EntitySet="Pruebas" />
-          </AssociationSet>
           <AssociationSet Name="FK_TieneAsignado_Requerimiento" Association="Self.FK_TieneAsignado_Requerimiento">
             <End Role="Requerimiento" EntitySet="Requerimientoes" />
             <End Role="TieneAsignado" EntitySet="TieneAsignadoes" />
@@ -619,7 +574,45 @@
             <End Role="Tester" EntitySet="Testers" />
             <End Role="TieneAsignado" EntitySet="TieneAsignadoes" />
           </AssociationSet>
+          <EntitySet Name="Pruebas" EntityType="QASystemEntity.Prueba" />
+          <AssociationSet Name="FK_Prueba_Requerimiento" Association="QASystemEntity.FK_Prueba_Requerimiento">
+            <End Role="Requerimiento" EntitySet="Requerimientoes" />
+            <End Role="Prueba" EntitySet="Pruebas" />
+          </AssociationSet>
+          <FunctionImport Name="USP_calcularEdadEmpleado">
+            <Parameter Name="cedula" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="Prueba">
+          <Key>
+            <PropertyRef Name="idPK" />
+            <PropertyRef Name="id_proyectoFK" />
+            <PropertyRef Name="id_requerimientoFK" />
+          </Key>
+          <Property Name="idPK" Type="Int32" Nullable="false" />
+          <Property Name="id_proyectoFK" Type="Int32" Nullable="false" />
+          <Property Name="id_requerimientoFK" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="detalleResultado" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="resultadoFinal" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Requerimiento" Relationship="QASystemEntity.FK_Prueba_Requerimiento" FromRole="Prueba" ToRole="Requerimiento" />
+        </EntityType>
+        <Association Name="FK_Prueba_Requerimiento">
+          <End Type="QASystemEntity.Requerimiento" Role="Requerimiento" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="QASystemEntity.Prueba" Role="Prueba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requerimiento">
+              <PropertyRef Name="idPK" />
+              <PropertyRef Name="id_proyectoFK" />
+            </Principal>
+            <Dependent Role="Prueba">
+              <PropertyRef Name="id_requerimientoFK" />
+              <PropertyRef Name="id_proyectoFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -686,24 +679,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Pruebas">
-            <EntityTypeMapping TypeName="QASystemEntity.Prueba">
-              <MappingFragment StoreEntitySet="Prueba">
-                <ScalarProperty Name="idPK" ColumnName="idPK" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
-                <ScalarProperty Name="id_requerimientoFK" ColumnName="id_requerimientoFK" />
-                <ScalarProperty Name="proposito" ColumnName="proposito" />
-                <ScalarProperty Name="entradaDatos" ColumnName="entradaDatos" />
-                <ScalarProperty Name="flujo" ColumnName="flujo" />
-                <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
-                <ScalarProperty Name="resultadoEsperado" ColumnName="resultadoEsperado" />
-                <ScalarProperty Name="imgError" ColumnName="imgError" />
-                <ScalarProperty Name="descError" ColumnName="descError" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Requerimientoes">
             <EntityTypeMapping TypeName="QASystemEntity.Requerimiento">
               <MappingFragment StoreEntitySet="Requerimiento">
@@ -748,6 +723,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Pruebas">
+            <EntityTypeMapping TypeName="QASystemEntity.Prueba">
+              <MappingFragment StoreEntitySet="Prueba">
+                <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
+                <ScalarProperty Name="detalleResultado" ColumnName="detalleResultado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_requerimientoFK" ColumnName="id_requerimientoFK" />
+                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
+                <ScalarProperty Name="idPK" ColumnName="idPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_calcularEdadEmpleado" FunctionName="QASystemEntity.Store.USP_calcularEdadEmpleado" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
