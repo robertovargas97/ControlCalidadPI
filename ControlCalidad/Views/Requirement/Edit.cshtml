@@ -14,7 +14,7 @@
 @{
 
 
-    if (User.IsInRole("Jefe"))
+    if( User.IsInRole( "Jefe" ) )
     {
 
         <div class="row container">
@@ -25,20 +25,25 @@
                             <p class="col s4"> Quality Expert S.A</p>
                         </div>
                     </nav>
-                    @using (Ajax.BeginForm("Edit", new AjaxOptions
-                    {
-                        HttpMethod = "POST",
-                        LoadingElementId = "loading",
-                        OnSuccess = "redirectToPage('../Index')",
-                        OnComplete = "redirectToPage('../Index')",
+                    @using( Ajax.BeginForm( "Edit" , new AjaxOptions {
+                        HttpMethod = "POST" ,
+                        LoadingElementId = "loading" ,
+                        OnSuccess = "redirectToPage('../Index')" ,
+                        OnComplete = "redirectToPage('../Index')" ,
 
-                    }))
+                    } ) )
                     {
-                        @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken( )
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="margin-b section">
                         </div>
+
+
+                        <input type="text" value="@Model.idPK" name="idPK" class="hide" />
+
+                        <input type="text" value="@Model.id_proyectoFK" name="id_proyectoFK" class="hide" />
+
 
                         <div class="row">
                             <div class="col s4">
@@ -46,16 +51,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">assignment_ind</i>
                                         @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                        @Html.EditorFor(model => model.nombre, new
-                                   {
-                                       htmlAttributes = new
-                                       {
-                                           @class = "form-control",
-                                           @onkeyup = "validateReqName()",
-                                           @id = "reqName"
-                                       }
-                                   })
+                                        <input value="@Model.nombre" name="nombre" type="text" required class="validate form-control" onblur="" onkeyup="" id="requirementName" />
                                     </div>
                                 </div>
 
@@ -63,14 +59,14 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaFin">Fecha de Asignacion</label>
-                                        <input type="text" class="datepicker" id="fechaAsig" name="fechaAsig" />
+                                        <input type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" />
                                     </div>
                                 </div>
 
                                 <div class="row margin-b">
                                     <div class="input-field col col s11">
                                         <i class="p-size material-icons text-grey prefix">info</i>
-                                        <select name="complejidad">
+                                        <select name="complejidad" required id="complejidad">
                                             <option value="@Model.complejidad">@Model.complejidad</option>
                                             <option value="Facil">Facil</option>
                                             <option value="Intermedio">Intermedio</option>
@@ -87,7 +83,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaInicio">Fecha de Inicio</label>
-                                        <input type="text" value="@Model.fechaInicio.ToShortDateString()" class="datepicker" id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
+                                        <input type="text" value="@Model.fechaInicio.ToShortDateString()" class="datepicker datepickerDate" id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
                                         <span class="text-error" id="dateErrorMessage"></span>
 
                                     </div>
@@ -107,9 +103,8 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
                                         @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <input name="duracionEstimada" type="number" value="@Model.duracionEstimada" required class="validate form-control" onkeyup="validateDuration()" onblur="validateDuration()" id="avrDuration" />
+                                        <input name="duracionEstimada" type="number" required value="@Model.duracionEstimada" class="validate form-control" onblur="" onkeyup="" id="avrTime" />
                                         <span class="text-error" id="avrDurationError"></span>
-
                                     </div>
                                 </div>
                             </div>
@@ -120,14 +115,14 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaFin">Fecha de Finalización</label>
-                                        <input type="text" class="datepicker" id="fechaFin" name="fechaFin" />
+                                        <input value="@Model.fechaFinalizacion" type="text" class="datepicker datepickerDate" id="fechaFinalizacion" name="fechaFinalizacion" />
                                     </div>
                                 </div>
 
                                 <div class="row margin-b">
                                     <div class="input-field col col s11">
                                         <i class="p-size material-icons text-grey prefix">info_outline</i>
-                                        <select name="estado">
+                                        <select name="estado" required id="estado">
                                             <option value="@Model.estado">@Model.estado</option>
                                             <option value="No iniciado">No iniciado</option>
                                             <option value="En ejecucion">En ejecución</option>
@@ -142,9 +137,9 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_full</i>
-                                        @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "form-control", type = "number" } })
-
+                                        <label for="duracionReal">Duración Real  </label>
+                                        <input value="@Model.duracionReal" name="duracionReal" type="number" class="validate form-control" onblur="" onkeyup="" id="RealDur" />
+                                        <span class="text-error" id="realDurError"></span>
                                     </div>
                                 </div>
                             </div>
@@ -154,54 +149,54 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">assignment</i>
                                         @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                        <input value="@Model.descripcion" name="descripcion" type="text" class="validate form-control" onblur="" onkeyup="" id="descripcion" />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                            <div class=" row container center" id="loading" style="display:none;">
-                                <div class="">
-                                    <i class="material-icons text-turq ">info_outline</i>
-                                </div>
-                                <div class="">
-                                    <p class="text-turq">
-                                        Editando... Por favor espere.
-                                    </p>
-                                </div>
-
-                                <div class="progress">
-                                    <div class="indeterminate"></div>
-                                </div>
+                        <div class=" row container center" id="loading" style="display:none;">
+                            <div class="">
+                                <i class="material-icons text-turq ">info_outline</i>
+                            </div>
+                            <div class="">
+                                <p class="text-turq">
+                                    Editando... Por favor espere.
+                                </p>
                             </div>
 
-                            <div class=" row container center hide " id="complete">
-                                <div class="">
-                                    <i class="material-icons text-turq ">info_outline</i>
-                                </div>
-                                <div class="">
-                                    <p class="text-turq">
-                                        Se edito correctamente.
-                                    </p>
-                                </div>
+                            <div class="progress">
+                                <div class="indeterminate"></div>
                             </div>
-
-                            <div class="margin-b1">
-                            </div>
-
-                            <div class="row center">
-                                @Html.ActionLink("Cancelar", "Details", new { id = Model.idPK, projectId = Model.id_proyectoFK }, new
-                           {
-                               @class = "margin-r waves-effect red-hover btn red accent-4"
-                           })
-                                <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
-                            </div>
-
-                            <div class="margin-b section">
-                            </div>
-                            }
-
                         </div>
+
+                        <div class=" row container center hide " id="complete">
+                            <div class="">
+                                <i class="material-icons text-turq ">info_outline</i>
+                            </div>
+                            <div class="">
+                                <p class="text-turq">
+                                    Se edito correctamente.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="margin-b1">
+                        </div>
+
+                        <div class="row center">
+                            @Html.ActionLink("Cancelar", "Details", new { id = Model.idPK, projectId = Model.id_proyectoFK }, new
+                       {
+                           @class = "margin-r waves-effect red-hover btn red accent-4"
+                       })
+                            <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
+                        </div>
+
+                        <div class="margin-b section">
+                        </div>
+                    }
+
+                </div>
 
             </div>
 
@@ -222,5 +217,5 @@
     }
 }
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render( "~/bundles/jqueryval" )
 }

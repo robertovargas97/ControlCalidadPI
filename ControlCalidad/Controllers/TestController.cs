@@ -98,7 +98,7 @@ namespace ControlCalidad.Controllers
             {
                 db.Entry(prueba).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new {  id = prueba.id_requerimientoFK,  projectId = prueba.id_proyectoFK});
             }
             ViewBag.id_requerimientoFK = new SelectList(db.Requerimientoes, "idPK", "nombre", prueba.id_requerimientoFK);
             return View(prueba);
@@ -145,6 +145,14 @@ namespace ControlCalidad.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        //DOCUMENTAR POR ROBERTO
+        public bool isAssigned(int requirement)
+        {
+            var exist = db.Pruebas.Any( test => test.id_requerimientoFK == requirement );
+            return exist;
         }
     }
 }

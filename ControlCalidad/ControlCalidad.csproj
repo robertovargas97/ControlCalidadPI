@@ -515,7 +515,6 @@
     <Content Include="Views\Habilities\Edit.cshtml" />
     <Content Include="Views\Habilities\Index.cshtml" />
     <Content Include="Views\Requirement\Create.cshtml" />
-    <Content Include="Views\Requirement\Delete.cshtml" />
     <Content Include="Views\Requirement\Details.cshtml" />
     <Content Include="Views\Requirement\Edit.cshtml" />
     <Content Include="Views\Requirement\Index.cshtml" />
