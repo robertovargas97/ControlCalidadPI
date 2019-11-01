@@ -19,6 +19,15 @@ namespace ControlCalidad.Controllers
             assigned = isAssigned[ 0 ];
             return assigned;
         }
-
+        public void insert(string cedula_empeladoPK, int id_proyectoFK, int id_requerimientoFK) {
+            TieneAsignado newEntity = new TieneAsignado {
+                cedula_empleadoFK = cedula_empeladoPK,
+                id_requerimientoFK = id_requerimientoFK,
+                id_proyectoFK = id_proyectoFK,
+                horasDedicas = 0
+            };
+            db.TieneAsignadoes.Add(newEntity);
+            db.SaveChanges();
+        }
     }
 }

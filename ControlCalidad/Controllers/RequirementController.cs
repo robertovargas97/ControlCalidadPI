@@ -11,14 +11,31 @@ using ControlCalidad.Models;
 
 namespace ControlCalidad.Controllers
 {
+    public class tieneAsignado
+    {
+        public tieneAsignado(string cedula_empeladoPK, int id_proyectoFK, int id_requerimientoFK)
+        {
+            this.cedula_empeladoPK = cedula_empeladoPK;
+            this.id_proyectoFK = id_proyectoFK;
+            this.id_requerimientoFK = id_requerimientoFK;
+        }
+        public tieneAsignado(){}
+        public string cedula_empeladoPK { get; set; }
+        public int id_proyectoFK { get; set; }
+        public int id_requerimientoFK { get; set; }
+    }
     public class RequirementController : Controller
     {
         private QASystemEntities db = new QASystemEntities( );
         private ProjectController projectController = new ProjectController( );
-
+        private TesterRequirementController tieneAsignado = new TesterRequirementController();
         // GET: Requirement
-        public async Task<ActionResult> Index( int projectId )
+        public async Task<ActionResult> Index( int projectId, tieneAsignado entity)
         {
+            if (entity.cedula_empeladoPK != null)
+            {
+                tieneAsignado.insert(entity.cedula_empeladoPK, entity.id_proyectoFK, entity.id_requerimientoFK);
+            }
             var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId );
             ViewBag.projectId = projectId ;
             ViewBag.projectName = projectController.getProjectName( projectId );
@@ -70,9 +87,9 @@ namespace ControlCalidad.Controllers
             if( ModelState.IsValid )
             {
                 string idTester = fc["idTester"];
-                db.Requerimientoes.Add( requerimiento );
                 await db.SaveChangesAsync( );
-                return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK} );
+                tieneAsignado newEntity = new tieneAsignado(idTester, requerimiento.id_proyectoFK, requerimiento.idPK);
+                return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK, entity = newEntity} );
             }
 
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );

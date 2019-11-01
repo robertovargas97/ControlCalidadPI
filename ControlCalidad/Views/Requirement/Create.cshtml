@@ -85,7 +85,7 @@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">person</i>
-                                @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()",@id = "dropdown"})
+                                @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()", @id = "dropdown" })
                                 <label for="testerId"> Tester asignado <span class="red-text">  *</span></label>
                                 <span class="text-error" id="ClientError"></span>
                             </div>
