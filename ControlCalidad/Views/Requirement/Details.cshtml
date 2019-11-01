@@ -112,7 +112,7 @@
 </div>
 
 <div id="btn-add" class="fixed-action-btn">
-    <a href="@Url.Action("Index", "Requirement/Index",new {projectId  = Model.id_proyectoFK})" class="btn-floating btn-large black turq-hover left">
+    <a href="@Url.Action("Index", "Requirement/Index",new {projectId  = Model.id_proyectoFK})" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Volver">
         <i class="large material-icons">arrow_back</i>
     </a>
 </div>
@@ -167,7 +167,7 @@
         <div class="modal-footer">
             <a class="modal-close btn red-hover  red accent-4 white-text">Cancelar</a>
 
-            <a onclick="deleteReq(@Model.idPK,@Model.id_proyectoFK)" class="waves-effect waves-effect waves-light btn turq">Aceptar</a>
+            <a onclick="deleteRequirement(@Model.idPK,@Model.id_proyectoFK)" class="waves-effect waves-effect waves-light btn turq">Aceptar</a>
 
         </div>
     </div>
