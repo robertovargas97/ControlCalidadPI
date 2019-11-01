@@ -9,7 +9,7 @@
 
     <div class="row">
 
-        <div class="col s8 offset-s2">
+        <div class="col s12">
             <div class="card hoverable">
                 <nav>
                     <div class="nav-wrapper black">
@@ -18,23 +18,27 @@
                 </nav>
                 <div class="card-content black-text">
                     <div class="row">
+                        <div class="col s6">
+                            <div class="col s12 margin-b1">
+                                <p class="p-size">
+                                    <i class="material-icons left text-grey">place</i>
+                                    <span class="text-turq"> Nombre </span>
+                                    : @Html.DisplayFor(model => model.nombre)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="col s12 margin-b1">
+                                <p class="p-size">
+                                    <i class="material-icons left text-grey">place</i>
+                                    <span class="text-turq"> Resultado Final </span>
+                                    : @Html.DisplayFor(model => model.resultadoFinal)
+                                </p>
+                            </div>
 
-                        <div class="col s12 margin-b1">
-                            <p class="p-size">
-                                <i class="material-icons left text-grey">place</i>
-                                <span class="text-turq"> Nombre </span>
-                                : @Html.DisplayFor(model => model.nombre)
-                            </p>
                         </div>
 
-                        <div class="col s12 margin-b1">
-                            <p class="p-size">
-                                <i class="material-icons left text-grey">place</i>
-                                <span class="text-turq"> Resultado Final </span>
-                                : @Html.DisplayFor(model => model.resultadoFinal)
-                            </p>
-                        </div>
-                        <div class="col s12 margin-b1">
+                        <div class="col s12">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">place</i>
                                 <span class="text-turq"> Detalle de resultado </span>
@@ -46,8 +50,9 @@
 
 
 
+
                     </div>
-                </div>
+                    </div>
                 <div class="card-action center">
                     <a id="delete-btn" class="margin-r waves-effect btn red accent-4 red-hover modal-trigger" href="#modal1">Borrar</a>
                     @Html.ActionLink("Editar", "Edit", new { id = Model.idPK, projectID = Model.id_proyectoFK, requirementID = Model.id_requerimientoFK }, new
