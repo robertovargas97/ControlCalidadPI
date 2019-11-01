@@ -17,7 +17,7 @@ namespace ControlCalidad.Controllers
         private ProjectController projectController = new ProjectController( );
 
         // GET: Requirement
-        public ActionResult Index( int projectId )
+        public ActionResult Index( int? projectId )
         {
             var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId );
             ViewBag.projectId = projectId ;
@@ -41,7 +41,7 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Requirement/Create
-        public ActionResult Create(int projectId )
+        public ActionResult Create(int? projectId )
         {
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" );
             ViewBag.projectId = projectId;
@@ -67,7 +67,7 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento , FormCollection fc)
         {
-            int projectId = requerimiento.id_proyectoFK;
+            int? projectId = requerimiento.id_proyectoFK;
             if( ModelState.IsValid )
             {
                 string idTester = fc["idTester"];
@@ -127,7 +127,7 @@ namespace ControlCalidad.Controllers
         }
 
         //DOCUMENTAR
-        public ActionResult removeRequirement( int id , int projectId )
+        public ActionResult removeRequirement( int id , int? projectId )
         {
             Requerimiento requerimiento = db.Requerimientoes.Find( id , projectId );
             db.Requerimientoes.Remove( requerimiento );
