@@ -146,5 +146,13 @@ namespace ControlCalidad.Controllers
             }
             base.Dispose( disposing );
         }
+
+        public ActionResult removeRequirement( int id , int projectId )
+        {
+            Requerimiento requerimiento = db.Requerimientoes.Find( id , projectId );
+            db.Requerimientoes.Remove( requerimiento );
+            db.SaveChangesAsync( );
+            return RedirectToAction( "Index" , new { projectId = projectId} );
+        }
     }
 }
