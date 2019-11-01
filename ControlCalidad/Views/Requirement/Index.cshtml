@@ -73,17 +73,17 @@
 </div>
 
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large black">
+    <a class="btn-floating btn-large black tooltipped" data-position="left" data-tooltip="Opciones">
         <i class="large material-icons">more_vert</i>
     </a>
     <ul>
         <li>
-            <a href="@Url.Action("Index", "Project")" class="btn-floating btn-large black turq-hover ">
+            <a href="@Url.Action("Index", "Project")" class="btn-floating btn-large black turq-hover tooltipped" data-position="left" data-tooltip="Volver">
                 <i class="large material-icons">arrow_back</i>
             </a>
         </li>
         <li>
-            <a href="@Url.Action("Create", "Requirement",new {projectId = ViewBag.projectId})" class="btn-floating btn-large black turq-hover left">
+            <a href="@Url.Action("Create", "Requirement",new {projectId = ViewBag.projectId})" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Agregar nuevo requerimiento">
                 <i class="large material-icons">add</i>
             </a>
         </li>

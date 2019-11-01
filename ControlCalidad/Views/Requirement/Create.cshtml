@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    List<SelectListItem> testerId = ( List<SelectListItem> ) ViewBag.testers;
 }
 
 <h3 class="text-grey">Crear nuevo Requerimiento</h3>
@@ -35,7 +36,7 @@
                         <input value="@ViewBag.projectId" name="id_proyectoFK" type="text" required class="validate form-control" onblur="" onkeyup="" id="projectId" />
                     </div>
                 </div>
-                List<SelectListItem> testerId = (List<SelectListItem>)ViewBag.testers;
+           
                 <div class="row">
                     <div class="col s4">
                         <div class="row margin-b">
@@ -91,8 +92,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
@@ -121,7 +120,7 @@
                                     <option value="No iniciado">No iniciado</option>
                                     <option value="En ejecucion">En ejecución</option>
                                     <option value="Finalizado Exitoso">Finalizado Exitoso</option>
-                                    <option value="Finalizado Incompleto">Finalizado Incompleto</option>
+                                    <option value="Finalizado Fallido">Finalizado Fallido</option>
                                     <option value="Cancelado">Cancelado</option>
                                 </select>
                                 <label for="estado">Estado del Requerimiento <span class="red-text">  *</span></label>
