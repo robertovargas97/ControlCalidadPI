@@ -25,12 +25,8 @@
                             <p class="col s4"> Quality Expert S.A</p>
                         </div>
                     </nav>
-                    @using( Ajax.BeginForm( "Edit" , new AjaxOptions {
-                        HttpMethod = "POST" ,
-                        LoadingElementId = "loading" ,
-                        OnSuccess = "redirectToPage('../Index')" ,
-                        OnComplete = "redirectToPage('../Index')" ,
-
+                    @using( Html.BeginForm( "Edit" , "Requirement" , FormMethod.Post , new {
+                        @onsubmit = "onSubmit()"
                     } ) )
                     {
                         @Html.AntiForgeryToken( )
@@ -59,7 +55,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaAsignacion">Fecha de Asignacion</label>
-                                        <input type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" />
+                                        <input value="@Model.fechaAsignacion" type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" />
                                     </div>
                                 </div>
 
@@ -138,7 +134,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_full</i>
                                         <label for="duracionReal">Duración Real  </label>
-                                        <input value="@Model.duracionReal" name="duracionReal" type="number" class="validate form-control" onblur="" onkeyup="" id="RealDur" />
+                                        <input value="@Model.duracionReal" name="duracionReal" type="number" class="validate form-control" onblur="" onkeyup="" id="duracionReal" />
                                         <span class="text-error" id="realDurError"></span>
                                     </div>
                                 </div>
