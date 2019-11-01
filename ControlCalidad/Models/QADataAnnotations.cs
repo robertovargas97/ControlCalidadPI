@@ -171,19 +171,19 @@ namespace ControlCalidad.Models
 
     public class ModelQA
     {
-        public virtual ObjectResult<Nullable<int>> USP_estaAsignado( int id_requerimiento )
+    }
+
+
+    [MetadataType( typeof( ModelQA ) )]
+    public partial class QASystemEntities
+    {
+        public virtual ObjectResult<Nullable<int>> USP_estaAsignadoR( int id_requerimiento )
         {
             var idParameter = id_requerimiento != null ?
               new ObjectParameter( "id_requerimiento" , id_requerimiento ) :
               new ObjectParameter( "id_requerimiento" , typeof( int ) );
             return ( ( IObjectContextAdapter ) this ).ObjectContext.ExecuteFunction<Nullable<int>>( "USP_estaAsignado" , idParameter );
         }
-    }
-
-
-    [MetadataType( typeof( ModelQA ) )]
-    public partial class QASystemEntities : DbContext
-    {
     }
 
     [MetadataType( typeof( RequirementQA ) )]

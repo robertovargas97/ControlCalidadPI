@@ -87,7 +87,7 @@
           <Property Name="fechaInicio" Type="date" Nullable="false" />
           <Property Name="fechaFinalizacion" Type="date" />
           <Property Name="fechaAsignacion" Type="date" />
-          <Property Name="estado" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="25" />
           <Property Name="complejidad" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="400" />
           <Property Name="duracionEstimada" Type="real" Nullable="false" />
@@ -385,7 +385,7 @@
           <Property Name="fechaInicio" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="fechaFinalizacion" Type="DateTime" Precision="0" />
           <Property Name="fechaAsignacion" Type="DateTime" Precision="0" />
-          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="complejidad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Name="duracionEstimada" Type="Single" Nullable="false" />
@@ -589,7 +589,7 @@
           <Parameter Name="cedula" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_Conseguir_testers_req" ReturnType="Collection(QASystemEntity.SP_Conseguir_testers_req_Result)">
-            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_estaAsignado" ReturnType="Collection(Int32)">
           <Parameter Name="id_requerimiento" Mode="InOut" Type="Int32" />
