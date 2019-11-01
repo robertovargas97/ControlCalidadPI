@@ -155,14 +155,14 @@ function removeProject() {
         url: '/Project/activeProject',
         data: { id: $('#idProject').val() },
 
-        success: function (active) {
+        success: function (cancelled) {
 
-            if (active == 'Inactivo') {
+            if (cancelled == "Cancelado") {
                 document.getElementById("loading").classList.remove("hide");
                 location.href = '/Project/RemoveProject/' + parseInt(id);
             }
             else {
-                document.getElementById("activeError").innerHTML = "No puedes eliminar un  proyecto activo... Debe estár inactivo o finalizado.";
+                document.getElementById("activeError").innerHTML = "Solo puedes eliminar un proyecto con el estado cancelado...Por favor cambia el estado.";
             }
         },
     });
@@ -198,14 +198,31 @@ function validateDuration() {
 //------------------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------Requirements Validations------------------------------------------------
-function deleteReq(id) {
-    alert("aaa");
-    location.href = '../../TesterRequirement/isAssigned/' + id;
+function deleteReq(id, projectId) {
+    $.ajax({
+        url: '../../TesterRequirement/canDelete/',
+        data: { id: id },
+
+        success: function (canDelete) {
+           
+            if (canDelete == 'True') {
+                 document.getElementById("loading").classList.remove("hide");
+                location.href = '/Requirement/removeRequirement/' + parseInt(id) +'?projectId='+ parseInt(projectId);
+            }
+            else {
+                document.getElementById("deleteError").innerHTML = "El requerimiento deber estar libre para poder eliminarlo... Por favor termine las pruebas y/o desasocie el tester.";
+            }
+        },
+    });
+
+
+
+    //location.href = '../../TesterRequirement/isAssigned/' + id;
 }
 
 
 function removeRequeriment(id) {
-    alert();
+
     
    /* var id = document.getElementById("idProject").value;
     $.ajax({

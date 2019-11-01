@@ -135,5 +135,13 @@ namespace ControlCalidad.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        //DOCUMENTAR POR ROBERTO
+        public bool isAssigned(int requirement)
+        {
+            var exist = db.Pruebas.Any( test => test.id_requerimientoFK == requirement );
+            return exist;
+        }
     }
 }
