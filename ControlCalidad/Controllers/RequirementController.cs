@@ -134,5 +134,23 @@ namespace ControlCalidad.Controllers
             db.SaveChanges( );
             return RedirectToAction( "Index" , new { projectId = projectId} );
         }
+
+        //Documentar Sergio
+        public string getRequirementName(int? id)
+        {
+            List<string> requirement;
+            string requirementName = "";
+            if (id != null)
+            {
+                string name = "SELECT R.nombre " + "FROM ControlCalidad.Requerimiento R " + "WHERE R.idPk = " + id;
+                requirement = db.Database.SqlQuery<string>(name).ToList();
+                requirementName = requirement[0];
+            }
+
+            return requirementName;
+        }
     }
+
+
+    
 }

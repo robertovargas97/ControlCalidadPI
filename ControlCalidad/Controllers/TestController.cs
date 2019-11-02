@@ -19,8 +19,12 @@ namespace ControlCalidad.Controllers
         public async Task<ActionResult> Index(int? id, int? projectId)
         {
             if (id != null && projectId != null) {
+
+                RequirementController r = new RequirementController();
+
                 ViewBag.requirementId = id;
                 ViewBag.projectId = projectId;
+                ViewBag.requirementName = r.getRequirementName(id);
                 var pruebas = db.Pruebas.Include(p => p.Requerimiento);
                 return View(await pruebas.ToListAsync());
             }
@@ -46,8 +50,10 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Test/Create
-        public ActionResult Create()
+        public ActionResult Create(int? requirementId, int? projectId)
         {
+            ViewBag.requirementId = requirementId;
+            ViewBag.projectId = projectId;
             ViewBag.id_requerimientoFK = new SelectList(db.Requerimientoes, "idPK", "nombre");
             return View();
         }
@@ -65,7 +71,7 @@ namespace ControlCalidad.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+            
             ViewBag.id_requerimientoFK = new SelectList(db.Requerimientoes, "idPK", "nombre", prueba.id_requerimientoFK);
             return View(prueba);
         }

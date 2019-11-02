@@ -9,7 +9,7 @@
 @{
 
     string leader = ViewBag.projectLeader;
-
+    string startDate = Model.fechaInicio.ToShortDateString();
 
     <h3 class="text-grey"> @Html.DisplayFor( model => model.nombre ) </h3>
     <div class="margin-b1">
@@ -56,7 +56,7 @@
                                 <p class="p-size">
                                     <i class="material-icons left text-grey">date_range</i>
                                     <span class="text-turq">Fecha de inicio</span>
-                                    : @Html.DisplayFor( model => model.fechaInicio )
+                                    : @Html.Name( startDate )
                                 </p>
                             </div>
                             <div class="col s12 margin-b1">
