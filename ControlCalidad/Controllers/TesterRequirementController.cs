@@ -25,7 +25,7 @@ namespace ControlCalidad.Controllers
         public int? isAssignedToTester(int id)
         {
             int? assigned = 0;
-            List<int?> isAssigned =  db.USP_estaAsignado( id ).ToList();
+            List<int?> isAssigned = db.USP_estaAsignadoR( id ).ToList();
             assigned = isAssigned[ 0 ];
             return assigned;
         }

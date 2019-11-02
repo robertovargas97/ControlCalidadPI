@@ -39,6 +39,8 @@ namespace ControlCalidad.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Empleado empleado = await db.Empleadoes.FindAsync(id);
+            DateTime dateOfBirth = (DateTime)empleado.fechaNacimiento;
+            ViewBag.dateOfBirth = dateOfBirth.ToShortDateString();
             if (empleado == null)
             {
                 return HttpNotFound();

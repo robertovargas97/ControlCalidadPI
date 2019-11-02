@@ -32,7 +32,8 @@ namespace ControlCalidad.Controllers
 
 
         // GET: Requirement
-        public async Task<ActionResult> Index( int projectId, string[] entity)
+        public ActionResult Index( int? projectId, string[] entity)
+
         {
             if (entity != null)
             {
@@ -60,7 +61,7 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Requirement/Create
-        public ActionResult Create(int projectId )
+        public ActionResult Create(int? projectId )
         {
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" );
             ViewBag.projectId = projectId;
@@ -86,6 +87,7 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateAsync( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento , FormCollection fc)
         {
+            int? projectId = requerimiento.id_proyectoFK;
             if( ModelState.IsValid )
             {
                 string idTester = fc["idTester"];
@@ -145,12 +147,30 @@ namespace ControlCalidad.Controllers
         }
 
         //DOCUMENTAR
-        public ActionResult removeRequirement( int id , int projectId )
+        public ActionResult removeRequirement( int id , int? projectId )
         {
             Requerimiento requerimiento = db.Requerimientoes.Find( id , projectId );
             db.Requerimientoes.Remove( requerimiento );
             db.SaveChanges( );
             return RedirectToAction( "Index" , new { projectId = projectId} );
         }
+
+        //Documentar Sergio
+        public string getRequirementName(int? id)
+        {
+            List<string> requirement;
+            string requirementName = "";
+            if (id != null)
+            {
+                string name = "SELECT R.nombre " + "FROM ControlCalidad.Requerimiento R " + "WHERE R.idPk = " + id;
+                requirement = db.Database.SqlQuery<string>(name).ToList();
+                requirementName = requirement[0];
+            }
+
+            return requirementName;
+        }
     }
+
+
+    
 }
