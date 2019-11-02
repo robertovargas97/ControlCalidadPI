@@ -1,6 +1,7 @@
 ﻿using ControlCalidad.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,12 @@ namespace ControlCalidad.Controllers
 
         private TestController testController = new TestController( );
 
+        [DbFunctionAttribute("ControlCalidad", "UFN_getId")]
+        public static int? getID()
+        {
+            throw new NotSupportedException("Direct calls are not supported.");
+        }
+
         public int? isAssignedToTester(int id)
         {
             int? assigned = 0;
@@ -22,16 +29,18 @@ namespace ControlCalidad.Controllers
             assigned = isAssigned[ 0 ];
             return assigned;
         }
-        public void insert(string cedula_empeladoPK, int id_proyectoFK, int id_requerimientoFK) {
+
+        public void insert(string cedula_empeladoPK, string id_proyectoFK) {
             TieneAsignado newEntity = new TieneAsignado {
                 cedula_empleadoFK = cedula_empeladoPK,
-                id_requerimientoFK = id_requerimientoFK,
-                id_proyectoFK = id_proyectoFK,
+                id_requerimientoFK = getID().GetValueOrDefault(),
+                id_proyectoFK = Convert.ToInt32(id_proyectoFK),
                 horasDedicas = 0
             };
             db.TieneAsignadoes.Add(newEntity);
             db.SaveChanges();
         }
+
         public bool canDelete(int id)
         {
             bool deleted = false;
@@ -44,5 +53,6 @@ namespace ControlCalidad.Controllers
             return deleted;
 
         }
+
     }
 }

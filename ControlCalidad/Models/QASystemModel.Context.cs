@@ -55,12 +55,9 @@ namespace ControlCalidad.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Conseguir_testers_req_Result>("SP_Conseguir_testers_req", id_proyectoParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> USP_estaAsignado(int id_requerimiento)
+        public virtual ObjectResult<Nullable<int>> USP_estaAsignado(ObjectParameter id_requerimiento)
         {
-            var idParameter = id_requerimiento != null ?
-              new ObjectParameter( "id_requerimiento" , id_requerimiento ) :
-              new ObjectParameter( "id_requerimiento" , typeof( int ) );
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("USP_estaAsignado", idParameter );
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("USP_estaAsignado", id_requerimiento);
         }
     }
 }
