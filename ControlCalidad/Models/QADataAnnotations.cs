@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 
@@ -163,6 +166,23 @@ namespace ControlCalidad.Models
         public string cedulaPk
         {
             get; set;
+        }
+    }
+
+    public class ModelQA
+    {
+    }
+
+
+    [MetadataType( typeof( ModelQA ) )]
+    public partial class QASystemEntities
+    {
+        public virtual ObjectResult<Nullable<int>> USP_estaAsignadoR( int id_requerimiento )
+        {
+            var idParameter = id_requerimiento != null ?
+              new ObjectParameter( "id_requerimiento" , id_requerimiento ) :
+              new ObjectParameter( "id_requerimiento" , typeof( int ) );
+            return ( ( IObjectContextAdapter ) this ).ObjectContext.ExecuteFunction<Nullable<int>>( "USP_estaAsignado" , idParameter );
         }
     }
 

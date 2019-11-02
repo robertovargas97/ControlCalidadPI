@@ -173,11 +173,9 @@ namespace ControlCalidad.Controllers
 
         //--------------------------------------FUNCTIONS AND METHODS CREATED BY THE TEAM-----------------------------------------------
 
-        public string getProjectName(int id)
+        public string getProjectName(int? id)
         {
-            string name = "SELECT	P.nombre " +
-               "FROM ControlCalidad.Proyecto P " +
-               "WHERE P.idPk = " + id + ";";
+            string name = "SELECT P.nombre " +"FROM ControlCalidad.Proyecto P " + "WHERE P.idPk = " + id;
             List<string> projectName = db.Database.SqlQuery<string>( name ).ToList( );
             return projectName[ 0 ];
         }

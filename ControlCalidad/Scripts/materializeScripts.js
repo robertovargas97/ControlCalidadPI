@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     //Material Design initializations for html components
+
+    var elems = document.querySelectorAll('.tooltipped');
+    var instances = M.Tooltip.init(elems);
   
     var elems = document.querySelectorAll('.parallax');
     var instances = M.Parallax.init(elems);
@@ -155,14 +158,14 @@ function removeProject() {
         url: '/Project/activeProject',
         data: { id: $('#idProject').val() },
 
-        success: function (active) {
+        success: function (cancelled) {
 
-            if (active == 'Inactivo') {
+            if (cancelled == "Cancelado") {
                 document.getElementById("loading").classList.remove("hide");
                 location.href = '/Project/RemoveProject/' + parseInt(id);
             }
             else {
-                document.getElementById("activeError").innerHTML = "No puedes eliminar un  proyecto activo... Debe estár inactivo o finalizado.";
+                document.getElementById("activeError").innerHTML = "Solo puedes eliminar un proyecto con el estado cancelado...Por favor cambia el estado.";
             }
         },
     });
@@ -198,31 +201,22 @@ function validateDuration() {
 //------------------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------Requirements Validations------------------------------------------------
-function deleteReq(id) {
-    alert("aaa");
-    location.href = '../../TesterRequirement/isAssigned/' + id;
-}
-
-
-function removeRequeriment(id) {
-    alert();
-    
-   /* var id = document.getElementById("idProject").value;
+function deleteRequirement(id, projectId) {
     $.ajax({
-        url: '/Requeriment/isAssigned',
-        data: { id: $('#idProject').val() },
+        url: '../../TesterRequirement/canDelete/',
+        data: { id: id },
 
-        success: function (active) {
-
-            if (active == 'Inactivo') {
+        success: function (canDelete) {
+           
+            if (canDelete == 'True') {
                 document.getElementById("loading").classList.remove("hide");
-                location.href = '/Project/RemoveProject/' + parseInt(id);
+                location.href = '/Requirement/removeRequirement/' + parseInt(id) +'?projectId='+ parseInt(projectId);
             }
             else {
-                document.getElementById("activeError").innerHTML = "No puedes eliminar un  proyecto activo... Debe estár inactivo o finalizado.";
+                document.getElementById("deleteError").innerHTML = "El requerimiento deber estar libre para poder eliminarlo... Por favor termine las pruebas y/o desasocie el tester.";
             }
         },
-    });*/
+    });
 }
 
 

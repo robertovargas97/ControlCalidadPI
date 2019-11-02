@@ -19,8 +19,12 @@ namespace ControlCalidad.Controllers
         public async Task<ActionResult> Index(int? id, int? projectId)
         {
             if (id != null && projectId != null) {
+
+                RequirementController r = new RequirementController();
+
                 ViewBag.requirementId = id;
                 ViewBag.projectId = projectId;
+                ViewBag.requirementName = r.getRequirementName(id);
                 var pruebas = db.Pruebas.Include(p => p.Requerimiento);
                 return View(await pruebas.ToListAsync());
             }
@@ -46,8 +50,10 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Test/Create
-        public ActionResult Create()
+        public ActionResult Create(int? requirementId, int? projectId)
         {
+            ViewBag.requirementId = requirementId;
+            ViewBag.projectId = projectId;
             ViewBag.id_requerimientoFK = new SelectList(db.Requerimientoes, "idPK", "nombre");
             return View();
         }
@@ -65,7 +71,7 @@ namespace ControlCalidad.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+            
             ViewBag.id_requerimientoFK = new SelectList(db.Requerimientoes, "idPK", "nombre", prueba.id_requerimientoFK);
             return View(prueba);
         }
@@ -98,7 +104,7 @@ namespace ControlCalidad.Controllers
             {
                 db.Entry(prueba).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new {  id = prueba.id_requerimientoFK,  projectId = prueba.id_proyectoFK});
             }
             ViewBag.id_requerimientoFK = new SelectList(db.Requerimientoes, "idPK", "nombre", prueba.id_requerimientoFK);
             return View(prueba);
@@ -145,6 +151,14 @@ namespace ControlCalidad.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        //DOCUMENTAR POR ROBERTO
+        public bool isAssigned(int requirement)
+        {
+            var exist = db.Pruebas.Any( test => test.id_requerimientoFK == requirement );
+            return exist;
         }
     }
 }

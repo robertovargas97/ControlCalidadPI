@@ -5,6 +5,8 @@
     }*@
 
 @{
+    int? requirementId = ViewBag.requirementId;
+    int? projectId = ViewBag.projectId;
 
     <h3 class="text-grey">Crear prueba</h3>
     <div class="margin-b1">
@@ -27,7 +29,7 @@
 
                 </div>
 
-                @using(Html.BeginForm("Create", "Test", FormMethod.Post))
+                @using (Html.BeginForm("Create", "Test", FormMethod.Post))
                 {
                     <div class="margin-b section">
 
@@ -36,107 +38,128 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
-                    
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col s4">
+                            <div class="col s8 offset-s3">
 
-                            <div class="row margin-b">
+                                <div class="row margin-b hide">
 
-                                <div class="input-field col s11">
+                                    <div class="input-field col s11">
 
-                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
-                                    <label for="idPK">Id de la prueba <span class="red-text">  *</span></label>
-                                    <input name="idPK" type="text" />
-                                    <span class="text-error" id="nameError"></span>
+                                        <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                        <label for="idPK"> Id de la prueba <span class="red-text">  *</span></label>
+                                        <input name="idPK" type="text" />
+                                        <span class="text-error" id="nameError"></span>
 
-                                </div>
-
-                            </div>
-
-                            <div class="row margin-b">
-
-                                <div class="input-field col s11">
-
-                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
-                                    <label for="nombre">Nombre de la prueba <span class="red-text">  *</span></label>
-                                    <input name="nombre" type="text" />
-                                    <span class="text-error" id="nameError"></span>
+                                    </div>
 
                                 </div>
 
-                            </div>
+                                <div class="row margin-b hide">
 
-                            <div class="row margin-b">
+                                    <div class="input-field col s11">
 
-                                <div class="input-field col s11">
+                                        <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                        <label for="id_proyectoFK">Id del proyecto <span class="red-text">  *</span></label>
+                                        <input name="id_proyectoFK" type="text" />
+                                        <span class="text-error" id="nameError"></span>
 
-                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
-                                    <label for="id_proyectoFK">Id del proyecto <span class="red-text">  *</span></label>
-                                    <input name="id_proyectoFK" type="text" />
-                                    <span class="text-error" id="nameError"></span>
-
-                                </div>
-
-                            </div>
-
-                            <div class="row margin-b">
-
-                                <div class="input-field col s11">
-
-                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
-                                    <label for="id_requerimientoFK">Id del requerimiento <span class="red-text">  *</span></label>
-                                    <input name="id_requerimientoFK" type="text" />
-                                    <span class="text-error" id="nameError"></span>
+                                    </div>
 
                                 </div>
 
-                            </div>
+                                <div class="row margin-b hide">
 
-                            <div class="row margin-b">
+                                    <div class="input-field col s11">
 
-                                <div class="input-field col s11">
+                                        <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                        <label for="id_requerimientoFK">Id del requerimiento <span class="red-text">  *</span></label>
+                                        <input name="id_requerimientoFK" type="text" />
+                                        <span class="text-error" id="nameError"></span>
 
-                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
-                                    <label for="proposito">Proposito <span class="red-text">  *</span></label>
-                                    <input name="proposito" type="text" />
-                                    <span class="text-error" id="nameError"></span>
+                                    </div>
 
                                 </div>
 
-                            </div>
 
-                            <div class="row margin-b">
+                                <div class="row margin-b">
 
-                                <div class="input-field col s11">
+                                    <div class="input-field col s11">
 
-                                    <i class="p-size text-grey material-icons prefix">assignment_ind</i>
-                                    <label for="entradaDatos">Entrada de datos <span class="red-text">  *</span></label>
-                                    <input name="entradaDatos" type="text" />
-                                    <span class="text-error" id="nameError"></span>
+                                        <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                        <label for="nombre"> Nombre de la prueba <span class="red-text">  *</span></label>
+                                        <input name="nombre" type="text" />
+                                        <span class="text-error" id="nameError"></span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row margin-b">
+
+                                    <div class="input-field col s11">
+
+                                        <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+
+                                        <select name="resultadoFinal">
+                                            <option value="" selected>Seleccione un estado</option>
+                                            <option value="Incompleta">Incompleta</option>
+                                            <option value="Exitosa">Exitosa</option>
+                                            <option value="Fallida">Fallida</option>
+
+                                        </select>
+                                        <span class="text-error" id="nameError"></span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row margin-b">
+
+                                    <div class="input-field col s11">
+
+                                        <i class="p-size text-grey material-icons prefix">assignment_ind</i>
+                                        <textarea id="details" class="materialize-textarea" name="detalleResultado"></textarea>
+                                        <label for="details">Detalles del resultado</label>
+
+                                    </div>
 
                                 </div>
 
                             </div>
 
                         </div>
-                       
+
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
-                        </div>
+                    <div class="margin-required col s4 offset-s5">
+                        <p class="text-error">
+                            Los campos con * son requeridos.
+                        </p>
                     </div>
-                </div>
+
+                    <div class="margin-b1">
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="row center">
+                        @Html.ActionLink("Cancelar", "Index", new
+                        {
+                           id = requirementId,
+                           projectId = projectId, 
+                        }, new
+                        {
+                             @class = "margin-r waves-effect red-hover btn red accent-4"
+                        })
+                        <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
+                    </div>
+                    <br />
                 }
-
-                <div>
-                    @Html.ActionLink("Back to List", "Index")
-                </div>
 
             </div>
 
@@ -145,12 +168,7 @@
     </div>
 
 
-  
-
 }
-
-
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

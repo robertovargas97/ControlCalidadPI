@@ -1,7 +1,13 @@
 ﻿@model ControlCalidad.Models.Requerimiento
 
-@{
+@*{
     ViewBag.Title = "Details";
+}*@
+
+@{ 
+
+
+
 }
 <h3 class="text-grey"> Detalles del requerimiento </h3>
 <div class="margin-b1">
@@ -112,7 +118,7 @@
 </div>
 
 <div id="btn-add" class="fixed-action-btn">
-    <a href="@Url.Action("Index", "Requirement/Index",new {id_proyecto = Model.id_proyectoFK})" class="btn-floating btn-large black turq-hover left">
+    <a href="@Url.Action("Index", "Requirement/Index",new {projectId  = Model.id_proyectoFK})" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Volver">
         <i class="large material-icons">arrow_back</i>
     </a>
 </div>
@@ -138,7 +144,7 @@
                 <h5>Está seguro que desea <span class="red-text text-darken-4 "> borrar </span> el requerimiento @Model.nombre ?</h5>
             </div>
             <div class="left">
-                <span class="text-error" id="activeError"></span>
+                <span class="text-error" id="deleteError"></span>
             </div>
         </div>
 
@@ -165,12 +171,9 @@
         </div>
 
         <div class="modal-footer">
-
-            <a onclick="removeRequeriment(@Model.idPK)" class="waves-effect waves-effect waves-light btn turq">Aceptar</a>
-
             <a class="modal-close btn red-hover  red accent-4 white-text">Cancelar</a>
 
-            <a onclick="deleteReq(@Model.idPK)" class="modal-close btn red-hover  red accent-4 white-text">Prue</a>
+            <a onclick="deleteRequirement(@Model.idPK,@Model.id_proyectoFK)" class="waves-effect waves-effect waves-light btn turq">Aceptar</a>
 
         </div>
     </div>

@@ -17,12 +17,12 @@ namespace ControlCalidad.Controllers
         private ProjectController projectController = new ProjectController( );
 
         // GET: Requirement
-        public async Task<ActionResult> Index( int projectId )
+        public ActionResult Index( int? projectId )
         {
             var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId );
             ViewBag.projectId = projectId ;
             ViewBag.projectName = projectController.getProjectName( projectId );
-            return View( await requerimientoes.ToListAsync( ) );
+            return View( requerimientoes.ToList( ) );
         }
 
         // GET: Requirement/Details/5
@@ -41,7 +41,7 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Requirement/Create
-        public ActionResult Create(int projectId )
+        public ActionResult Create(int? projectId )
         {
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" );
             ViewBag.projectId = projectId;
@@ -65,14 +65,15 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento , FormCollection fc)
+        public ActionResult Create( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento , FormCollection fc)
         {
+            int? projectId = requerimiento.id_proyectoFK;
             if( ModelState.IsValid )
             {
                 string idTester = fc["idTester"];
                 db.Requerimientoes.Add( requerimiento );
-                await db.SaveChangesAsync( );
-                return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK} );
+                db.SaveChanges( );
+                return RedirectToAction( "Index" , new {projectId} );
             }
 
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
@@ -100,42 +101,20 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento )
+        public ActionResult Edit( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento )
         {
+
             if( ModelState.IsValid )
             {
                 db.Entry( requerimiento ).State = EntityState.Modified;
-                await db.SaveChangesAsync( );
-                return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK} );
+                db.SaveChanges( );
+
+                return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK
+            } );
+
             }
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
             return View( requerimiento );
-        }
-
-        // GET: Requirement/Delete/5
-        public async Task<ActionResult> Delete( int? id , int? projectId )
-        {
-            if( id == null || projectId == null )
-            {
-                return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
-            }
-            Requerimiento requerimiento = await db.Requerimientoes.FindAsync( id , projectId );
-            if( requerimiento == null )
-            {
-                return HttpNotFound( );
-            }
-            return View( requerimiento );
-        }
-
-        // POST: Requirement/Delete/5
-        [HttpPost, ActionName( "Delete" )]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed( int id , int projectId )
-        {
-            Requerimiento requerimiento = await db.Requerimientoes.FindAsync( id , projectId );
-            db.Requerimientoes.Remove( requerimiento );
-            await db.SaveChangesAsync( );
-            return RedirectToAction( "Index" , new {projectId = projectId} );
         }
 
         protected override void Dispose( bool disposing )
@@ -146,5 +125,32 @@ namespace ControlCalidad.Controllers
             }
             base.Dispose( disposing );
         }
+
+        //DOCUMENTAR
+        public ActionResult removeRequirement( int id , int? projectId )
+        {
+            Requerimiento requerimiento = db.Requerimientoes.Find( id , projectId );
+            db.Requerimientoes.Remove( requerimiento );
+            db.SaveChanges( );
+            return RedirectToAction( "Index" , new { projectId = projectId} );
+        }
+
+        //Documentar Sergio
+        public string getRequirementName(int? id)
+        {
+            List<string> requirement;
+            string requirementName = "";
+            if (id != null)
+            {
+                string name = "SELECT R.nombre " + "FROM ControlCalidad.Requerimiento R " + "WHERE R.idPk = " + id;
+                requirement = db.Database.SqlQuery<string>(name).ToList();
+                requirementName = requirement[0];
+            }
+
+            return requirementName;
+        }
     }
+
+
+    
 }
