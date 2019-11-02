@@ -1,44 +1,46 @@
 ﻿@model ControlCalidad.Models.Prueba
 
 @*{
-    @VewBag.Title = "Edit";
-}*@
+        @VewBag.Title = "Edit";
+    }*@
 
-<h3 class="text-grey">Editar Prueba</h3>
-<div class="margin-b1">
-    <hr />
-</div>
 
-<div class="row container">
+@{
+    <h3 class="text-grey">Editar Prueba</h3>
+    <div class="margin-b1">
+        <hr />
+    </div>
 
-    <div class="">
+    <div class="row container">
 
-        <div class="card hoverable">
+        <div class="">
 
-            <nav>
+            <div class="card hoverable">
 
-                <div class="nav-wrapper black">
+                <nav>
 
-                    <p class="col s4">Quality Expert S.A</p>
+                    <div class="nav-wrapper black">
 
-                </div>
+                        <p class="col s4">Quality Expert S.A</p>
 
-            </nav>
-            @using (Ajax.BeginForm("Edit", new AjaxOptions
-            {
-                HttpMethod = "POST",
-                LoadingElementId = "loading",
-                OnSuccess = "redirectToPage('../Index')",
-                OnComplete = "redirectToPage('../Index')",
+                    </div>
 
-            }))
+                </nav>
+                @using (Ajax.BeginForm("Edit", new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    LoadingElementId = "loading",
+                    OnSuccess = "redirectToPage('../Index')",
+                    OnComplete = "redirectToPage('../Index')",
 
-            {
-                @Html.AntiForgeryToken()
+                }))
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="margin-b section">
-                </div>
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="margin-b section">
+                    </div>
 
                     <div class="row">
 
@@ -50,7 +52,7 @@
                                     <i class="p-size material-icons text-grey prefix">assignment_ind</i>
 
                                     <label for="nombre">Nombre de la prueba<span class="red-text">  *</span></label>
-                                    <input name="detalleResultado" type="text" required class="validate form-control" />
+                                    <input name="detalleResultado" value="@Model.nombre" type="text" required class="validate form-control" />
 
                                 </div>
 
@@ -66,7 +68,8 @@
                                     <i class="p-size material-icons text-grey prefix">assignment_ind</i>
 
                                     <select name="resultadoFinal">
-                                        <option value="" selected>Seleccione un estado</option>
+                                        <option value="@Model.resultadoFinal" selected>@Model.resultadoFinal</option>
+                                        <option value="@Model.resultadoFinal" >Seleccione un estado</option>
                                         <option value="Incompleta">Incompleta</option>
                                         <option value="Exitosa">Exitosa</option>
                                         <option value="Fallida">Fallida</option>
@@ -87,7 +90,7 @@
                                     <i class="p-size material-icons text-grey prefix">assignment_ind</i>
 
                                     <label for="detalleResultado">Detalles del resultado</label>
-                                    <input name="detalleResultado" type="text" />
+                                    <input name="detalleResultado" value="@Model.detalleResultado" type="text" />
 
                                 </div>
 
@@ -97,41 +100,44 @@
 
                     </div>
 
-                
-
-                <div class="margin-required col s4 offset-s5">
-                    <p class="text-error">
-                        Los campos con * son requeridos.
-                    </p>
-                </div>
-
-                <div class="margin-b1">
-                </div>
-                <br />
-                <br />
-
-                <div class="row center">
-                    @Html.ActionLink("Cancelar", "Details", new
-                    {
-                       id = Model.idPK,
-                       projectID = Model.id_proyectoFK,
-                       requirementID = Model.id_requerimientoFK
-                    }, new
-                    {
-                         @class = "margin-r waves-effect red-hover btn red accent-4"
-                    })
-                    <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
-                </div>
-                <br />
 
 
+                    <div class="margin-required col s4 offset-s5">
+                        <p class="text-error">
+                            Los campos con * son requeridos.
+                        </p>
+                    </div>
 
-            }
+                    <div class="margin-b1">
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="row center">
+                        @Html.ActionLink("Cancelar", "Details", new
+                        {
+                           id = Model.idPK,
+                           projectID = Model.id_proyectoFK,
+                           requirementID = Model.id_requerimientoFK
+                        }, new
+                        {
+                             @class = "margin-r waves-effect red-hover btn red accent-4"
+                        })
+                        <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
+                    </div>
+                    <br />
+
+
+
+                }
+            </div>
+
         </div>
 
     </div>
 
-</div>
+
+}
 
 <div>
     @Html.ActionLink("Back to List", "Index")
