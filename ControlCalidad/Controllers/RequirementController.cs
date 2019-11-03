@@ -15,10 +15,14 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities( );
         private ProjectController projectController = new ProjectController( );
-
+        private TesterRequirementController tieneAsignado = new TesterRequirementController();
         // GET: Requirement
-        public ActionResult Index( int? projectId )
+        public ActionResult Index( int? projectId, string idTester)
         {
+            if (idTester != null && idTester != "")
+            {
+                tieneAsignado.insert(idTester, projectId);
+            }
             var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId );
             ViewBag.projectId = projectId ;
             ViewBag.projectName = projectController.getProjectName( projectId );
@@ -45,7 +49,7 @@ namespace ControlCalidad.Controllers
         {
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" );
             ViewBag.projectId = projectId;
-            List<ControlCalidad.Models.SP_Conseguir_testers_req_Result> employees = db.SP_Conseguir_testers_req(projectId).ToList();
+            List<SP_Conseguir_testers_req_Result> employees = db.SP_Conseguir_testers_req(projectId).ToList();
             List<SelectListItem> allEmployess = employees.ConvertAll(
                 employee => {
                     return new SelectListItem()
@@ -73,7 +77,7 @@ namespace ControlCalidad.Controllers
                 string idTester = fc["idTester"];
                 db.Requerimientoes.Add( requerimiento );
                 db.SaveChanges( );
-                return RedirectToAction( "Index" , new {projectId} );
+                return RedirectToAction( "Index" , new {projectId, idTester } );
             }
 
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
