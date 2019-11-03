@@ -55,7 +55,8 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaAsignacion">Fecha de Asignacion</label>
-                                        <input value="@Model.fechaAsignacion" type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" />
+                                        <input value="@Model.fechaAsignacion" type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" onchange="validateEndAssignDate('fechaAsignacion', 'assigndateError')" />
+                                        <span class="text-error" id="assigndateError"></span>
                                     </div>
                                 </div>
 
@@ -81,7 +82,6 @@
                                         <label for="fechaInicio">Fecha de Inicio</label>
                                         <input type="text" value="@Model.fechaInicio.ToShortDateString()" class="datepicker datepickerDate" id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
                                         <span class="text-error" id="dateErrorMessage"></span>
-
                                     </div>
                                 </div>
 
@@ -99,7 +99,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
                                         @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <input name="duracionEstimada" type="number" required value="@Model.duracionEstimada" class="validate form-control" onblur="" onkeyup="" id="avrTime" />
+                                        <input value="@Model.duracionEstimada" name="duracionEstimada" type="number" required class="validate form-control" onblur="validateDuration()" onkeyup="validateDuration()" id="avrDuration" />
                                         <span class="text-error" id="avrDurationError"></span>
                                     </div>
                                 </div>
@@ -111,7 +111,8 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaFin">Fecha de Finalización</label>
-                                        <input value="@Model.fechaFinalizacion" type="text" class="datepicker datepickerDate" id="fechaFinalizacion" name="fechaFinalizacion" />
+                                        <input value="@Model.fechaFinalizacion" type="text" class="datepickerDate datepicker" id="fechaFinalizacion" name="fechaFinalizacion" onchange="validateEndAssignDate('fechaFinalizacion', 'endDateError')" />
+                                        <span class="text-error" id="endDateError"></span>
                                     </div>
                                 </div>
 
@@ -134,7 +135,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_full</i>
                                         <label for="duracionReal">Duración Real  </label>
-                                        <input value="@Model.duracionReal" name="duracionReal" type="number" class="validate form-control" onblur="" onkeyup="" id="duracionReal" />
+                                        <input  value="@Model.duracionReal" name="duracionReal" type="number" class="validate form-control" onblur="validateRealDuration()" onkeyup="validateRealDuration()" id="RealDur" />
                                         <span class="text-error" id="realDurError"></span>
                                     </div>
                                 </div>
@@ -151,7 +152,7 @@
                             </div>
                         </div>
 
-                        <div class=" row container center" id="loading" style="display:none;">
+                        <div class=" row container center hide" id="loading">
                             <div class="">
                                 <i class="material-icons text-turq ">info_outline</i>
                             </div>
@@ -185,7 +186,7 @@
                        {
                            @class = "margin-r waves-effect red-hover btn red accent-4"
                        })
-                            <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
+                            <button id="btn-submit" type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
                         </div>
 
                         <div class="margin-b section">
