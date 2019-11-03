@@ -139,6 +139,12 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" , new { projectId = projectId} );
         }
 
+        public bool validateName( string name )
+        {
+            var exist = db.Requerimientoes.Any( req=> req.nombre == name );
+            return exist;
+        }
+
         //Documentar Sergio
         public string getRequirementName(int? id)
         {
