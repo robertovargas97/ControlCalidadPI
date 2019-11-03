@@ -15,10 +15,14 @@ namespace ControlCalidad.Controllers
     {
         private QASystemEntities db = new QASystemEntities( );
         private ProjectController projectController = new ProjectController( );
-
+        private TesterRequirementController tieneAsignado = new TesterRequirementController();
         // GET: Requirement
-        public ActionResult Index( int? projectId )
+        public ActionResult Index( int? projectId, string idTester)
         {
+            if (idTester != null && idTester != "")
+            {
+                tieneAsignado.insert(idTester, projectId);
+            }
             var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId );
             ViewBag.projectId = projectId ;
             ViewBag.projectName = projectController.getProjectName( projectId );
@@ -37,6 +41,10 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound( );
             }
+            ViewBag.fechaAsignacion = dateTimeToString( requerimiento.fechaAsignacion , "MM/dd/yyyy" );
+            ViewBag.fechaFin = dateTimeToString( requerimiento.fechaFinalizacion , "MM/dd/yyyy" );
+            ViewBag.fechaInicio = dateTimeToString( requerimiento.fechaInicio , "MM/dd/yyyy" );
+            ViewBag.tester = getTester(projectId, id).Text;
             return View( requerimiento );
         }
 
@@ -45,18 +53,7 @@ namespace ControlCalidad.Controllers
         {
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" );
             ViewBag.projectId = projectId;
-            List<ControlCalidad.Models.SP_Conseguir_testers_req_Result> employees = db.SP_Conseguir_testers_req(projectId).ToList();
-            List<SelectListItem> allEmployess = employees.ConvertAll(
-                employee => {
-                    return new SelectListItem()
-                    {
-                        Text = employee.nombreP,
-                        Value = employee.cedulaPK,
-                        Selected = false
-                    };
-                });
-            ViewBag.testers = allEmployess;
-
+            ViewBag.testers = getTesters(projectId);
             return View( );
         }
 
@@ -73,7 +70,7 @@ namespace ControlCalidad.Controllers
                 string idTester = fc["idTester"];
                 db.Requerimientoes.Add( requerimiento );
                 db.SaveChanges( );
-                return RedirectToAction( "Index" , new {projectId} );
+                return RedirectToAction( "Index" , new {projectId, idTester } );
             }
 
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
@@ -92,6 +89,20 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound( );
             }
+            SelectListItem actualTester = getTester(projectId, id);
+            List<SelectListItem> allTesters = getTesters(projectId);
+            ViewBag.defaultText = "Seleccione un tester";
+            foreach (SelectListItem tester in allTesters)
+            {
+                if (tester.Value == actualTester.Value) {
+                    ViewBag.defaultText = tester.Text;
+                    break;
+                }
+            }
+            ViewBag.testers = allTesters;
+            ViewBag.fechaAsignacion = dateTimeToString( requerimiento.fechaAsignacion , "MM/dd/yyyy" );
+            ViewBag.fechaFin = dateTimeToString( requerimiento.fechaFinalizacion , "MM/dd/yyyy" );
+            ViewBag.fechaInicio = dateTimeToString( requerimiento.fechaInicio , "MM/dd/yyyy" );
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
             return View( requerimiento );
         }
@@ -101,16 +112,16 @@ namespace ControlCalidad.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento )
+        public ActionResult Edit( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento, FormCollection fc)
         {
 
             if( ModelState.IsValid )
             {
                 db.Entry( requerimiento ).State = EntityState.Modified;
                 db.SaveChanges( );
-
-                return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK
-            } );
+                string idTester = fc["idTester"];
+                db.SP_Actualizar_TieneAsignado(requerimiento.id_proyectoFK, requerimiento.idPK, idTester);
+                return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK} );
 
             }
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
@@ -135,6 +146,12 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" , new { projectId = projectId} );
         }
 
+        public bool validateName( string name )
+        {
+            var exist = db.Requerimientoes.Any( req=> req.nombre == name );
+            return exist;
+        }
+
         //Documentar Sergio
         public string getRequirementName(int? id)
         {
@@ -149,8 +166,37 @@ namespace ControlCalidad.Controllers
 
             return requirementName;
         }
+
+        public List<SelectListItem> getTesters(int? projectId) {
+            List<SP_Conseguir_testers_req_Result> testers = db.SP_Conseguir_testers_req(projectId).ToList();
+            List<SelectListItem> allTesters = testers.ConvertAll(
+                tester => {
+                    return new SelectListItem()
+                    {
+                        Text = tester.nombreP,
+                        Value = tester.cedulaPK,
+                        Selected = false
+                    };
+                });
+            return allTesters;
+        }
+
+        public SelectListItem getTester(int? projectId, int? requirementId)
+        {
+            SP_Conseguir_Tester_Result tester = db.SP_Conseguir_Tester(projectId, requirementId).Single();
+            SelectListItem tester_selected = new SelectListItem()
+                    {
+                        Text = tester.nombreP,
+                        Value = tester.cedulaPK,
+                        Selected = false
+                    };
+            return tester_selected;
+        }
+
+        public string dateTimeToString(DateTime? dt, string format)
+        {
+            return dt == null ? "n/a" : ((DateTime)dt).ToString(format);
+        }
     }
 
-
-    
 }

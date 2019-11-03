@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems);
-  
+
     var elems = document.querySelectorAll('.parallax');
     var instances = M.Parallax.init(elems);
 
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cancel: 'Cancelar',
             clear: 'Borrar'
         },
-        yearRange : [1940,2001]
+        yearRange: [1940, 2001]
     });
 
     var elems = document.querySelectorAll('.fixed-action-btn');
@@ -201,16 +201,18 @@ function validateDuration() {
 //------------------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------Requirements Validations------------------------------------------------
+//<summary> :   validates if a requirement can be deleted. It can deleted be if does not related with any tester or test.
+//<param>   : id (requirement id) and projectId.
 function deleteRequirement(id, projectId) {
     $.ajax({
         url: '../../TesterRequirement/canDelete/',
         data: { id: id },
 
         success: function (canDelete) {
-           
+
             if (canDelete == 'True') {
                 document.getElementById("loading").classList.remove("hide");
-                location.href = '/Requirement/removeRequirement/' + parseInt(id) +'?projectId='+ parseInt(projectId);
+                location.href = '/Requirement/removeRequirement/' + parseInt(id) + '?projectId=' + parseInt(projectId);
             }
             else {
                 document.getElementById("deleteError").innerHTML = "El requerimiento deber estar libre para poder eliminarlo... Por favor termine las pruebas y/o desasocie el tester.";
@@ -218,6 +220,88 @@ function deleteRequirement(id, projectId) {
         },
     });
 }
+
+//<summary> :   validates that a requirement does not exist in the db
+function validateRequirementName() {
+    $.ajax({
+        url: '/Requirement/validateName',
+        data: { name: $('#requirementName').val() },
+        success: function (exist) {
+            if (exist == 'True') {
+                document.getElementById("nameError").innerHTML = "El nombre del requerimiento ya existe... Por favor ingrese otro";
+                document.getElementById('btn-submit').disabled = true;
+            }
+            else {
+                document.getElementById("nameError").innerHTML = "";
+                document.getElementById('btn-submit').disabled = false;
+            }
+        },
+    });
+}
+
+//<summary> :   validates that the user select a begin date to the requirement.
+function validateDate() {
+    if (document.getElementById("fechaInicio").value.length <= 4) {
+        document.getElementById("dateErrorMessage").innerHTML = "Debe seleccionar una fecha de inicio para el requerimiento.";
+        document.getElementById('btn-submit').disabled = true;
+
+    }
+    else {
+        document.getElementById("dateErrorMessage").innerHTML = "";
+        document.getElementById("endDateError").innerHTML = "";
+        document.getElementById("assigndateError").innerHTML = "";
+
+        document.getElementById('btn-submit').disabled = false;
+
+    }
+}
+
+//<summary> :   validates that the user sets a correct duration for the project.
+function validateDuration() {
+    if (document.getElementById("avrDuration").value.length <= 0) {
+        document.getElementById("avrDurationError").innerHTML = "Debes ingresar una duracion válida.";
+        document.getElementById('btn-submit').disabled = true;
+
+    }
+    else {
+        document.getElementById("avrDurationError").innerHTML = "";
+        document.getElementById('btn-submit').disabled = false;
+
+    }
+}
+
+//<summary> :   validates that the user sets a correct duration for the project.
+function validateRealDuration() {
+    if (document.getElementById("RealDur").value.length <= 0) {
+        document.getElementById("realDurError").innerHTML = "Debes ingresar una duracion real válida.";
+        document.getElementById('btn-submit').disabled = true;
+
+    }
+    else {
+        document.getElementById("realDurError").innerHTML = "";
+        document.getElementById('btn-submit').disabled = false;
+
+    }
+}
+
+//<summary> :   validates that the user select correct date to the requirement.
+function validateEndAssignDate(input, error) {
+    if (document.getElementById("fechaInicio").value.length <= 0 && document.getElementById(input).value.length > 0) {
+        document.getElementById(error).innerHTML = "No has ingresado una fecha de inicio para poder colcar esta fecha.";
+        document.getElementById('btn-submit').disabled = true;
+    }
+    else if (document.getElementById(input).value < document.getElementById("fechaInicio").value) {
+        document.getElementById(error).innerHTML = "La fecha debe ser posterior o igual  la fecha de inicio.";
+        document.getElementById('btn-submit').disabled = true;
+
+    }
+    else {
+        document.getElementById(error).innerHTML = "";
+        document.getElementById('btn-submit').disabled = false;
+
+    }
+}
+
 
 
 //------------------------------------------------Employee Validations----------------------------------------------------
@@ -337,7 +421,7 @@ function validateEmployeeID(inputtxt) {
                 }
             },
         });
-        
+
     }
     else {
         err.innerHTML = `<span class=red-text>Digite un valores numericos </span>`;

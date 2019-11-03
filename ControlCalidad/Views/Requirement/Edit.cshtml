@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Edit";
+    List<SelectListItem> testerId = (List<SelectListItem>)ViewBag.testers;
+    string assignDate = ViewBag.fechaAsignacion;
+    string endDate = ViewBag.fechaFin;
+    string beginDate = ViewBag.fechaInicio;
+    string testerTitle = ViewBag.defaultText;
 }
 
 
@@ -14,7 +19,7 @@
 @{
 
 
-    if( User.IsInRole( "Jefe" ) )
+    if (User.IsInRole("Jefe"))
     {
 
         <div class="row container">
@@ -25,12 +30,13 @@
                             <p class="col s4"> Quality Expert S.A</p>
                         </div>
                     </nav>
-                    @using( Html.BeginForm( "Edit" , "Requirement" , FormMethod.Post , new {
-                        @onsubmit = "onSubmit()"
-                    } ) )
+                    @using (Html.BeginForm("Edit", "Requirement", FormMethod.Post, new
                     {
-                        @Html.AntiForgeryToken( )
-
+                        @onsubmit = "onSubmit()"
+                    }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("idTester", "", new { @id = "idTester" })
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="margin-b section">
                         </div>
@@ -55,7 +61,8 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaAsignacion">Fecha de Asignacion</label>
-                                        <input value="@Model.fechaAsignacion" type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" />
+                                        <input value="@assignDate" type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" onchange="validateEndAssignDate('fechaAsignacion', 'assigndateError')" />
+                                        <span class="text-error" id="assigndateError"></span>
                                     </div>
                                 </div>
 
@@ -81,17 +88,15 @@
                                         <label for="fechaInicio">Fecha de Inicio</label>
                                         <input type="text" value="@Model.fechaInicio.ToShortDateString()" class="datepicker datepickerDate" id="fechaInicio" name="fechaInicio" required onchange="validateDate()" />
                                         <span class="text-error" id="dateErrorMessage"></span>
-
                                     </div>
                                 </div>
 
                                 <div class="row margin-b">
-                                    <div class="input-field col s11" data-target="dropdownCreate">
+                                    <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        <select name=" " id="">
-                                            <option value="" disabled selected>Tester</option>
-                                        </select>
-                                        <label for="">Tester asignado</label>
+                                        @Html.DropDownList("testers", testerId, testerTitle, new { @onchange = "setIdTester()", @id = "dropdown" })
+                                        <label for="testerId"> Tester asignado</label>
+                                        <span class="text-error" id="testerError"></span>
                                     </div>
                                 </div>
 
@@ -99,7 +104,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
                                         @Html.LabelFor(model => model.duracionEstimada, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <input name="duracionEstimada" type="number" required value="@Model.duracionEstimada" class="validate form-control" onblur="" onkeyup="" id="avrTime" />
+                                        <input value="@Model.duracionEstimada" name="duracionEstimada" type="number" required class="validate form-control" onblur="validateDuration()" onkeyup="validateDuration()" id="avrDuration" />
                                         <span class="text-error" id="avrDurationError"></span>
                                     </div>
                                 </div>
@@ -111,7 +116,8 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaFin">Fecha de Finalización</label>
-                                        <input value="@Model.fechaFinalizacion" type="text" class="datepicker datepickerDate" id="fechaFinalizacion" name="fechaFinalizacion" />
+                                        <input value="@endDate" type="text" class="datepickerDate datepicker" id="fechaFinalizacion" name="fechaFinalizacion" onchange="validateEndAssignDate('fechaFinalizacion', 'endDateError')" />
+                                        <span class="text-error" id="endDateError"></span>
                                     </div>
                                 </div>
 
@@ -134,7 +140,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_full</i>
                                         <label for="duracionReal">Duración Real  </label>
-                                        <input value="@Model.duracionReal" name="duracionReal" type="number" class="validate form-control" onblur="" onkeyup="" id="duracionReal" />
+                                        <input value="@Model.duracionReal" name="duracionReal" type="number" class="validate form-control" onblur="validateRealDuration()" onkeyup="validateRealDuration()" id="RealDur" />
                                         <span class="text-error" id="realDurError"></span>
                                     </div>
                                 </div>
@@ -151,7 +157,7 @@
                             </div>
                         </div>
 
-                        <div class=" row container center" id="loading" style="display:none;">
+                        <div class=" row container center hide" id="loading">
                             <div class="">
                                 <i class="material-icons text-turq ">info_outline</i>
                             </div>
@@ -185,7 +191,7 @@
                        {
                            @class = "margin-r waves-effect red-hover btn red accent-4"
                        })
-                            <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
+                            <button id="btn-submit" type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
                         </div>
 
                         <div class="margin-b section">
@@ -211,7 +217,21 @@
             </div>
         </div>
     }
+
+<script>
+
+    /*
+        * Function that extracts the ID if you add a new member, actuated by selecting a member in the table
+        * Parameters: id, represents the ID of the selected employee
+        * Return: None
+        * */
+
+    function setIdTester() {
+        $('#idTester').val($('#dropdown').val());
+    }
+</script>
+
 }
 @section Scripts {
-    @Scripts.Render( "~/bundles/jqueryval" )
+    @Scripts.Render("~/bundles/jqueryval")
 }

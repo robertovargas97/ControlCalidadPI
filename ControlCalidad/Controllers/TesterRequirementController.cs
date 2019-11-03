@@ -1,6 +1,7 @@
 ﻿using ControlCalidad.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
@@ -36,6 +37,23 @@ namespace ControlCalidad.Controllers
 
         }
 
+        [DbFunctionAttribute("ControlCalidad", "UFN_getId")]
+        public static int? getID()
+        {
+            throw new NotSupportedException("Direct calls are not supported.");
+        }
 
+        public void insert(string cedula_empeladoFK, int? id_proyectoFK)
+        {
+            TieneAsignado newEntity = new TieneAsignado
+            {
+                cedula_empleadoFK = cedula_empeladoFK,
+                id_requerimientoFK = db.Database.SqlQuery<int>("SELECT [ControlCalidad].[UFN_getId]()").Single(),
+                id_proyectoFK = Convert.ToInt32(id_proyectoFK),
+                horasDedicas = 0
+            };
+            db.TieneAsignadoes.Add(newEntity);
+            db.SaveChanges();
+        }
     }
 }
