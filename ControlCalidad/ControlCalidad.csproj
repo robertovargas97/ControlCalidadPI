@@ -299,6 +299,9 @@
     <Compile Include="Models\SP_Conseguir_testers_req_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Conseguir_Tester_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tester.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>

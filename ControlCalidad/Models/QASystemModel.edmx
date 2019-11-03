@@ -253,6 +253,10 @@
           <Parameter Name="id_requerimiento" Type="int" Mode="In" />
           <Parameter Name="id_tester" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SP_Conseguir_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
+          <Parameter Name="id_proyecto" Type="int" Mode="In" />
+          <Parameter Name="id_requerimiento" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_Conseguir_testers_req" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
         </Function>
@@ -604,6 +608,10 @@
             <Parameter Name="id_requerimiento" Mode="In" Type="Int32" />
             <Parameter Name="id_tester" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_Conseguir_Tester" ReturnType="Collection(QASystemEntity.SP_Conseguir_Tester_Result)">
+            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+            <Parameter Name="id_requerimiento" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Prueba">
           <Key>
@@ -636,6 +644,10 @@
           </ReferentialConstraint>
         </Association>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
+        </ComplexType>
+        <ComplexType Name="SP_Conseguir_Tester_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
           <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
         </ComplexType>
@@ -772,6 +784,14 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_estaAsignado" FunctionName="QASystemEntity.Store.USP_estaAsignado" />
           <FunctionImportMapping FunctionImportName="SP_Actualizar_TieneAsignado" FunctionName="QASystemEntity.Store.SP_Actualizar_TieneAsignado" />
+          <FunctionImportMapping FunctionImportName="SP_Conseguir_Tester" FunctionName="QASystemEntity.Store.SP_Conseguir_Tester">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_Conseguir_Tester_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

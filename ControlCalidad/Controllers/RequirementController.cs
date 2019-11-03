@@ -44,6 +44,7 @@ namespace ControlCalidad.Controllers
             ViewBag.fechaAsignacion = dateTimeToString( requerimiento.fechaAsignacion , "MM/dd/yyyy" );
             ViewBag.fechaFin = dateTimeToString( requerimiento.fechaFinalizacion , "MM/dd/yyyy" );
             ViewBag.fechaInicio = dateTimeToString( requerimiento.fechaInicio , "MM/dd/yyyy" );
+            ViewBag.tester = getTester(projectId, id).Text;
             return View( requerimiento );
         }
 
@@ -88,7 +89,17 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound( );
             }
-            ViewBag.testers = getTesters(projectId);
+            SelectListItem actualTester = getTester(projectId, id);
+            List<SelectListItem> allTesters = getTesters(projectId);
+            ViewBag.defaultText = "Seleccione un tester";
+            foreach (SelectListItem tester in allTesters)
+            {
+                if (tester.Value == actualTester.Value) {
+                    ViewBag.defaultText = tester.Text;
+                    break;
+                }
+            }
+            ViewBag.testers = allTesters;
             ViewBag.fechaAsignacion = dateTimeToString( requerimiento.fechaAsignacion , "MM/dd/yyyy" );
             ViewBag.fechaFin = dateTimeToString( requerimiento.fechaFinalizacion , "MM/dd/yyyy" );
             ViewBag.fechaInicio = dateTimeToString( requerimiento.fechaInicio , "MM/dd/yyyy" );
@@ -169,6 +180,19 @@ namespace ControlCalidad.Controllers
                 });
             return allTesters;
         }
+
+        public SelectListItem getTester(int? projectId, int? requirementId)
+        {
+            SP_Conseguir_Tester_Result tester = db.SP_Conseguir_Tester(projectId, requirementId).Single();
+            SelectListItem tester_selected = new SelectListItem()
+                    {
+                        Text = tester.nombreP,
+                        Value = tester.cedulaPK,
+                        Selected = false
+                    };
+            return tester_selected;
+        }
+
         public string dateTimeToString(DateTime? dt, string format)
         {
             return dt == null ? "n/a" : ((DateTime)dt).ToString(format);

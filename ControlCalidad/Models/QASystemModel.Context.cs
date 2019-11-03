@@ -76,5 +76,18 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Actualizar_TieneAsignado", id_proyectoParameter, id_requerimientoParameter, id_testerParameter);
         }
+    
+        public virtual ObjectResult<SP_Conseguir_Tester_Result> SP_Conseguir_Tester(Nullable<int> id_proyecto, Nullable<int> id_requerimiento)
+        {
+            var id_proyectoParameter = id_proyecto.HasValue ?
+                new ObjectParameter("id_proyecto", id_proyecto) :
+                new ObjectParameter("id_proyecto", typeof(int));
+    
+            var id_requerimientoParameter = id_requerimiento.HasValue ?
+                new ObjectParameter("id_requerimiento", id_requerimiento) :
+                new ObjectParameter("id_requerimiento", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Conseguir_Tester_Result>("SP_Conseguir_Tester", id_proyectoParameter, id_requerimientoParameter);
+        }
     }
 }

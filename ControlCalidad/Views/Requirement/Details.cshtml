@@ -47,6 +47,13 @@
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
+                                <i class="material-icons left text-grey">person</i>
+                                <span class="text-turq"> Tester asignado </span>
+                                : @ViewBag.tester
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
                                 <i class="material-icons left text-grey">assignment</i>
                                 <span class="text-turq"> Descripcion </span>
                                 : @Html.DisplayFor(model => model.descripcion)
@@ -56,21 +63,21 @@
                             <p class="p-size">
                                 <i class="material-icons left text-grey">date_range</i>
                                 <span class="text-turq">Fecha de inicio</span>
-                                : @Html.Name( beginDate )
+                                : @Html.Name(beginDate)
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">date_range</i>
                                 <span class="text-turq">Fecha de finalizacion</span>
-                                : @Html.Name( endDate )
+                                : @Html.Name(endDate)
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">date_range</i>
                                 <span class="text-turq">Fecha de asignacion</span>
-                                : @Html.Name( assignDate ) 
+                                : @Html.Name(assignDate)
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
