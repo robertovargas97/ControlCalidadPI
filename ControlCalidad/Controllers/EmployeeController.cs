@@ -18,7 +18,6 @@ namespace ControlCalidad.Controllers
         private localizationsController localizations = new localizationsController();
         private static string editID;
         private string projectLeader;
-        
 
 
         // GET: Employee
@@ -236,6 +235,25 @@ namespace ControlCalidad.Controllers
             return leadersItemList;
         }
 
+
+        //<summary> : gets employees from database to put them in a list
+        //<param>   : None
+        //<return>  : List<SelectListItem>, a employees list
+        public List<SelectListItem> GetTesters()
+        {
+            string query = "SELECT	E.nombreP FROM ControlCalidad.Empleado E " +
+                "WHERE E.cedulaPK IN(SELECT T.cedula_empleadoFk FROM ControlCalidad.Tester T) ";
+            List<EmployeeForReports> testerList = db.Database.SqlQuery<EmployeeForReports>(query).ToList();
+
+            List<SelectListItem> alltesters = testerList.ConvertAll(
+                tester => {
+                    return new SelectListItem()
+                    {
+                        Text = tester.nombre
+                    };
+                });
+            return alltesters;
+        }
         //<summary> : This method is used to know the identifier of an employee just by passing his email.
         //<params>  : email : The email of the employee we want to know his id.
         //<return>  : Returns the identifier of an employee.

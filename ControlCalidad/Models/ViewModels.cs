@@ -35,6 +35,25 @@ namespace ControlCalidad.Models
 
     }
 
+    public class ProjectForReports
+    {
+        public string nombre
+        {
+            get; set;
+        }
+
+    }
+
+
+    public class EmployeeForReports
+    {
+        public string nombre
+        {
+            get; set;
+        }
+
+    }
+
     public class Localizations
     {
         public string nombreProvincia

@@ -1,0 +1,292 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@{
+
+    List<SelectListItem> projectsNames = (List<SelectListItem>)ViewBag.allprojects;
+    List<SelectListItem> testerNames = (List<SelectListItem>)ViewBag.alltesters;
+
+    if (User.IsInRole("Jefe"))
+    {
+        <div class="row">
+            <div class="col s4">
+                <div class="card hoverable">
+                    <nav>
+                        <div class="nav-wrapper  black">
+                            <p class="col s4">Reportes</p>
+                        </div>
+                    </nav>
+                    <div class="card-content black-text">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="col s12 margin-b1">
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Requerimientos terminados" onclick="showProjects1()" />
+                                </div>
+
+                                <div class="col s12">
+                                    <hr />
+                                    <br />
+                                </div>
+
+                                <div class="col s12 margin-b1">
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Requerimientos en ejecución" onclick="showProjects2()" />
+                                </div>
+
+                                <div class="col s12">
+                                    <hr />
+                                    <br />
+                                </div>
+
+                                <div class="col s12 margin-b1">
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Cantidad de requerimientos por tester" onclick="showProjects3()" />
+                                </div>
+
+                                <div class="col s12">
+                                    <hr />
+                                    <br />
+                                </div>
+
+                                <div class="col s12 margin-b1">
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Historial de participación" onclick="showProjects4()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s8">
+                <div class="card hoverable">
+                    <nav>
+                        <div class="nav-wrapper grey">
+                            <div id="consulta1">
+                                <p class="col s9">Requerimientos terminados</p>
+                                <form action="Edit">
+                                    <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
+                                    <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
+                                </form>
+                            </div>
+
+                        </div>
+                    </nav>
+                    <div class="card-content black-text">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="col s12 margin-b2">
+                                    <div id="selectProject1" style="display:none;" class="answer_list">
+                                        @Html.DropDownList("nombreProyecto", projectsNames, "Seleccione un proyecto1", new { @nombreP = "nombre", })
+                                        <br />
+                                        <table class="table striped ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center black white-text">
+                                                        Nombre
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Estado
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Complejidad
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Fecha finalización
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Duración real
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Responsable
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="center">
+                                                        Ya
+                                                    </td>
+                                                    <td class="center">
+                                                        no
+                                                    </td>
+                                                    <td class="center">
+                                                        quiero
+                                                    </td>
+                                                    <td class="center">
+                                                        trabajar
+                                                    </td>
+                                                    <td class="center">
+                                                        en
+                                                    </td>
+                                                    <td class="center">
+                                                        esto
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col s12 margin-b2">
+                                    <div id="selectProject2" style="display:none;" class="answer_list">
+                                        @Html.DropDownList("nombreProyecto", projectsNames, "Seleccione un proyecto2", new { @nombreP = "nombre", })
+                                        <br />
+                                        <table class="table striped ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center black white-text">
+                                                        Nombre
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Complejidad
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Responsable
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="center">
+                                                        No
+                                                    </td>
+                                                    <td class="center">
+                                                        quiero
+                                                    </td>
+                                                    <td class="center">
+                                                        trabajar
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col s12 margin-b2">
+                                    <div id="selectProject3" style="display:none;" class="answer_list">
+                                        @Html.DropDownList("nombreProyecto", projectsNames, "Seleccione un proyecto3", new { @nombreP = "nombre", })
+                                        <br />
+                                        <table class="table striped ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center black white-text">
+                                                        Nombre
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Cantidad
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="center">
+                                                        No
+                                                    </td>
+                                                    <td class="center">
+                                                        más
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col s12 margin-b2">
+                                    <div id="selectProject4" style="display:none;" class="answer_list">
+                                        @Html.DropDownList("nombreProyecto", projectsNames, "Seleccione un proyecto4", new { @nombreP = "nombre", })
+                                        <br />
+                                        <table class="table striped ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center black white-text">
+                                                        Nombre
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Estado
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Horas Dedicadas
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="center">
+                                                        No
+                                                    </td>
+                                                    <td class="center">
+                                                        quiero
+                                                    </td>
+                                                    <td class="center">
+                                                        trabajar
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class="row container center top-m-block">
+            <div class="card hoverable s10 section">
+                <h3>Lo sentimos.<br />Debes iniciar sesión como <span class="red-text"> jefe </span> para ingresar a la sección de Reportes.</h3>
+                <i class="large material-icons red-text">block</i>
+            </div>
+        </div>
+    }
+
+
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/materializeD")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/ajax")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        function showProjects1() {
+            document.getElementById('selectProject2').style.display = "none";
+            document.getElementById('selectProject3').style.display = "none";
+            document.getElementById('selectProject4').style.display = "none";
+            document.getElementById('selectProject1').style.display = "block";
+        }
+    </script>
+    <script>
+        function showProjects2() {
+            document.getElementById('selectProject1').style.display = "none";
+            document.getElementById('selectProject3').style.display = "none";
+            document.getElementById('selectProject4').style.display = "none";
+            document.getElementById('selectProject2').style.display = "block";
+        }
+    </script>
+    <script>
+        function showProjects3() {
+            document.getElementById('selectProject1').style.display = "none";
+            document.getElementById('selectProject2').style.display = "none";
+            document.getElementById('selectProject4').style.display = "none";
+            document.getElementById('selectProject3').style.display = "block";
+        }
+    </script>
+    <script>
+        function showProjects4() {
+            document.getElementById('selectProject1').style.display = "none";
+            document.getElementById('selectProject2').style.display = "none";
+            document.getElementById('selectProject3').style.display = "none";
+            document.getElementById('selectProject4').style.display = "block";
+        }
+    </script>
+}

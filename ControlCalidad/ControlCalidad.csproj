@@ -178,7 +178,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\localizationsController.cs" />
-    <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RequirementController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -518,7 +518,7 @@
     <Content Include="Views\Requirement\Details.cshtml" />
     <Content Include="Views\Requirement\Edit.cshtml" />
     <Content Include="Views\Requirement\Index.cshtml" />
-    <Content Include="Views\Reportes\Index.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\Test\Create.cshtml" />
     <Content Include="Views\Test\Delete.cshtml" />
     <Content Include="Views\Test\Details.cshtml" />

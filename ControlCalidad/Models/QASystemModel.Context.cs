@@ -62,5 +62,13 @@ namespace ControlCalidad.Models
               new ObjectParameter( "id_requerimiento" , typeof( int ) );
             return ( ( IObjectContextAdapter ) this ).ObjectContext.ExecuteFunction<Nullable<int>>( "USP_estaAsignado" , idParameter );
         }
+
+        public virtual ObjectResult<string> SP_Requerimientos_ProPA_req_terminados_proy(string nameProject) {
+            ObjectParameter objectParameter = nameProject != null ?
+              new ObjectParameter("nameProject", nameProject) :
+              new ObjectParameter("nameProject", typeof(string));
+            var proj = objectParameter;
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_Requerimientos_ProPA_req_terminados_proy", proj);
+        }
     }
 }

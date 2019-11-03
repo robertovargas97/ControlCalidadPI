@@ -20,6 +20,32 @@ namespace ControlCalidad.Controllers
         private EmployeeController employeeController = new EmployeeController( );
         private string projectLeader;
 
+
+        //<summary> : gets projects from database to put them in a list
+        //<param>   : None
+        //<return>  : List<SelectListItem>, a projects list
+        public List<SelectListItem> GetProjects()
+        {
+            List<ProjectForReports> ProjectsList =
+                (from project in db.Proyectoes
+                 select new ProjectForReports
+                 {
+                     nombre = project.nombre,
+
+                 }).ToList();
+
+            List<SelectListItem> allprojects = ProjectsList.ConvertAll(
+                project => {
+                    return new SelectListItem()
+                    {
+                        Text = project.nombre,
+                        Selected = false
+                    };
+                });
+
+            return allprojects;
+        }
+
         // GET: Project
         public async Task<ActionResult> Index()
         {
