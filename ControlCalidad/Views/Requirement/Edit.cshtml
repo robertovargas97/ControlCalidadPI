@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    List<SelectListItem> testerId = (List<SelectListItem>)ViewBag.testers;
 }
 
 
@@ -14,7 +15,7 @@
 @{
 
 
-    if( User.IsInRole( "Jefe" ) )
+    if (User.IsInRole("Jefe"))
     {
 
         <div class="row container">
@@ -25,12 +26,13 @@
                             <p class="col s4"> Quality Expert S.A</p>
                         </div>
                     </nav>
-                    @using( Html.BeginForm( "Edit" , "Requirement" , FormMethod.Post , new {
-                        @onsubmit = "onSubmit()"
-                    } ) )
+                    @using (Html.BeginForm("Edit", "Requirement", FormMethod.Post, new
                     {
-                        @Html.AntiForgeryToken( )
-
+                        @onsubmit = "onSubmit()"
+                    }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("idTester", "", new { @id = "idTester" })
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="margin-b section">
                         </div>
@@ -86,12 +88,11 @@
                                 </div>
 
                                 <div class="row margin-b">
-                                    <div class="input-field col s11" data-target="dropdownCreate">
+                                    <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        <select name=" " id="">
-                                            <option value="" disabled selected>Tester</option>
-                                        </select>
-                                        <label for="">Tester asignado</label>
+                                        @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()", @id = "dropdown" })
+                                        <label for="testerId"> Tester asignado</label>
+                                        <span class="text-error" id="testerError"></span>
                                     </div>
                                 </div>
 
@@ -135,7 +136,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_full</i>
                                         <label for="duracionReal">Duración Real  </label>
-                                        <input  value="@Model.duracionReal" name="duracionReal" type="number" class="validate form-control" onblur="validateRealDuration()" onkeyup="validateRealDuration()" id="RealDur" />
+                                        <input value="@Model.duracionReal" name="duracionReal" type="number" class="validate form-control" onblur="validateRealDuration()" onkeyup="validateRealDuration()" id="RealDur" />
                                         <span class="text-error" id="realDurError"></span>
                                     </div>
                                 </div>
@@ -212,7 +213,21 @@
             </div>
         </div>
     }
+
+<script>
+
+    /*
+        * Function that extracts the ID if you add a new member, actuated by selecting a member in the table
+        * Parameters: id, represents the ID of the selected employee
+        * Return: None
+        * */
+
+    function setIdTester() {
+        $('#idTester').val($('#dropdown').val());
+    }
+</script>
+
 }
 @section Scripts {
-    @Scripts.Render( "~/bundles/jqueryval" )
+    @Scripts.Render("~/bundles/jqueryval")
 }
