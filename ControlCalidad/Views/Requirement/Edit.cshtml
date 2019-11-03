@@ -2,6 +2,10 @@
 
 @{
     ViewBag.Title = "Edit";
+
+    string assignDate = ViewBag.fechaAsignacion;
+    string endDate = ViewBag.fechaFin;
+    string beginDate = ViewBag.fechaInicio;
 }
 
 
@@ -55,7 +59,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaAsignacion">Fecha de Asignacion</label>
-                                        <input value="@Model.fechaAsignacion" type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" onchange="validateEndAssignDate('fechaAsignacion', 'assigndateError')" />
+                                        <input value="@assignDate" type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" onchange="validateEndAssignDate('fechaAsignacion', 'assigndateError')" />
                                         <span class="text-error" id="assigndateError"></span>
                                     </div>
                                 </div>
@@ -111,7 +115,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaFin">Fecha de Finalización</label>
-                                        <input value="@Model.fechaFinalizacion" type="text" class="datepickerDate datepicker" id="fechaFinalizacion" name="fechaFinalizacion" onchange="validateEndAssignDate('fechaFinalizacion', 'endDateError')" />
+                                        <input value="@endDate" type="text" class="datepickerDate datepicker" id="fechaFinalizacion" name="fechaFinalizacion" onchange="validateEndAssignDate('fechaFinalizacion', 'endDateError')" />
                                         <span class="text-error" id="endDateError"></span>
                                     </div>
                                 </div>

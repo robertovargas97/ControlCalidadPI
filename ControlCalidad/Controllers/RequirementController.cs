@@ -41,6 +41,9 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound( );
             }
+            ViewBag.fechaAsignacion = dateTimeToString( requerimiento.fechaAsignacion , "MM/dd/yyyy" );
+            ViewBag.fechaFin = dateTimeToString( requerimiento.fechaFinalizacion , "MM/dd/yyyy" );
+            ViewBag.fechaInicio = dateTimeToString( requerimiento.fechaInicio , "MM/dd/yyyy" );
             return View( requerimiento );
         }
 
@@ -96,6 +99,9 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound( );
             }
+            ViewBag.fechaAsignacion = dateTimeToString( requerimiento.fechaAsignacion , "MM/dd/yyyy" );
+            ViewBag.fechaFin = dateTimeToString( requerimiento.fechaFinalizacion , "MM/dd/yyyy" );
+            ViewBag.fechaInicio = dateTimeToString( requerimiento.fechaInicio , "MM/dd/yyyy" );
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
             return View( requerimiento );
         }
@@ -159,8 +165,11 @@ namespace ControlCalidad.Controllers
 
             return requirementName;
         }
+
+
+        public string dateTimeToString( DateTime? dt , string format )
+        {
+            return dt == null ? "n/a" : ( ( DateTime ) dt ).ToString( format );
+        }
     }
-
-
-    
 }
