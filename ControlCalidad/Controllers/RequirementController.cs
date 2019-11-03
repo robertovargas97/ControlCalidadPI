@@ -88,13 +88,10 @@ namespace ControlCalidad.Controllers
             {
                 return HttpNotFound( );
             }
-<<<<<<< HEAD
             ViewBag.testers = getTesters(projectId);
-=======
             ViewBag.fechaAsignacion = dateTimeToString( requerimiento.fechaAsignacion , "MM/dd/yyyy" );
             ViewBag.fechaFin = dateTimeToString( requerimiento.fechaFinalizacion , "MM/dd/yyyy" );
             ViewBag.fechaInicio = dateTimeToString( requerimiento.fechaInicio , "MM/dd/yyyy" );
->>>>>>> 86a1174b0434e5263610b4ed7ed7d0f350a787eb
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
             return View( requerimiento );
         }
