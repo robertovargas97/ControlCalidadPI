@@ -134,5 +134,11 @@ namespace ControlCalidad.Controllers
             db.SaveChanges( );
             return RedirectToAction( "Index" , new { projectId = projectId} );
         }
+
+        public bool validateName( string name )
+        {
+            var exist = db.Requerimientoes.Any( req=> req.nombre == name );
+            return exist;
+        }
     }
 }
