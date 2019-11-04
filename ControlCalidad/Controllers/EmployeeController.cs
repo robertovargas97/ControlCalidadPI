@@ -241,8 +241,7 @@ namespace ControlCalidad.Controllers
         //<return>  : List<SelectListItem>, a employees list
         public List<SelectListItem> GetTesters()
         {
-            string query = "SELECT	E.nombreP FROM ControlCalidad.Empleado E " +
-                "WHERE E.cedulaPK IN(SELECT T.cedula_empleadoFk FROM ControlCalidad.Tester T) ";
+            string query = "SELECT	E.nombreP FROM ControlCalidad.Empleado E WHERE E.cedulaPK IN(SELECT T.cedula_empleadoFk FROM ControlCalidad.Tester T) ";
             List<EmployeeForReports> testerList = db.Database.SqlQuery<EmployeeForReports>(query).ToList();
 
             List<SelectListItem> alltesters = testerList.ConvertAll(
