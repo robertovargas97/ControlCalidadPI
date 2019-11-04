@@ -37,36 +37,36 @@
 
         @foreach( var item in Model )
         {
-        <tr>
-            <td class="center">
-                @Html.DisplayFor( modelItem => item.nombre )
-            </td>
-            <td class="center">
-                @Html.DisplayFor( modelItem => item.estado )
-            </td>
-            <td class="center">
-                @Html.DisplayFor( modelItem => item.complejidad )
-            </td>
-            <td class="center">
-                @Html.ActionLink("Detalles", "Details", new {
-               id = item.idPK ,
-               projectId = item.id_proyectoFK
-           } ,
-                new { @class = "waves-effect waves-light btn black turq-hover" }
-                )
+            <tr>
+                <td class="center">
+                    @Html.DisplayFor( modelItem => item.nombre )
+                </td>
+                <td class="center">
+                    @Html.DisplayFor( modelItem => item.estado )
+                </td>
+                <td class="center">
+                    @Html.DisplayFor( modelItem => item.complejidad )
+                </td>
+                <td class="center">
+                    @Html.ActionLink("Detalles", "Details", new {
+                   id = item.idPK ,
+                   projectId = item.id_proyectoFK
+               } ,
+                    new { @class = "waves-effect waves-light btn black turq-hover" }
+                    )
 
-            </td>
+                </td>
 
-            <td class="center">
-                @Html.ActionLink("Ver pruebas", "../Test/Index", new {
-               id = item.idPK ,
-               projectId = item.id_proyectoFK
-           } ,
-                new { @class = "waves-effect waves-light btn black turq-hover" }
-                )
+                <td class="center">
+                    @Html.ActionLink("Ver pruebas", "../Test/Index", new {
+                   id = item.idPK ,
+                   projectId = item.id_proyectoFK
+               } ,
+                    new { @class = "waves-effect waves-light btn black turq-hover" }
+                    )
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </table>
 
@@ -83,10 +83,20 @@
             </a>
         </li>
         <li>
-            <a href="@Url.Action("Create", "Requirement",new {projectId = ViewBag.projectId})" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Agregar nuevo requerimiento">
+            <a href="@Url.Action("Create", "Requirement",new {projectId = ViewBag.projectId})" class="btn-add btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Agregar nuevo requerimiento">
                 <i class="large material-icons">add</i>
             </a>
         </li>
 
     </ul>
 </div>
+
+@{
+
+    if(User.IsInRole( "Tester" ) || User.IsInRole( "Cliente" ) )
+    {
+        <script>
+            document.getElementById("btn-add").classList.add("hide");
+        </script>
+    }
+}

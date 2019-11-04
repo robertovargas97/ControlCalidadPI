@@ -1,10 +1,10 @@
 ﻿@model ControlCalidad.Models.Requerimiento
 
 @*{
-    ViewBag.Title = "Details";
-}*@
+        ViewBag.Title = "Details";
+    }*@
 
-@{ 
+@{
 
     string assignDate = ViewBag.fechaAsignacion;
     string endDate = ViewBag.fechaFin;
@@ -35,21 +35,21 @@
                             <p class="p-size">
                                 <i class="material-icons left text-grey">person</i>
                                 <span class="text-turq"> Nombre del proyecto </span>
-                                : @Html.DisplayFor(model => model.Proyecto.nombre)
+                                : @Html.DisplayFor( model => model.Proyecto.nombre )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">person</i>
                                 <span class="text-turq"> Nombre del requerimiento </span>
-                                : @Html.DisplayFor(model => model.nombre)
+                                : @Html.DisplayFor( model => model.nombre )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">assignment</i>
                                 <span class="text-turq"> Descripcion </span>
-                                : @Html.DisplayFor(model => model.descripcion)
+                                : @Html.DisplayFor( model => model.descripcion )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
@@ -70,35 +70,35 @@
                             <p class="p-size">
                                 <i class="material-icons left text-grey">date_range</i>
                                 <span class="text-turq">Fecha de asignacion</span>
-                                : @Html.Name( assignDate ) 
+                                : @Html.Name( assignDate )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">info</i>
                                 <span class="text-turq">Estado</span>
-                                : @Html.DisplayFor(model => model.estado)
+                                : @Html.DisplayFor( model => model.estado )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">info</i>
                                 <span class="text-turq">Complejidad</span>
-                                : @Html.DisplayFor(model => model.complejidad)
+                                : @Html.DisplayFor( model => model.complejidad )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">hourglass_empty</i>
                                 <span class="text-turq">Duracion estimada</span>
-                                : @Html.DisplayFor(model => model.duracionEstimada)
+                                : @Html.DisplayFor( model => model.duracionEstimada )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">hourglass_full</i>
                                 <span class="text-turq">Duracion real</span>
-                                : @Html.DisplayFor(model => model.duracionReal)
+                                : @Html.DisplayFor( model => model.duracionReal )
                             </p>
                         </div>
 
@@ -180,3 +180,21 @@
         </div>
     </div>
 </div>
+
+@{
+    if( User.IsInRole( "Cliente" ) )
+    {
+        <script>
+            document.getElementById("delete-btn").classList.add("hide");
+            document.getElementById("edit-btn").classList.add("hide");
+        </script>
+    }
+    else if( User.IsInRole( "Tester" ) )
+    {
+        <script>
+            document.getElementById("delete-btn").classList.add("hide");
+        </script>
+    }
+}
+
+
