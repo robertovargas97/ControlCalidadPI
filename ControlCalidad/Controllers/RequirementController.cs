@@ -195,7 +195,7 @@ namespace ControlCalidad.Controllers
 
         public string dateTimeToString(DateTime? dt, string format)
         {
-            return dt == null ? "n/a" : ((DateTime)dt).ToString(format);
+            return dt == null ? "" : ( ( DateTime ) dt ).ToString( format );
         }
     }
 
