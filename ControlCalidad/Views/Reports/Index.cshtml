@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Index";
 }
+
+
 @{
 
     List<SelectListItem> projectsNames = (List<SelectListItem>)ViewBag.allprojects;
@@ -58,24 +60,65 @@
 
             <div class="col s8">
                 <div class="card hoverable">
-                    <nav>
+                    <nav id="nav">
                         <div class="nav-wrapper grey">
-                            <div id="consulta1">
+                            <div>
+                                <p class="col s9">Resultados</p>
+                            </div>
+                        </div>
+                    </nav>
+                    <nav id="nav1">
+                        <div class="nav-wrapper grey">
+                            <div>
                                 <p class="col s9">Requerimientos terminados</p>
                                 <form action="Edit">
                                     <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
                                     <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
                                 </form>
                             </div>
-
                         </div>
                     </nav>
+                    <nav id="nav2">
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <p class="col s9">Requerimientos en ejecución</p>
+                                <form action="Edit">
+                                    <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
+                                    <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                    <nav id="nav3">
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <p class="col s9">Cantidad de requerimientos por tester</p>
+                                <form action="Edit">
+                                    <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
+                                    <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                    <nav id="nav4">
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <p class="col s9">Historial de participación</p>
+                                <form action="Edit">
+                                    <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
+                                    <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+
+
                     <div class="card-content black-text">
                         <div class="row">
                             <div class="col s12">
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject1" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("nombreProyecto", projectsNames, "Seleccione un proyecto1", new { @nombreP = "nombre", })
+                                        @Html.DropDownList("projectTemp", projectsNames, "Seleccione un proyecto1", new { @nombreP = "nombreP", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -123,6 +166,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+
                                     </div>
                                 </div>
 
@@ -130,7 +174,7 @@
 
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject2" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("nombreProyecto", projectsNames, "Seleccione un proyecto2", new { @nombreP = "nombre", })
+                                        @Html.DropDownList("projectTemp", projectsNames, "Seleccione un proyecto2", new { @nombreP = "nombreP", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -164,7 +208,7 @@
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject3" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("nombreProyecto", projectsNames, "Seleccione un proyecto3", new { @nombreP = "nombre", })
+                                        @Html.DropDownList("projectTemp", projectsNames, "Seleccione un proyecto3", new { @nombreT = "nombreT", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -188,11 +232,12 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div id="chart_div"></div>
                                     </div>
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject4" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("nombreProyecto", projectsNames, "Seleccione un proyecto4", new { @nombreP = "nombre", })
+                                        @Html.DropDownList("testerTemp", projectsNames, "Seleccione un proyecto4", new { @nombreP = "nombreP", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -222,6 +267,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+
                                     </div>
 
                                 </div>
@@ -256,9 +302,29 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/ajax")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(showProjects4);
+    </script>
 
+
+    <script type="text/javascript">
+        document.getElementById('nav2').style.display = "none";
+        document.getElementById('nav3').style.display = "none";
+        document.getElementById('nav4').style.display = "none";
+        document.getElementById('nav1').style.display = "none";
+        var projectTemp;
+        var testerTemp;
+    </script>
+  
     <script>
         function showProjects1() {
+            document.getElementById('nav').style.display = "none";
+            document.getElementById('nav2').style.display = "none";
+            document.getElementById('nav3').style.display = "none";
+            document.getElementById('nav4').style.display = "none";
+            document.getElementById('nav1').style.display = "block";
             document.getElementById('selectProject2').style.display = "none";
             document.getElementById('selectProject3').style.display = "none";
             document.getElementById('selectProject4').style.display = "none";
@@ -267,6 +333,11 @@
     </script>
     <script>
         function showProjects2() {
+            document.getElementById('nav').style.display = "none";
+            document.getElementById('nav1').style.display = "none";
+            document.getElementById('nav3').style.display = "none";
+            document.getElementById('nav4').style.display = "none";
+            document.getElementById('nav2').style.display = "block";
             document.getElementById('selectProject1').style.display = "none";
             document.getElementById('selectProject3').style.display = "none";
             document.getElementById('selectProject4').style.display = "none";
@@ -275,18 +346,42 @@
     </script>
     <script>
         function showProjects3() {
+            document.getElementById('nav').style.display = "none";
+            document.getElementById('nav1').style.display = "none";
+            document.getElementById('nav2').style.display = "none";
+            document.getElementById('nav4').style.display = "none";
+            document.getElementById('nav3').style.display = "block";
             document.getElementById('selectProject1').style.display = "none";
             document.getElementById('selectProject2').style.display = "none";
             document.getElementById('selectProject4').style.display = "none";
             document.getElementById('selectProject3').style.display = "block";
+
+            var data = google.visualization.arrayToDataTable([
+                ['Elemento', 'Cantidad', { role: 'style' }],
+                ['Carlos', 8, 'blue'],            // RGB value
+                ['Juan', 10, 'blue'],            // English color name
+                ['Pedro', 9, 'blue'], // CSS-style declaration
+            ]);
+
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data);
         }
     </script>
     <script>
         function showProjects4() {
+            document.getElementById('nav').style.display = "none";
+            document.getElementById('nav1').style.display = "none";
+            document.getElementById('nav2').style.display = "none";
+            document.getElementById('nav3').style.display = "none";
+            document.getElementById('nav4').style.display = "block";
             document.getElementById('selectProject1').style.display = "none";
             document.getElementById('selectProject2').style.display = "none";
             document.getElementById('selectProject3').style.display = "none";
             document.getElementById('selectProject4').style.display = "block";
         }
     </script>
+
+
+
 }
