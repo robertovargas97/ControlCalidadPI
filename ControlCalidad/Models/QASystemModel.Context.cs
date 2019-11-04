@@ -89,13 +89,75 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Conseguir_Tester_Result>("SP_Conseguir_Tester", id_proyectoParameter, id_requerimientoParameter);
         }
-
-        public virtual ObjectResult<string> SP_Requerimientos_ProPA_req_terminados_proy(string nameProject) {
-            ObjectParameter objectParameter = nameProject != null ?
-              new ObjectParameter("nameProject", nameProject) :
-              new ObjectParameter("nameProject", typeof(string));
-            var proj = objectParameter;
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_Requerimientos_ProPA_req_terminados_proy", proj);
+    
+        public virtual int Edit_Empleado(string cedulaAntigua, string cedulaPK, string nombreP, string apellido1, string apellido2, Nullable<System.DateTime> fechaNacimiento, Nullable<int> edad, string telefono, string correo, string provincia, string canton, string distrito, string direccionExacta, string disponibilidad)
+        {
+            var cedulaAntiguaParameter = cedulaAntigua != null ?
+                new ObjectParameter("cedulaAntigua", cedulaAntigua) :
+                new ObjectParameter("cedulaAntigua", typeof(string));
+    
+            var cedulaPKParameter = cedulaPK != null ?
+                new ObjectParameter("cedulaPK", cedulaPK) :
+                new ObjectParameter("cedulaPK", typeof(string));
+    
+            var nombrePParameter = nombreP != null ?
+                new ObjectParameter("nombreP", nombreP) :
+                new ObjectParameter("nombreP", typeof(string));
+    
+            var apellido1Parameter = apellido1 != null ?
+                new ObjectParameter("apellido1", apellido1) :
+                new ObjectParameter("apellido1", typeof(string));
+    
+            var apellido2Parameter = apellido2 != null ?
+                new ObjectParameter("apellido2", apellido2) :
+                new ObjectParameter("apellido2", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("fechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("fechaNacimiento", typeof(System.DateTime));
+    
+            var edadParameter = edad.HasValue ?
+                new ObjectParameter("edad", edad) :
+                new ObjectParameter("edad", typeof(int));
+    
+            var telefonoParameter = telefono != null ?
+                new ObjectParameter("telefono", telefono) :
+                new ObjectParameter("telefono", typeof(string));
+    
+            var correoParameter = correo != null ?
+                new ObjectParameter("correo", correo) :
+                new ObjectParameter("correo", typeof(string));
+    
+            var provinciaParameter = provincia != null ?
+                new ObjectParameter("provincia", provincia) :
+                new ObjectParameter("provincia", typeof(string));
+    
+            var cantonParameter = canton != null ?
+                new ObjectParameter("canton", canton) :
+                new ObjectParameter("canton", typeof(string));
+    
+            var distritoParameter = distrito != null ?
+                new ObjectParameter("distrito", distrito) :
+                new ObjectParameter("distrito", typeof(string));
+    
+            var direccionExactaParameter = direccionExacta != null ?
+                new ObjectParameter("direccionExacta", direccionExacta) :
+                new ObjectParameter("direccionExacta", typeof(string));
+    
+            var disponibilidadParameter = disponibilidad != null ?
+                new ObjectParameter("disponibilidad", disponibilidad) :
+                new ObjectParameter("disponibilidad", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Empleado", cedulaAntiguaParameter, cedulaPKParameter, nombrePParameter, apellido1Parameter, apellido2Parameter, fechaNacimientoParameter, edadParameter, telefonoParameter, correoParameter, provinciaParameter, cantonParameter, distritoParameter, direccionExactaParameter, disponibilidadParameter);
+        }
+    
+        public virtual int Libera_Empleado(Nullable<int> id_proyecto)
+        {
+            var id_proyectoParameter = id_proyecto.HasValue ?
+                new ObjectParameter("id_proyecto", id_proyecto) :
+                new ObjectParameter("id_proyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Libera_Empleado", id_proyectoParameter);
         }
     }
 }

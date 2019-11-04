@@ -26,12 +26,10 @@
                     </div>
 
                 </nav>
-                @using (Ajax.BeginForm("Edit", new AjaxOptions
+                @using (Html.BeginForm("Edit", "Test", FormMethod.Post, new
                 {
-                    HttpMethod = "POST",
-                    LoadingElementId = "loading",
-                    OnSuccess = "redirectToPage('../Index')",
-                    OnComplete = "redirectToPage('../Index')",
+                    @onSubmit = "onSubmit()",
+                   
 
                 }))
 
@@ -41,6 +39,12 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="margin-b section">
                     </div>
+
+                    <input type="text" value="@Model.idPK" name="idPK" class="hide" />
+
+                    <input type="text" value="@Model.id_proyectoFK" name="id_proyectoFK" class="hide" />
+
+                    <input type="text" value="@Model.id_requerimientoFK" name="id_requerimientoFK" class="hide" />
 
                     <div class="row">
 
@@ -52,7 +56,7 @@
                                     <i class="p-size material-icons text-grey prefix">assignment_ind</i>
 
                                     <label for="nombre">Nombre de la prueba<span class="red-text">  *</span></label>
-                                    <input name="detalleResultado" value="@Model.nombre" type="text" required class="validate form-control" />
+                                    <input name="nombre" value="@Model.nombre" type="text" required class="validate form-control" />
 
                                 </div>
 
@@ -69,7 +73,7 @@
 
                                     <select name="resultadoFinal">
                                         <option value="@Model.resultadoFinal" selected>@Model.resultadoFinal</option>
-                                        <option value="@Model.resultadoFinal" >Seleccione un estado</option>
+                                        <option value="@Model.resultadoFinal">Seleccione un estado</option>
                                         <option value="Incompleta">Incompleta</option>
                                         <option value="Exitosa">Exitosa</option>
                                         <option value="Fallida">Fallida</option>

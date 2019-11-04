@@ -65,11 +65,13 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "idPK, id_proyectoFK, id_requerimientoFK, nombre, detalleResultado, resultadoFinal")] Prueba prueba)
         {
-            if (ModelState.IsValid)
+            int? projectId = prueba.id_proyectoFK;
+            int? requirementeId = prueba.id_requerimientoFK;
+            if (ModelState.IsValid && projectId != null && requirementeId != null)
             {
                 db.Pruebas.Add(prueba);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = requirementeId, projectId = projectId } );
             }
             
             ViewBag.id_requerimientoFK = new SelectList(db.Requerimientoes, "idPK", "nombre", prueba.id_requerimientoFK);
@@ -77,9 +79,9 @@ namespace ControlCalidad.Controllers
         }
 
         // GET: Test/Edit/5
-        public async Task<ActionResult> Edit(int id, int projectID, int requirementID)
+        public async Task<ActionResult> Edit(int? id, int? projectID, int? requirementID)
         {
-            if (id == 0)
+            if (id == null || projectID == null || requirementID == null)
             {
                 return HttpNotFound();
             }
@@ -104,7 +106,7 @@ namespace ControlCalidad.Controllers
             {
                 db.Entry(prueba).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index", new {  id = prueba.id_requerimientoFK,  projectId = prueba.id_proyectoFK});
+                return RedirectToAction("Details", new { id = prueba.idPK,  projectID = prueba.id_proyectoFK, requirementID = prueba.id_requerimientoFK} );
             }
             ViewBag.id_requerimientoFK = new SelectList(db.Requerimientoes, "idPK", "nombre", prueba.id_requerimientoFK);
             return View(prueba);
@@ -141,7 +143,7 @@ namespace ControlCalidad.Controllers
             Prueba prueba = db.Pruebas.Find(id, project, requirement);
             db.Pruebas.Remove(prueba);
             db.SaveChanges();
-            return RedirectToAction("Index", new { id = prueba.idPK, projectID = prueba.id_proyectoFK, requirementID = prueba.id_requerimientoFK });
+            return RedirectToAction("Index", new { id = prueba.id_requerimientoFK, projectId = prueba.id_proyectoFK });
         }
 
         protected override void Dispose(bool disposing)
