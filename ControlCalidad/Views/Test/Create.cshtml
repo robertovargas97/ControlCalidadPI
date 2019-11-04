@@ -53,7 +53,7 @@
 
                                         <i class="p-size text-grey material-icons prefix">assignment_ind</i>
                                         <label for="id_proyectoFK">Id del proyecto <span class="red-text">  *</span></label>
-                                        <input name="id_proyectoFK" type="text" required class="validate form-control" value= @projectId />
+                                        <input name="id_proyectoFK" type="text" value= @projectId />
                                         <span class="text-error" id="nameError"></span>
 
                                     </div>
@@ -80,7 +80,7 @@
 
                                         <i class="p-size text-grey material-icons prefix">assignment_ind</i>
                                         <label for="nombre"> Nombre de la prueba <span class="red-text">  *</span></label>
-                                        <input name="nombre" type="text" />
+                                        <input name="nombre"  required class="validate form-control" type="text" />
                                         <span class="text-error" id="nameError"></span>
 
                                     </div>
