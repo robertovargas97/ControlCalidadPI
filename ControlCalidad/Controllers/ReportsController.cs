@@ -20,7 +20,7 @@ namespace ControlCalidad.Controllers
         public ActionResult Index( string x)
         {
             ViewBag.allprojects = projectController.GetProjects();
-            ViewBag.allemployees = employeeController.GetTesters();
+            ViewBag.alltesters = employeeController.GetTesters();
             return View();
         }
 

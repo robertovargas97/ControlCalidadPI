@@ -118,7 +118,7 @@
                             <div class="col s12">
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject1" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("projectTemp", projectsNames, "Seleccione un proyecto1", new { @nombreP = "nombreP", })
+                                        @Html.DropDownList("projectName1", projectsNames, "Seleccione un proyecto1", new { @nombreP = "nombreP", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -169,12 +169,12 @@
 
                                     </div>
                                 </div>
-
+                                 
 
 
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject2" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("projectTemp", projectsNames, "Seleccione un proyecto2", new { @nombreP = "nombreP", })
+                                        @Html.DropDownList("projectName2", projectsNames, "Seleccione un proyecto2", new { @nombreP = "nombreP", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -208,7 +208,7 @@
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject3" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("projectTemp", projectsNames, "Seleccione un proyecto3", new { @nombreT = "nombreT", })
+                                        @Html.DropDownList("testerName", testerNames, "Seleccione un tester", new { @nombreT = "nombreT", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -237,7 +237,7 @@
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject4" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("testerTemp", projectsNames, "Seleccione un proyecto4", new { @nombreP = "nombreP", })
+                                        @Html.DropDownList("projectName3", projectsNames, "Seleccione un proyecto4", new { @nombreP = "nombreP", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -314,8 +314,6 @@
         document.getElementById('nav3').style.display = "none";
         document.getElementById('nav4').style.display = "none";
         document.getElementById('nav1').style.display = "none";
-        var projectTemp;
-        var testerTemp;
     </script>
   
     <script>
