@@ -69,7 +69,7 @@
             <PropertyRef Name="id_proyectoFK" />
             <PropertyRef Name="id_requerimientoFK" />
           </Key>
-          <Property Name="idPK" Type="int" Nullable="false" />
+          <Property Name="idPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_proyectoFK" Type="int" Nullable="false" />
           <Property Name="id_requerimientoFK" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
@@ -589,11 +589,6 @@
             <End Role="Tester" EntitySet="Testers" />
             <End Role="TieneAsignado" EntitySet="TieneAsignadoes" />
           </AssociationSet>
-          <EntitySet Name="Pruebas" EntityType="QASystemEntity.Prueba" />
-          <AssociationSet Name="FK_Prueba_Requerimiento" Association="QASystemEntity.FK_Prueba_Requerimiento">
-            <End Role="Requerimiento" EntitySet="Requerimientoes" />
-            <End Role="Prueba" EntitySet="Pruebas" />
-          </AssociationSet>
           <FunctionImport Name="USP_calcularEdadEmpleado">
           <Parameter Name="cedula" Mode="In" Type="String" />
           </FunctionImport>
@@ -612,14 +607,27 @@
             <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
             <Parameter Name="id_requerimiento" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Pruebas" EntityType="QASystemEntity.Prueba" />
+          <AssociationSet Name="FK_Prueba_Requerimiento" Association="QASystemEntity.FK_Prueba_Requerimiento">
+            <End Role="Requerimiento" EntitySet="Requerimientoes" />
+            <End Role="Prueba" EntitySet="Pruebas" />
+          </AssociationSet>
         </EntityContainer>
+        <ComplexType Name="SP_Conseguir_testers_req_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
+        </ComplexType>
+        <ComplexType Name="SP_Conseguir_Tester_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
+        </ComplexType>
         <EntityType Name="Prueba">
           <Key>
             <PropertyRef Name="idPK" />
             <PropertyRef Name="id_proyectoFK" />
             <PropertyRef Name="id_requerimientoFK" />
           </Key>
-          <Property Name="idPK" Type="Int32" Nullable="false" />
+          <Property Name="idPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_proyectoFK" Type="Int32" Nullable="false" />
           <Property Name="id_requerimientoFK" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -643,14 +651,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="SP_Conseguir_testers_req_Result">
-          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
-          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
-        </ComplexType>
-        <ComplexType Name="SP_Conseguir_Tester_Result">
-          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
-          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -761,18 +761,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Pruebas">
-            <EntityTypeMapping TypeName="QASystemEntity.Prueba">
-              <MappingFragment StoreEntitySet="Prueba">
-                <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
-                <ScalarProperty Name="detalleResultado" ColumnName="detalleResultado" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="id_requerimientoFK" ColumnName="id_requerimientoFK" />
-                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
-                <ScalarProperty Name="idPK" ColumnName="idPK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="USP_calcularEdadEmpleado" FunctionName="QASystemEntity.Store.USP_calcularEdadEmpleado" />
           <FunctionImportMapping FunctionImportName="SP_Conseguir_testers_req" FunctionName="QASystemEntity.Store.SP_Conseguir_testers_req">
             <ResultMapping>
@@ -792,6 +780,18 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Pruebas">
+            <EntityTypeMapping TypeName="QASystemEntity.Prueba">
+              <MappingFragment StoreEntitySet="Prueba">
+                <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
+                <ScalarProperty Name="detalleResultado" ColumnName="detalleResultado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_requerimientoFK" ColumnName="id_requerimientoFK" />
+                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
+                <ScalarProperty Name="idPK" ColumnName="idPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
