@@ -134,12 +134,17 @@ namespace ControlCalidad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit( [Bind( Include = "idPK,nombre,objetivo,fechaInicio,fechaFin,estado,duracionEstimada,duracionReal,cedulaClienteFK" )] Proyecto proyecto , string newProjectLeader )
         {
+
             if( ModelState.IsValid )
             {
                 db.Entry( proyecto ).State = EntityState.Modified;
                 EditProjectLeader( newProjectLeader , proyecto.idPK );
 
                 await db.SaveChangesAsync( );
+                if (proyecto.estado.Equals("Finalizado") || proyecto.estado.Equals("Cancelado"))
+                {
+                    db.Libera_Empleado(proyecto.idPK);
+                }
 
 
                 return RedirectToAction( "Index" );
