@@ -121,7 +121,7 @@
                                 <select name="estado" required id="estado">
                                     <option value="" disabled selected>Seleccione un estado</option>
                                     <option value="No iniciado">No iniciado</option>
-                                    <option value="En ejecucion">En ejecución</option>
+                                    <option value="En ejecución">En ejecución</option>
                                     <option value="Finalizado Exitoso">Finalizado Exitoso</option>
                                     <option value="Finalizado Fallido">Finalizado Fallido</option>
                                     <option value="Cancelado">Cancelado</option>
@@ -190,7 +190,8 @@
                 </div>
 
                 <div class="row center">
-                    @Html.ActionLink("Cancelar", "Index", new { projectId = ViewBag.projectId }, new { @class = "margin-r waves-effect red-hover btn red accent-4" })
+                    <button id="btn-submit" type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
+
                     <button id="btn-submit" type="submit" class="margin-l btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
 
                 </div>
@@ -201,6 +202,13 @@
         </div>
     </div>
 </div>
+
+<div id="btn-add" class="fixed-action-btn">
+    <a href="@Url.Action("Index", "Requirement/Index",new { projectId = ViewBag.projectId })" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Volver">
+        <i class="large material-icons">arrow_back</i>
+    </a>
+</div>
+
 
 <script>
 
