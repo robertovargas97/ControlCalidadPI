@@ -23,7 +23,7 @@ namespace ControlCalidad.Controllers
             {
                 tieneAsignado.insert(idTester, projectId);
             }
-            var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId );
+            var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId ).OrderByDescending(r => r.idPK);
             ViewBag.projectId = projectId ;
             ViewBag.projectName = projectController.getProjectName( projectId );
             return View( requerimientoes.ToList( ) );

@@ -49,7 +49,7 @@ namespace ControlCalidad.Controllers
         // GET: Project
         public async Task<ActionResult> Index()
         {
-            var proyectoes = db.Proyectoes.Include( p => p.Cliente );
+            var proyectoes = db.Proyectoes.Include( p => p.Cliente ).OrderByDescending(p => p.idPK);
             string email = User.Identity.Name;
             if( User.IsInRole( "Tester" ) || User.IsInRole( "Lider" ) )
             {

@@ -55,7 +55,7 @@
                                 <div class="input-field col s11">
                                     <i class="p-size material-icons text-grey prefix">assignment_ind</i>
 
-                                    <label for="nombre">Nombre de la prueba<span class="red-text">  *</span></label>
+                                    <label for="nombre">Nombre de la prueba</label>
                                     <input name="nombre" value="@Model.nombre" type="text" required class="validate form-control" />
 
                                 </div>
@@ -69,7 +69,7 @@
                             <div class="row margin-b">
 
                                 <div class="input-field col s11">
-                                    <i class="p-size material-icons text-grey prefix">assignment_ind</i>
+                                    <i class="p-size material-icons text-grey prefix">info</i>
 
                                     <select name="resultadoFinal">
                                         <option value="@Model.resultadoFinal" selected>@Model.resultadoFinal</option>
@@ -91,7 +91,7 @@
                             <div class="row margin-b">
 
                                 <div class="input-field col s11">
-                                    <i class="p-size material-icons text-grey prefix">assignment_ind</i>
+                                    <i class="p-size material-icons text-grey prefix">assignment</i>
 
                                     <label for="detalleResultado">Detalles del resultado</label>
                                     <input name="detalleResultado" value="@Model.detalleResultado" type="text" />
@@ -104,13 +104,6 @@
 
                     </div>
 
-
-
-                    <div class="margin-required col s4 offset-s5">
-                        <p class="text-error">
-                            Los campos con * son requeridos.
-                        </p>
-                    </div>
 
                     <div class="margin-b1">
                     </div>
@@ -128,6 +121,8 @@
                              @class = "margin-r waves-effect red-hover btn red accent-4"
                         })
                         <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
+                        <button type="reset" class="margin-l waves-effect waves-light btn turq">Cancelar</button>
+
                     </div>
                     <br />
 
