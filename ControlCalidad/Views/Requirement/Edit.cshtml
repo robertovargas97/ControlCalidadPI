@@ -94,7 +94,7 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.DropDownList("testers", testerId, testerTitle, new { @onchange = "setIdTester()", @id = "dropdown" })
+                                        @Html.DropDownList("testers", testerId, testerTitle, new {@onchange = "setIdTester()", @id = "dropdown" })
                                         <label for="testerId"> Tester asignado</label>
                                         <span class="text-error" id="testerError"></span>
                                     </div>
@@ -233,12 +233,12 @@
 
 }
 @{
-    if( User.IsInRole( "Jefe" ) )
+    if( User.IsInRole( "Tester" ) )
     {
         <script>
-            document.getElementById("complejidad").readOnly = true;
+            document.getElementById("complejidad").disabled = true;
             document.getElementById("requirementName").readOnly = true;
-            document.getElementById("fechaAsignacion").readOnly = true;
+            document.getElementById("fechaAsignacion").disabled = true;
             document.getElementById("avrDuration").readOnly = true;
             document.getElementById("descripcion").readOnly = true;
 
