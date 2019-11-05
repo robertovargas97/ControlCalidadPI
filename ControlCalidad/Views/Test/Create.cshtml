@@ -29,7 +29,11 @@
 
                 </div>
 
-                @using (Html.BeginForm("Create", "Test", FormMethod.Post))
+                @using (Html.BeginForm("Create", "Test", FormMethod.Post, new
+                {
+                    @onsubmit = "onSubmit()"
+
+                }))
                 {
                     <div class="margin-b section">
 
@@ -53,7 +57,7 @@
 
                                         <i class="p-size text-grey material-icons prefix">info</i>
                                         <label for="id_proyectoFK">Id del proyecto <span class="red-text">  *</span></label>
-                                        <input name="id_proyectoFK" type="text" value= @projectId />
+                                        <input name="id_proyectoFK" type="text" value=@projectId />
                                         <span class="text-error" id="nameError"></span>
 
                                     </div>
@@ -66,7 +70,7 @@
 
                                         <i class="p-size text-grey material-icons prefix">assignment_ind</i>
                                         <label for="id_requerimientoFK">Id del requerimiento <span class="red-text">  *</span></label>
-                                        <input name="id_requerimientoFK" type="text" value= @requirementId />
+                                        <input name="id_requerimientoFK" type="text" value=@requirementId />
                                         <span class="text-error" id="nameError"></span>
 
                                     </div>
@@ -80,7 +84,7 @@
 
                                         <i class="p-size text-grey material-icons prefix">assignment_ind</i>
                                         <label for="nombre"> Nombre de la prueba <span class="red-text">  *</span></label>
-                                        <input name="nombre"  required class="validate form-control" type="text" />
+                                        <input name="nombre" required class="validate form-control" type="text" />
                                         <span class="text-error" id="nameError"></span>
 
                                     </div>
@@ -124,6 +128,32 @@
 
                     </div>
 
+                    <div class="hide row container center" id="loading">
+                        <div class="">
+                            <i class="material-icons text-turq ">info_outline</i>
+                        </div>
+                        <div class="">
+                            <p class="text-turq">
+                                Creando... Por favor espere.
+                            </p>
+                        </div>
+
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                    </div>
+
+                    <div class=" row container center hide " id="complete">
+                        <div class="">
+                            <i class="material-icons text-turq ">info_outline</i>
+                        </div>
+                        <div class="">
+                            <p class="text-turq">
+                                Se creó correctamente.
+                            </p>
+                        </div>
+                    </div>
+
                     <div class="margin-required col s4 offset-s5">
                         <p class="text-error">
                             Los campos con * son requeridos.
@@ -136,15 +166,15 @@
                     <br />
 
                     <div class="row center">
-                        @Html.ActionLink("Cancelar", "Index", new
-                        {
-                           id = requirementId,
-                           projectId = projectId, 
-                        }, new
-                        {
-                             @class = "margin-r waves-effect red-hover btn red accent-4"
-                        })
+
+                        <button type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
                         <button type="submit" class="margin-l waves-effect waves-light btn turq">Crear</button>
+
+                    </div>
+                    <div class="fixed-action-btn">
+                        <a href="@Url.Action("Index", "Test", new { id = requirementId, projectId = projectId})" class="btn-floating btn-large black tooltipped" data-position="left" data-tooltip="Volver">
+                            <i class="large material-icons">arrow_back</i>
+                        </a>
                     </div>
                     <br />
                 }

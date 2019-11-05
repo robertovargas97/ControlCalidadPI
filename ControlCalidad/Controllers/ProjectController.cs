@@ -51,7 +51,7 @@ namespace ControlCalidad.Controllers
         {
             var proyectoes = db.Proyectoes.Include( p => p.Cliente ).OrderByDescending(p => p.idPK);
             string email = User.Identity.Name;
-            if( User.IsInRole( "Tester" ) || User.IsInRole( "Lider" ) )
+            if( User.IsInRole( "Tester" ) || User.IsInRole( "Lider" ) || User.IsInRole("Cliente") )
             {
                 ViewBag.projectId = GetProjectIdByEmail( email );
             }
