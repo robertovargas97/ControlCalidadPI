@@ -45,7 +45,7 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_calcularEdadEmpleado", cedulaParameter);
         }
-    /*
+    
         public virtual ObjectResult<SP_Conseguir_testers_req_Result> SP_Conseguir_testers_req(Nullable<int> id_proyecto)
         {
             var id_proyectoParameter = id_proyecto.HasValue ?
@@ -54,7 +54,7 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Conseguir_testers_req_Result>("SP_Conseguir_testers_req", id_proyectoParameter);
         }
-    */
+    
         public virtual ObjectResult<Nullable<int>> USP_estaAsignado(ObjectParameter id_requerimiento)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("USP_estaAsignado", id_requerimiento);
