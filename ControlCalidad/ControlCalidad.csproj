@@ -221,6 +221,7 @@
     <Compile Include="Models\Habilidade.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportsModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\localizacionesModel.Context.cs">
       <AutoGen>True</AutoGen>
