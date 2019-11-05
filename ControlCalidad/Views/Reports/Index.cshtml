@@ -1,4 +1,4 @@
-﻿
+﻿@model List<ControlCalidad.Models.Reqterminados> 
 @{
     ViewBag.Title = "Index";
 }
@@ -8,6 +8,7 @@
 
     List<SelectListItem> projectsNames = (List<SelectListItem>)ViewBag.allprojects;
     List<SelectListItem> testerNames = (List<SelectListItem>)ViewBag.alltesters;
+    
 
     if (User.IsInRole("Jefe"))
     {
@@ -60,14 +61,14 @@
 
             <div class="col s8">
                 <div class="card hoverable">
-                    <nav id="nav">
+                    <nav id="nav" >
                         <div class="nav-wrapper grey">
                             <div>
                                 <p class="col s9">Resultados</p>
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav1">
+                    <nav id="nav1" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
                                 <p class="col s9">Requerimientos terminados</p>
@@ -78,7 +79,7 @@
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav2">
+                    <nav id="nav2" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
                                 <p class="col s9">Requerimientos en ejecución</p>
@@ -89,7 +90,7 @@
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav3">
+                    <nav id="nav3" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
                                 <p class="col s9">Cantidad de requerimientos por tester</p>
@@ -100,7 +101,7 @@
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav4">
+                    <nav id="nav4" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
                                 <p class="col s9">Historial de participación</p>
@@ -144,26 +145,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="center">
-                                                        Ya
-                                                    </td>
-                                                    <td class="center">
-                                                        no
-                                                    </td>
-                                                    <td class="center">
-                                                        quiero
-                                                    </td>
-                                                    <td class="center">
-                                                        trabajar
-                                                    </td>
-                                                    <td class="center">
-                                                        en
-                                                    </td>
-                                                    <td class="center">
-                                                        esto
-                                                    </td>
-                                                </tr>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(modelItem => item.nombreP)
+                                                            @Html.DisplayFor(modelItem => item.nombre)
+                                                        </td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
 
@@ -306,14 +296,6 @@
     <script type="text/javascript">
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(showProjects4);
-    </script>
-
-
-    <script type="text/javascript">
-        document.getElementById('nav2').style.display = "none";
-        document.getElementById('nav3').style.display = "none";
-        document.getElementById('nav4').style.display = "none";
-        document.getElementById('nav1').style.display = "none";
     </script>
   
     <script>
