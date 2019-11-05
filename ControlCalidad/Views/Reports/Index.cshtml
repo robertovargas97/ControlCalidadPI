@@ -1,10 +1,14 @@
-﻿
+﻿@model IEnumerable < ControlCalidad.Models.Reports>
+@*
 @{
     ViewBag.Title = "Index";
 }
+*@
+
 
 
 @{
+
 
     List<SelectListItem> projectsNames = (List<SelectListItem>)ViewBag.allprojects;
     List<SelectListItem> testerNames = (List<SelectListItem>)ViewBag.alltesters;
@@ -23,7 +27,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="col s12 margin-b1">
-                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Requerimientos terminados" onclick="showProjects1()" />
+                                    <input type="button" class="black-text btn grey  turq-hover background-color:grey" name="answer" value="Requerimientos terminados" onclick="showProjects1()" />
                                 </div>
 
                                 <div class="col s12">
@@ -67,7 +71,7 @@
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav1">
+                    <nav id="nav1" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
                                 <p class="col s9">Requerimientos terminados</p>
@@ -78,7 +82,7 @@
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav2">
+                    <nav id="nav2" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
                                 <p class="col s9">Requerimientos en ejecución</p>
@@ -89,7 +93,7 @@
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav3">
+                    <nav id="nav3" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
                                 <p class="col s9">Cantidad de requerimientos por tester</p>
@@ -100,7 +104,7 @@
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav4">
+                    <nav id="nav4" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
                                 <p class="col s9">Historial de participación</p>
@@ -118,7 +122,7 @@
                             <div class="col s12">
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject1" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("projectName1", projectsNames, "Seleccione un proyecto1", new { @nombreP = "nombreP", })
+                                        @Html.DropDownList("proy1", projectsNames, "Seleccione un proyecto")
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -133,48 +137,39 @@
                                                         Complejidad
                                                     </th>
                                                     <th class="center black white-text">
-                                                        Fecha finalización
-                                                    </th>
-                                                    <th class="center black white-text">
-                                                        Duración real
-                                                    </th>
-                                                    <th class="center black white-text">
                                                         Responsable
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="center">
-                                                        Ya
-                                                    </td>
-                                                    <td class="center">
-                                                        no
-                                                    </td>
-                                                    <td class="center">
-                                                        quiero
-                                                    </td>
-                                                    <td class="center">
-                                                        trabajar
-                                                    </td>
-                                                    <td class="center">
-                                                        en
-                                                    </td>
-                                                    <td class="center">
-                                                        esto
-                                                    </td>
-                                                </tr>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.nombreRequerimiento)
+                                                        </td>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.estadoRequerimiento)
+                                                        </td>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.complejidadRequerimiento)
+                                                        </td>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.nombreResponsable)
+                                                        </td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
 
                                     </div>
                                 </div>
-                                 
+
 
 
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject2" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("projectName2", projectsNames, "Seleccione un proyecto2", new { @nombreP = "nombreP", })
+                                        @Html.DropDownList("projectName2", projectsNames, "Seleccione un proyecto", new { @nombreP = "nombreP", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -191,45 +186,57 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="center">
-                                                        No
-                                                    </td>
-                                                    <td class="center">
-                                                        quiero
-                                                    </td>
-                                                    <td class="center">
-                                                        trabajar
-                                                    </td>
-                                                </tr>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.nombreReq)
+                                                        </td>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.complejidadReq)
+                                                        </td>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.nombreResp)
+                                                        </td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject3" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("testerName", testerNames, "Seleccione un tester", new { @nombreT = "nombreT", })
+                                        @Html.DropDownList("testerName", projectsNames, "Seleccione un proyecto", new { @nombreT = "nombreT", })
                                         <br />
                                         <table class="table striped ">
                                             <thead>
                                                 <tr>
                                                     <th class="center black white-text">
-                                                        Nombre
+                                                        Tester
                                                     </th>
                                                     <th class="center black white-text">
                                                         Cantidad
                                                     </th>
+                                                    <th class="center black white-text">
+                                                        Proyecto
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="center">
-                                                        No
-                                                    </td>
-                                                    <td class="center">
-                                                        más
-                                                    </td>
-                                                </tr>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.nombreTester)
+                                                        </td>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.cantidadReqAsignados)
+                                                        </td>
+                                                        <td class="center">
+                                                            @Html.DisplayFor(model => item.nombreP)
+                                                        </td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
                                         <div id="chart_div"></div>
@@ -237,35 +244,37 @@
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject4" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("projectName3", projectsNames, "Seleccione un proyecto4", new { @nombreP = "nombreP", })
+                                        @Html.DropDownList("projectName4", testerNames, "Seleccione un tester", new { @nombreP = "nombreP", })
+
                                         <br />
                                         <table class="table striped ">
                                             <thead>
                                                 <tr>
                                                     <th class="center black white-text">
-                                                        Nombre
+                                                        Nombre del Proyecto
                                                     </th>
                                                     <th class="center black white-text">
-                                                        Estado
+                                                        Estado del Proyecto
                                                     </th>
                                                     <th class="center black white-text">
                                                         Horas Dedicadas
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            @foreach (var item in Model)
+                                            {
                                                 <tr>
                                                     <td class="center">
-                                                        No
+                                                        @Html.DisplayFor(model => item.nombre)
                                                     </td>
                                                     <td class="center">
-                                                        quiero
+                                                        @Html.DisplayFor(model => item.estado)
                                                     </td>
                                                     <td class="center">
-                                                        trabajar
+                                                        @Html.DisplayFor(model => item.horasdedicas)
                                                     </td>
                                                 </tr>
-                                            </tbody>
+                                            }
                                         </table>
 
                                     </div>
@@ -305,17 +314,9 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(showProjects4);
+        google.charts.setOnLoadCallback(showProject3);
     </script>
 
-
-    <script type="text/javascript">
-        document.getElementById('nav2').style.display = "none";
-        document.getElementById('nav3').style.display = "none";
-        document.getElementById('nav4').style.display = "none";
-        document.getElementById('nav1').style.display = "none";
-    </script>
-  
     <script>
         function showProjects1() {
             document.getElementById('nav').style.display = "none";

@@ -11,35 +11,51 @@ namespace ControlCalidad.Controllers
 
     public class ReportsController : Controller
     {
+        private QASystemEntities db = new QASystemEntities();
 
         //Controllers to get values from other models
         private ProjectController projectController = new ProjectController();
         private EmployeeController employeeController = new EmployeeController();
 
         // GET: Reportes
-        public ActionResult Index( string x)
+        public ActionResult Index()
         {
             ViewBag.allprojects = projectController.GetProjects();
             ViewBag.alltesters = employeeController.GetTesters();
-            return View();
+
+            string queryReq = "EXEC PA_req_terminados_proy" + "'" + "Proyecto Sebas" + "'";
+            var tempEnded = db.Database.SqlQuery<Reports>(queryReq).ToList();
+
+            return View(tempEnded);
         }
 
-        public ActionResult CompletedRequirements(string x)
+        public ActionResult CompletedRequirements()
         {
-            
-            return View();
+            string queryReq = "EXEC PA_req_terminados_proy" + "'" + "Proyecto Sebas" + "'";
+            var tempEnded = db.Database.SqlQuery<Reports>(queryReq).ToList();
+
+            return Json(tempEnded);
         }
-        public ActionResult RunningRequirements()
+
+        public List<Reports> RunningRequirements(string proy)
         {
-            return View();
+            string queryReq2 = "EXEC PA_req_en_ejecucion_proy" + "'" + proy + "'";
+            var tempEjec = db.Database.SqlQuery<Reports>(queryReq2).ToList();
+            return tempEjec;
         }
-        public ActionResult TesterRequirements()
+
+        public List<Reports> TesterRequirements(string proy)
         {
-            return View();
+            string queryCant = "EXEC PA_cant_req_tester" + "'" + proy + "'";
+            var tempCant = db.Database.SqlQuery<Reports>(queryCant).ToList();
+            return tempCant;
         }
-        public ActionResult ParticipationHistory()
+
+        public List<Reports> ParticipationHistory(string tester)
         {
-            return View();
+            string queryHist = "EXEC PA_historial_participacion_tester" + "'" + tester + "'";
+            var tempHist = db.Database.SqlQuery<Reports>(queryHist).ToList();
+            return tempHist;
         }
     }
 }
