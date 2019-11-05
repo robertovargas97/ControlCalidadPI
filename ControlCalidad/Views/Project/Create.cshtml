@@ -8,6 +8,13 @@
     List<SelectListItem> clientsId = ( List<SelectListItem> ) ViewBag.allClientsId;
     List<SelectListItem> leaders = ( List<SelectListItem> ) ViewBag.leaders;
 
+
+    <div id="btn-add" class="fixed-action-btn">
+        <a href="@Url.Action("Index", "Project/Index")" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Volver">
+            <i class="large material-icons">arrow_back</i>
+        </a>
+    </div>
+
     if( User.IsInRole( "Jefe" ) )
     {
         <h3 class="text-grey">Crear nuevo proyecto</h3>
@@ -27,13 +34,15 @@
                     <div class="margin-b">
 
                     </div>
-                    @using( Html.BeginForm( "Create" , "Project" , FormMethod.Post , new { @onsubmit = "onSubmit()"} ) )
+                    @using( Html.BeginForm( "Create" , "Project" , FormMethod.Post , new {
+                        @onsubmit = "onSubmit()"
+                    } ) )
                     {
                         <div class="margin-b section">
 
                         </div>
 
-                        @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken( )
 
                         <div class="row">
                             <div class="col s4">
@@ -65,7 +74,7 @@
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">date_range</i>
                                         <label for="fechaFin">Fecha de Finalización</label>
-                                        <input type="text" class="datepickerDate datepicker" id="fechaFin" name="fechaFin" />
+                                        <input type="text" disabled class="datepickerDate datepicker" id="fechaFin" name="fechaFin" />
                                         @Html.ValidationMessageFor(model => model.fechaFin, "", new { @class = "text-error" })
                                     </div>
                                 </div>
@@ -130,10 +139,8 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">hourglass_full</i>
-                                        @Html.LabelFor(model => model.duracionReal, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.duracionReal, new { htmlAttributes = new { @class = "validate" ,
-                                       @type = "number"
-                                   } })
+                                        <input name="duracionReal" type="number" disabled class="validate form-control" id="realDuration" />
+
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +183,8 @@
                         </div>
 
                         <div class="row center">
-                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "margin-r waves-effect red-hover btn red accent-4"} )
+                            <button id="btn-submit" type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
+
                             <button id="btn-submit" type="submit" class="margin-l btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
 
                         </div>
