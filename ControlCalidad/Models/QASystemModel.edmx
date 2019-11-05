@@ -648,7 +648,7 @@
             <Parameter Name="disponibilidad" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Libera_Empleado">
-            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
