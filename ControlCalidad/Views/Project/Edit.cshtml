@@ -13,6 +13,13 @@
     <hr />
 </div>
 
+
+<div id="btn-add" class="fixed-action-btn">
+    <a href="@Url.Action("Details", "Project", new { id = Model.idPK })" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Volver">
+        <i class="large material-icons">arrow_back</i>
+    </a>
+</div>
+
 @{
     List<SelectListItem> clientsId = ( List<SelectListItem> ) ViewBag.allClientsId;
     List<SelectListItem> leaders = ( List<SelectListItem> ) ViewBag.leaders;
@@ -188,8 +195,9 @@
                         </div>
 
                         <div class="row center">
-                            @Html.ActionLink("Cancelar", "Details", new { id = Model.idPK }, new { @class = "margin-r waves-effect red-hover btn red accent-4"
-                       } )
+                           
+                            <button id="btn-submit" type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
+
                             <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
                         </div>
 

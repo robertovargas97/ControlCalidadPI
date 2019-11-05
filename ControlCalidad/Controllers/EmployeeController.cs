@@ -159,9 +159,11 @@ namespace ControlCalidad.Controllers
             if (ModelState.IsValid)
             {
 
-                db.Entry(empleado).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Edit");
+                db.Edit_Empleado(editID, empleado.cedulaPK, empleado.nombreP, empleado.apellido1, empleado.apellido1,
+                                 empleado.fechaNacimiento, empleado.edad, empleado.telefono, empleado.correo, empleado.provincia,
+                                 empleado.canton, empleado.distrito, empleado.direccionExacta, empleado.disponibilidad);
+
+                return RedirectToAction("Edit", new { id = empleado.cedulaPK });
             }
             ViewBag.cedulaPK = new SelectList(db.Testers, "cedula_empleadoFk", "cedula_empleadoFk", empleado.cedulaPK);
             return View(empleado);
@@ -241,8 +243,7 @@ namespace ControlCalidad.Controllers
         //<return>  : List<SelectListItem>, a employees list
         public List<SelectListItem> GetTesters()
         {
-            string query = "SELECT	E.nombreP FROM ControlCalidad.Empleado E " +
-                "WHERE E.cedulaPK IN(SELECT T.cedula_empleadoFk FROM ControlCalidad.Tester T) ";
+            string query = "SELECT	E.nombreP FROM ControlCalidad.Empleado E WHERE E.cedulaPK IN(SELECT T.cedula_empleadoFk FROM ControlCalidad.Tester T) ";
             List<EmployeeForReports> testerList = db.Database.SqlQuery<EmployeeForReports>(query).ToList();
 
             List<SelectListItem> alltesters = testerList.ConvertAll(

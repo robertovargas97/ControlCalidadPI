@@ -69,7 +69,7 @@
             <PropertyRef Name="id_proyectoFK" />
             <PropertyRef Name="id_requerimientoFK" />
           </Key>
-          <Property Name="idPK" Type="int" Nullable="false" />
+          <Property Name="idPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_proyectoFK" Type="int" Nullable="false" />
           <Property Name="id_requerimientoFK" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
@@ -258,6 +258,25 @@
           <Parameter Name="id_requerimiento" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_Conseguir_testers_req" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
+          <Parameter Name="id_proyecto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Edit_Empleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedulaAntigua" Type="varchar" Mode="In" />
+          <Parameter Name="cedulaPK" Type="varchar" Mode="In" />
+          <Parameter Name="nombreP" Type="varchar" Mode="In" />
+          <Parameter Name="apellido1" Type="varchar" Mode="In" />
+          <Parameter Name="apellido2" Type="varchar" Mode="In" />
+          <Parameter Name="fechaNacimiento" Type="date" Mode="In" />
+          <Parameter Name="edad" Type="int" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+          <Parameter Name="provincia" Type="varchar" Mode="In" />
+          <Parameter Name="canton" Type="varchar" Mode="In" />
+          <Parameter Name="distrito" Type="varchar" Mode="In" />
+          <Parameter Name="direccionExacta" Type="varchar" Mode="In" />
+          <Parameter Name="disponibilidad" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Libera_Empleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -589,11 +608,6 @@
             <End Role="Tester" EntitySet="Testers" />
             <End Role="TieneAsignado" EntitySet="TieneAsignadoes" />
           </AssociationSet>
-          <EntitySet Name="Pruebas" EntityType="QASystemEntity.Prueba" />
-          <AssociationSet Name="FK_Prueba_Requerimiento" Association="QASystemEntity.FK_Prueba_Requerimiento">
-            <End Role="Requerimiento" EntitySet="Requerimientoes" />
-            <End Role="Prueba" EntitySet="Pruebas" />
-          </AssociationSet>
           <FunctionImport Name="USP_calcularEdadEmpleado">
           <Parameter Name="cedula" Mode="In" Type="String" />
           </FunctionImport>
@@ -612,14 +626,46 @@
             <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
             <Parameter Name="id_requerimiento" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Pruebas" EntityType="QASystemEntity.Prueba" />
+          <AssociationSet Name="FK_Prueba_Requerimiento" Association="QASystemEntity.FK_Prueba_Requerimiento">
+            <End Role="Requerimiento" EntitySet="Requerimientoes" />
+            <End Role="Prueba" EntitySet="Pruebas" />
+          </AssociationSet>
+          <FunctionImport Name="Edit_Empleado">
+            <Parameter Name="cedulaAntigua" Mode="In" Type="String" />
+            <Parameter Name="cedulaPK" Mode="In" Type="String" />
+            <Parameter Name="nombreP" Mode="In" Type="String" />
+            <Parameter Name="apellido1" Mode="In" Type="String" />
+            <Parameter Name="apellido2" Mode="In" Type="String" />
+            <Parameter Name="fechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="edad" Mode="In" Type="Int32" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="provincia" Mode="In" Type="String" />
+            <Parameter Name="canton" Mode="In" Type="String" />
+            <Parameter Name="distrito" Mode="In" Type="String" />
+            <Parameter Name="direccionExacta" Mode="In" Type="String" />
+            <Parameter Name="disponibilidad" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Libera_Empleado">
+            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="SP_Conseguir_testers_req_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
+        </ComplexType>
+        <ComplexType Name="SP_Conseguir_Tester_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
+        </ComplexType>
         <EntityType Name="Prueba">
           <Key>
             <PropertyRef Name="idPK" />
             <PropertyRef Name="id_proyectoFK" />
             <PropertyRef Name="id_requerimientoFK" />
           </Key>
-          <Property Name="idPK" Type="Int32" Nullable="false" />
+          <Property Name="idPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_proyectoFK" Type="Int32" Nullable="false" />
           <Property Name="id_requerimientoFK" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -643,14 +689,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="SP_Conseguir_testers_req_Result">
-          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
-          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
-        </ComplexType>
-        <ComplexType Name="SP_Conseguir_Tester_Result">
-          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
-          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="77" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -761,18 +799,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Pruebas">
-            <EntityTypeMapping TypeName="QASystemEntity.Prueba">
-              <MappingFragment StoreEntitySet="Prueba">
-                <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
-                <ScalarProperty Name="detalleResultado" ColumnName="detalleResultado" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="id_requerimientoFK" ColumnName="id_requerimientoFK" />
-                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
-                <ScalarProperty Name="idPK" ColumnName="idPK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="USP_calcularEdadEmpleado" FunctionName="QASystemEntity.Store.USP_calcularEdadEmpleado" />
           <FunctionImportMapping FunctionImportName="SP_Conseguir_testers_req" FunctionName="QASystemEntity.Store.SP_Conseguir_testers_req">
             <ResultMapping>
@@ -792,6 +818,20 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Pruebas">
+            <EntityTypeMapping TypeName="QASystemEntity.Prueba">
+              <MappingFragment StoreEntitySet="Prueba">
+                <ScalarProperty Name="resultadoFinal" ColumnName="resultadoFinal" />
+                <ScalarProperty Name="detalleResultado" ColumnName="detalleResultado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_requerimientoFK" ColumnName="id_requerimientoFK" />
+                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
+                <ScalarProperty Name="idPK" ColumnName="idPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Edit_Empleado" FunctionName="QASystemEntity.Store.Edit_Empleado" />
+          <FunctionImportMapping FunctionImportName="Libera_Empleado" FunctionName="QASystemEntity.Store.Libera_Empleado" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

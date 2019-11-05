@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-    List<SelectListItem> testerId = (List<SelectListItem>)ViewBag.testers;
+    List<SelectListItem> testerId = ( List<SelectListItem> ) ViewBag.testers;
     string assignDate = ViewBag.fechaAsignacion;
     string endDate = ViewBag.fechaFin;
     string beginDate = ViewBag.fechaInicio;
@@ -19,7 +19,7 @@
 @{
 
 
-    if (User.IsInRole("Jefe"))
+    if( User.IsInRole( "Jefe" ) )
     {
 
         <div class="row container">
@@ -30,12 +30,11 @@
                             <p class="col s4"> Quality Expert S.A</p>
                         </div>
                     </nav>
-                    @using (Html.BeginForm("Edit", "Requirement", FormMethod.Post, new
-                    {
+                    @using( Html.BeginForm( "Edit" , "Requirement" , FormMethod.Post , new {
                         @onsubmit = "onSubmit()"
-                    }))
+                    } ) )
                     {
-                        @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken( )
                         @Html.Hidden("idTester", "", new { @id = "idTester" })
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="margin-b section">
@@ -94,7 +93,7 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.DropDownList("testers", testerId, testerTitle, new { @onchange = "setIdTester()", @id = "dropdown" })
+                                        @Html.DropDownList("testers", testerId, testerTitle, new {@onchange = "setIdTester()", @id = "dropdown" })
                                         <label for="testerId"> Tester asignado</label>
                                         <span class="text-error" id="testerError"></span>
                                     </div>
@@ -187,10 +186,8 @@
                         </div>
 
                         <div class="row center">
-                            @Html.ActionLink("Cancelar", "Details", new { id = Model.idPK, projectId = Model.id_proyectoFK }, new
-                       {
-                           @class = "margin-r waves-effect red-hover btn red accent-4"
-                       })
+                            <button id="btn-submit" type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
+
                             <button id="btn-submit" type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
                         </div>
 
@@ -218,21 +215,41 @@
         </div>
     }
 
-<script>
+    <div id="btn-add" class="fixed-action-btn">
+        <a href="@Url.Action("Details", "Requirement", new { id = Model.idPK, projectId = Model.id_proyectoFK })" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Volver">
+            <i class="large material-icons">arrow_back</i>
+        </a>
+    </div>
 
-    /*
-        * Function that extracts the ID if you add a new member, actuated by selecting a member in the table
-        * Parameters: id, represents the ID of the selected employee
-        * Return: None
-        * */
+    <script>
 
-    function setIdTester() {
-        alert($('#idTester').val())
-        $('#idTester').val($('#dropdown').val());
-    }
-</script>
+        /*
+            * Function that extracts the ID if you add a new member, actuated by selecting a member in the table
+            * Parameters: id, represents the ID of the selected employee
+            * Return: None
+            * */
+        function setIdTester() {
+            $('#idTester').val($('#dropdown').val());
+        }
+    </script>
 
 }
+@{
+    if( User.IsInRole( "Tester" ) )
+    {
+        <script>
+            document.getElementById("complejidad").disabled = true;
+            document.getElementById("requirementName").readOnly = true;
+            document.getElementById("fechaAsignacion").disabled = true;
+            document.getElementById("avrDuration").readOnly = true;
+            document.getElementById("descripcion").readOnly = true;
+
+        </script>
+    }
+
+}
+
+
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render( "~/bundles/jqueryval" )
 }

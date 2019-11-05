@@ -17,15 +17,16 @@ namespace ControlCalidad.Controllers
         private EmployeeController employeeController = new EmployeeController();
 
         // GET: Reportes
-        public ActionResult Index()
+        public ActionResult Index( string x)
         {
             ViewBag.allprojects = projectController.GetProjects();
-            ViewBag.allemployees = employeeController.GetTesters();
+            ViewBag.alltesters = employeeController.GetTesters();
             return View();
         }
 
-        public ActionResult CompletedRequirements()
+        public ActionResult CompletedRequirements(string x)
         {
+            
             return View();
         }
         public ActionResult RunningRequirements()
