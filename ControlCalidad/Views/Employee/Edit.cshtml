@@ -26,14 +26,13 @@
                         </nav>
                         <div class="margin-b section">
                         </div>
-                        @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new
+                        @using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new
                         {
                             @class = "",
                             role = "form"
                         }))
                         {
                             @Html.AntiForgeryToken();
-                            @Html.HiddenFor(model => model.cedulaPK)
                             @Html.ValidationSummary(true, "errorR", new { @class = "text-error" })
                     <div class="row">
                         <div class="col s3">
@@ -41,7 +40,7 @@
                                 <div class="input-field col s12 ">
                                     <i class="text-grey material-icons prefix">account_circle</i>
                                     <label for="cedula">cedula<span class="red-text">*</span></label>
-                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeName(this)", @onkeyup = "validateEmployeeName(this)", @readonly = "readonly" } })
+                                    @Html.EditorFor(model => model.cedulaPK, new { htmlAttributes = new { @class = "form-control", @onkeydown = "validateEmployeeID(this)", @onkeyup = "validateEmployeeID(this)" } })
                                     @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
                                 </div>
                                 <div id="employeeIDError" class="center">

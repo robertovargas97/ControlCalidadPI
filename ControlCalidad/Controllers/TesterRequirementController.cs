@@ -37,12 +37,6 @@ namespace ControlCalidad.Controllers
 
         }
 
-        [DbFunctionAttribute("ControlCalidad", "UFN_getId")]
-        public static int? getID()
-        {
-            throw new NotSupportedException("Direct calls are not supported.");
-        }
-
         public void insert(string cedula_empeladoFK, int? id_proyectoFK)
         {
             TieneAsignado newEntity = new TieneAsignado
@@ -54,6 +48,12 @@ namespace ControlCalidad.Controllers
             };
             db.TieneAsignadoes.Add(newEntity);
             db.SaveChanges();
+        }
+
+        public void delete(string cedula_empeladoFK, int? id_proyectoFK, int? id_requerimiento)
+        {
+            TieneAsignado newEntity = db.TieneAsignadoes.Find(cedula_empeladoFK, Convert.ToInt32(id_proyectoFK), Convert.ToInt32(id_requerimiento));
+
         }
     }
 }

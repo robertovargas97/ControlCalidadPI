@@ -48,12 +48,13 @@
                             </div>
                         </div>
 
+
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
-                                <label for="fechaAsignacion">Fecha de Asignación</label>
-                                <input type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" onchange="validateEndAssignDate('fechaAsignacion', 'assigndateError')" />
-                                <span class="text-error" id="assigndateError"></span>
+                                <label for="fechaFinalizacion">Fecha de Finalización</label>
+                                <input type="text" disabled class="datepickerDate datepicker" id="fechaFinalizacion" name="fechaFinalizacion" onchange="validateEndAssignDate('fechaFinalizacion', 'endDateError')" />
+                                <span class="text-error" id="endDateError"></span>
                             </div>
                         </div>
 
@@ -78,20 +79,70 @@
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaInicio">Fecha de Inicio <span class="red-text">  *</span></label>
-                                <input type="text" class="datepickerDate datepicker" required id="fechaInicio" name="fechaInicio" onchange="validateDate()" onblur="validateDate()"/>
+                                <input type="text" class="datepickerDate datepicker" required id="fechaInicio" name="fechaInicio" onchange="validateDate()" onblur="validateDate()" />
                                 <span class="text-error" id="dateErrorMessage"></span>
                             </div>
                         </div>
-
+              
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">person</i>
-                                @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()",@id = "dropdown"})
+                                @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()", @id = "dropdown" })
                                 <label for="testerId"> Tester asignado</label>
                                 <span class="text-error" id="testerError"></span>
                             </div>
                         </div>
+                        @*
+                        <div class="row margin-b">
+                            <div class="input-field col s11">
+                                <i class="p-size material-icons text-grey prefix">person</i>
+                                <input class ="modal-trigger" name="testerId" type="text" id="testerId" onclick="openModal()" />
+                                <label for="testerId">Tester asignado </label>
+                            </div>
+                        </div>
 
+                        <div id="modal1" class="modal bottom-sheet">
+                            <div class="modal-content">
+                                <div class="col s6">
+                                    <form action="Edit">
+                                        <i class="material-icons fixed">search</i>
+                                        <input type="text" id="ability" placeholder="Buscar por habilidades" style="width: 50%;">
+                                        <button type="submit" onclick="getAbility()" class="btn btn-default" name="Search" value="Search" title="Search">Buscar</button>
+                                    </form>
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="table-responsive collection">
+                                                <table class="table striped">
+                                                    <tr>
+                                                        <th class="center black white-text" style="width: 300%;">
+                                                            @Html.DisplayName("Testers disponibles")
+                                                        </th>
+                                                    </tr>
+                                                </table>
+                                                <table>
+
+                                                    <tbody>
+                                                        @foreach (var tester in testerId)
+                                                        {
+                                                            <a class="collection-item">@tester.Text</a>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="row center">
+                                            <button type="submit" name="Allocate" value="Allocate" class="margin-l btn waves-effect waves-light turq white-text">Asignar</button>
+                                        </div>
+                                        <div class="margin-b section">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            </div>
+                        </div>
+                        *@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
@@ -106,11 +157,13 @@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
-                                <label for="fechaFinalizacion">Fecha de Finalización</label>
-                                <input type="text" class="datepickerDate datepicker" id="fechaFinalizacion" name="fechaFinalizacion" onchange="validateEndAssignDate('fechaFinalizacion', 'endDateError')" />
-                                <span class="text-error" id="endDateError"></span>
+                                <label for="fechaAsignacion">Fecha de Asignación</label>
+                                <input type="text" class="datepicker datepickerDate" id="fechaAsignacion" name="fechaAsignacion" onchange="validateEndAssignDate('fechaAsignacion', 'assigndateError')" />
+                                <span class="text-error" id="assigndateError"></span>
                             </div>
                         </div>
+
+                   
 
                         <div class="row margin-b">
                             <div class="input-field col s11" data-target="dropdownCreate">
@@ -118,7 +171,7 @@
                                 <select name="estado" required id="estado">
                                     <option value="" disabled selected>Seleccione un estado</option>
                                     <option value="No iniciado">No iniciado</option>
-                                    <option value="En ejecucion">En ejecución</option>
+                                    <option value="En ejecución">En ejecución</option>
                                     <option value="Finalizado Exitoso">Finalizado Exitoso</option>
                                     <option value="Finalizado Fallido">Finalizado Fallido</option>
                                     <option value="Cancelado">Cancelado</option>
@@ -130,7 +183,7 @@
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">hourglass_full</i>
                                 <label for="duracionReal">Duración Real  </label>
-                                <input name="duracionReal" type="number" class="validate form-control" onblur="validateRealDuration()" onkeyup="validateRealDuration()" id="RealDur" />
+                                <input name="duracionReal" type="number" disabled class="validate form-control" onblur="validateRealDuration()" onkeyup="validateRealDuration()" id="RealDur" />
                                 <span class="text-error" id="realDurError"></span>
                             </div>
                         </div>
@@ -187,7 +240,8 @@
                 </div>
 
                 <div class="row center">
-                    @Html.ActionLink("Cancelar", "Index", new { projectId = ViewBag.projectId }, new { @class = "margin-r waves-effect red-hover btn red accent-4" })
+                    <button id="btn-submit" type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
+
                     <button id="btn-submit" type="submit" class="margin-l btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
 
                 </div>
@@ -199,6 +253,13 @@
     </div>
 </div>
 
+<div id="btn-add" class="fixed-action-btn">
+    <a href="@Url.Action("Index", "Requirement/Index",new { projectId = ViewBag.projectId })" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Volver">
+        <i class="large material-icons">arrow_back</i>
+    </a>
+</div>
+
+
 <script>
 
     /*
@@ -208,8 +269,15 @@
      * */
     
     function setIdTester() {
+        alert(document.getElementById("dropdown").value);
         $('#idTester').val($('#dropdown').val());
     }
+
+    
+    function openModal() {
+        alert("Hi")
+       $('#modal1').modal('open');
+     }
 </script>
 
 @section Scripts {

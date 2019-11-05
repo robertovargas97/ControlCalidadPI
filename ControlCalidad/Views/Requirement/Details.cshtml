@@ -55,22 +55,22 @@
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">assignment</i>
-                                <span class="text-turq"> Descripcion </span>
+                                <span class="text-turq"> Descripción </span>
                                 : @Html.DisplayFor( model => model.descripcion )
+                            </p>
+                        </div>
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">info</i>
+                                <span class="text-turq">Complejidad</span>
+                                : @Html.DisplayFor( model => model.complejidad )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
                                 <i class="material-icons left text-grey">date_range</i>
                                 <span class="text-turq">Fecha de inicio</span>
-                                : @Html.Name(beginDate)
-                            </p>
-                        </div>
-                        <div class="col s12 margin-b1">
-                            <p class="p-size">
-                                <i class="material-icons left text-grey">date_range</i>
-                                <span class="text-turq">Fecha de finalizacion</span>
-                                : @Html.Name(endDate)
+                                : @Html.Name( beginDate )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
@@ -82,16 +82,9 @@
                         </div>
                         <div class="col s12 margin-b1">
                             <p class="p-size">
-                                <i class="material-icons left text-grey">info</i>
-                                <span class="text-turq">Estado</span>
-                                : @Html.DisplayFor( model => model.estado )
-                            </p>
-                        </div>
-                        <div class="col s12 margin-b1">
-                            <p class="p-size">
-                                <i class="material-icons left text-grey">info</i>
-                                <span class="text-turq">Complejidad</span>
-                                : @Html.DisplayFor( model => model.complejidad )
+                                <i class="material-icons left text-grey">date_range</i>
+                                <span class="text-turq">Fecha de finalizacion</span>
+                                : @Html.Name( endDate )
                             </p>
                         </div>
                         <div class="col s12 margin-b1">
@@ -108,7 +101,13 @@
                                 : @Html.DisplayFor( model => model.duracionReal )
                             </p>
                         </div>
-
+                        <div class="col s12 margin-b1">
+                            <p class="p-size">
+                                <i class="material-icons left text-grey">info</i>
+                                <span class="text-turq">Estado</span>
+                                : @Html.DisplayFor( model => model.estado )
+                            </p>
+                        </div>
                     </div>
                     <div class="card-action center">
 

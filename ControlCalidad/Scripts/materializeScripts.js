@@ -180,7 +180,7 @@ function validateClient(idClient) {
 }
 
 //<summary> :   validates that the user select a begin date to the project.
-function validateDate() {
+function validateDateP() {
     if (document.getElementById("fechaInicio").value.length <= 0) {
         document.getElementById("dateErrorMessage").innerHTML = "Debe seleccionar una fecha de inicio para el proyecto.";
     }
