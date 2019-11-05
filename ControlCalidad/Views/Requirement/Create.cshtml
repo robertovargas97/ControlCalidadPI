@@ -78,17 +78,67 @@
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">date_range</i>
                                 <label for="fechaInicio">Fecha de Inicio <span class="red-text">  *</span></label>
-                                <input type="text" class="datepickerDate datepicker" required id="fechaInicio" name="fechaInicio" onchange="validateDate()" onblur="validateDate()"/>
+                                <input type="text" class="datepickerDate datepicker" required id="fechaInicio" name="fechaInicio" onchange="validateDate()" onblur="validateDate()" />
                                 <span class="text-error" id="dateErrorMessage"></span>
                             </div>
                         </div>
-
+                        @*
+        <div class="row margin-b">
+            <div class="input-field col s11">
+                <i class="p-size material-icons text-grey prefix">person</i>
+                @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()", @id = "dropdown" })
+                <label for="testerId"> Tester asignado</label>
+                <span class="text-error" id="testerError"></span>
+            </div>
+        </div>
+                        *@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">person</i>
-                                @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()",@id = "dropdown"})
-                                <label for="testerId"> Tester asignado</label>
-                                <span class="text-error" id="testerError"></span>
+                                <input class ="modal-trigger" name="testerId" type="text" id="testerId" onclick="openModal()" />
+                                <label for="testerId">Tester asignado </label>
+                            </div>
+                        </div>
+
+                        <div id="modal1" class="modal bottom-sheet">
+                            <div class="modal-content">
+                                <div class="col s6">
+                                    <form action="Edit">
+                                        <i class="material-icons fixed">search</i>
+                                        <input type="text" id="ability" placeholder="Buscar por habilidades" style="width: 50%;">
+                                        <button type="submit" onclick="getAbility()" class="btn btn-default" name="Search" value="Search" title="Search">Buscar</button>
+                                    </form>
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="table-responsive collection">
+                                                <table class="table striped">
+                                                    <tr>
+                                                        <th class="center black white-text" style="width: 300%;">
+                                                            @Html.DisplayName("Testers disponibles")
+                                                        </th>
+                                                    </tr>
+                                                </table>
+                                                <table>
+
+                                                    <tbody>
+                                                        @foreach (var tester in testerId)
+                                                        {
+                                                            <a class="collection-item">@tester.Text</a>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="row center">
+                                            <button type="submit" name="Allocate" value="Allocate" class="margin-l btn waves-effect waves-light turq white-text">Asignar</button>
+                                        </div>
+                                        <div class="margin-b section">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
                             </div>
                         </div>
 
@@ -208,8 +258,15 @@
      * */
     
     function setIdTester() {
+        alert(document.getElementById("dropdown").value);
         $('#idTester').val($('#dropdown').val());
     }
+
+    
+    function openModal() {
+        alert("Hi")
+       $('#modal1').modal('open');
+     }
 </script>
 
 @section Scripts {
