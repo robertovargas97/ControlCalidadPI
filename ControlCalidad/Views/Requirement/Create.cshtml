@@ -83,16 +83,16 @@
                                 <span class="text-error" id="dateErrorMessage"></span>
                             </div>
                         </div>
+              
+                        <div class="row margin-b">
+                            <div class="input-field col s11">
+                                <i class="p-size material-icons text-grey prefix">person</i>
+                                @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()", @id = "dropdown" })
+                                <label for="testerId"> Tester asignado</label>
+                                <span class="text-error" id="testerError"></span>
+                            </div>
+                        </div>
                         @*
-        <div class="row margin-b">
-            <div class="input-field col s11">
-                <i class="p-size material-icons text-grey prefix">person</i>
-                @Html.DropDownList("testers", testerId, "Seleccione un tester", new { @onchange = "setIdTester()", @id = "dropdown" })
-                <label for="testerId"> Tester asignado</label>
-                <span class="text-error" id="testerError"></span>
-            </div>
-        </div>
-                        *@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">person</i>
@@ -142,7 +142,7 @@
                                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
                             </div>
                         </div>
-
+                        *@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
