@@ -23,7 +23,7 @@ namespace ControlCalidad.Controllers
             {
                 tieneAsignado.insert(idTester, projectId);
             }
-            var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId );
+            var requerimientoes = db.Requerimientoes.Include( r => r.Proyecto ).Where( r => r.id_proyectoFK == projectId ).OrderByDescending(r => r.idPK);
             ViewBag.projectId = projectId ;
             ViewBag.projectName = projectController.getProjectName( projectId );
             return View( requerimientoes.ToList( ) );
@@ -44,7 +44,12 @@ namespace ControlCalidad.Controllers
             ViewBag.fechaAsignacion = dateTimeToString( requerimiento.fechaAsignacion , "MM/dd/yyyy" );
             ViewBag.fechaFin = dateTimeToString( requerimiento.fechaFinalizacion , "MM/dd/yyyy" );
             ViewBag.fechaInicio = dateTimeToString( requerimiento.fechaInicio , "MM/dd/yyyy" );
-            ViewBag.tester = getTester(projectId, id).Text;
+            SelectListItem tester = getTester(projectId, id);
+            ViewBag.tester = "";
+            if (tester != null)
+            {
+                ViewBag.tester = tester.Text;
+            }
             return View( requerimiento );
         }
 
@@ -87,18 +92,23 @@ namespace ControlCalidad.Controllers
             Requerimiento requerimiento = await db.Requerimientoes.FindAsync( id , projectId );
             if( requerimiento == null )
             {
-                return HttpNotFound( );
+                return HttpNotFound();
             }
             SelectListItem actualTester = getTester(projectId, id);
             List<SelectListItem> allTesters = getTesters(projectId);
             ViewBag.defaultText = "Seleccione un tester";
-            foreach (SelectListItem tester in allTesters)
+            if(actualTester != null)
             {
-                if (tester.Value == actualTester.Value) {
-                    ViewBag.defaultText = tester.Text;
-                    break;
+                foreach (SelectListItem tester in allTesters)
+                {
+                    if (tester.Value == actualTester.Value)
+                    {
+                        ViewBag.defaultText = tester.Text;
+                        break;
+                    }
                 }
             }
+            
             ViewBag.testers = allTesters;
             ViewBag.fechaAsignacion = dateTimeToString( requerimiento.fechaAsignacion , "MM/dd/yyyy" );
             ViewBag.fechaFin = dateTimeToString( requerimiento.fechaFinalizacion , "MM/dd/yyyy" );
@@ -183,13 +193,21 @@ namespace ControlCalidad.Controllers
 
         public SelectListItem getTester(int? projectId, int? requirementId)
         {
-            SP_Conseguir_Tester_Result tester = db.SP_Conseguir_Tester(projectId, requirementId).Single();
-            SelectListItem tester_selected = new SelectListItem()
-                    {
-                        Text = tester.nombreP,
-                        Value = tester.cedulaPK,
-                        Selected = false
-                    };
+            SelectListItem tester_selected = null;
+            try
+            {
+                SP_Conseguir_Tester_Result tester = db.SP_Conseguir_Tester(projectId, requirementId).Single();
+                tester_selected = new SelectListItem()
+                {
+                    Text = tester.nombreP,
+                    Value = tester.cedulaPK,
+                    Selected = false
+                };
+            }
+            catch (Exception e) { 
+                //esto pasa cuando no existe tester asociado
+            }
+            
             return tester_selected;
         }
 

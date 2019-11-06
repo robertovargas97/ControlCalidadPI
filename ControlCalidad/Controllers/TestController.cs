@@ -25,7 +25,7 @@ namespace ControlCalidad.Controllers
                 ViewBag.requirementId = id;
                 ViewBag.projectId = projectId;
                 ViewBag.requirementName = r.getRequirementName(id);
-                var pruebas = db.Pruebas.Include(p => p.Requerimiento);
+                var pruebas = db.Pruebas.Include(p => p.Requerimiento).OrderByDescending(p => p.idPK);
                 return View(await pruebas.ToListAsync());
             }
 
