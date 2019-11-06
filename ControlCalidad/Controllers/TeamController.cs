@@ -62,6 +62,18 @@ namespace ControlCalidad.Controllers
             ViewBag.project_name = name;
             string sql = "SELECT E.cedulaPK, E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'nombreP' FROM ControlCalidad.Empleado E JOIN ControlCalidad.TrabajaEn T ON T.cedula_empleadoFK = E.cedulaPK WHERE T.id_proyectoFK = " + id_proyecto;
             List<DbResultE> team = db.Database.SqlQuery<DbResultE>(sql).ToList();
+
+            List<SP_Conseguir_CantReqs_Result> reqs_testers = db.SP_Conseguir_CantReqs(id_proyecto).ToList();
+            List<SelectListItem> all_cant_reqs = reqs_testers.ConvertAll(
+                tester => {
+                    return new SelectListItem()
+                    {
+                        Text = tester.cantidadReqAsignados.ToString(),
+                        Value = tester.cedulaPK,
+                        Selected = false
+                    };
+                });
+            ViewBag.cant_reqs = all_cant_reqs;
             ViewBag.cedula_empleadoFK = new SelectList(team, "cedulaPK", "nombreP", "Equipo");
             string sqle = "SELECT E.cedulaPK , E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'nombreP' " +
                 "FROM ControlCalidad.Empleado E JOIN ControlCalidad.Habilidades H ON H.cedula_empleadoFK = E.cedulaPK " +
