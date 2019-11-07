@@ -89,8 +89,33 @@ namespace ControlCalidad.Controllers
                     sqle = " SELECT E.cedulaPK , E.nombreP+' '+E.apellido1+' '+E.apellido2 AS 'nombreP' FROM ControlCalidad.Empleado E WHERE E.disponibilidad = 'Disponible'";
                 }
             }
-            List<DbResultE> available = db.Database.SqlQuery<DbResultE>(sqle).ToList();
-            ViewBag.disponibles = new SelectList(available, "cedulaPK", "nombreP", "Disponibles");
+            List<DbResultE> all_available = db.Database.SqlQuery<DbResultE>(sqle).ToList();
+            List<SelectListItem> all_availables = all_available.ConvertAll(
+                tester => {
+                    return new SelectListItem()
+                    {
+                        Text = tester.nombreP,
+                        Value = tester.cedulaPK,
+                        Selected = false
+                    };
+                });
+            List<SelectListItem> all_availables_temp = new List<SelectListItem>();
+            bool exists = false;
+            foreach (SelectListItem available in all_availables) {
+                foreach (SelectListItem team_employee in ViewBag.cedula_empleadoFK)
+                {
+                    if (available.Value == team_employee.Value) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists)
+                {
+                    all_availables_temp.Add(available);
+                }
+                exists = false;
+            }
+            ViewBag.disponibles = all_availables_temp;
             ViewBag.id_proyecto = id_proyecto;
             return View();
         }
