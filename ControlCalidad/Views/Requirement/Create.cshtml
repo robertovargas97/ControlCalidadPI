@@ -43,7 +43,7 @@
                             <div class="input-field col s11">
                                 <i class="p-size text-grey material-icons prefix">assignment_turned_in</i>
                                 <label for="nombre">Nombre del requerimiento <span class="red-text">  *</span></label>
-                                <input name="nombre" type="text" required class="validate form-control" onblur="validateRequirementName()" onkeyup="validateRequirementName()" id="requirementName" />
+                                <input name="nombre" type="text" required class="validate form-control" onblur="validateRequirementName(@ViewBag.projectId)" onkeyup="validateRequirementName(@ViewBag.projectId)" id="requirementName" />
                                 <span class="text-error" id="nameError"></span>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 <span class="text-error" id="dateErrorMessage"></span>
                             </div>
                         </div>
-                        @*
+                        @**@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">person</i>
@@ -92,8 +92,8 @@
                                 <span class="text-error" id="testerError"></span>
                             </div>
                         </div>
-                        *@
                         @**@
+                        @*
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">person</i>
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                        @**@
+                        *@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
@@ -238,7 +238,7 @@
                 </div>
 
                 <div class="row center">
-                    <button id="btn-submit" type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
+                    <button id="btn-delete" type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
 
                     <button id="btn-submit" type="submit" class="margin-l btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
 
@@ -267,13 +267,11 @@
      * */
     
     function setIdTester() {
-        alert(document.getElementById("dropdown").value);
         $('#idTester').val($('#dropdown').val());
     }
 
     
     function openModal() {
-        alert("Hi")
        $('#modal1').modal('open');
      }
 </script>
