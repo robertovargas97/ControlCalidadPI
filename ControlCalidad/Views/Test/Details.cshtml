@@ -5,7 +5,10 @@
     }*@
 
 @{
-    <h3>Detalles</h3>
+    <h3 class="text-grey">Detalles de la prueba</h3>
+    <div class="margin-b1">
+        <hr />
+    </div>
 
     <div class="row">
 
@@ -38,9 +41,9 @@
 
                         </div>
 
-                        <div class="col s12">
+                        <div class="col s6 margin-b1">
                             <p class="p-size">
-                                <i class="material-icons left text-grey">place</i>
+                                <i class="material-icons left text-grey">assignment</i>
                                 <span class="text-turq"> Detalle de resultado </span>
                                 : @Html.DisplayFor(model => model.detalleResultado)
                             </p>
@@ -52,7 +55,7 @@
 
 
                     </div>
-                    </div>
+                </div>
                 <div class="card-action center">
                     <a id="delete-btn" class="margin-r waves-effect btn red accent-4 red-hover modal-trigger" href="#modal1">Borrar</a>
                     @Html.ActionLink("Editar", "Edit", new { id = Model.idPK, projectID = Model.id_proyectoFK, requirementID = Model.id_requerimientoFK }, new
@@ -93,7 +96,7 @@
                     <h5>Está seguro que desea <span class="red-text text-darken-4 "> borrar </span> esta prueba ?</h5>
                 </div>
             </div>
-            
+
             <div class="margin-b1">
                 <hr />
             </div>
