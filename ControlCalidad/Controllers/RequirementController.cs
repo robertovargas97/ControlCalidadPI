@@ -129,7 +129,9 @@ namespace ControlCalidad.Controllers
                 db.Entry( requerimiento ).State = EntityState.Modified;
                 db.SaveChanges( );
                 string idTester = fc["idTester"];
-                db.SP_Actualizar_TieneAsignado(requerimiento.id_proyectoFK, requerimiento.idPK, idTester);
+                if (idTester != "") {
+                    db.SP_Actualizar_TieneAsignado(requerimiento.id_proyectoFK, requerimiento.idPK, idTester);
+                }
                 return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK} );
 
             }

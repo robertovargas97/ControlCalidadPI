@@ -10,6 +10,7 @@
 
     string leader = ViewBag.projectLeader;
     string startDate = Model.fechaInicio.ToShortDateString();
+    string clientName = Model.Cliente.nombreP + " " + Model.Cliente.apellido1;
 
     <h3 class="text-grey"> @Html.DisplayFor( model => model.nombre ) </h3>
     <div class="margin-b1">
@@ -35,7 +36,7 @@
                                 <p class="p-size">
                                     <i class="material-icons left text-grey">person</i>
                                     <span class="text-turq"> Nombre del cliente </span>
-                                    : @Html.DisplayFor( model => model.Cliente.nombreP )
+                                    : @Html.DisplayName( clientName )
                                 </p>
                             </div>
                             <div class="col s12 margin-b1">

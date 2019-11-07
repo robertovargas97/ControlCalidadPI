@@ -202,7 +202,7 @@ namespace ControlCalidad.Controllers
             base.Dispose( disposing );
         }
 
-        //--------------------------------------FUNCTIONS AND METHODS CREATED BY THE TEAM-----------------------------------------------
+        //-------------------------------------- FUNCTIONS AND METHODS CREATED BY THE TEAM -----------------------------------------------
 
         public string getProjectName(int? id)
         {
