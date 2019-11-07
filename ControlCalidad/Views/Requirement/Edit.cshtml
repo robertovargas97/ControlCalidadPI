@@ -93,8 +93,8 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s11">
                                         <i class="p-size material-icons text-grey prefix">person</i>
-                                        @Html.DropDownList("testers", testerId, testerTitle, new {@onchange = "setIdTester()", @id = "dropdown" })
-                                        <label for="testerId"> Tester asignado</label>
+                                        @Html.DropDownList("testers_drop", testerId, testerTitle, new {@onchange = "setIdTester()", @id = "dropdown" })
+                                        <label for="dropdown"> Tester asignado</label>
                                         <span class="text-error" id="testerError"></span>
                                     </div>
                                 </div>
@@ -229,6 +229,7 @@
             * Return: None
             * */
         function setIdTester() {
+            alert($('#dropdown').val())
             $('#idTester').val($('#dropdown').val());
         }
     </script>

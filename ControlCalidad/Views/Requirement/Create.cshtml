@@ -83,7 +83,7 @@
                                 <span class="text-error" id="dateErrorMessage"></span>
                             </div>
                         </div>
-                        @*
+                        @**@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">person</i>
@@ -92,8 +92,8 @@
                                 <span class="text-error" id="testerError"></span>
                             </div>
                         </div>
-                        *@
                         @**@
+                        @*
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">person</i>
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                        @**@
+                        *@
                         <div class="row margin-b">
                             <div class="input-field col s11">
                                 <i class="p-size material-icons text-grey prefix">hourglass_empty</i>
@@ -267,13 +267,11 @@
      * */
     
     function setIdTester() {
-        alert(document.getElementById("dropdown").value);
         $('#idTester').val($('#dropdown').val());
     }
 
     
     function openModal() {
-        alert("Hi")
        $('#modal1').modal('open');
      }
 </script>
