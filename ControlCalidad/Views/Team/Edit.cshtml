@@ -26,11 +26,7 @@
         position: relative;
     }
 
-    .material-icons {
-        display: inline-flex;
-        vertical-align: top;
-        padding-top: 20px;
-    }
+    
 </style>
 
 @using (Html.BeginForm())
@@ -127,8 +123,9 @@
                                                 rol = "Líder";
                                             }
                                         }
-                                        <a href="javascript:setIdMember(@team.Value)" id="@team.Value" class="collection-item"><span class="new badge @color" data-badge-caption="">@rol</span>@if(rol == "Tester"){<span class="new badge" data-badge-caption="requerimientos"> @req</span>}@team.Text</a>
-                                        
+                                        <a href="javascript:setIdMember(@team.Value)" id="@team.Value" class="collection-item"><span class="new badge @color" data-badge-caption="">@rol</span>@if (rol == "Tester")
+                                        {<span class="new badge" data-badge-caption="requerimientos"> @req</span>}@team.Text</a>
+
                                     }
                                 </tbody>
                             </table>
@@ -143,6 +140,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="btn-add" class="fixed-action-btn">
+        <a href="@Url.Action("Index", "Project/Index")" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Volver">
+            <i class="large material-icons">arrow_back</i>
+        </a>
     </div>
 }
 <script>
