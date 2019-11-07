@@ -17,24 +17,26 @@ namespace ControlCalidad.Controllers
         private ProjectController projectController = new ProjectController();
         private EmployeeController employeeController = new EmployeeController();
 
-        // GET: Reportes
+        // GET: Reports
         public ActionResult Index()
         {
             ViewBag.allprojects = projectController.GetProjects();
             ViewBag.alltesters = employeeController.GetTesters();
-
-            string queryReq = "EXEC PA_req_terminados_proy" + "'" + "Proyecto Sebas" + "'";
-            var tempEnded = db.Database.SqlQuery<Reports>(queryReq).ToList();
-
-            return View(tempEnded);
+            string queryReq2 = "EXEC PA_req_en_ejecucion_proy" + "'" + "Proyecto Sebas" + "'";
+            var tempEjec = db.Database.SqlQuery<Reports>(queryReq2).ToList();
+            return View(tempEjec);
         }
 
-        public ActionResult CompletedRequirements()
+        //<summary> : This method is used to call the store procedure "PA_req_terminados_proy".
+        //<params>  : input : It's the proy needed to make the consult.
+        //<return>  : Returns a list.
+        public List<Reports> CompletedRequirements(string proy)
         {
-            string queryReq = "EXEC PA_req_terminados_proy" + "'" + "Proyecto Sebas" + "'";
-            var tempEnded = db.Database.SqlQuery<Reports>(queryReq).ToList();
 
-            return Json(tempEnded);
+            string queryReq = "EXEC PA_req_terminados_proy" + "'" + proy + "'";
+            var tempEnded = db.Database.SqlQuery<Reports>(queryReq).ToList();
+            return tempEnded;
+
         }
 
         public List<Reports> RunningRequirements(string proy)

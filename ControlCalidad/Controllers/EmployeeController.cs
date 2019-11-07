@@ -250,11 +250,12 @@ namespace ControlCalidad.Controllers
                 tester => {
                     return new SelectListItem()
                     {
-                        Text = tester.nombre
+                        Text = tester.nombreP,
                     };
                 });
             return alltesters;
         }
+
         //<summary> : This method is used to know the identifier of an employee just by passing his email.
         //<params>  : email : The email of the employee we want to know his id.
         //<return>  : Returns the identifier of an employee.

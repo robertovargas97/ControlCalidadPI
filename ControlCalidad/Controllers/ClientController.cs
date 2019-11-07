@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ControlCalidad.Models;
+using System.Text.RegularExpressions;
 
 namespace ControlCalidad.Controllers
 {
@@ -16,7 +17,7 @@ namespace ControlCalidad.Controllers
         private localizationsController localizations = new localizationsController( );
 
         private QASystemEntities db = new QASystemEntities( );
-
+        private static string editID;
 
         //<summary> : gets clients from database to put them in a list
         //<param>   : None
@@ -106,25 +107,26 @@ namespace ControlCalidad.Controllers
 
                 }
                 return RedirectToAction( "Index" );
+
             }
 
             return View( cliente );
         }
 
         // GET: Client/Edit/5
-        public async Task<ActionResult> Edit( string id )
+        public async Task<ActionResult> Edit(string id)
         {
-            ViewBag.provinces = this.localizations.provinceList( );
-            if( id == null )
+            ViewBag.provinces = this.localizations.provinceList();
+            if (id == null)
             {
-                return new HttpStatusCodeResult( HttpStatusCode.BadRequest );
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = await db.Clientes.FindAsync( id );
-            if( cliente == null )
+            Cliente cliente = await db.Clientes.FindAsync(id);
+            if (cliente == null)
             {
-                return HttpNotFound( );
+                return HttpNotFound();
             }
-            return View( cliente );
+            return View(cliente);
         }
 
         // POST: Client/Edit/5
@@ -141,11 +143,12 @@ namespace ControlCalidad.Controllers
             cliente.provincia = provinceName;
             cliente.canton = cantonName;
             cliente.distrito = districtName;
-            if( ModelState.IsValid )
+
+            if ( ModelState.IsValid )
             {
 
                 db.Entry( cliente ).State = EntityState.Modified;
-                await db.SaveChangesAsync( );
+                await db.SaveChangesAsync();
                 return RedirectToAction( "Index" );
             }
             return View( cliente );
@@ -198,5 +201,37 @@ namespace ControlCalidad.Controllers
             base.Dispose( disposing );
         }
 
+        //<summary> : This method is used to know if one email has been taken from another client or employee.
+        //<params>  : input : It's the email we want to validate if is taken or not.
+        //<return>  : Returns a boolean value, true if the email was taken, false the otherwise.
+        public bool isMailTaken(string input)
+        {
+            List<Cliente> cliente = db.Clientes.Where(x => x.correo == input).ToList();
+            List<Empleado> empleado = db.Empleadoes.Where(x => x.correo == input).ToList();
+            if ( (cliente != null) && (empleado != null))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
+        //<summary> : This method is used to verify if an ID has already been taken from another client.
+        //<params>  : input : It's the ID we want to validate if is taken or not.
+        //<return>  : Returns a boolean value, true if the ID was registered, false the otherwise.
+        public bool existID(string id)
+        {
+            List<Cliente> cliente = db.Clientes.Where(x => x.cedulaPK == id).ToList();
+            if (cliente.Count >= 1)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
     }
 }

@@ -47,7 +47,7 @@ namespace ControlCalidad.Models
 
     public class EmployeeForReports
     {
-        public string nombre
+        public string nombreP
         {
             get; set;
         }
