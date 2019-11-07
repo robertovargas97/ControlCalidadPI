@@ -262,7 +262,6 @@
                 $.get("/localizations/cantonID", { name: '@Model.provincia', canton: '@Model.canton' }, function (data3) {
                     cantonID = data3;
                     $.get("/localizations/districtsList", { provincia: provinceID, canton : cantonID }, function (data4) {
-                            alert("entre2")
                             $.each(data4, function (index, row) {
                                 $("#distrito").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
                             });
