@@ -4,6 +4,8 @@
     ViewBag.Title = "Edit";
     List<SelectListItem> cant_reqs = (List<SelectListItem>)ViewBag.cant_reqs;
     String req = "";
+    String rol = "";
+    String color = "";
 }
 
 
@@ -107,8 +109,25 @@
 
                                 <tbody>
                                     @foreach (var team in ViewBag.cedula_empleadoFK as SelectList)
+
                                     {
-                                        <a href="javascript:setIdMember(@team.Value)" id="@team.Value" class="collection-item"><span class="new badge" data-badge-caption="requerimientos">@foreach (SelectListItem tester in cant_reqs) { if (tester.Value == team.Value) { req = tester.Text; break; } else { req = "0"; } } @req</span>@team.Text</a>
+                                        foreach (SelectListItem tester in cant_reqs)
+                                        {
+                                            if (tester.Value == team.Value)
+                                            {
+                                                req = tester.Text;
+                                                rol = "Tester";
+                                                color = "blue";
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                color = "red";
+                                                req = "0";
+                                                rol = "Líder";
+                                            }
+                                        }
+                                        <a href="javascript:setIdMember(@team.Value)" id="@team.Value" class="collection-item"><span class="new badge @color" data-badge-caption="">@rol</span>@if(rol == "Tester"){<span class="new badge" data-badge-caption="requerimientos"> @req</span>}@team.Text</a>
                                         
                                     }
                                 </tbody>
