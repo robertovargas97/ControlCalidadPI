@@ -91,7 +91,7 @@
                             <div class="row margin-b">
 
                                 <div class="input-field col s11">
-                                    <i class="p-size material-icons text-grey prefix">assignment</i>
+                                    <i class="p-size material-icons text-grey prefix">border_color</i>
 
                                     <label for="detalleResultado">Detalles del resultado</label>
                                     <input name="detalleResultado" value="@Model.detalleResultado" type="text" />
@@ -111,17 +111,24 @@
                     <br />
 
                     <div class="row center">
-                        @Html.ActionLink("Cancelar", "Details", new
-                        {
-                           id = Model.idPK,
-                           projectID = Model.id_proyectoFK,
-                           requirementID = Model.id_requerimientoFK
-                        }, new
-                        {
-                             @class = "margin-r waves-effect red-hover btn red accent-4"
-                        })
+                        <!-----
+      @Html.ActionLink("Cancelar", "Details", new
+      {
+         id = Model.idPK,
+         projectID = Model.id_proyectoFK,
+         requirementID = Model.id_requerimientoFK
+      }, new
+      {
+           @class = "margin-r waves-effect red-hover btn red accent-4"
+      }) -->
+                        <button type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
                         <button type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>
-                        <button type="reset" class="margin-l waves-effect waves-light btn turq">Cancelar</button>
+
+                        <div class="fixed-action-btn">
+                            <a href="@Url.Action("Details", "Test", new { id = @Model.idPK, projectID = @Model.id_proyectoFK, requirementID = @Model.id_requerimientoFK })" class="btn-floating btn-large black tooltipped" data-position="left" data-tooltip="Volver">
+                                <i class="large material-icons">arrow_back</i>
+                            </a>
+                        </div>
 
                     </div>
                     <br />

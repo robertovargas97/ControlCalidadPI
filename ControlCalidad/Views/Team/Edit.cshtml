@@ -2,7 +2,12 @@
 
 @{
     ViewBag.Title = "Edit";
+    List<SelectListItem> cant_reqs = (List<SelectListItem>)ViewBag.cant_reqs;
+    String req = "";
+    String rol = "";
+    String color = "";
 }
+
 
 <style>
     .table-responsive {
@@ -21,11 +26,7 @@
         position: relative;
     }
 
-    .material-icons{
-        display: inline-flex;
-        vertical-align: top;
-        padding-top: 20px;
-    }
+    
 </style>
 
 @using (Html.BeginForm())
@@ -37,90 +38,114 @@
     @Html.Hidden("Project", "", new { Value = ViewBag.id_proyecto, @id = "Project" })
 
 
-<div class="form-horizontal">
-    <h3 class="text-grey">Proyecto @ViewBag.project_name</h3>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h3 class="text-grey">Proyecto @ViewBag.project_name</h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <!-- Search box -->
-    <form action="Edit">
-        <i class="material-icons fixed">search</i>
-        <input type="text" id="ability" placeholder="Buscar por habilidades" style="width: 50%;">
-        <button type="submit" onclick="getAbility()" class="btn btn-default" name="Search" value="Search" title="Search">Buscar</button>
-    </form>
+        <!-- Search box -->
+        <form action="Edit">
+            <i class="material-icons fixed">search</i>
+            <input type="text" id="ability" placeholder="Buscar por habilidades" style="width: 50%;">
+            <button type="submit" onclick="getAbility()" class="btn btn-default" name="Search" value="Search" title="Search">Buscar</button>
+        </form>
 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-    <div class="row">
-        <!-- Card for Available Employees -->
-        <div class="col s6">
-            <div class="card">
-                <div class="card-content">
-                    <div class="table-responsive collection">
-                        <table class="table striped">
-                            <tr>
-                                <th class="center black white-text" style="width: 200%;">
-                                    @Html.DisplayName("Disponibles")
-                                </th>
-                            </tr>
-                        </table>
-                        <table>
+        <div class="row">
+            <!-- Card for Available Employees -->
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="table-responsive collection">
+                            <table class="table striped">
+                                <tr>
+                                    <th class="center black white-text" style="width: 200%;">
+                                        @Html.DisplayName("Disponibles")
+                                    </th>
+                                </tr>
+                            </table>
+                            <table>
 
-                            <tbody>
-                                @foreach (var tester in ViewBag.disponibles as SelectList)
-                                {
-                                    <a href="javascript:setIdNew(@tester.Value)" id="@tester.Value" class="collection-item">@tester.Text</a>
-                                }
-                            </tbody>
-                        </table>
+                                <tbody>
+                                    @foreach (var tester in ViewBag.disponibles as SelectList)
+                                    {
+                                        <a href="javascript:setIdNew(@tester.Value)" id="@tester.Value" class="collection-item">@tester.Text</a>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <div class="row center">
-                    <button type="submit" name="Allocate" value="Allocate" class="margin-l btn waves-effect waves-light turq white-text">Asignar</button>
-                </div>
-                <div class="margin-b section">
+                    <div class="row center">
+                        <button type="submit" name="Allocate" value="Allocate" class="margin-l btn waves-effect waves-light turq white-text">Asignar</button>
+                    </div>
+                    <div class="margin-b section">
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Card for all employees in a team -->
-        <div class="col s6">
-            <div class="card">
-                <div class="card-content">
-                    <div class="table-responsive collection">
-                        <table class="table striped">
-                            <tr>
-                                <th class="center black white-text" style="width: 200%;">
-                                    @Html.DisplayName("Equipo")
-                                </th>
-                            </tr>
-                        </table>
-                        <table>
+            <!-- Card for all employees in a team -->
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="table-responsive collection">
+                            <table class="table striped">
+                                <tr>
+                                    <th class="center black white-text" style="width: 200%;">
+                                        @Html.DisplayName("Equipo")
+                                    </th>
+                                </tr>
+                            </table>
+                            <table>
 
-                            <tbody>
-                                @foreach (var team in ViewBag.cedula_empleadoFK as SelectList)
-                                {
-                                    <a href="javascript:setIdMember(@team.Value)" id="@team.Value" class="collection-item">@team.Text</a>
-                                }
-                            </tbody>
-                        </table>
+                                <tbody>
+                                    @foreach (var team in ViewBag.cedula_empleadoFK as SelectList)
+
+                                    {
+                                        foreach (SelectListItem tester in cant_reqs)
+                                        {
+                                            if (tester.Value == team.Value)
+                                            {
+                                                req = tester.Text;
+                                                rol = "Tester";
+                                                color = "blue";
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                color = "red";
+                                                req = "0";
+                                                rol = "Líder";
+                                            }
+                                        }
+                                        <a href="javascript:setIdMember(@team.Value)" id="@team.Value" class="collection-item"><span class="new badge @color" data-badge-caption="">@rol</span>@if (rol == "Tester")
+                                        {<span class="new badge" data-badge-caption="requerimientos"> @req</span>}@team.Text</a>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    <div class="row center">
+                        <button type="submit" name="Deallocate" value="Deallocate" class="margin-l btn waves-effect waves-light turq white-text">Desasignar</button>
+                    </div>
+                    <div class="margin-b section">
+                    </div>
+                    @*<label id="Error" style="color: red; font-size: 19px; vertical-align: 30px; padding-left: 260px;">*El equipo tiene 5 miembros</label>*@
                 </div>
-                <div class="row center">
-                    <button type="submit" name="Deallocate" value="Deallocate" class="margin-l btn waves-effect waves-light turq white-text">Desasignar</button>
-                </div>
-                <div class="margin-b section">
-                </div>
-                @*<label id="Error" style="color: red; font-size: 19px; vertical-align: 30px; padding-left: 260px;">*El equipo tiene 5 miembros</label>*@
             </div>
         </div>
     </div>
-</div>
+    <div id="btn-add" class="fixed-action-btn">
+        <a href="@Url.Action("Index", "Project/Index")" class="btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Volver">
+            <i class="large material-icons">arrow_back</i>
+        </a>
+    </div>
 }
 <script>
 

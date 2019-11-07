@@ -88,7 +88,7 @@
           <Property Name="fechaFinalizacion" Type="date" />
           <Property Name="fechaAsignacion" Type="date" />
           <Property Name="estado" Type="varchar" MaxLength="25" />
-          <Property Name="complejidad" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="complejidad" Type="varchar" MaxLength="15" />
           <Property Name="descripcion" Type="varchar" MaxLength="400" />
           <Property Name="duracionEstimada" Type="real" Nullable="false" />
           <Property Name="duracionReal" Type="real" />
@@ -253,6 +253,9 @@
           <Parameter Name="id_requerimiento" Type="int" Mode="In" />
           <Parameter Name="id_tester" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SP_Conseguir_CantReqs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
+          <Parameter Name="id_proyecto" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_Conseguir_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
           <Parameter Name="id_requerimiento" Type="int" Mode="In" />
@@ -414,7 +417,7 @@
           <Property Name="fechaFinalizacion" Type="DateTime" Precision="0" />
           <Property Name="fechaAsignacion" Type="DateTime" Precision="0" />
           <Property Name="estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="complejidad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="complejidad" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="descripcion" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Name="duracionEstimada" Type="Single" Nullable="false" />
           <Property Name="duracionReal" Type="Single" />
@@ -650,6 +653,9 @@
           <FunctionImport Name="Libera_Empleado">
           <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_Conseguir_CantReqs" ReturnType="Collection(QASystemEntity.SP_Conseguir_CantReqs_Result)">
+            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -689,6 +695,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="SP_Conseguir_CantReqs_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="Int32" Name="cantidadReqAsignados" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -832,6 +842,14 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Edit_Empleado" FunctionName="QASystemEntity.Store.Edit_Empleado" />
           <FunctionImportMapping FunctionImportName="Libera_Empleado" FunctionName="QASystemEntity.Store.Libera_Empleado" />
+          <FunctionImportMapping FunctionImportName="SP_Conseguir_CantReqs" FunctionName="QASystemEntity.Store.SP_Conseguir_CantReqs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_Conseguir_CantReqs_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="cantidadReqAsignados" ColumnName="cantidadReqAsignados" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

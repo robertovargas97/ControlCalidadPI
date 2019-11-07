@@ -189,15 +189,6 @@ function validateDateP() {
     }
 }
 
-//<summary> :   validates that the user sets a correct duration for the project.
-function validateDuration() {
-    if (document.getElementById("avrDuration").value.length <= 0) {
-        document.getElementById("avrDurationError").innerHTML = "Debes ingresar una duracion válida.";
-    }
-    else {
-        document.getElementById("avrDurationError").innerHTML = "";
-    }
-}
 //------------------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------Requirements Validations------------------------------------------------
@@ -222,10 +213,10 @@ function deleteRequirement(id, projectId) {
 }
 
 //<summary> :   validates that a requirement does not exist in the db
-function validateRequirementName() {
+function validateRequirementName(id) {
     $.ajax({
         url: '/Requirement/validateName',
-        data: { name: $('#requirementName').val() },
+        data: { name: $('#requirementName').val(), idProyect: id},
         success: function (exist) {
             if (exist == 'True') {
                 document.getElementById("nameError").innerHTML = "El nombre del requerimiento ya existe... Por favor ingrese otro";
@@ -258,7 +249,7 @@ function validateDate() {
 
 //<summary> :   validates that the user sets a correct duration for the project.
 function validateDuration() {
-    if (document.getElementById("avrDuration").value.length <= 0) {
+    if (document.getElementById("avrDuration").value.length <= 0 || document.getElementById("avrDuration").value <= 0) {
         document.getElementById("avrDurationError").innerHTML = "Debes ingresar una duracion válida.";
         document.getElementById('btn-submit').disabled = true;
 
@@ -272,10 +263,13 @@ function validateDuration() {
 
 //<summary> :   validates that the user sets a correct duration for the project.
 function validateRealDuration() {
-    if (document.getElementById("RealDur").value.length <= 0) {
-        document.getElementById("realDurError").innerHTML = "Debes ingresar una duracion real válida.";
-        document.getElementById('btn-submit').disabled = true;
+    if (document.getElementById("RealDur").value.length > 0) {
 
+        if (document.getElementById("RealDur").value <= 0) {
+            document.getElementById("realDurError").innerHTML = "Debes ingresar una duracion real válida.";
+            document.getElementById('btn-submit').disabled = true;
+
+        }
     }
     else {
         document.getElementById("realDurError").innerHTML = "";

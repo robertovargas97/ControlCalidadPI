@@ -159,5 +159,14 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Libera_Empleado", id_proyectoParameter);
         }
+    
+        public virtual ObjectResult<SP_Conseguir_CantReqs_Result> SP_Conseguir_CantReqs(Nullable<int> id_proyecto)
+        {
+            var id_proyectoParameter = id_proyecto.HasValue ?
+                new ObjectParameter("id_proyecto", id_proyecto) :
+                new ObjectParameter("id_proyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Conseguir_CantReqs_Result>("SP_Conseguir_CantReqs", id_proyectoParameter);
+        }
     }
 }

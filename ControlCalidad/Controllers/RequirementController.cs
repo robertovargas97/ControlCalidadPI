@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ControlCalidad.Models;
 
@@ -130,10 +129,30 @@ namespace ControlCalidad.Controllers
                 db.Entry( requerimiento ).State = EntityState.Modified;
                 db.SaveChanges( );
                 string idTester = fc["idTester"];
-                db.SP_Actualizar_TieneAsignado(requerimiento.id_proyectoFK, requerimiento.idPK, idTester);
+                if (idTester != "") {
+                    db.SP_Actualizar_TieneAsignado(requerimiento.id_proyectoFK, requerimiento.idPK, idTester);
+                }
                 return RedirectToAction( "Index" , new {projectId = requerimiento.id_proyectoFK} );
 
             }
+            SelectListItem actualTester = getTester(requerimiento.id_proyectoFK, requerimiento.idPK);
+            List<SelectListItem> allTesters = getTesters(requerimiento.id_proyectoFK);
+            ViewBag.defaultText = "Seleccione un tester";
+            if (actualTester != null)
+            {
+                foreach (SelectListItem tester in allTesters)
+                {
+                    if (tester.Value == actualTester.Value)
+                    {
+                        ViewBag.defaultText = tester.Text;
+                        break;
+                    }
+                }
+            }
+            ViewBag.testers = allTesters;
+            ViewBag.fechaAsignacion = dateTimeToString(requerimiento.fechaAsignacion, "MM/dd/yyyy");
+            ViewBag.fechaFin = dateTimeToString(requerimiento.fechaFinalizacion, "MM/dd/yyyy");
+            ViewBag.fechaInicio = dateTimeToString(requerimiento.fechaInicio, "MM/dd/yyyy");
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" , requerimiento.id_proyectoFK );
             return View( requerimiento );
         }
@@ -156,9 +175,9 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" , new { projectId = projectId} );
         }
 
-        public bool validateName( string name )
+        public bool validateName( string name, int idProyect )
         {
-            var exist = db.Requerimientoes.Any( req=> req.nombre == name );
+            var exist = db.Requerimientoes.Any( req => req.nombre == name &&  req.id_proyectoFK == idProyect );
             return exist;
         }
 
