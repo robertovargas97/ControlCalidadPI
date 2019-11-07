@@ -175,9 +175,9 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" , new { projectId = projectId} );
         }
 
-        public bool validateName( string name )
+        public bool validateName( string name, int idProyect )
         {
-            var exist = db.Requerimientoes.Any( req=> req.nombre == name );
+            var exist = db.Requerimientoes.Any( req => req.nombre == name &&  req.id_proyectoFK == idProyect );
             return exist;
         }
 
