@@ -1,11 +1,7 @@
-﻿@model IEnumerable<ControlCalidad.Models.Reports>
-@*
-    @{
-        ViewBag.Title = "Index";
-    }
-*@
-
-
+﻿
+@{
+    ViewBag.Title = "Index";
+}
 
 @{
 
@@ -122,9 +118,9 @@
                             <div class="col s12">
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject1" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("proy1", projectsNames, "Seleccione un proyecto", new { @onChange = "firstReport()" })
+                                        @Html.DropDownList("proy1", projectsNames, "Seleccione un proyecto", new { @onchange = "firstReport()" })
                                         <br />
-                                        <p id="demo1"></p>
+                                        <div id="hola"></div>
                                         <div>
                                             <table id="table1" class="table striped ">
                                                 <thead>
@@ -144,23 +140,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach (var item in Model)
-                                                    {
-                                                        <tr>
-                                                            <td class="center">
-                                                                @Html.DisplayFor(model => item.nombreRequerimiento)
-                                                            </td>
-                                                            <td class="center">
-                                                                @Html.DisplayFor(model => item.estadoRequerimiento)
-                                                            </td>
-                                                            <td class="center">
-                                                                @Html.DisplayFor(model => item.complejidadRequerimiento)
-                                                            </td>
-                                                            <td class="center">
-                                                                @Html.DisplayFor(model => item.nombreResponsable)
-                                                            </td>
-                                                        </tr>
-                                                    }
+                                                    <tr>
+                                                        <td class="center">
+                                                            <div id="nomReq1"></div>
+                                                        </td>
+                                                        <td id="nomReq2" class="center"></td>
+                                                        <td id="nomReq3" class="center"></td>
+                                                        <td id="nomReq4" class="center"></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -174,7 +161,6 @@
                                     <div id="selectProject2" style="display:none;" class="answer_list">
                                         @Html.DropDownList("proy2", projectsNames, "Seleccione un proyecto", new { @onChange = "secondReport()" })
                                         <br />
-                                        <p id="demo2"></p>
                                         <table class="table striped ">
                                             <thead>
                                                 <tr>
@@ -190,20 +176,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach (var item in Model)
-                                                {
                                                     <tr>
                                                         <td class="center">
-                                                            @Html.DisplayFor(model => item.nombreReq)
                                                         </td>
                                                         <td class="center">
-                                                            @Html.DisplayFor(model => item.complejidadReq)
                                                         </td>
                                                         <td class="center">
-                                                            @Html.DisplayFor(model => item.nombreResp)
                                                         </td>
                                                     </tr>
-                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -212,7 +192,7 @@
                                     <div id="selectProject3" style="display:none;" class="answer_list">
                                         @Html.DropDownList("proy3", projectsNames, "Seleccione un proyecto", new { @onChange = "thirdReport()" })
                                         <br />
-                                        <p id="demo3"></p>
+                                        
                                         <table class="table striped ">
                                             <thead>
                                                 <tr>
@@ -228,20 +208,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach (var item in Model)
-                                                {
                                                     <tr>
                                                         <td class="center">
-                                                            @Html.DisplayFor(model => item.nombreTester)
                                                         </td>
                                                         <td class="center">
-                                                            @Html.DisplayFor(model => item.cantidadReqAsignados)
                                                         </td>
                                                         <td class="center">
-                                                            @Html.DisplayFor(model => item.nombreP)
                                                         </td>
                                                     </tr>
-                                                }
                                             </tbody>
                                         </table>
                                         <div id="chart_div"></div>
@@ -267,20 +241,14 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            @foreach (var item in Model)
-                                            {
                                                 <tr>
                                                     <td class="center">
-                                                        @Html.DisplayFor(model => item.nombre)
                                                     </td>
                                                     <td class="center">
-                                                        @Html.DisplayFor(model => item.estado)
                                                     </td>
                                                     <td class="center">
-                                                        @Html.DisplayFor(model => item.horasdedicas)
                                                     </td>
                                                 </tr>
-                                            }
                                         </table>
 
                                     </div>
@@ -323,36 +291,31 @@
         google.charts.setOnLoadCallback(showProject3);
     </script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="objects.js"></script> 
     <script>
         function firstReport() {
-            var proy = document.getElementById('proy1').value
-            //$.getJSON(".../Reports/CompletedRequirements", [proy], [tempEnded]);
-            /*$.ajax({
+            var proy = document.getElementById('proy1').value;
+            $.ajax({
                 type: "POST",
-                url: "/Reports/CompletedRequirements",
+                url: 'Reports/CompletedRequirements',
+                data: { id: proy },
+                complete: function (valorRetorno) {
+                    
+                }
+            });/*
+            $.ajax({
+                type: "POST",
+                url: "Reports/CompletedRequirements",
                 data: proy,
-//                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    document.getElementById("demo1").innerHTML = response;
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
                 },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert(response.responseText);
+                complete: function (jqXHR, status) {
+                    alert("complete: " + status + "\n\nResponse: " + jqXHR.responseText);
                 }
             });*/
-            $.ajax({
-                url: '/Reports/CompletedRequirements',
-                data: { id: proy },
-                success: function (list) {
-                    err.innerHTML = "Cédula previamente registrada.";
-                    document.getElementById('demo1').innerHTML = list;
-                },
-            });
-
         }
+
     </script>
     <script>
         function secondReport() {
@@ -366,7 +329,7 @@
     </script>
     <script>
         function fourthReport() {
-           4s = document.getElementById('tester').value
+           var tester = document.getElementById('tester').value
         }
     </script>
 

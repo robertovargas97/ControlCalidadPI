@@ -514,27 +514,32 @@ function validateClientPhoneNumber(inputtxt) {
 //<summary> :   validates the mail that will be placed in the input.
 //<param>   :   inputttxt, represents the mail of the client to be validated.
 function validateClientEmail(inputtxt) {
-    if ( inputtxt.value.includes("@") && (inputtxt.value.includes(".")) ) {
-        var err = document.getElementById("clientEmailError");
-        $.ajax({
-            url: '/Client/isMailTaken',
-            data: { id: inputtxt.value },
-
-            success: function (exist) {
-
-                if (exist == 'True') {
-                    err.innerHTML = "Correo previamente registrado.";
-                    document.getElementById('btn-submit').disabled = true;
-
-                } else {
-                    err.innerHTML = "";
-                    document.getElementById('btn-submit').disabled = false;
-                }
-            },
-        });
+    if (document.getElementById("clientEmail").value.length <= 0) {
+        document.getElementById("clientEmailError").innerHTML = "Debe ingresar el correo.";
+        document.getElementById('btn-submit').disabled = true;
     } else {
-        var err = document.getElementById("clientEmailError");
-        err.innerHTML = "Digite un correo válido.";
+        if (inputtxt.value.includes("@") && (inputtxt.value.includes("."))) {
+            var err = document.getElementById("clientEmailError");
+            $.ajax({
+                url: '/Client/isMailTaken',
+                data: { id: inputtxt.value },
+
+                success: function (exist) {
+
+                    if (exist == 'True') {
+                        err.innerHTML = "Correo previamente registrado";
+                        document.getElementById('btn-submit').disabled = true;
+
+                    } else {
+                        err.innerHTML = "";
+                        document.getElementById('btn-submit').disabled = false;
+                    }
+                },
+            });
+        } else {
+            var err = document.getElementById("clientEmailError");
+            err.innerHTML = "Digite un correo válido.";
+        }
     }
 }
 

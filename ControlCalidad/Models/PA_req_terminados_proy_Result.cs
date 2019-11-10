@@ -10,15 +10,12 @@
 namespace ControlCalidad.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TrabajaEn
+    public partial class PA_req_terminados_proy_Result
     {
-        public string cedula_empleadoFK { get; set; }
-        public int id_proyectoFK { get; set; }
-        public string rol { get; set; }
-    
-        public virtual Empleado Empleado { get; set; }
-        public virtual Proyecto Proyecto { get; set; }
+        public string nombreRequerimiento { get; set; }
+        public string estadoRequerimiento { get; set; }
+        public string complejidadRequerimiento { get; set; }
+        public string nombreResponsable { get; set; }
     }
 }

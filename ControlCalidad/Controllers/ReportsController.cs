@@ -22,42 +22,33 @@ namespace ControlCalidad.Controllers
         {
             ViewBag.allprojects = projectController.GetProjects();
             ViewBag.alltesters = employeeController.GetTesters();
-            string queryReq2 = "EXEC PA_req_en_ejecucion_proy" + "'" + "Proyecto Sebas" + "'";
-            var tempEjec = db.Database.SqlQuery<Reports>(queryReq2).ToList();
-            return View(tempEjec);
+            return View();
         }
 
         //<summary> : This method is used to call the store procedure "PA_req_terminados_proy".
         //<params>  : input : It's the proy needed to make the consult.
         //<return>  : Returns a list.
-        public List<Reports> CompletedRequirements(string proy)
+        public string CompletedRequirements(string proy)
         {
-
-            string queryReq = "EXEC PA_req_terminados_proy" + "'" + proy + "'";
-            var tempEnded = db.Database.SqlQuery<Reports>(queryReq).ToList();
-            return tempEnded;
+            ModelState.AddModelError("", "Proyecto: " + proy);
+            //return Json(db.PA_req_terminados_proy(proy));
+            return proy;
 
         }
-
-        public List<Reports> RunningRequirements(string proy)
+        public JsonResult RunningRequirements(string proy)
         {
-            string queryReq2 = "EXEC PA_req_en_ejecucion_proy" + "'" + proy + "'";
-            var tempEjec = db.Database.SqlQuery<Reports>(queryReq2).ToList();
-            return tempEjec;
+            return Json(db.PA_req_en_ejecucion_proy(proy));
+
         }
-
-        public List<Reports> TesterRequirements(string proy)
+        public JsonResult TesterRequirements(string proy)
         {
-            string queryCant = "EXEC PA_cant_req_tester" + "'" + proy + "'";
-            var tempCant = db.Database.SqlQuery<Reports>(queryCant).ToList();
-            return tempCant;
+            return Json(db.PA_cant_req_tester(proy));
+
         }
-
-        public List<Reports> ParticipationHistory(string tester)
+        public JsonResult ParticipationHistory(string proy)
         {
-            string queryHist = "EXEC PA_historial_participacion_tester" + "'" + tester + "'";
-            var tempHist = db.Database.SqlQuery<Reports>(queryHist).ToList();
-            return tempHist;
+            return Json(db.PA_historial_participacion_tester(proy));
+
         }
     }
 }

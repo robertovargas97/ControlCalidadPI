@@ -207,14 +207,13 @@ namespace ControlCalidad.Controllers
         public bool isMailTaken(string input)
         {
             List<Cliente> cliente = db.Clientes.Where(x => x.correo == input).ToList();
-            List<Empleado> empleado = db.Empleadoes.Where(x => x.correo == input).ToList();
-            if ( (cliente != null) && (empleado != null))
+            if (cliente.ToString() == input)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
 
         }

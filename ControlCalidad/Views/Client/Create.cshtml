@@ -118,9 +118,9 @@
 
                                 <div class="row margin-b">
                                     <div class="input-field col s10 offset-s1">
-                                        <i class="p-size text-grey material-icons prefix">mail</i>
-                                        <input class="validate form-control" type="text" name="correo" id="correo" onkeydown="validateClientEmail(this)" onkeyup="validateClientEmail(this)" />
-                                        @Html.LabelFor(m => m.correo, "Email", new { @class = "" })
+                                        <i class="p-size text-grey material-icons prefix">account_circle</i>
+                                        <label for="correo">Correo <span class="red-text">  *</span>  </label>
+                                        <input class="validate form-control" type="text" name="correo" id="clientEmail" required onkeydown="validateClientEmail(this)" onkeyup="validateClientEmail(this)" />
                                         @Html.ValidationMessageFor(m => m.correo, null, new { @class = "text-error" })
                                         <span class="text-error" id="clientEmailError"></span>
                                     </div>
