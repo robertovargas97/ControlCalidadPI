@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
     List<SelectListItem> cant_reqs = (List<SelectListItem>)ViewBag.cant_reqs;
+
     String req = "";
     String rol = "";
     String color = "";
@@ -74,10 +75,14 @@
                             <table>
 
                                 <tbody>
-                                    @foreach (var tester in ViewBag.disponibles as SelectList)
+                                    @if (ViewBag.disponibles != null)
                                     {
-                                        <a href="javascript:setIdNew(@tester.Value)" id="@tester.Value" class="collection-item">@tester.Text</a>
+                                        foreach (var tester in ViewBag.disponibles)
+                                        {
+                                            <a href="javascript:setIdNew(@tester.Value)" id="@tester.Value" class="collection-item">@tester.Text</a>
+                                        }
                                     }
+
                                 </tbody>
                             </table>
                         </div>

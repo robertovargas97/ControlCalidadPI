@@ -195,7 +195,9 @@ namespace ControlCalidad.Controllers
 
             return requirementName;
         }
-
+        //<summary> :   Returns the list of available testers that are associated with the project
+        //<param>   :   int? projectId: ID associated with the requirement project
+        //<return>  :   List of available testers
         public List<SelectListItem> getTesters(int? projectId) {
             List<SP_Conseguir_testers_req_Result> testers = db.SP_Conseguir_testers_req(projectId).ToList();
             List<SelectListItem> allTesters = testers.ConvertAll(
@@ -209,7 +211,10 @@ namespace ControlCalidad.Controllers
                 });
             return allTesters;
         }
-
+        //<summary> :   Returns the result of the SP, only one tester returns since only one assigned tester can be
+        //<param>   :   int? projectId: ID associated with the requirement project
+        //              int? requirementId: ID associated with the requirement
+        //<return>  :   Tester assigned to the requirement
         public SelectListItem getTester(int? projectId, int? requirementId)
         {
             SelectListItem tester_selected = null;

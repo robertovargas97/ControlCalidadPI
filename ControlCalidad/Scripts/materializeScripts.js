@@ -428,47 +428,152 @@ function validateEmployeeID(inputtxt) {
 //------------------------------------------------Client Validations----------------------------------------------------
 
 //<summary> :   validates the name of the client that will be placed in the input.
-function validateNameClient() {
+//<param>   :   inputttxt, represents the name of the client to be validated.
+function validateNameClient(inputtxt) {
+    var letters = /^[a-zA-Z\s]*$/;
     if (document.getElementById("nameClient").value.length <= 0) {
-        document.getElementById("nameClientError").innerHTML = "Debes ingresar un nombre.";
+        document.getElementById("nameClientError").innerHTML = "Debe ingresar el nombre.";
+        document.getElementById('btn-submit').disabled = true;
     }
     else {
-        document.getElementById("nameClientError").innerHTML = "";
+        if (inputtxt.value.match(letters)) {
+            var err = document.getElementById("nameClientError");
+            err.innerHTML = " ";
+            document.getElementById('btn-submit').disabled = false;
+        }
+        else {
+            var err = document.getElementById("nameClientError");
+            err.innerHTML = "Digite caracteres válidos.";
+            document.getElementById('btn-submit').disabled = true;
+
+        }
     }
 }
 
 //<summary> :   validates the surname that will be placed in the input.
-function validateSurnameClient() {
+//<param>   :   inputttxt, represents the surname of the client to be validated.
+function validateSurnameClient(inputtxt) {
+    var letters = /^[a-zA-Z\s-]*$/;
     if (document.getElementById("surnameClient").value.length <= 0) {
-        document.getElementById("surnameClientError").innerHTML = "Debes ingresar el primer apellido.";
+        document.getElementById("surnameClientError").innerHTML = "Debe ingresar el primer apellido.";
+        document.getElementById('btn-submit').disabled = true;
     }
     else {
-        document.getElementById("surnameClientError").innerHTML = "";
+        if (inputtxt.value.match(letters)) {
+            var err = document.getElementById("surnameClientError");
+            err.innerHTML = " ";
+            document.getElementById('btn-submit').disabled = false;
+        }
+        else {
+            var err = document.getElementById("surnameClientError");
+            err.innerHTML = "Digite caracteres válidos.";
+            document.getElementById('btn-submit').disabled = true;
+        }
     }
 }
 
 //<summary> :   validates the second surname that will be placed in the input.
-function validateSecondSurnameClient() {
+//<param>   :   inputttxt, represents second surname of the client to be validated.
+function validateSecondSurnameClient(inputtxt) {
+    var letters = /^[a-zA-Z\s-]*$/;
     if (document.getElementById("secondSurnameClient").value.length <= 0) {
-        document.getElementById("secondSurnameClientError").innerHTML = "Debes ingresar el segundo apellido.";
+        document.getElementById("secondSurnameClientError").innerHTML = "Debe ingresar el segundo apellido.";
+        document.getElementById('btn-submit').disabled = true;
     }
     else {
-        document.getElementById("secondSurnameClientError").innerHTML = "";
+        if (inputtxt.value.match(letters)) {
+            var err = document.getElementById("secondSurnameClientError");
+            err.innerHTML = " ";
+            document.getElementById('btn-submit').disabled = false;
+        }
+        else {
+            var err = document.getElementById("secondSurnameClientError");
+            err.innerHTML = "Digite caracteres válidos.";
+            document.getElementById('btn-submit').disabled = true;
+        }
+    }
+}
+
+
+//<summary> :   validates the phone number that will be placed in the input.
+//<param>   :   inputttxt, represents the phone number of the client to be validated.
+function validateClientPhoneNumber(inputtxt) {
+    var letters = /^[0-9]*$/;
+    var err = document.getElementById("clientPhoneError");
+    if (inputtxt.value.match(letters)) {
+        err.innerHTML = "";
+        document.getElementById('btn-submit').disabled = false;
+    }
+    else {
+        err.innerHTML = "Digite valores numéricos."
+        document.getElementById('btn-submit').disabled = true;
+
+    }
+}
+
+//<summary> :   validates the mail that will be placed in the input.
+//<param>   :   inputttxt, represents the mail of the client to be validated.
+function validateClientEmail(inputtxt) {
+    if ( inputtxt.value.includes("@") && (inputtxt.value.includes(".")) ) {
+        var err = document.getElementById("clientEmailError");
+        $.ajax({
+            url: '/Client/isMailTaken',
+            data: { id: inputtxt.value },
+
+            success: function (exist) {
+
+                if (exist == 'True') {
+                    err.innerHTML = "Correo previamente registrado.";
+                    document.getElementById('btn-submit').disabled = true;
+
+                } else {
+                    err.innerHTML = "";
+                    document.getElementById('btn-submit').disabled = false;
+                }
+            },
+        });
+    } else {
+        var err = document.getElementById("clientEmailError");
+        err.innerHTML = "Digite un correo válido.";
     }
 }
 
 //<summary> :   validates the client id that will be placed in the input.
-//<param>   :   input, represents id of the client to be validated.
-function validateIdClient(input) {
+//<param>   :   inputttxt, represents the id of the client to be validated.
+function validateIdClient(inputtxt) {
     var letters = /^[0-9]*$/;
-    if (document.getElementById("idClient").value.length <= 7) {
-        document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula válida.";
-    }
-    else {
-        if (input.value.match(letters)) {
-            document.getElementById("idClientError").innerHTML = "";
-        } else {
-            document.getElementById("idClientError").innerHTML = "Debes ingresar una cédula válida.";
+    var tam = document.getElementById("idClient").value.length;
+    var err = document.getElementById("idClientError");idClientError
+    if (document.getElementById("idClient").value.length <= 0) {
+        document.getElementById("idClientError").innerHTML = "Debe ingresar la cédula.";
+        document.getElementById('btn-submit').disabled = true;
+    } else {
+        if (inputtxt.value.match(letters)) {
+            if (((tam < 8) && (tam > 0)) || (tam > 15)) {
+                err.innerHTML = "Ingrese entre 8 y 15 dígitos.";
+                document.getElementById('btn-submit').disabled = true;
+            } else {
+                $.ajax({
+                    url: '/Client/existID',
+                    data: { id: inputtxt.value },
+
+                    success: function (exist) {
+
+                        if (exist == 'True') {
+                            err.innerHTML = "Cédula previamente registrada.";
+                            document.getElementById('btn-submit').disabled = true;
+
+                        } else {
+                            err.innerHTML = "";
+                            document.getElementById('btn-submit').disabled = false;
+                        }
+                    },
+                });
+            }
+        }
+        else {
+            err.innerHTML = "Digite valores numéricos.";
+            document.getElementById('btn-submit').disabled = true;
         }
     }
 }

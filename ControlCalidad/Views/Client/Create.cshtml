@@ -1,13 +1,10 @@
 ﻿@model ControlCalidad.Models.Cliente
-
 @{
     ViewBag.Title = "Create";
+    List<SelectListItem> provinces = (List<SelectListItem>)ViewBag.provinces;
 }
 
-
-
 @{
-
     if (User.IsInRole("Jefe"))
     {
         <h3 class="text-grey">Agregar Cliente</h3>
@@ -31,10 +28,10 @@
 
                     @using (Html.BeginForm("Create", "Client", FormMethod.Post, new
                     {
-                        @onsubmit = "onSubmit()"
+                        @class = "",
+                        role = "form"
                     }))
                     {
-                        List<SelectListItem> provinces = (List<SelectListItem>)ViewBag.provinces;
                         @Html.AntiForgeryToken()
 
 
@@ -47,18 +44,19 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s10 offset-s1">
                                         <i class="p-size text-grey material-icons prefix">perm_identity</i>
-                                        <input name="cedulaPK" type="text" required class="validate form-control" onblur="validateIdClient(this)" onchange="validateIdClient(this)" onkeyup="validateIdClient(this)" id="idClient" />
                                         <label for="cedulaPK">Cédula <span class="red-text">  *</span>  </label>
+                                        <input class="validate form-control" type="text" name="cedulaPK" id="idClient" required onkeydown="validateIdClient(this)" onkeyup="validateIdClient(this)" />
+                                        @Html.ValidationMessageFor(m => m.cedulaPK, null, new { @class = "text-error" })
                                         <span class="text-error" id="idClientError"></span>
                                     </div>
                                 </div>
 
-
                                 <div class="row margin-b">
                                     <div class="input-field col s10 offset-s1">
                                         <i class="p-size text-grey material-icons prefix">account_circle</i>
-                                        <input name="apellido2" type="text" required class="validate form-control" onblur="validateSecondSurnameClient()" id="secondSurnameClient" />
                                         <label for="apellido2">Segundo Apellido <span class="red-text">  *</span>  </label>
+                                        <input class="validate form-control" type="text" name="apellido2" id="secondSurnameClient" required onkeydown="validateSecondSurnameClient(this)" onkeyup="validateSecondSurnameClient(this)" />
+                                        @Html.ValidationMessageFor(m => m.apellido2, null, new { @class = "text-error" })
                                         <span class="text-error" id="secondSurnameClientError"></span>
                                     </div>
                                 </div>
@@ -79,8 +77,9 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s10 offset-s1">
                                         <i class="p-size text-grey material-icons prefix">account_circle</i>
-                                        <input name="nombreP" type="text" required class="validate form-control" onblur="validateNameClient()" id="nameClient" />
                                         <label for="nombreP">Nombre <span class="red-text">  *</span>  </label>
+                                        <input class="validate form-control" type="text" name="nombreP" id="nameClient" required onkeydown="validateNameClient(this)" onkeyup="validateNameClient(this)" />
+                                        @Html.ValidationMessageFor(m => m.nombreP, null, new { @class = "text-error" })
                                         <span class="text-error" id="nameClientError"></span>
                                     </div>
                                 </div>
@@ -88,14 +87,14 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s10 offset-s1">
                                         <i class="p-size text-grey material-icons prefix">phone</i>
-                                        <input class="validate form-control" type="text" name="telefono" id="telefono" onkeydown="validateEmployeePhoneNumber(this)" onchange="validateEmployeePhoneNumber(this)" onkeyup="validateEmployeePhoneNumber(this)" />
+                                        <input class="validate form-control" type="text" name="telefono" id="clientPhone" onkeydown="validateClientPhoneNumber(this)" onkeyup="validateClientPhoneNumber(this)" />
                                         @Html.LabelFor(m => m.telefono, "Teléfono", new { @class = "" })
                                         @Html.ValidationMessageFor(m => m.telefono, null, new { @class = "text-error" })
-                                    </div>
-                                    <div id="employeePhoneError" class="center">
-
+                                        <span class="text-error" id="clientPhoneError"></span>
                                     </div>
                                 </div>
+
+
 
                                 <div class="row margin-b">
                                     <div class="input-field col s10 offset-s1">
@@ -107,13 +106,12 @@
                             </div>
 
                             <div class="col s4">
-
                                 <div class="row margin-b">
                                     <div class="input-field col s10 offset-s1">
                                         <i class="p-size text-grey material-icons prefix">account_circle</i>
-                                        @Html.LabelFor(model => model.apellido1, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <input name="apellido1" type="text" required class="validate form-control" onblur="validateSurnameClient()" id="surnameClient" />
                                         <label for="apellido1">Primer Apellido <span class="red-text">  *</span>  </label>
+                                        <input class="validate form-control" type="text" name="apellido1" id="surnameClient" required onkeydown="validateSurnameClient(this)" onkeyup="validateSurnameClient(this)" />
+                                        @Html.ValidationMessageFor(m => m.apellido1, null, new { @class = "text-error" })
                                         <span class="text-error" id="surnameClientError"></span>
                                     </div>
                                 </div>
@@ -121,9 +119,10 @@
                                 <div class="row margin-b">
                                     <div class="input-field col s10 offset-s1">
                                         <i class="p-size text-grey material-icons prefix">mail</i>
-                                        <input class="validate form-control" type="email" name="correo" id="Email" onblur="validateEmail('Email')" onchange="validateEmail('Email')" onkeyup="validateEmail('Email')" onke="validateEmail('Email')" required />
-                                        <label for="correo">Correo <span class="red-text">  *</span>  </label>
-                                        <span class="text-error" id="mailError"></span>
+                                        <input class="validate form-control" type="text" name="correo" id="correo" onkeydown="validateClientEmail(this)" onkeyup="validateClientEmail(this)" />
+                                        @Html.LabelFor(m => m.correo, "Email", new { @class = "" })
+                                        @Html.ValidationMessageFor(m => m.correo, null, new { @class = "text-error" })
+                                        <span class="text-error" id="clientEmailError"></span>
                                     </div>
                                 </div>
 
@@ -181,9 +180,10 @@
 
 
                         <div class="row center">
-                            @Html.ActionLink("Cancelar", "Index", null, new { @class = " margin-r waves-effect red-hover btn red accent-4" })
+                            @Html.ActionLink("Cancelar", "Index", new { cedula_empleadoFK = ViewBag.cedula }, new { @class = " margin-r waves-effect red-hover btn red accent-4" })
+                            <button type="submit" id="btn-submit" class="btn waves-effect waves-light turq btn-login modal-trigger">Aceptar</button>
 
-                            <button type="submit" value="Create" class="margin-l btn waves-effect waves-light turq white-text ">Aceptar</button>
+                            <!--<button type="submit" value="Create" class="margin-l btn waves-effect waves-light turq white-text ">Aceptar</button>-->
                         </div>
 
                         <div class="margin-b section">
@@ -193,6 +193,11 @@
 
                 </div>
             </div>
+        </div>
+        <div class="fixed-action-btn">
+            <a href="@Url.Action( "Index" , "Client/Index" )" class="btn-floating btn-large black left turq-hover">
+                <i class="large material-icons">arrow_back</i>
+            </a>
         </div>
     }
     else
@@ -222,7 +227,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script>
-
         $(document).ready(function () {
             $("#provincia").change(function () {
 

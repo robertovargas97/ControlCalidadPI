@@ -99,12 +99,14 @@
             </div>
         </div>
 
+
         <div class="margin-b1">
             <hr />
         </div>
+
         <div class="modal-footer">
-            @Html.ActionLink("Aceptar", "RemoveClient", new { clientId = Model.cedulaPK }, new { @class = "waves-effect waves-effect waves-light btn turq" })
             <a class="modal-close btn red-hover  red accent-4 white-text">Cancelar</a>
+            @Html.ActionLink("Aceptar", "RemoveClient", new { clientId = Model.cedulaPK }, new { @class = "waves-effect waves-effect waves-light btn turq" })
         </div>
     </div>
 </div>

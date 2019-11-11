@@ -1,8 +1,8 @@
-﻿@model IEnumerable < ControlCalidad.Models.Reports>
+﻿@model IEnumerable<ControlCalidad.Models.Reports>
 @*
-@{
-    ViewBag.Title = "Index";
-}
+    @{
+        ViewBag.Title = "Index";
+    }
 *@
 
 
@@ -122,45 +122,48 @@
                             <div class="col s12">
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject1" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("proy1", projectsNames, "Seleccione un proyecto")
+                                        @Html.DropDownList("proy1", projectsNames, "Seleccione un proyecto", new { @onChange = "firstReport()" })
                                         <br />
-                                        <table class="table striped ">
-                                            <thead>
-                                                <tr>
-                                                    <th class="center black white-text">
-                                                        Nombre
-                                                    </th>
-                                                    <th class="center black white-text">
-                                                        Estado
-                                                    </th>
-                                                    <th class="center black white-text">
-                                                        Complejidad
-                                                    </th>
-                                                    <th class="center black white-text">
-                                                        Responsable
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in Model)
-                                                {
+                                        <p id="demo1"></p>
+                                        <div>
+                                            <table id="table1" class="table striped ">
+                                                <thead>
                                                     <tr>
-                                                        <td class="center">
-                                                            @Html.DisplayFor(model => item.nombreRequerimiento)
-                                                        </td>
-                                                        <td class="center">
-                                                            @Html.DisplayFor(model => item.estadoRequerimiento)
-                                                        </td>
-                                                        <td class="center">
-                                                            @Html.DisplayFor(model => item.complejidadRequerimiento)
-                                                        </td>
-                                                        <td class="center">
-                                                            @Html.DisplayFor(model => item.nombreResponsable)
-                                                        </td>
+                                                        <th class="center black white-text">
+                                                            Nombre
+                                                        </th>
+                                                        <th class="center black white-text">
+                                                            Estado
+                                                        </th>
+                                                        <th class="center black white-text">
+                                                            Complejidad
+                                                        </th>
+                                                        <th class="center black white-text">
+                                                            Responsable
+                                                        </th>
                                                     </tr>
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td class="center">
+                                                                @Html.DisplayFor(model => item.nombreRequerimiento)
+                                                            </td>
+                                                            <td class="center">
+                                                                @Html.DisplayFor(model => item.estadoRequerimiento)
+                                                            </td>
+                                                            <td class="center">
+                                                                @Html.DisplayFor(model => item.complejidadRequerimiento)
+                                                            </td>
+                                                            <td class="center">
+                                                                @Html.DisplayFor(model => item.nombreResponsable)
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -169,8 +172,9 @@
 
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject2" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("projectName2", projectsNames, "Seleccione un proyecto", new { @nombreP = "nombreP", })
+                                        @Html.DropDownList("proy2", projectsNames, "Seleccione un proyecto", new { @onChange = "secondReport()" })
                                         <br />
+                                        <p id="demo2"></p>
                                         <table class="table striped ">
                                             <thead>
                                                 <tr>
@@ -206,8 +210,9 @@
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject3" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("testerName", projectsNames, "Seleccione un proyecto", new { @nombreT = "nombreT", })
+                                        @Html.DropDownList("proy3", projectsNames, "Seleccione un proyecto", new { @onChange = "thirdReport()" })
                                         <br />
+                                        <p id="demo3"></p>
                                         <table class="table striped ">
                                             <thead>
                                                 <tr>
@@ -244,8 +249,9 @@
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject4" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("projectName4", testerNames, "Seleccione un tester", new { @nombreP = "nombreP", })
-
+                                        @Html.DropDownList("tester", testerNames, "Seleccione un tester", new { @onChange = "fourthReport()" })
+                                        <br />
+                                        <p id="demo4"></p>
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -316,6 +322,53 @@
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(showProject3);
     </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        function firstReport() {
+            var proy = document.getElementById('proy1').value
+            //$.getJSON(".../Reports/CompletedRequirements", [proy], [tempEnded]);
+            /*$.ajax({
+                type: "POST",
+                url: "/Reports/CompletedRequirements",
+                data: proy,
+//                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    document.getElementById("demo1").innerHTML = response;
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });*/
+            $.ajax({
+                url: '/Reports/CompletedRequirements',
+                data: { id: proy },
+                success: function (list) {
+                    err.innerHTML = "Cédula previamente registrada.";
+                    document.getElementById('demo1').innerHTML = list;
+                },
+            });
+
+        }
+    </script>
+    <script>
+        function secondReport() {
+            var proy2 = document.getElementById('proy2').value
+        }
+    </script>
+    <script>
+        function thirdReport() {
+            var proy3 = document.getElementById('proy3').value
+        }
+    </script>
+    <script>
+        function fourthReport() {
+           4s = document.getElementById('tester').value
+        }
+    </script>
 
     <script>
         function showProjects1() {
@@ -328,6 +381,7 @@
             document.getElementById('selectProject3').style.display = "none";
             document.getElementById('selectProject4').style.display = "none";
             document.getElementById('selectProject1').style.display = "block";
+
         }
     </script>
     <script>
