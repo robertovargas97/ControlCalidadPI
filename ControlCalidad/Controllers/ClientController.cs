@@ -189,6 +189,22 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" );
         }
 
+        public string GetClientIdByEmail(string email) {
+            string id;
+
+            List<Cliente> client = db.Clientes.Where(c => c.correo.Equals(email)).ToList();
+            if (client[0] != null)
+            {
+                id = client[0].cedulaPK;
+            }
+            else {
+                id = "";
+            }
+            
+
+            return id;
+        }
+
         protected override void Dispose( bool disposing )
         {
             if( disposing )

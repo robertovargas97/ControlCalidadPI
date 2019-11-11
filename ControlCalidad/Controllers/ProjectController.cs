@@ -49,11 +49,17 @@ namespace ControlCalidad.Controllers
         // GET: Project
         public async Task<ActionResult> Index()
         {
+            var clientController = new ClientController();
             var proyectoes = db.Proyectoes.Include( p => p.Cliente ).OrderByDescending(p => p.idPK);
             string email = User.Identity.Name;
-            if( User.IsInRole( "Tester" ) || User.IsInRole( "Lider" ) || User.IsInRole("Cliente") )
+            if (User.IsInRole("Tester") || User.IsInRole("Lider"))
             {
-                ViewBag.projectId = GetProjectIdByEmail( email );
+                ViewBag.projectId = GetProjectIdByEmail(email);
+            }
+            else {
+                if ( User.IsInRole("Cliente") ) {
+                    ViewBag.clientId = clientController.GetClientIdByEmail(email);
+                } 
             }
 
             return View( await proyectoes.ToListAsync( ) );
