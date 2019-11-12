@@ -213,6 +213,7 @@ function deleteRequirement(id, projectId) {
 }
 
 //<summary> :   validates that a requirement does not exist in the db
+//<param>   : id (requirement id).
 function validateRequirementName(id) {
     $.ajax({
         url: '/Requirement/validateName',
@@ -279,6 +280,7 @@ function validateRealDuration() {
 }
 
 //<summary> :   validates that the user select correct date to the requirement.
+//<param>   : input is the html id of the input, error is the html id for the error span .
 function validateEndAssignDate(input, error) {
     if (document.getElementById("fechaInicio").value.length <= 0 && document.getElementById(input).value.length > 0) {
         document.getElementById(error).innerHTML = "No has ingresado una fecha de inicio para poder colcar esta fecha.";
