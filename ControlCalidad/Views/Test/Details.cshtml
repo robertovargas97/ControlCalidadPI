@@ -50,12 +50,12 @@
 
                     </div>
                 </div>
-                <div class="card-action center">
+                <div class="card-action center" id="testDetailsOpts">
                     <a id="delete-btn" class="margin-r waves-effect btn red accent-4 red-hover modal-trigger" href="#modal1">Borrar</a>
                     @Html.ActionLink("Editar", "Edit", new { id = Model.idPK, projectID = Model.id_proyectoFK, requirementID = Model.id_requerimientoFK }, new
-                    {
+               {
                    @class = " margin-l waves-effect waves-light btn turq",
-                        @id = "edit-btn"
+                   @id = "edit-btn"
                })
                 </div>
             </div>
@@ -63,7 +63,7 @@
     </div>
 
     <div class="fixed-action-btn">
-        <a href="@Url.Action("Index", new { id = Model.id_requerimientoFK, projectId = Model.id_proyectoFK})" class="btn-floating btn-large black turq-hover left tooltipped"
+        <a href="@Url.Action("Index", new { id = Model.id_requerimientoFK, projectId = Model.id_proyectoFK })" class="btn-floating btn-large black turq-hover left tooltipped"
            data-position="left" data-tooltip="Volver">
             <i class="large material-icons">arrow_back</i>
         </a>
@@ -104,4 +104,13 @@
     </div>
 }
 
+@{
 
+    if (User.IsInRole("Cliente"))
+    {
+        <script>
+            document.getElementById("testDetailsOpts").classList.add("hide");
+        </script>
+    }
+
+}

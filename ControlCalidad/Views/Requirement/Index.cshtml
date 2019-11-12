@@ -82,7 +82,7 @@
                 <i class="large material-icons">arrow_back</i>
             </a>
         </li>
-        <li>
+        <li id="reqAdd"">
             <a href="@Url.Action("Create", "Requirement",new {projectId = ViewBag.projectId})" class="btn-add btn-floating btn-large black turq-hover left tooltipped" data-position="left" data-tooltip="Agregar nuevo requerimiento">
                 <i class="large material-icons">add</i>
             </a>
@@ -96,7 +96,7 @@
     if(User.IsInRole( "Tester" ) || User.IsInRole( "Cliente" ) )
     {
         <script>
-            document.getElementById("btn-add").classList.add("hide");
+            document.getElementById("reqAdd").classList.add("hide");
         </script>
     }
 }

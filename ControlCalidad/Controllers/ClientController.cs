@@ -192,6 +192,9 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" );
         }
 
+        //<summary> :   Returns de id of a client associated to the email given.
+        //<param>   :   string email:   The email of the client.
+        //<return>  :   The id of a client.
         public string GetClientIdByEmail(string email) {
             string id;
 

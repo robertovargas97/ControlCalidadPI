@@ -25,12 +25,12 @@
                     <i class="large material-icons">arrow_back</i>
                 </a>
             </li>
-            <li>
+            <li id="testAdd">
                 <a href="@Url.Action("Create New", "Test/Create", new
-                 {
-                    requirementId = requirementId,
-                    projectId = projectId,
-                 })" class="btn-floating btn-large black turq-hover tooltipped" data-position="left" data-tooltip="Agregar una prueba">
+                    {
+                        requirementId = requirementId,
+                        projectId = projectId,
+                    })" class="btn-floating btn-large black turq-hover tooltipped" data-position="left" data-tooltip="Agregar una prueba">
                     <i class="large material-icons">add</i>
                 </a>
             </li>
@@ -67,15 +67,15 @@
                         <td class="center">
 
                             @Html.ActionLink("Detalles", "Details", new
-                            {
-                               id = item.idPK,
-                               projectID = item.id_proyectoFK,
-                               requirementID = item.id_requerimientoFK,
-                               reqName = item.Requerimiento.nombre
-                            }, new
-                            {
-                                @class = "waves-effect waves-light btn black turq-hover"
-                            })
+                       {
+                           id = item.idPK,
+                           projectID = item.id_proyectoFK,
+                           requirementID = item.id_requerimientoFK,
+                           reqName = item.Requerimiento.nombre
+                       }, new
+                       {
+                           @class = "waves-effect waves-light btn black turq-hover"
+                       })
 
                         </td>
                     </tr>
@@ -87,11 +87,15 @@
 
     </div>
 
-
-
-
-
 }
 
+@{
+    if (User.IsInRole("Cliente"))
+    {
+        <script>
+            document.getElementById("testAdd").classList.add("hide");
+        </script>
+    }
+}
 
 

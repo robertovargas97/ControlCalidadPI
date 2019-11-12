@@ -182,6 +182,9 @@ namespace ControlCalidad.Controllers
         }
 
         //Documentar Sergio
+        //<summary> :   Returns the name of the requirement that is associated to the id given.
+        //<param>   :   int? id: ID associated to the requirement.
+        //<return>  :   The name of the requirement
         public string getRequirementName(int? id)
         {
             List<string> requirement;
