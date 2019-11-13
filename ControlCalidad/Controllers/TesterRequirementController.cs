@@ -18,7 +18,7 @@ namespace ControlCalidad.Controllers
         private TestController testController = new TestController( );
 
         //<summary> : verifies if a requirement is assigned to any tester (Uses a Stored Procedure from teh db)
-        //<param>   : id , requirement's identifier . 
+        //<param>   : int id :  requirement's identifier . 
         //<return>  : return 1 if the requirement is assigned to any tester, otherwise return 0
         public int? isAssignedToTester(int id)
         {
@@ -29,7 +29,7 @@ namespace ControlCalidad.Controllers
         }
 
         //<summary> : validates if a requirement can be deleted from the db (if the requirement does not has related tester or tests) 
-        //<param>   : id , requirement's identifier . 
+        //<param>   : int id :  requirement's identifier . 
         //<return>  : true if it can be deleted, otherwise return false 
         public bool canDelete(int id)
         {

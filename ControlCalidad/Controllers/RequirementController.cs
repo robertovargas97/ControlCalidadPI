@@ -35,7 +35,8 @@ namespace ControlCalidad.Controllers
         }
 
         //<summary> : Shows requirement's details
-        //<param>   : The id,this parameter is an identifier for the requirement that will be displayed from the database, projectId is the id of the project related with the requirement. 
+        //<param>   : int? id : this parameter is an identifier for the requirement that will be displayed from the database
+        //            int? projectId: the id of the project related with the requirement. 
         //<return>  : Redirect to Details View
         public async Task<ActionResult> Details( int? id , int? projectId )
         {
@@ -61,7 +62,7 @@ namespace ControlCalidad.Controllers
         }
 
         //<summary> : GET --> Shows the input form to create a new requirement 
-        //<param>   : projectId is the id of the project related with the new requirement. 
+        //<param>   : int? projectId: is the id of the project related with the new requirement. 
         //<return>  : Redirect to Create view
         public ActionResult Create(int? projectId )
         {
@@ -72,7 +73,7 @@ namespace ControlCalidad.Controllers
         }
 
         //<summary> : POST --> Adds the new requirement to the db
-        //<param>   : requerimiento is the model from input form with the necessary information to create a new requirement
+        //<param>   : Requerimiento requerimiento: is the model from input form with the necessary information to create a new requirement
         //<return>  : Redirect to requirement Index if the requirement waa successfully added or shows an error otherwhise
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -91,7 +92,7 @@ namespace ControlCalidad.Controllers
             return View( requerimiento );
         }
 
-        //DOCUMENTAR RUBIO
+        //DOCUMENTAR RUBIO,en el metodo de arriba poner que es FC (form collection)
         public async Task<ActionResult> Edit( int? id , int? projectId )
         {
             if( id == null || projectId == null )
@@ -175,10 +176,11 @@ namespace ControlCalidad.Controllers
         }
 
 
-//------------------------------------METHODS AND FUNCTIONS CREATED BY THE TEAM-------------------------------------
+        //------------------------------------METHODS AND FUNCTIONS CREATED BY THE TEAM-------------------------------------
 
         //<summary> :   It is used to remove a requirement from the database.
-        //<param>   :   The id,this parameter is an identifier for the requirement that will be removed from the database, projectId is the id of the project related with the requirement. 
+        //<param>   :   int id : this parameter is an identifier for the requirement that will be removed from the database
+        //              int? projectId : is the id of the project related with the requirement. 
         //<return>  : Redirect to Index,where the requirements appears
         public ActionResult removeRequirement( int id , int? projectId )
         {
@@ -189,7 +191,8 @@ namespace ControlCalidad.Controllers
         }
 
         //<summary> : validates if a name of requirement exists in the database
-        //<param>   : name, the name of the requirement to validates, idProject is the id of the project related with the requirement
+        //<param>   : string name : the name of the requirement to validates
+        //            int idProject :  is the id of the project related with the requirement
         //<return>  : string, a string that represents the correct date
         public bool validateName( string name, int idProject )
         {
@@ -255,7 +258,8 @@ namespace ControlCalidad.Controllers
         }
 
         //<summary> : does a cast for nullable date to datetime
-        //<param>   : the date to cast, the format wants to show the date
+        //<param>   : DateTime? dt : the date to cast
+        //            string format : the date's format
         //<return>  : string, a string that represents the correct date
         public string dateTimeToString(DateTime? dt, string format)
         {
