@@ -192,7 +192,7 @@
 </script>
 
 @{
-    if (User.IsInRole("Cliente"))
+    if (User.IsInRole("Cliente") || User.IsInRole("Tester"))
     {
         <script>
             document.getElementById("employeesAvailable").classList.add("hide");
