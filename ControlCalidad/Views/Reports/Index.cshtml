@@ -120,9 +120,8 @@
                                     <div id="selectProject1" style="display:none;" class="answer_list">
                                         @Html.DropDownList("proy1", projectsNames, "Seleccione un proyecto", new { @onchange = "firstReport()" })
                                         <br />
-                                        <div id="hola"></div>
                                         <div>
-                                            <table id="table1" class="table striped ">
+                                            <table class="table striped ">
                                                 <thead>
                                                     <tr>
                                                         <th class="center black white-text">
@@ -139,15 +138,8 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="center">
-                                                            <div id="nomReq1"></div>
-                                                        </td>
-                                                        <td id="nomReq2" class="center"></td>
-                                                        <td id="nomReq3" class="center"></td>
-                                                        <td id="nomReq4" class="center"></td>
-                                                    </tr>
+                                                <tbody id="table1" class="center">
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -175,15 +167,8 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                    <tr>
-                                                        <td class="center">
-                                                        </td>
-                                                        <td class="center">
-                                                        </td>
-                                                        <td class="center">
-                                                        </td>
-                                                    </tr>
+                                            <tbody id="table2" class="center ">
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -192,8 +177,7 @@
                                     <div id="selectProject3" style="display:none;" class="answer_list">
                                         @Html.DropDownList("proy3", projectsNames, "Seleccione un proyecto", new { @onChange = "thirdReport()" })
                                         <br />
-                                        
-                                        <table class="table striped ">
+                                        <table  class="table striped ">
                                             <thead>
                                                 <tr>
                                                     <th class="center black white-text">
@@ -207,16 +191,10 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                    <tr>
-                                                        <td class="center">
-                                                        </td>
-                                                        <td class="center">
-                                                        </td>
-                                                        <td class="center">
-                                                        </td>
-                                                    </tr>
+                                            <tbody id="table3" class="center">
+
                                             </tbody>
+
                                         </table>
                                         <div id="chart_div"></div>
                                     </div>
@@ -225,9 +203,7 @@
                                     <div id="selectProject4" style="display:none;" class="answer_list">
                                         @Html.DropDownList("tester", testerNames, "Seleccione un tester", new { @onChange = "fourthReport()" })
                                         <br />
-                                        <p id="demo4"></p>
-                                        <br />
-                                        <table class="table striped ">
+                                        <table id="table4" class="table striped ">
                                             <thead>
                                                 <tr>
                                                     <th class="center black white-text">
@@ -241,14 +217,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                                <tr>
-                                                    <td class="center">
-                                                    </td>
-                                                    <td class="center">
-                                                    </td>
-                                                    <td class="center">
-                                                    </td>
-                                                </tr>
+                                            <tbody id="table4" class="center"></tbody>
                                         </table>
 
                                     </div>
@@ -295,41 +264,51 @@
     <script>
         function firstReport() {
             var proy = document.getElementById('proy1').value;
-            $.ajax({
-                type: "POST",
-                url: 'Reports/CompletedRequirements',
-                data: { id: proy },
-                complete: function (valorRetorno) {
-                    
-                }
-            });/*
-            $.ajax({
-                type: "POST",
-                url: "Reports/CompletedRequirements",
-                data: proy,
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-                },
-                complete: function (jqXHR, status) {
-                    alert("complete: " + status + "\n\nResponse: " + jqXHR.responseText);
-                }
-            });*/
+            $.get("/Reports/CompletedRequirements", { proy: proy }, function (data) {
+                $.each(data, function (index, v1) {
+                    $("#table1").append("<tr><td>" + v1.nombreRequerimiento + "</td><td>" + v1.estadoRequerimiento + "</td><td>" +  v1.complejidadRequerimiento + "</td><td>" +  v1.nombreResponsable + "</td><tr>");
+                });
+            });
         }
 
     </script>
     <script>
         function secondReport() {
             var proy2 = document.getElementById('proy2').value
+            $.get("/Reports/RunningRequirements", { proy: proy2 }, function (data) {
+                $.each(data, function (index, v2) {
+                    $("#table2").append("<tr ><td>" + v2.nombreReq + "</td><td>" + v2.complejidadReq + "</td><td>" + v2.nombreResp + "</td><td>");
+                });
+            });
         }
     </script>
     <script>
         function thirdReport() {
             var proy3 = document.getElementById('proy3').value
+            $.get("/Reports/TesterRequirements", { proy: proy3 }, function (data) {
+                $.each(data, function (index, v3) {
+                    $("#table3").append("<tr><td>" + v3.nombreTester + "</td><td>" + v3.cantidadReqAsignados + "</td><td>" + v3.nombreP + "</td><td>");
+                    var data = google.visualization.arrayToDataTable([
+                        ['Elemento', 'Cantidad', { role: 'style' }],
+                        [v3.nombreTester, v3.cantidadReqAsignados, 'blue'],
+                    ]);
+
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                    chart.draw(data);
+                });
+            });
         }
     </script>
     <script>
         function fourthReport() {
-           var tester = document.getElementById('tester').value
+            var tester = document.getElementById('tester').value
+            $.get("/Reports/ParticipationHistory", { tester: tester }, function (data) {
+                var row;
+                $.each(data, function (index, v4) {
+                    $("#table4").append("<tr><td>" + v4.nombre + "</td><td>" + v4.estado + "</td><td>" + v4.horasDedicas + "</td><td>");
+                });
+            });
         }
     </script>
 
@@ -371,17 +350,6 @@
             document.getElementById('selectProject2').style.display = "none";
             document.getElementById('selectProject4').style.display = "none";
             document.getElementById('selectProject3').style.display = "block";
-
-            var data = google.visualization.arrayToDataTable([
-                ['Elemento', 'Cantidad', { role: 'style' }],
-                ['Carlos', 8, 'blue'],            // RGB value
-                ['Juan', 10, 'blue'],            // English color name
-                ['Pedro', 9, 'blue'], // CSS-style declaration
-            ]);
-
-
-            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-            chart.draw(data);
         }
     </script>
     <script>

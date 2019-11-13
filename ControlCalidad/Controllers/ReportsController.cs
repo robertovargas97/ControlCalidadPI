@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ControlCalidad.Models;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace ControlCalidad.Controllers
 {
@@ -28,26 +29,31 @@ namespace ControlCalidad.Controllers
         //<summary> : This method is used to call the store procedure "PA_req_terminados_proy".
         //<params>  : input : It's the proy needed to make the consult.
         //<return>  : Returns a list.
-        public string CompletedRequirements(string proy)
+        public JsonResult CompletedRequirements(string proy)
         {
-            ModelState.AddModelError("", "Proyecto: " + proy);
-            //return Json(db.PA_req_terminados_proy(proy));
-            return proy;
-
+            db.Configuration.ProxyCreationEnabled = false;
+            List<PA_req_terminados_proy_Result> reqList = db.PA_req_terminados_proy(proy).ToList();
+            return Json(reqList, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult RunningRequirements(string proy)
         {
-            return Json(db.PA_req_en_ejecucion_proy(proy));
+            db.Configuration.ProxyCreationEnabled = false;
+            List<PA_req_en_ejecucion_proy_Result> reqList = db.PA_req_en_ejecucion_proy(proy).ToList();
+            return Json(reqList, JsonRequestBehavior.AllowGet);
 
         }
         public JsonResult TesterRequirements(string proy)
         {
-            return Json(db.PA_cant_req_tester(proy));
-
+            db.Configuration.ProxyCreationEnabled = false;
+            List<PA_cant_req_tester_Result> reqList = db.PA_cant_req_tester(proy).ToList();
+            return Json(reqList, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ParticipationHistory(string proy)
+        public JsonResult ParticipationHistory(string tester)
         {
-            return Json(db.PA_historial_participacion_tester(proy));
+            db.Configuration.ProxyCreationEnabled = false;
+            List<PA_historial_participacion_tester_Result> reqList = db.PA_historial_participacion_tester(tester).ToList();
+            return Json(reqList, JsonRequestBehavior.AllowGet);
 
         }
     }

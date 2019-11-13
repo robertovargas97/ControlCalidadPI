@@ -18,6 +18,7 @@ namespace ControlCalidad.Controllers
 
         private QASystemEntities db = new QASystemEntities( );
         private static string editID;
+        private static string mail;
 
         //<summary> : gets clients from database to put them in a list
         //<param>   : None
@@ -102,7 +103,7 @@ namespace ControlCalidad.Controllers
 
                 catch
                 {
-                    ModelState.AddModelError( "" , "No puede crear clientes con la misma cédula." );
+                    ModelState.AddModelError( "" , "No pudo crear cliente" );
                     return View( cliente );
 
                 }
@@ -117,16 +118,19 @@ namespace ControlCalidad.Controllers
         public async Task<ActionResult> Edit(string id)
         {
             ViewBag.provinces = this.localizations.provinceList();
+            editID = string.Copy(id);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Cliente cliente = await db.Clientes.FindAsync(id);
+            mail = cliente.correo;
             if (cliente == null)
             {
                 return HttpNotFound();
             }
             return View(cliente);
+
         }
 
         // POST: Client/Edit/5
@@ -137,19 +141,58 @@ namespace ControlCalidad.Controllers
 
         public async Task<ActionResult> Edit( [Bind( Include = "cedulaPK,nombreP,apellido1,apellido2,telefono,correo,provincia,canton,distrito,direccionExacta,fechaNacimiento" )] Cliente cliente )
         {
-            string provinceName = localizations.provinceName( cliente.provincia );
-            string cantonName = localizations.cantonName( cliente.provincia , cliente.canton );
-            string districtName = localizations.districtName( cliente.provincia , cliente.canton , cliente.distrito );
-            cliente.provincia = provinceName;
-            cliente.canton = cantonName;
-            cliente.distrito = districtName;
+
+            var editProvince = "";
+            var editCanton = "";
+            var editDistrict = "";
+
+            if (cliente.provincia != null)
+            {
+                editProvince = Regex.Match(cliente.provincia, @"\d+").Value;
+            }
+            if (cliente.provincia != null)
+            {
+                editCanton = Regex.Match(cliente.canton, @"\d+").Value;
+            }
+            if (cliente.provincia != null)
+            {
+                editDistrict = Regex.Match(cliente.distrito, @"\d+").Value;
+            }
+            
+
+            string provinceName = null;
+            string cantonName = null;
+            string districtName = null;
+            string provinceID = null;
+
+            if (editProvince != "")
+            {
+                provinceName = localizations.provinceName(cliente.provincia);
+                cliente.provincia = provinceName;
+
+            }
+            if (editCanton != "")
+            {
+                provinceID = this.localizations.provinceID(provinceName).ToString();
+                cantonName = localizations.cantonName(provinceID, cliente.canton);
+                cliente.canton = cantonName;
+
+            }
+            if (editDistrict != "")
+            {
+                string cantonID = this.localizations.cantonID(provinceName, cliente.canton).ToString();
+                districtName = localizations.districtName(provinceID, cantonID, cliente.distrito);
+                cliente.distrito = districtName;
+            }
 
             if ( ModelState.IsValid )
             {
+                db.Edit_Cliente(editID, cliente.cedulaPK, cliente.nombreP, cliente.apellido1, cliente.apellido2,
+                                 cliente.telefono, cliente.correo, cliente.provincia,
+                                 cliente.canton, cliente.distrito, cliente.direccionExacta, cliente.fechaNacimiento);
 
-                db.Entry( cliente ).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction( "Index" );
+
+                return RedirectToAction("Edit", new {id=cliente.cedulaPK});
             }
             return View( cliente );
         }
@@ -206,18 +249,14 @@ namespace ControlCalidad.Controllers
         //<return>  : Returns a boolean value, true if the email was taken, false the otherwise.
         public bool isMailTaken(string input)
         {
-            List<Cliente> cliente = db.Clientes.Where(x => x.correo == input).ToList();
-            if (cliente.ToString() == input)
-            {
-                return true;
-            }
-            else
-            {
+            if (mail == input) {
                 return false;
+            }else{
+                var exist = db.Clientes.Any(x => x.correo == input);
+                return exist;
+
             }
-
         }
-
         //<summary> : This method is used to verify if an ID has already been taken from another client.
         //<params>  : input : It's the ID we want to validate if is taken or not.
         //<return>  : Returns a boolean value, true if the ID was registered, false the otherwise.

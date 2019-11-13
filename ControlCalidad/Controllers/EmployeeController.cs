@@ -159,7 +159,7 @@ namespace ControlCalidad.Controllers
             if (ModelState.IsValid)
             {
 
-                db.Edit_Empleado(editID, empleado.cedulaPK, empleado.nombreP, empleado.apellido1, empleado.apellido1,
+                db.Edit_Empleado(editID, empleado.cedulaPK, empleado.nombreP, empleado.apellido1, empleado.apellido2,
                                  empleado.fechaNacimiento, empleado.edad, empleado.telefono, empleado.correo, empleado.provincia,
                                  empleado.canton, empleado.distrito, empleado.direccionExacta, empleado.disponibilidad);
 

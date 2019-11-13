@@ -46,7 +46,7 @@ namespace ControlCalidad.Controllers
         //<return>  : Returns the province id
         public int provinceID(string name)
         {
-            if(name == " ")
+            if(name == "")
             {
                 return 0;
             }

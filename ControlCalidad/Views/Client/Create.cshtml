@@ -118,7 +118,7 @@
 
                                 <div class="row margin-b">
                                     <div class="input-field col s10 offset-s1">
-                                        <i class="p-size text-grey material-icons prefix">account_circle</i>
+                                        <i class="p-size text-grey material-icons prefix">mail</i>
                                         <label for="correo">Correo <span class="red-text">  *</span>  </label>
                                         <input class="validate form-control" type="text" name="correo" id="clientEmail" required onkeydown="validateClientEmail(this)" onkeyup="validateClientEmail(this)" />
                                         @Html.ValidationMessageFor(m => m.correo, null, new { @class = "text-error" })
@@ -180,10 +180,10 @@
 
 
                         <div class="row center">
-                            @Html.ActionLink("Cancelar", "Index", new { cedula_empleadoFK = ViewBag.cedula }, new { @class = " margin-r waves-effect red-hover btn red accent-4" })
-                            <button type="submit" id="btn-submit" class="btn waves-effect waves-light turq btn-login modal-trigger">Aceptar</button>
+                            
+                            <button id="btn-delete" type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
 
-                            <!--<button type="submit" value="Create" class="margin-l btn waves-effect waves-light turq white-text ">Aceptar</button>-->
+                            <button id="btn-submit" type="submit" class="margin-l btn waves-effect waves-light turq btn-login modal-trigger">Crear</button>
                         </div>
 
                         <div class="margin-b section">

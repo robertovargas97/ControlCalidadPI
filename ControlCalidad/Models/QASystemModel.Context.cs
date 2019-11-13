@@ -204,5 +204,58 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PA_req_terminados_proy_Result>("PA_req_terminados_proy", nombre_proyParameter);
         }
+    
+        public virtual int Edit_Cliente(string cedulaAntigua, string cedulaPK, string nombreP, string apellido1, string apellido2, string telefono, string correo, string provincia, string canton, string distrito, string direccionExacta, Nullable<System.DateTime> fechaNacimiento)
+        {
+            var cedulaAntiguaParameter = cedulaAntigua != null ?
+                new ObjectParameter("cedulaAntigua", cedulaAntigua) :
+                new ObjectParameter("cedulaAntigua", typeof(string));
+    
+            var cedulaPKParameter = cedulaPK != null ?
+                new ObjectParameter("cedulaPK", cedulaPK) :
+                new ObjectParameter("cedulaPK", typeof(string));
+    
+            var nombrePParameter = nombreP != null ?
+                new ObjectParameter("nombreP", nombreP) :
+                new ObjectParameter("nombreP", typeof(string));
+    
+            var apellido1Parameter = apellido1 != null ?
+                new ObjectParameter("apellido1", apellido1) :
+                new ObjectParameter("apellido1", typeof(string));
+    
+            var apellido2Parameter = apellido2 != null ?
+                new ObjectParameter("apellido2", apellido2) :
+                new ObjectParameter("apellido2", typeof(string));
+    
+            var telefonoParameter = telefono != null ?
+                new ObjectParameter("telefono", telefono) :
+                new ObjectParameter("telefono", typeof(string));
+    
+            var correoParameter = correo != null ?
+                new ObjectParameter("correo", correo) :
+                new ObjectParameter("correo", typeof(string));
+    
+            var provinciaParameter = provincia != null ?
+                new ObjectParameter("provincia", provincia) :
+                new ObjectParameter("provincia", typeof(string));
+    
+            var cantonParameter = canton != null ?
+                new ObjectParameter("canton", canton) :
+                new ObjectParameter("canton", typeof(string));
+    
+            var distritoParameter = distrito != null ?
+                new ObjectParameter("distrito", distrito) :
+                new ObjectParameter("distrito", typeof(string));
+    
+            var direccionExactaParameter = direccionExacta != null ?
+                new ObjectParameter("direccionExacta", direccionExacta) :
+                new ObjectParameter("direccionExacta", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("fechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("fechaNacimiento", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Cliente", cedulaAntiguaParameter, cedulaPKParameter, nombrePParameter, apellido1Parameter, apellido2Parameter, telefonoParameter, correoParameter, provinciaParameter, cantonParameter, distritoParameter, direccionExactaParameter, fechaNacimientoParameter);
+        }
     }
 }

@@ -522,7 +522,7 @@ function validateClientEmail(inputtxt) {
             var err = document.getElementById("clientEmailError");
             $.ajax({
                 url: '/Client/isMailTaken',
-                data: { id: inputtxt.value },
+                data: { input: inputtxt.value } ,
 
                 success: function (exist) {
 
@@ -560,7 +560,7 @@ function validateIdClient(inputtxt) {
             } else {
                 $.ajax({
                     url: '/Client/existID',
-                    data: { id: inputtxt.value },
+                    data: { correo: inputtxt.value },
 
                     success: function (exist) {
 

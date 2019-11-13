@@ -263,6 +263,20 @@
         <Function Name="SP_Conseguir_testers_req" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
         </Function>
+        <Function Name="Edit_Cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedulaAntigua" Type="varchar" Mode="In" />
+          <Parameter Name="cedulaPK" Type="varchar" Mode="In" />
+          <Parameter Name="nombreP" Type="varchar" Mode="In" />
+          <Parameter Name="apellido1" Type="varchar" Mode="In" />
+          <Parameter Name="apellido2" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+          <Parameter Name="provincia" Type="varchar" Mode="In" />
+          <Parameter Name="canton" Type="varchar" Mode="In" />
+          <Parameter Name="distrito" Type="varchar" Mode="In" />
+          <Parameter Name="direccionExacta" Type="varchar" Mode="In" />
+          <Parameter Name="fechaNacimiento" Type="date" Mode="In" />
+        </Function>
         <Function Name="Edit_Empleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedulaAntigua" Type="varchar" Mode="In" />
           <Parameter Name="cedulaPK" Type="varchar" Mode="In" />
@@ -669,16 +683,30 @@
           <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PA_cant_req_tester" ReturnType="Collection(QASystemEntity.PA_cant_req_tester_Result)">
-            <Parameter Name="nombre_proy" Mode="In" Type="String" />
+          <Parameter Name="nombre_proy" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="PA_historial_participacion_tester" ReturnType="Collection(QASystemEntity.PA_historial_participacion_tester_Result)">
-            <Parameter Name="nombre_tester" Mode="In" Type="String" />
+          <Parameter Name="nombre_tester" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="PA_req_en_ejecucion_proy" ReturnType="Collection(QASystemEntity.PA_req_en_ejecucion_proy_Result)">
-            <Parameter Name="nombre_proy" Mode="In" Type="String" />
+          <Parameter Name="nombre_proy" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="PA_req_terminados_proy" ReturnType="Collection(QASystemEntity.PA_req_terminados_proy_Result)">
-            <Parameter Name="nombre_proy" Mode="In" Type="String" />
+          <Parameter Name="nombre_proy" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Edit_Cliente">
+            <Parameter Name="cedulaAntigua" Mode="In" Type="String" />
+            <Parameter Name="cedulaPK" Mode="In" Type="String" />
+            <Parameter Name="nombreP" Mode="In" Type="String" />
+            <Parameter Name="apellido1" Mode="In" Type="String" />
+            <Parameter Name="apellido2" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="provincia" Mode="In" Type="String" />
+            <Parameter Name="canton" Mode="In" Type="String" />
+            <Parameter Name="distrito" Mode="In" Type="String" />
+            <Parameter Name="direccionExacta" Mode="In" Type="String" />
+            <Parameter Name="fechaNacimiento" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
@@ -932,6 +960,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Edit_Cliente" FunctionName="QASystemEntity.Store.Edit_Cliente" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
