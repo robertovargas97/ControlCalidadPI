@@ -157,13 +157,23 @@ namespace ControlCalidad.Controllers
                     result = db.Database.ExecuteSqlCommand(sql);
                     sql = "INSERT INTO ControlCalidad.Tester VALUES('" + cedulaPK + "', 0)";
                     result = db.Database.ExecuteSqlCommand(sql);
-                    sql = "UPDATE ControlCalidad.Empleado SET disponibilidad = 'Ocupado' WHERE cedulaPK = '" + cedulaPK + "'";
-                    result = db.Database.ExecuteSqlCommand(sql);
+                    
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                 }
+                try
+                {
+                    sql = "UPDATE ControlCalidad.Empleado SET disponibilidad = 'Ocupado' WHERE cedulaPK = '" + cedulaPK + "'";
+                    result = db.Database.ExecuteSqlCommand(sql);
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                
             }
             else
             {

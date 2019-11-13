@@ -13,7 +13,7 @@
 @{
 
     int? projectId = ViewBag.projectId;
- 
+    string clientId = ViewBag.clientId;
 
     <div id="btn-add" class="fixed-action-btn">
         <a href="@Url.Action("Create New", "Project/Create")" class="btn-floating btn-large black turq-hover tooltipped" data-position="left" data-tooltip="Agregar nuevo proyecto">
@@ -25,35 +25,76 @@
         <table class="table striped">
             <tr>
                 <th class="center black white-text">
-                    @Html.DisplayNameFor( model => model.nombre )
+                    @Html.DisplayNameFor(model => model.nombre)
                 </th>
 
                 <th class="center black white-text">
-                    @Html.DisplayNameFor( model => model.estado )
+                    @Html.DisplayNameFor(model => model.estado)
                 </th>
 
                 <th class="center black white-text">
-                    @Html.DisplayName( "Nombre Cliente" )
+                    @Html.DisplayName("Nombre Cliente")
                 </th>
                 <th class="center black white-text">
-                    @Html.DisplayName( "Acción" )
+                    @Html.DisplayName("Acción")
                 </th>
                 <th class="center black white-text">
-                    @Html.DisplayName( "Requerimientos" )
+                    @Html.DisplayName("Requerimientos")
                 </th>
                 <th class="center black white-text">
-                    @Html.DisplayName( "Equipo" )
+                    @Html.DisplayName("Equipo")
                 </th>
             </tr>
 
-            @foreach( var item in Model )
+            @foreach (var item in Model)
             {
 
-                if( User.IsInRole("Cliente") || ( User.IsInRole( "Tester" ) || User.IsInRole( "Lider" ) ) && projectId != null )
+                if ((User.IsInRole("Tester") || User.IsInRole("Lider")) && projectId != null)
                 {
                     if (item.idPK == projectId)
                     {
-                            string clientName = item.Cliente.nombreP + " " + item.Cliente.apellido1;    
+                        string clientName = item.Cliente.nombreP + " " + item.Cliente.apellido1;
+                        <tr>
+                            <td class="center">
+                                @Html.DisplayFor(modelItem => item.nombre)
+                            </td>
+
+                            <td class="center">
+                                @Html.DisplayFor(modelItem => item.estado)
+                            </td>
+
+                            <td class="center">
+                                @Html.DisplayName(clientName)
+                            </td>
+                            <td class="center">
+
+                                @Html.ActionLink("Detalles", "Details", new { id = item.idPK },
+                          new { @class = "waves-effect waves-light btn black turq-hover" }
+                          )
+                            </td>
+
+                            <td class="center">
+                                @Html.ActionLink("Ver Requerimientos", "../Requirement/Index", new { projectId = item.idPK },
+                              new { @class = "waves-effect waves-light btn black turq-hover" }
+                              )
+                            </td>
+                            <td class="center">
+                                @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id_proyecto = item.idPK },
+                          new { @class = "waves-effect waves-light btn black turq-hover" }
+                          )
+                            </td>
+                        </tr>
+
+                    }
+                }
+                else
+                {
+                    if (User.IsInRole("Cliente"))
+                    {
+
+                        if (item.Cliente.cedulaPK == clientId)
+                        {
+                            string clientName = item.Cliente.nombreP + " " + item.Cliente.apellido1;
                             <tr>
                                 <td class="center">
                                     @Html.DisplayFor(modelItem => item.nombre)
@@ -64,7 +105,7 @@
                                 </td>
 
                                 <td class="center">
-                                    @Html.DisplayName( clientName )
+                                    @Html.DisplayName(clientName)
                                 </td>
                                 <td class="center">
 
@@ -74,29 +115,31 @@
                                 </td>
 
                                 <td class="center">
-                                    @Html.ActionLink("Ver Requerimientos", "../Requirement/Index", new { projectId  = item.idPK },
-                                  new { @class = "waves-effect waves-light btn black turq-hover" }
-                                  )
+                                    @Html.ActionLink("Ver Requerimientos", "../Requirement/Index", new { projectId = item.idPK },
+                               new { @class = "waves-effect waves-light btn black turq-hover" }
+                               )
                                 </td>
+
                                 <td class="center">
                                     @Html.ActionLink("Ver Equipo", "../Team/Edit", new { id_proyecto = item.idPK },
-                              new { @class = "waves-effect waves-light btn black turq-hover" }
-                              )
+                               new { @class = "waves-effect waves-light btn black turq-hover" }
+                               )
                                 </td>
                             </tr>
+                        }
 
                     }
-                }
-                else
-                {
+                    else
+                    {
+
                         string clientName = item.Cliente.nombreP + " " + item.Cliente.apellido1;
                         <tr>
                             <td class="center">
-                                @Html.DisplayFor( modelItem => item.nombre )
+                                @Html.DisplayFor(modelItem => item.nombre)
                             </td>
 
                             <td class="center">
-                                @Html.DisplayFor( modelItem => item.estado )
+                                @Html.DisplayFor(modelItem => item.estado)
                             </td>
 
                             <td class="center">
@@ -110,7 +153,7 @@
                             </td>
 
                             <td class="center">
-                                @Html.ActionLink("Ver Requerimientos", "../Requirement/Index", new { projectId  = item.idPK },
+                                @Html.ActionLink("Ver Requerimientos", "../Requirement/Index", new { projectId = item.idPK },
                               new { @class = "waves-effect waves-light btn black turq-hover" }
                               )
                             </td>
@@ -121,6 +164,10 @@
                               )
                             </td>
                         </tr>
+                    }
+
+
+
                 }
             }
 

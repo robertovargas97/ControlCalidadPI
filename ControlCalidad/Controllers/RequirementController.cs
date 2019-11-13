@@ -166,7 +166,9 @@ namespace ControlCalidad.Controllers
             base.Dispose( disposing );
         }
 
-        //DOCUMENTAR
+        //<summary> :   It is used to remove a requirement from the database.
+        //<param>   :   The id,this parameter is an identifier for the requirement that will be removed from the database, projectId is the id of the project related with the requirement. 
+        //<return>  : Redirect to Index,where the requirements appears
         public ActionResult removeRequirement( int id , int? projectId )
         {
             Requerimiento requerimiento = db.Requerimientoes.Find( id , projectId );
@@ -175,13 +177,20 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" , new { projectId = projectId} );
         }
 
-        public bool validateName( string name, int idProyect )
+
+        //<summary> : validates if a name of requirement exists in the database
+        //<param>   : name, the name of the requirement to validates, idProject is the id of the project related with the requirement
+        //<return>  : string, a string that represents the correct date
+        public bool validateName( string name, int idProject )
         {
-            var exist = db.Requerimientoes.Any( req => req.nombre == name &&  req.id_proyectoFK == idProyect );
+            var exist = db.Requerimientoes.Any( req => req.nombre == name &&  req.id_proyectoFK == idProject );
             return exist;
         }
 
         //Documentar Sergio
+        //<summary> :   Returns the name of the requirement that is associated to the id given.
+        //<param>   :   int? id: ID associated to the requirement.
+        //<return>  :   The name of the requirement
         public string getRequirementName(int? id)
         {
             List<string> requirement;
@@ -195,7 +204,9 @@ namespace ControlCalidad.Controllers
 
             return requirementName;
         }
-
+        //<summary> :   Returns the list of available testers that are associated with the project
+        //<param>   :   int? projectId: ID associated with the requirement project
+        //<return>  :   List of available testers
         public List<SelectListItem> getTesters(int? projectId) {
             List<SP_Conseguir_testers_req_Result> testers = db.SP_Conseguir_testers_req(projectId).ToList();
             List<SelectListItem> allTesters = testers.ConvertAll(
@@ -209,7 +220,10 @@ namespace ControlCalidad.Controllers
                 });
             return allTesters;
         }
-
+        //<summary> :   Returns the result of the SP, only one tester returns since only one assigned tester can be
+        //<param>   :   int? projectId: ID associated with the requirement project
+        //              int? requirementId: ID associated with the requirement
+        //<return>  :   Tester assigned to the requirement
         public SelectListItem getTester(int? projectId, int? requirementId)
         {
             SelectListItem tester_selected = null;
@@ -230,6 +244,10 @@ namespace ControlCalidad.Controllers
             return tester_selected;
         }
 
+
+        //<summary> : does a cast for nullable date to datetime
+        //<param>   : the date to cast, the format wants to show the date
+        //<return>  : string, a string that represents the correct date
         public string dateTimeToString(DateTime? dt, string format)
         {
             return dt == null ? "" : ( ( DateTime ) dt ).ToString( format );

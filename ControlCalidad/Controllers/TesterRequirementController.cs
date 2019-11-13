@@ -36,7 +36,9 @@ namespace ControlCalidad.Controllers
             return deleted;
 
         }
-
+        //<summary> :   Insert a new tuple inside the TieneAsignado table
+        //<param>   :   string cedula_empeladoFK: ID of the tester that you want to associate with the requirement
+        //              int? id_proyectoFK: ID of the project that you want to associate with the requirement
         public void insert(string cedula_empeladoFK, int? id_proyectoFK)
         {
             TieneAsignado newEntity = new TieneAsignado
@@ -49,7 +51,10 @@ namespace ControlCalidad.Controllers
             db.TieneAsignadoes.Add(newEntity);
             db.SaveChanges();
         }
-
+        //<summary> :   Insert a new tuple inside the TieneAsignado table
+        //<param>   :   string cedula_empeladoFK: ID of the tester that belongs to the tuple that you want to remove
+        //              int? id_proyectoFK: Id of the project that belongs to the tuple that you want to remove
+        //              int? id_requerimiento: Id of the requirement that belongs to the tuple that you want to remove
         public void delete(string cedula_empeladoFK, int? id_proyectoFK, int? id_requerimiento)
         {
             TieneAsignado newEntity = db.TieneAsignadoes.Find(cedula_empeladoFK, Convert.ToInt32(id_proyectoFK), Convert.ToInt32(id_requerimiento));
