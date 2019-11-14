@@ -20,8 +20,12 @@ namespace ControlCalidad.Controllers
         //Controller to get information about tester and their assigned requirements
         private TesterRequirementController tieneAsignado = new TesterRequirementController();
 
-    
-        //DOCUMENTAR RUBIO
+
+        //<summary> : Shows requirement's index, if idTester is not null, insert into TieneAsginado table a tuple with idTester, projectId and requirementId
+        //<param>   : string idTester : If it is not null, it takes it to be able to insert it as part of the new tuple, 
+        //            it is only valid when a requirement with an assigned tester is created
+        //            int? projectId: the id of the project related with the requirement. 
+        //<return>  : Redirect to Index View
         public ActionResult Index( int? projectId, string idTester)
         {
             if (idTester != null && idTester != "")
@@ -74,6 +78,7 @@ namespace ControlCalidad.Controllers
 
         //<summary> : POST --> Adds the new requirement to the db
         //<param>   : Requerimiento requerimiento: is the model from input form with the necessary information to create a new requirement
+        //            FormCollection fc: Set of view forms to be able to extract stored data
         //<return>  : Redirect to requirement Index if the requirement waa successfully added or shows an error otherwhise
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -92,7 +97,10 @@ namespace ControlCalidad.Controllers
             return View( requerimiento );
         }
 
-        //DOCUMENTAR RUBIO,en el metodo de arriba poner que es FC (form collection)
+        //<summary> : Shows requirement's edit,
+        //<param>   : int? id : this parameter is an identifier for the requirement that will be displayed from the database
+        //            int? projectId: the id of the project related with the requirement. 
+        //<return>  : Redirect to Details View
         public async Task<ActionResult> Edit( int? id , int? projectId )
         {
             if( id == null || projectId == null )
@@ -127,7 +135,10 @@ namespace ControlCalidad.Controllers
             return View( requerimiento );
         }
 
-        //DOCUMENTAR RUBIO
+        //<summary> : POST --> Modify the requirement to the db
+        //<param>   : Requerimiento requerimiento: is the model from input form with the necessary information to edit a requirement
+        //            FormCollection fc: Set of view forms to be able to extract stored data
+        //<return>  : Redirect to requirement Index if the requirement waa successfully edited or redirect to edit again otherwhise
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento, FormCollection fc)
