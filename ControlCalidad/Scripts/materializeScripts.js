@@ -191,7 +191,7 @@ function validateDateP() {
 
 //------------------------------------------------------------------------------------------------------------------------
 
-//------------------------------------------------Requirements Validations------------------------------------------------
+//------------------------------------------------Requirement Validations------------------------------------------------
 //<summary> :   validates if a requirement can be deleted. It can deleted be if does not related with any tester or test.
 //<param>   : id (requirement id) and projectId.
 function deleteRequirement(id, projectId) {

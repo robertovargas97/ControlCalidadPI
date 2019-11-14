@@ -13,9 +13,19 @@ namespace ControlCalidad.Controllers
     public class RequirementController : Controller
     {
         private QASystemEntities db = new QASystemEntities( );
+
+        //Controller to get information from projects
         private ProjectController projectController = new ProjectController( );
+
+        //Controller to get information about tester and their assigned requirements
         private TesterRequirementController tieneAsignado = new TesterRequirementController();
-        // GET: Requirement
+
+
+        //<summary> : Shows requirement's index, if idTester is not null, insert into TieneAsginado table a tuple with idTester, projectId and requirementId
+        //<param>   : string idTester : If it is not null, it takes it to be able to insert it as part of the new tuple, 
+        //            it is only valid when a requirement with an assigned tester is created
+        //            int? projectId: the id of the project related with the requirement. 
+        //<return>  : Redirect to Index View
         public ActionResult Index( int? projectId, string idTester)
         {
             if (idTester != null && idTester != "")
@@ -28,7 +38,10 @@ namespace ControlCalidad.Controllers
             return View( requerimientoes.ToList( ) );
         }
 
-        // GET: Requirement/Details/5
+        //<summary> : Shows requirement's details
+        //<param>   : int? id : this parameter is an identifier for the requirement that will be displayed from the database
+        //            int? projectId: the id of the project related with the requirement. 
+        //<return>  : Redirect to Details View
         public async Task<ActionResult> Details( int? id , int? projectId )
         {
             if( id == null || projectId == null )
@@ -52,7 +65,9 @@ namespace ControlCalidad.Controllers
             return View( requerimiento );
         }
 
-        // GET: Requirement/Create
+        //<summary> : GET --> Shows the input form to create a new requirement 
+        //<param>   : int? projectId: is the id of the project related with the new requirement. 
+        //<return>  : Redirect to Create view
         public ActionResult Create(int? projectId )
         {
             ViewBag.id_proyectoFK = new SelectList( db.Proyectoes , "idPK" , "nombre" );
@@ -61,9 +76,10 @@ namespace ControlCalidad.Controllers
             return View( );
         }
 
-        // POST: Requirement/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //<summary> : POST --> Adds the new requirement to the db
+        //<param>   : Requerimiento requerimiento: is the model from input form with the necessary information to create a new requirement
+        //            FormCollection fc: Set of view forms to be able to extract stored data
+        //<return>  : Redirect to requirement Index if the requirement waa successfully added or shows an error otherwhise
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento , FormCollection fc)
@@ -81,7 +97,10 @@ namespace ControlCalidad.Controllers
             return View( requerimiento );
         }
 
-        // GET: Requirement/Edit/5
+        //<summary> : Shows requirement's edit,
+        //<param>   : int? id : this parameter is an identifier for the requirement that will be displayed from the database
+        //            int? projectId: the id of the project related with the requirement. 
+        //<return>  : Redirect to Details View
         public async Task<ActionResult> Edit( int? id , int? projectId )
         {
             if( id == null || projectId == null )
@@ -116,9 +135,10 @@ namespace ControlCalidad.Controllers
             return View( requerimiento );
         }
 
-        // POST: Requirement/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //<summary> : POST --> Modify the requirement to the db
+        //<param>   : Requerimiento requerimiento: is the model from input form with the necessary information to edit a requirement
+        //            FormCollection fc: Set of view forms to be able to extract stored data
+        //<return>  : Redirect to requirement Index if the requirement waa successfully edited or redirect to edit again otherwhise
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit( [Bind( Include = "idPK,nombre,id_proyectoFK,fechaInicio,fechaFinalizacion,fechaAsignacion,estado,complejidad,descripcion,duracionEstimada,duracionReal" )] Requerimiento requerimiento, FormCollection fc)
@@ -166,8 +186,12 @@ namespace ControlCalidad.Controllers
             base.Dispose( disposing );
         }
 
+
+        //------------------------------------METHODS AND FUNCTIONS CREATED BY THE TEAM-------------------------------------
+
         //<summary> :   It is used to remove a requirement from the database.
-        //<param>   :   The id,this parameter is an identifier for the requirement that will be removed from the database, projectId is the id of the project related with the requirement. 
+        //<param>   :   int id : this parameter is an identifier for the requirement that will be removed from the database
+        //              int? projectId : is the id of the project related with the requirement. 
         //<return>  : Redirect to Index,where the requirements appears
         public ActionResult removeRequirement( int id , int? projectId )
         {
@@ -177,9 +201,9 @@ namespace ControlCalidad.Controllers
             return RedirectToAction( "Index" , new { projectId = projectId} );
         }
 
-
         //<summary> : validates if a name of requirement exists in the database
-        //<param>   : name, the name of the requirement to validates, idProject is the id of the project related with the requirement
+        //<param>   : string name : the name of the requirement to validates
+        //            int idProject :  is the id of the project related with the requirement
         //<return>  : string, a string that represents the correct date
         public bool validateName( string name, int idProject )
         {
@@ -187,7 +211,6 @@ namespace ControlCalidad.Controllers
             return exist;
         }
 
-        //Documentar Sergio
         //<summary> :   Returns the name of the requirement that is associated to the id given.
         //<param>   :   int? id: ID associated to the requirement.
         //<return>  :   The name of the requirement
@@ -204,6 +227,7 @@ namespace ControlCalidad.Controllers
 
             return requirementName;
         }
+
         //<summary> :   Returns the list of available testers that are associated with the project
         //<param>   :   int? projectId: ID associated with the requirement project
         //<return>  :   List of available testers
@@ -220,6 +244,7 @@ namespace ControlCalidad.Controllers
                 });
             return allTesters;
         }
+
         //<summary> :   Returns the result of the SP, only one tester returns since only one assigned tester can be
         //<param>   :   int? projectId: ID associated with the requirement project
         //              int? requirementId: ID associated with the requirement
@@ -238,15 +263,14 @@ namespace ControlCalidad.Controllers
                 };
             }
             catch (Exception e) { 
-                //esto pasa cuando no existe tester asociado
+                //this happens when there is no tester 
             }
-            
             return tester_selected;
         }
 
-
         //<summary> : does a cast for nullable date to datetime
-        //<param>   : the date to cast, the format wants to show the date
+        //<param>   : DateTime? dt : the date to cast
+        //            string format : the date's format
         //<return>  : string, a string that represents the correct date
         public string dateTimeToString(DateTime? dt, string format)
         {
