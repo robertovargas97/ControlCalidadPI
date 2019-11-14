@@ -16,7 +16,7 @@
                 <div class="card hoverable">
                     <nav>
                         <div class="nav-wrapper  black">
-                            <p class="col s4">Reportes</p>
+                            <h5 class="col s4">Reportes</h5>
                         </div>
                     </nav>
                     <div class="card-content black-text">
@@ -24,6 +24,8 @@
                             <div class="col s12">
                                 <div class="col s12 margin-b1">
                                     <input type="button" class="black-text btn grey  turq-hover background-color:grey" name="answer" value="Requerimientos terminados" onclick="showProjects1()" />
+                                    <hr size="50" id="barra1" style="display:none; border: 2px solid  teal; width:68%;" />
+
                                 </div>
 
                                 <div class="col s12">
@@ -33,6 +35,7 @@
 
                                 <div class="col s12 margin-b1">
                                     <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Requerimientos en ejecución" onclick="showProjects2()" />
+                                    <hr size="50" id="barra2" style="display:none; border: 2px solid  teal; width:70.5%;" />
                                 </div>
 
                                 <div class="col s12">
@@ -42,6 +45,7 @@
 
                                 <div class="col s12 margin-b1">
                                     <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Cantidad de requerimientos por tester" onclick="showProjects3()" />
+                                    <hr size="50" id="barra3" style="display:none; border: 2px solid  teal; width:93%;" />
                                 </div>
 
                                 <div class="col s12">
@@ -51,6 +55,12 @@
 
                                 <div class="col s12 margin-b1">
                                     <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Historial de participación" onclick="showProjects4()" />
+                                    <hr size="50" id="barra4" style="display:none; border: 2px solid  teal; width:64%;" />
+                                </div>
+
+                                <div class="col s12">
+                                    <hr />
+                                    <br />
                                 </div>
                             </div>
                         </div>
@@ -63,14 +73,14 @@
                     <nav id="nav">
                         <div class="nav-wrapper grey">
                             <div>
-                                <p class="col s9">Resultados</p>
+                                <h5 class="col s9">Resultados</h5>
                             </div>
                         </div>
                     </nav>
                     <nav id="nav1" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
-                                <p class="col s9">Requerimientos terminados</p>
+                                <h5 class="col s9">Requerimientos terminados en un proyecto proyecto</h5>
                                 <form action="Edit">
                                     <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
                                     <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
@@ -81,7 +91,7 @@
                     <nav id="nav2" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
-                                <p class="col s9">Requerimientos en ejecución</p>
+                                <h5 class="col s9">Requerimientos en ejecución en un proyecto</h5>
                                 <form action="Edit">
                                     <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
                                     <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
@@ -92,7 +102,7 @@
                     <nav id="nav3" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
-                                <p class="col s9">Cantidad de requerimientos por tester</p>
+                                <h5 class="col s9">Cantidad de requerimientos de cada tester en un proyecto</h5>
                                 <form action="Edit">
                                     <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
                                     <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
@@ -103,7 +113,7 @@
                     <nav id="nav4" style="display:none;">
                         <div class="nav-wrapper grey">
                             <div>
-                                <p class="col s9">Historial de participación</p>
+                                <h5 class="col s9">Historial de participación de un tester</h5>
                                 <form action="Edit">
                                     <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
                                     <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
@@ -117,8 +127,17 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="col s12 margin-b2">
+
+                                </div>
+                                <div class="col s12 margin-b2">
                                     <div id="selectProject1" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("proy1", projectsNames, "Seleccione un proyecto", new { @onchange = "firstReport()" })
+                                        <div class="col s12 margin-b2">
+                                            <i class="p-size text-grey material-icons prefix">content_paste</i>
+                                            <label size="50">Proyecto </label>
+                                        </div>
+                                        <div class="col s5 margin-b2">
+                                            @Html.DropDownList("proy1", projectsNames, "Seleccione un proyecto", new { @onchange = "firstReport()" })
+                                        </div>
                                         <br />
                                         <div>
                                             <table class="table striped ">
@@ -138,9 +157,7 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="table1" class="center">
-                                                    
-                                                </tbody>
+                                                <tbody id="table1" class="center"></tbody>
                                             </table>
                                         </div>
 
@@ -151,7 +168,13 @@
 
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject2" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("proy2", projectsNames, "Seleccione un proyecto", new { @onChange = "secondReport()" })
+                                        <div class="col s12 margin-b2">
+                                            <i class="p-size text-grey material-icons prefix">content_paste</i>
+                                            <label size="50">Proyecto </label>
+                                        </div>
+                                        <div class="col s5 margin-b2">
+                                            @Html.DropDownList("proy2", projectsNames, "Seleccione un proyecto", new { @onChange = "secondReport()" })
+                                        </div>
                                         <br />
                                         <table class="table striped ">
                                             <thead>
@@ -167,17 +190,21 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="table2" class="center ">
-
-                                            </tbody>
+                                            <tbody id="table2" class="center "></tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject3" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("proy3", projectsNames, "Seleccione un proyecto", new { @onChange = "thirdReport()" })
+                                        <div class="col s12 margin-b2">
+                                            <i class="p-size text-grey material-icons prefix">content_paste</i>
+                                            <label size="50">Proyecto </label>
+                                        </div>
+                                        <div class="col s5 margin-b2">
+                                            @Html.DropDownList("proy3", projectsNames, "Seleccione un proyecto", new { @onChange = "thirdReport()" })
+                                        </div>
                                         <br />
-                                        <table  class="table striped ">
+                                        <table class="table striped ">
                                             <thead>
                                                 <tr>
                                                     <th class="center black white-text">
@@ -191,9 +218,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="table3" class="center">
-
-                                            </tbody>
+                                            <tbody id="table3" class="center"></tbody>
 
                                         </table>
                                         <div id="chart_div"></div>
@@ -201,7 +226,13 @@
                                 </div>
                                 <div class="col s12 margin-b2">
                                     <div id="selectProject4" style="display:none;" class="answer_list">
-                                        @Html.DropDownList("tester", testerNames, "Seleccione un tester", new { @onChange = "fourthReport()" })
+                                        <div class="col s12 margin-b2">
+                                            <i class="p-size text-grey material-icons prefix">content_paste</i>
+                                            <label size="50">Proyecto </label>
+                                        </div>
+                                        <div class="col s5 margin-b2">
+                                            @Html.DropDownList("tester", testerNames, "Seleccione un tester", new { @onChange = "fourthReport()" })
+                                        </div>
                                         <br />
                                         <table id="table4" class="table striped ">
                                             <thead>
@@ -323,11 +354,16 @@
             document.getElementById('selectProject3').style.display = "none";
             document.getElementById('selectProject4').style.display = "none";
             document.getElementById('selectProject1').style.display = "block";
+            document.getElementById('barra2').style.display = "none";
+            document.getElementById('barra3').style.display = "none";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra1').style.display = "block";
 
         }
     </script>
     <script>
         function showProjects2() {
+            
             document.getElementById('nav').style.display = "none";
             document.getElementById('nav1').style.display = "none";
             document.getElementById('nav3').style.display = "none";
@@ -337,10 +373,18 @@
             document.getElementById('selectProject3').style.display = "none";
             document.getElementById('selectProject4').style.display = "none";
             document.getElementById('selectProject2').style.display = "block";
+            document.getElementById('barra1').style.display = "none";
+            document.getElementById('barra3').style.display = "none";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra2').style.display = "block";
         }
     </script>
     <script>
         function showProjects3() {
+            document.getElementById('barra1').style.display = "none";
+            document.getElementById('barra2').style.display = "none";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra3').style.display = "block";
             document.getElementById('nav').style.display = "none";
             document.getElementById('nav1').style.display = "none";
             document.getElementById('nav2').style.display = "none";
@@ -354,6 +398,10 @@
     </script>
     <script>
         function showProjects4() {
+            document.getElementById('barra1').style.display = "none";
+            document.getElementById('barra2').style.display = "none";
+            document.getElementById('barra3').style.display = "none";
+            document.getElementById('barra4').style.display = "block";
             document.getElementById('nav').style.display = "none";
             document.getElementById('nav1').style.display = "none";
             document.getElementById('nav2').style.display = "none";

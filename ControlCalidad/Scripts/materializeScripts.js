@@ -562,10 +562,9 @@ function validateIdClient(inputtxt) {
             } else {
                 $.ajax({
                     url: '/Client/existID',
-                    data: { correo: inputtxt.value },
+                    data: { id: inputtxt.value },
 
                     success: function (exist) {
-
                         if (exist == 'True') {
                             err.innerHTML = "Cédula previamente registrada.";
                             document.getElementById('btn-submit').disabled = true;

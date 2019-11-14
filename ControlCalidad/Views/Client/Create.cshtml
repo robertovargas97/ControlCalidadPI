@@ -237,6 +237,13 @@
                         $("#canton").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
                     });
                     $('select').formSelect();
+                    $.get("/localizations/districtsList", { provincia: $("#provincia").val(), canton: $("#canton").val() }, function (data) {
+                        $('#distrito').children().remove().end()
+                        $.each(data, function (index, row) {
+                            $("#distrito").append("<option value='" + row.codigoPK + "'>" + row.nombre + "</option>")
+                        });
+                        $('select').formSelect();
+                    });
                 });
             })
         });
