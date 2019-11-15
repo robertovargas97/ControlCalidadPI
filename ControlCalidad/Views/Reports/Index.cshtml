@@ -190,7 +190,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="table2" class="center "></tbody>
+                                            <tbody id="table2" class="center"></tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -234,7 +234,7 @@
                                             @Html.DropDownList("tester", testerNames, "Seleccione un tester", new { @onChange = "fourthReport()" })
                                         </div>
                                         <br />
-                                        <table id="table4" class="table striped ">
+                                        <table class="table striped ">
                                             <thead>
                                                 <tr>
                                                     <th class="center black white-text">
@@ -295,20 +295,21 @@
     <script>
         function firstReport() {
             var proy = document.getElementById('proy1').value;
+            $("#table1").empty();
             $.get("/Reports/CompletedRequirements", { proy: proy }, function (data) {
                 $.each(data, function (index, v1) {
-                    $("#table1").append("<tr><td>" + v1.nombreRequerimiento + "</td><td>" + v1.estadoRequerimiento + "</td><td>" +  v1.complejidadRequerimiento + "</td><td>" +  v1.nombreResponsable + "</td><tr>");
+                    $("#table1").append("<tr><td>" + v1.nombreRequerimiento + "</td><td>" + v1.estadoRequerimiento + "</td><td>" + v1.complejidadRequerimiento + "</td><td>" + v1.nombreResponsable + "</td><tr>");
                 });
             });
         }
-
     </script>
     <script>
         function secondReport() {
-            var proy2 = document.getElementById('proy2').value
+            var proy2 = document.getElementById('proy2').value;
+            $("#table2").empty();
             $.get("/Reports/RunningRequirements", { proy: proy2 }, function (data) {
                 $.each(data, function (index, v2) {
-                    $("#table2").append("<tr ><td>" + v2.nombreReq + "</td><td>" + v2.complejidadReq + "</td><td>" + v2.nombreResp + "</td><td>");
+                    $("#table2").append("<tr ><td>" + v2.nombreReq + "</td><td>" + v2.complejidadReq + "</td><td>" + v2.nombreResp + "</td>");
                 });
             });
         }
@@ -316,6 +317,8 @@
     <script>
         function thirdReport() {
             var proy3 = document.getElementById('proy3').value
+            $("#table3").empty();
+            $("#chart_div").empty();
             $.get("/Reports/TesterRequirements", { proy: proy3 }, function (data) {
                 $.each(data, function (index, v3) {
                     $("#table3").append("<tr><td>" + v3.nombreTester + "</td><td>" + v3.cantidadReqAsignados + "</td><td>" + v3.nombreP + "</td><td>");
@@ -334,15 +337,15 @@
     <script>
         function fourthReport() {
             var tester = document.getElementById('tester').value
+            $("#table4").empty();
             $.get("/Reports/ParticipationHistory", { tester: tester }, function (data) {
-                var row;
                 $.each(data, function (index, v4) {
-                    $("#table4").append("<tr><td>" + v4.nombre + "</td><td>" + v4.estado + "</td><td>" + v4.horasDedicas + "</td><td>");
+                    $("#table4").append("<tr><td>" + v4.nombre + "</td><td>" + v4.estado + "</td><td>" + v4.horasDedicas + "</td></tr>");
                 });
             });
         }
     </script>
-
+    
     <script>
         function showProjects1() {
             document.getElementById('nav').style.display = "none";
