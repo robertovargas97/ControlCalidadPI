@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -12,116 +11,101 @@
     if (User.IsInRole("Jefe"))
     {
         <div class="row">
+            <!-----------------------------------------------------Sección de botones--------------------------------------------------------------->
             <div class="col s4">
                 <div class="card hoverable">
+
                     <nav>
                         <div class="nav-wrapper  black">
                             <h5 class="col s4">Reportes</h5>
                         </div>
                     </nav>
+
                     <div class="card-content black-text">
                         <div class="row">
                             <div class="col s12">
                                 <div class="col s12 margin-b1">
-                                    <input type="button" class="black-text btn grey  turq-hover background-color:grey" name="answer" value="Requerimientos terminados" onclick="showProjects1()" />
-                                    <hr size="50" id="barra1" style="display:none; border: 2px solid  teal; width:68%;" />
-
+                                    <input type="button" class="black-text btn grey  turq-hover background-color:grey" name="answer" value="Total Requerimientos" onclick="showProjects1()" />
+                                    <hr id="barra1" style="display:none; border: 2px solid  teal; width:54%;" />
                                 </div>
 
-                                <div class="col s12">
-                                    <hr />
-                                    <br />
-                                </div>
 
                                 <div class="col s12 margin-b1">
-                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Requerimientos en ejecución" onclick="showProjects2()" />
-                                    <hr size="50" id="barra2" style="display:none; border: 2px solid  teal; width:70.5%;" />
+                                    <input type="button" class="black-text btn grey  turq-hover background-color:grey" name="answer" value="Requerimientos terminados" onclick="showProjects2()" />
+                                    <hr size="50" id="barra2" style="display:none; border: 2px solid  teal; width:68%;" />
+
                                 </div>
 
-                                <div class="col s12">
-                                    <hr />
-                                    <br />
-                                </div>
 
                                 <div class="col s12 margin-b1">
-                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Cantidad de requerimientos por tester" onclick="showProjects3()" />
-                                    <hr size="50" id="barra3" style="display:none; border: 2px solid  teal; width:93%;" />
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Requerimientos en ejecución" onclick="showProjects3()" />
+                                    <hr size="50" id="barra3" style="display:none; border: 2px solid  teal; width:70.5%;" />
                                 </div>
 
-                                <div class="col s12">
-                                    <hr />
-                                    <br />
-                                </div>
 
                                 <div class="col s12 margin-b1">
-                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Historial de participación" onclick="showProjects4()" />
-                                    <hr size="50" id="barra4" style="display:none; border: 2px solid  teal; width:64%;" />
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Cantidad de requerimientos por tester" onclick="showProjects4()" />
+                                    <hr size="50" id="barra4" style="display:none; border: 2px solid  teal; width:93%;" />
                                 </div>
 
-                                <div class="col s12">
-                                    <hr />
-                                    <br />
+
+                                <div class="col s12 margin-b1">
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Historial de participación" onclick="showProjects5()" />
+                                    <hr size="50" id="barra5" style="display:none; border: 2px solid  teal; width:64%;" />
                                 </div>
+
+
+                                <div class="col s12 margin-b1">
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Horas reales y estimadas" onclick="showProjects6()" />
+                                    <hr size="50" id="barra6" style="display:none; border: 2px solid  teal; width:62.5%;" />
+                                </div>
+
+
+                                <div class="col s12 margin-b1">
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Comparación líderes" onclick="showProjects7()" />
+                                    <hr size="50" id="barra7" style="display:none; border: 2px solid  teal; width:53.5%;" />
+                                </div>
+
+
+                                <div class="col s12 margin-b1">
+                                    <input type="button" class="black-text btn grey  turq-hover" name="answer" value="Pruebas" onclick="showProjects8()" />
+                                    <hr size="50" id="barra8" style="display:none; border: 2px solid  teal; width:24.5%;" />
+                                </div>
+
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            <div class="col s8">
+
+            <!-----------------------------------------------Sección de resultados---------------------------------------->
+            <!--------------Consulta 1: Total de requerimientos------------------------------------>
+            <div id="consulta1" style="display:none;" class="col s8">
                 <div class="card hoverable">
-                    <nav id="nav">
+                    <nav>
                         <div class="nav-wrapper grey">
                             <div>
-                                <h5 class="col s9">Resultados</h5>
+                                <h5 class="col s9">Total de requerimientos en un proyecto</h5>
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav1" style="display:none;">
+                </div>
+            </div>
+
+
+            <!------------------Consulta 2: Requerimientos terminados----------------->
+            <div id="consulta2" style="display:none;" class="col s8">
+                <div class="card hoverable">
+
+                    <nav>
                         <div class="nav-wrapper grey">
                             <div>
                                 <h5 class="col s9">Requerimientos terminados en un proyecto proyecto</h5>
-                                <form action="Edit">
-                                    <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
-                                    <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
-                                </form>
                             </div>
                         </div>
                     </nav>
-                    <nav id="nav2" style="display:none;">
-                        <div class="nav-wrapper grey">
-                            <div>
-                                <h5 class="col s9">Requerimientos en ejecución en un proyecto</h5>
-                                <form action="Edit">
-                                    <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
-                                    <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
-                                </form>
-                            </div>
-                        </div>
-                    </nav>
-                    <nav id="nav3" style="display:none;">
-                        <div class="nav-wrapper grey">
-                            <div>
-                                <h5 class="col s9">Cantidad de requerimientos de cada tester en un proyecto</h5>
-                                <form action="Edit">
-                                    <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
-                                    <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
-                                </form>
-                            </div>
-                        </div>
-                    </nav>
-                    <nav id="nav4" style="display:none;">
-                        <div class="nav-wrapper grey">
-                            <div>
-                                <h5 class="col s9">Historial de participación de un tester</h5>
-                                <form action="Edit">
-                                    <input type="text" id="ability" placeholder="Buscar por . . ." style="width: 12%;">
-                                    <a class="waves-effect waves-light btn  black turq-hover">Buscar</a>
-                                </form>
-                            </div>
-                        </div>
-                    </nav>
-
 
                     <div class="card-content black-text">
                         <div class="row">
@@ -130,13 +114,13 @@
 
                                 </div>
                                 <div class="col s12 margin-b2">
-                                    <div id="selectProject1" style="display:none;" class="answer_list">
+                                    <div class="answer_list">
                                         <div class="col s12 margin-b2">
                                             <i class="p-size text-grey material-icons prefix">content_paste</i>
                                             <label size="50">Proyecto </label>
                                         </div>
                                         <div class="col s5 margin-b2">
-                                            @Html.DropDownList("proy1", projectsNames, "Seleccione un proyecto", new { @onchange = "firstReport()" })
+                                            @Html.DropDownList("proy2", projectsNames, "Seleccione un proyecto", new { @onchange = "secondReport()" })
                                         </div>
                                         <br />
                                         <div>
@@ -157,23 +141,46 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="table1" class="center"></tbody>
+                                                <tbody id="table2" class="center"></tbody>
                                             </table>
                                         </div>
 
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
 
+            <!-----------------------Consulta 3: Requerimientos en ejecución------------------------->
+            <div id="consulta3" style="display:none;" class="col s8">
+                <div class="card hoverable">
 
+                    <nav>
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <h5 class="col s9">Requerimientos en ejecución en un proyecto</h5>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div class="card-content black-text">
+                        <div class="row">
+                            <div class="col s12">
                                 <div class="col s12 margin-b2">
-                                    <div id="selectProject2" style="display:none;" class="answer_list">
+
+                                </div>
+                                <div class="col s12 margin-b2">
+                                    <div class="answer_list">
                                         <div class="col s12 margin-b2">
                                             <i class="p-size text-grey material-icons prefix">content_paste</i>
                                             <label size="50">Proyecto </label>
                                         </div>
                                         <div class="col s5 margin-b2">
-                                            @Html.DropDownList("proy2", projectsNames, "Seleccione un proyecto", new { @onChange = "secondReport()" })
+                                            @Html.DropDownList("proy3", projectsNames, "Seleccione un proyecto", new { @onChange = "thirdReport()" })
                                         </div>
                                         <br />
                                         <table class="table striped ">
@@ -190,18 +197,44 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="table2" class="center"></tbody>
+                                            <tbody id="table3" class="center"></tbody>
                                         </table>
                                     </div>
                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-----------------------------Consulta 4: Cantidad de requerimientos---------------------------------->
+            <div id="consulta4" style="display:none;" class="col s8">
+                <div class="card hoverable">
+                    <nav>
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <h5 class="col s9">Cantidad de requerimientos de cada tester en un proyecto</h5>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div class="card-content black-text">
+                        <div class="row">
+                            <div class="col s12">
                                 <div class="col s12 margin-b2">
-                                    <div id="selectProject3" style="display:none;" class="answer_list">
+
+                                </div>
+                                <div class="col s12 margin-b2">
+                                    <div class="answer_list">
                                         <div class="col s12 margin-b2">
                                             <i class="p-size text-grey material-icons prefix">content_paste</i>
                                             <label size="50">Proyecto </label>
                                         </div>
                                         <div class="col s5 margin-b2">
-                                            @Html.DropDownList("proy3", projectsNames, "Seleccione un proyecto", new { @onChange = "thirdReport()" })
+                                            @Html.DropDownList("proy4", projectsNames, "Seleccione un proyecto", new { @onChange = "fourthReport()" })
                                         </div>
                                         <br />
                                         <table class="table striped ">
@@ -218,20 +251,47 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="table3" class="center"></tbody>
+                                            <tbody id="table4" class="center"></tbody>
 
                                         </table>
                                         <div id="chart_div"></div>
                                     </div>
                                 </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!---------------------------------Consulta 5: Historial participación-------------------------------->
+            <div id="consulta5" style="display:none;" class="col s8">
+                <div class="card hoverable">
+                    <nav>
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <h5 class="col s9">Historial de participación de un tester</h5>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div class="card-content black-text">
+                        <div class="row">
+                            <div class="col s12">
                                 <div class="col s12 margin-b2">
-                                    <div id="selectProject4" style="display:none;" class="answer_list">
+
+                                </div>
+                                <div class="col s12 margin-b2">
+                                    <div class="answer_list">
                                         <div class="col s12 margin-b2">
                                             <i class="p-size text-grey material-icons prefix">content_paste</i>
                                             <label size="50">Proyecto </label>
                                         </div>
                                         <div class="col s5 margin-b2">
-                                            @Html.DropDownList("tester", testerNames, "Seleccione un tester", new { @onChange = "fourthReport()" })
+                                            @Html.DropDownList("tester", testerNames, "Seleccione un tester", new { @onChange = "fifthReport()" })
                                         </div>
                                         <br />
                                         <table class="table striped ">
@@ -248,7 +308,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="table4" class="center"></tbody>
+                                            <tbody id="table5" class="center"></tbody>
                                         </table>
 
                                     </div>
@@ -260,6 +320,53 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <!-----------------------------------Consulta 6: Horas reales y estimadas-------------------------->
+            <div id="consulta6" style="display:none;" class="col s8">
+                <div class="card hoverable">
+                    <nav>
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <h5 class="col s9">Horas reales y estimadas de un proyecto</h5>
+                            </div>
+                        </div>
+                    </nav>
+
+                </div>
+            </div>
+
+
+
+            <!-----------------------------Consulta 7: Comparación entre líderes---------------------------------->
+            <div id="consulta7" style="display:none;" class="col s8">
+                <div class="card hoverable">
+                    <nav>
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <h5 class="col s9">Comparación entre líderes</h5>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+
+
+            <!---------------------------------------Consulta 8: Pruebas---------------------------------------->
+            <div id="consulta8" style="display:none;" class="col s8">
+                <div class="card hoverable">
+                    <nav>
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <h5 class="col s9">Pruebas</h5>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
         </div>
 
     }
@@ -278,6 +385,9 @@
 
 
 
+
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery")
@@ -291,40 +401,41 @@
         google.charts.setOnLoadCallback(showProject3);
     </script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="objects.js"></script> 
-    <script>
-        function firstReport() {
-            var proy = document.getElementById('proy1').value;
-            $("#table1").empty();
-            $.get("/Reports/CompletedRequirements", { proy: proy }, function (data) {
-                $.each(data, function (index, v1) {
-                    $("#table1").append("<tr><td>" + v1.nombreRequerimiento + "</td><td>" + v1.estadoRequerimiento + "</td><td>" + v1.complejidadRequerimiento + "</td><td>" + v1.nombreResponsable + "</td><tr>");
-                });
-            });
-        }
-    </script>
+    <script src="objects.js"></script>
+
     <script>
         function secondReport() {
             var proy2 = document.getElementById('proy2').value;
             $("#table2").empty();
-            $.get("/Reports/RunningRequirements", { proy: proy2 }, function (data) {
+            $.get("/Reports/CompletedRequirements", { proy: proy2 }, function (data) {
                 $.each(data, function (index, v2) {
-                    $("#table2").append("<tr ><td>" + v2.nombreReq + "</td><td>" + v2.complejidadReq + "</td><td>" + v2.nombreResp + "</td>");
+                    $("#table2").append("<tr><td>" + v2.nombreRequerimiento + "</td><td>" + v2.estadoRequerimiento + "</td><td>" + v2.complejidadRequerimiento + "</td><td>" + v2.nombreResponsable + "</td><tr>");
                 });
             });
         }
     </script>
     <script>
         function thirdReport() {
-            var proy3 = document.getElementById('proy3').value
+            var proy3 = document.getElementById('proy3').value;
             $("#table3").empty();
-            $("#chart_div").empty();
-            $.get("/Reports/TesterRequirements", { proy: proy3 }, function (data) {
+            $.get("/Reports/RunningRequirements", { proy: proy3 }, function (data) {
                 $.each(data, function (index, v3) {
-                    $("#table3").append("<tr><td>" + v3.nombreTester + "</td><td>" + v3.cantidadReqAsignados + "</td><td>" + v3.nombreP + "</td><td>");
+                    $("#table3").append("<tr ><td>" + v3.nombreReq + "</td><td>" + v3.complejidadReq + "</td><td>" + v3.nombreResp + "</td>");
+                });
+            });
+        }
+    </script>
+    <script>
+        function fourthReport() {
+            var proy4 = document.getElementById('proy4').value
+            $("#table4").empty();
+            $("#chart_div").empty();
+            $.get("/Reports/TesterRequirements", { proy: proy4 }, function (data) {
+                $.each(data, function (index, v4) {
+                    $("#table4").append("<tr><td>" + v4.nombreTester + "</td><td>" + v4.cantidadReqAsignados + "</td><td>" + v4.nombreP + "</td><td>");
                     var data = google.visualization.arrayToDataTable([
                         ['Elemento', 'Cantidad', { role: 'style' }],
-                        [v3.nombreTester, v3.cantidadReqAsignados, 'blue'],
+                        [v4.nombreTester, v4.cantidadReqAsignados, 'blue'],
                     ]);
 
 
@@ -335,68 +446,77 @@
         }
     </script>
     <script>
-        function fourthReport() {
+        function fifthReport() {
             var tester = document.getElementById('tester').value
-            $("#table4").empty();
+            $("#table5").empty();
             $.get("/Reports/ParticipationHistory", { tester: tester }, function (data) {
-                $.each(data, function (index, v4) {
-                    $("#table4").append("<tr><td>" + v4.nombre + "</td><td>" + v4.estado + "</td><td>" + v4.horasDedicas + "</td></tr>");
+                $.each(data, function (index, v5) {
+                    $("#table5").append("<tr><td>" + v5.nombre + "</td><td>" + v5.estado + "</td><td>" + v5.horasDedicas + "</td></tr>");
                 });
             });
         }
     </script>
-    
+
     <script>
         function showProjects1() {
-            document.getElementById('nav').style.display = "none";
-            document.getElementById('nav2').style.display = "none";
-            document.getElementById('nav3').style.display = "none";
-            document.getElementById('nav4').style.display = "none";
-            document.getElementById('nav1').style.display = "block";
-            document.getElementById('selectProject2').style.display = "none";
-            document.getElementById('selectProject3').style.display = "none";
-            document.getElementById('selectProject4').style.display = "none";
-            document.getElementById('selectProject1').style.display = "block";
+            document.getElementById('barra1').style.display = "block";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
-            document.getElementById('barra1').style.display = "block";
+            document.getElementById('barra5').style.display = "none";
+            document.getElementById('barra6').style.display = "none";
+            document.getElementById('barra7').style.display = "none";
+            document.getElementById('barra8').style.display = "none";
+            document.getElementById('consulta1').style.display = "block";
+            document.getElementById('consulta2').style.display = "none";
+            document.getElementById('consulta3').style.display = "none";
+            document.getElementById('consulta4').style.display = "none";
+            document.getElementById('consulta5').style.display = "none";
+            document.getElementById('consulta6').style.display = "none";
+            document.getElementById('consulta7').style.display = "none";
+            document.getElementById('consulta8').style.display = "none";
+
 
         }
     </script>
     <script>
         function showProjects2() {
-            
-            document.getElementById('nav').style.display = "none";
-            document.getElementById('nav1').style.display = "none";
-            document.getElementById('nav3').style.display = "none";
-            document.getElementById('nav4').style.display = "none";
-            document.getElementById('nav2').style.display = "block";
-            document.getElementById('selectProject1').style.display = "none";
-            document.getElementById('selectProject3').style.display = "none";
-            document.getElementById('selectProject4').style.display = "none";
-            document.getElementById('selectProject2').style.display = "block";
             document.getElementById('barra1').style.display = "none";
+            document.getElementById('barra2').style.display = "block";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
-            document.getElementById('barra2').style.display = "block";
+            document.getElementById('barra5').style.display = "none";
+            document.getElementById('barra6').style.display = "none";
+            document.getElementById('barra7').style.display = "none";
+            document.getElementById('barra8').style.display = "none";
+            document.getElementById('consulta1').style.display = "none";
+            document.getElementById('consulta2').style.display = "block";
+            document.getElementById('consulta3').style.display = "none";
+            document.getElementById('consulta4').style.display = "none";
+            document.getElementById('consulta5').style.display = "none";
+            document.getElementById('consulta6').style.display = "none";
+            document.getElementById('consulta7').style.display = "none";
+            document.getElementById('consulta8').style.display = "none";
         }
     </script>
     <script>
         function showProjects3() {
             document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
-            document.getElementById('barra4').style.display = "none";
             document.getElementById('barra3').style.display = "block";
-            document.getElementById('nav').style.display = "none";
-            document.getElementById('nav1').style.display = "none";
-            document.getElementById('nav2').style.display = "none";
-            document.getElementById('nav4').style.display = "none";
-            document.getElementById('nav3').style.display = "block";
-            document.getElementById('selectProject1').style.display = "none";
-            document.getElementById('selectProject2').style.display = "none";
-            document.getElementById('selectProject4').style.display = "none";
-            document.getElementById('selectProject3').style.display = "block";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra5').style.display = "none";
+            document.getElementById('barra6').style.display = "none";
+            document.getElementById('barra7').style.display = "none";
+            document.getElementById('barra8').style.display = "none";
+            document.getElementById('consulta1').style.display = "none";
+            document.getElementById('consulta2').style.display = "none";
+            document.getElementById('consulta3').style.display = "block";
+            document.getElementById('consulta4').style.display = "none";
+            document.getElementById('consulta5').style.display = "none";
+            document.getElementById('consulta6').style.display = "none";
+            document.getElementById('consulta7').style.display = "none";
+            document.getElementById('consulta8').style.display = "none";
         }
     </script>
     <script>
@@ -405,15 +525,94 @@
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "block";
-            document.getElementById('nav').style.display = "none";
-            document.getElementById('nav1').style.display = "none";
-            document.getElementById('nav2').style.display = "none";
-            document.getElementById('nav3').style.display = "none";
-            document.getElementById('nav4').style.display = "block";
-            document.getElementById('selectProject1').style.display = "none";
-            document.getElementById('selectProject2').style.display = "none";
-            document.getElementById('selectProject3').style.display = "none";
-            document.getElementById('selectProject4').style.display = "block";
+            document.getElementById('barra5').style.display = "none";
+            document.getElementById('barra6').style.display = "none";
+            document.getElementById('barra7').style.display = "none";
+            document.getElementById('barra8').style.display = "none";
+            document.getElementById('consulta1').style.display = "none";
+            document.getElementById('consulta2').style.display = "none";
+            document.getElementById('consulta3').style.display = "none";
+            document.getElementById('consulta4').style.display = "block";
+            document.getElementById('consulta5').style.display = "none";
+            document.getElementById('consulta6').style.display = "none";
+            document.getElementById('consulta7').style.display = "none";
+            document.getElementById('consulta8').style.display = "none";
+        }
+
+        function showProjects5() {
+            document.getElementById('barra1').style.display = "none";
+            document.getElementById('barra2').style.display = "none";
+            document.getElementById('barra3').style.display = "none";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra5').style.display = "block";
+            document.getElementById('barra6').style.display = "none";
+            document.getElementById('barra7').style.display = "none";
+            document.getElementById('barra8').style.display = "none";
+            document.getElementById('consulta1').style.display = "none";
+            document.getElementById('consulta2').style.display = "none";
+            document.getElementById('consulta3').style.display = "none";
+            document.getElementById('consulta4').style.display = "none";
+            document.getElementById('consulta5').style.display = "block";
+            document.getElementById('consulta6').style.display = "none";
+            document.getElementById('consulta7').style.display = "none";
+            document.getElementById('consulta8').style.display = "none";
+        }
+
+        function showProjects6() {
+            document.getElementById('barra1').style.display = "none";
+            document.getElementById('barra2').style.display = "none";
+            document.getElementById('barra3').style.display = "none";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra5').style.display = "none";
+            document.getElementById('barra6').style.display = "block";
+            document.getElementById('barra7').style.display = "none";
+            document.getElementById('barra8').style.display = "none";
+            document.getElementById('consulta1').style.display = "none";
+            document.getElementById('consulta2').style.display = "none";
+            document.getElementById('consulta3').style.display = "none";
+            document.getElementById('consulta4').style.display = "none";
+            document.getElementById('consulta5').style.display = "none";
+            document.getElementById('consulta6').style.display = "block";
+            document.getElementById('consulta7').style.display = "none";
+            document.getElementById('consulta8').style.display = "none";
+        }
+
+        function showProjects7() {
+            document.getElementById('barra1').style.display = "none";
+            document.getElementById('barra2').style.display = "none";
+            document.getElementById('barra3').style.display = "none";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra5').style.display = "none";
+            document.getElementById('barra6').style.display = "none";
+            document.getElementById('barra7').style.display = "block";
+            document.getElementById('barra8').style.display = "none";
+            document.getElementById('consulta1').style.display = "none";
+            document.getElementById('consulta2').style.display = "none";
+            document.getElementById('consulta3').style.display = "none";
+            document.getElementById('consulta4').style.display = "none";
+            document.getElementById('consulta5').style.display = "none";
+            document.getElementById('consulta6').style.display = "none";
+            document.getElementById('consulta7').style.display = "block";
+            document.getElementById('consulta8').style.display = "none";
+        }
+
+        function showProjects8() {
+            document.getElementById('barra1').style.display = "none";
+            document.getElementById('barra2').style.display = "none";
+            document.getElementById('barra3').style.display = "none";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra5').style.display = "none";
+            document.getElementById('barra6').style.display = "none";
+            document.getElementById('barra7').style.display = "none";
+            document.getElementById('barra8').style.display = "block";
+            document.getElementById('consulta1').style.display = "none";
+            document.getElementById('consulta2').style.display = "none";
+            document.getElementById('consulta3').style.display = "none";
+            document.getElementById('consulta4').style.display = "none";
+            document.getElementById('consulta5').style.display = "none";
+            document.getElementById('consulta6').style.display = "none";
+            document.getElementById('consulta7').style.display = "none";
+            document.getElementById('consulta8').style.display = "block";
         }
     </script>
 
