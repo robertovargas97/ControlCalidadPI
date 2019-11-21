@@ -278,6 +278,9 @@
     <Compile Include="Models\Requerimiento.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Req_Lider_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\S3G4CModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
