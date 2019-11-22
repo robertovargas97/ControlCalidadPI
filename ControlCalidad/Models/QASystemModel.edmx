@@ -296,6 +296,8 @@
         <Function Name="Libera_Empleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
         </Function>
+        <Function Name="nombreLideres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="nombresLiderers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="PA_cant_req_tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre_proy" Type="varchar" Mode="In" />
         </Function>
@@ -715,8 +717,10 @@
             <Parameter Name="fechaNacimiento" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Req_Lider" ReturnType="Collection(QASystemEntity.Req_Lider_Result)">
-            <Parameter Name="cedula" Mode="In" Type="String" />
+          <Parameter Name="cedula" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="nombresLiderers" ReturnType="Collection(String)" />
+          <FunctionImport Name="nombreLideres" ReturnType="Collection(QASystemEntity.nombreLideres_Result)" />
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -787,6 +791,10 @@
           <Property Type="Single" Name="duracionEstimada" Nullable="false" />
           <Property Type="Single" Name="duracionReal" Nullable="true" />
           <Property Type="Int32" Name="id_proyectoFK" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="nombreLideres_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="25" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -985,6 +993,15 @@
                 <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
                 <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
                 <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="nombresLiderers" FunctionName="QASystemEntity.Store.nombresLiderers" />
+          <FunctionImportMapping FunctionImportName="nombreLideres" FunctionName="QASystemEntity.Store.nombreLideres">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.nombreLideres_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

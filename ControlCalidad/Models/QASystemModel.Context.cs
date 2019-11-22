@@ -266,5 +266,15 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Req_Lider_Result>("Req_Lider", cedulaParameter);
         }
+    
+        public virtual ObjectResult<string> nombresLiderers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("nombresLiderers");
+        }
+    
+        public virtual ObjectResult<nombreLideres_Result> nombreLideres()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<nombreLideres_Result>("nombreLideres");
+        }
     }
 }
