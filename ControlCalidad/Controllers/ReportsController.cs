@@ -57,5 +57,20 @@ namespace ControlCalidad.Controllers
             return Json(reqList, JsonRequestBehavior.AllowGet);
 
         }
+
+        public List<SelectListItem> LeadersList()
+        {
+            List<nombreLideres_Result> leader = db.nombreLideres().ToList();
+
+            List<SelectListItem> leaderList = leader.ConvertAll(leaders => {
+                return new SelectListItem()
+                {
+                    Text = leaders.nombreP,
+                    Value = leaders.cedulaPK,
+                    Selected = false
+                };
+            });
+            return leaderList;
+        }
     }
 }

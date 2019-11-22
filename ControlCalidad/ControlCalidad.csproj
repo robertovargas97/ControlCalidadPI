@@ -221,6 +221,9 @@
     <Compile Include="Models\Habilidade.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\nombreLideres_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PA_cant_req_tester_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
@@ -276,6 +279,9 @@
       <DependentUpon>QASystemModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Requerimiento.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Req_Lider_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\S3G4CModel.Context.cs">
