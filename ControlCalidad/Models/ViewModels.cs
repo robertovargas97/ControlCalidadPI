@@ -42,6 +42,11 @@ namespace ControlCalidad.Models
             get; set;
         }
 
+        public int idPk
+        {
+            get; set;
+        }
+
     }
 
 
@@ -161,6 +166,19 @@ namespace ControlCalidad.Models
     public class ProjectId
     {
         public int id_proyectoFK
+        {
+            get; set;
+        }
+    }
+
+    public class RequirementForReport
+    {
+        public int idPk
+        {
+            get; set;
+        }
+
+        public string nombre
         {
             get; set;
         }

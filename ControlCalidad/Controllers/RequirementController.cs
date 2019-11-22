@@ -276,6 +276,14 @@ namespace ControlCalidad.Controllers
         {
             return dt == null ? "" : ( ( DateTime ) dt ).ToString( format );
         }
+
+        //Documentar Sergio
+        public JsonResult getJsonRequirements(int projectId)
+        {
+            List<Requerimiento> allReqs = db.Requerimientoes.Where(r => r.id_proyectoFK == projectId).ToList();
+
+            return Json(allReqs, JsonRequestBehavior.AllowGet);
+        }
     }
 
 }

@@ -17,6 +17,7 @@ namespace ControlCalidad.Controllers
         //Controllers to get values from other models
         private ProjectController projectController = new ProjectController();
         private EmployeeController employeeController = new EmployeeController();
+        private RequirementController requirementController = new RequirementController();
 
         // GET: Reports
         public ActionResult Index()

@@ -31,6 +31,7 @@ namespace ControlCalidad.Controllers
                  select new ProjectForReports
                  {
                      nombre = project.nombre,
+                     idPk = project.idPK
 
                  }).ToList();
 
@@ -39,6 +40,7 @@ namespace ControlCalidad.Controllers
                     return new SelectListItem()
                     {
                         Text = project.nombre,
+                        Value = project.idPk.ToString(),
                         Selected = false
                     };
                 });
