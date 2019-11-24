@@ -23,6 +23,7 @@ namespace ControlCalidad.Controllers
         {
             ViewBag.allprojects = projectController.GetProjects();
             ViewBag.alltesters = employeeController.GetTesters();
+            ViewBag.allLeaders = LeadersList();
             ViewBag.finishedProjects = projectController.GetFinishedProjects( );
             return View();
         }
@@ -56,6 +57,27 @@ namespace ControlCalidad.Controllers
             List<PA_historial_participacion_tester_Result> reqList = db.PA_historial_participacion_tester(tester).ToList();
             return Json(reqList, JsonRequestBehavior.AllowGet);
 
+        }
+
+        public List<SelectListItem> LeadersList()
+        {
+            List<nombreLideres_Result> leader = db.nombreLideres().ToList();
+
+            List<SelectListItem> leaderList = leader.ConvertAll(leaders => {
+                return new SelectListItem()
+                {
+                    Text = leaders.nombreP,
+                    Value = leaders.cedulaPK,
+                    Selected = false
+                };
+            });
+            return leaderList;
+        }
+
+        public void leaderRequirementsStatistics(string leaderId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SP_Req_Lider_Result> reqs = db.SP_Req_Lider(leaderId).ToList();
         }
 
         public JsonResult ProjectRequirementesHours( int projectId)

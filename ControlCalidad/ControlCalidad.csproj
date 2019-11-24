@@ -221,6 +221,9 @@
     <Compile Include="Models\Habilidade.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\nombreLideres_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PA_cant_req_tester_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
@@ -278,6 +281,9 @@
     <Compile Include="Models\Requerimiento.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Req_Lider_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\S3G4CModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -315,6 +321,9 @@
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Conseguir_Tester_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Req_Lider_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tester.cs">

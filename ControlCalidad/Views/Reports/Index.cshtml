@@ -5,6 +5,9 @@
 @{
 
 
+    List<SelectListItem> projectsNames = (List<SelectListItem>)ViewBag.allprojects;
+    List<SelectListItem> testerNames = (List<SelectListItem>)ViewBag.alltesters;
+    List<SelectListItem> leaderNames = (List<SelectListItem>)ViewBag.allLeaders;
     List<SelectListItem> projectsNames = ( List<SelectListItem> ) ViewBag.allprojects;
     List<SelectListItem> testerNames = ( List<SelectListItem> ) ViewBag.alltesters;
     List<SelectListItem> finishedProjects = ( List<SelectListItem> ) ViewBag.finishedProjects;
@@ -409,6 +412,62 @@
                             </div>
                         </div>
                     </nav>
+                    <div class="card-content black-text">
+                        <div class="row">
+                            <div class="col s6">
+
+                                <div class="col s12 margin-b2">
+                                    <div class="answer_list">
+                                        <div class="col s12 margin-b2">
+                                            <i class="p-size text-grey material-icons prefix">account_box</i>
+                                            <label size="50">Lider </label>
+                                        </div>
+                                        <div class="col s12 margin-b2">
+                                            @Html.DropDownList("Leader", leaderNames, "Seleccione un lider", new { @onChange = "leaderStatistics()" })
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <div id="chart_div_leader">
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="col s6">
+
+                                <div class="col s12 margin-b2">
+                                    <div class="answer_list">
+                                        <div class="col s12 margin-b2">
+                                            <i class="p-size text-grey material-icons prefix">account_box</i>
+                                            <label size="50">Lider </label>
+                                        </div>
+                                        <div class="col s12 margin-b2">
+                                            @Html.DropDownList("Leader2", leaderNames, "Seleccione un lider", new { @onChange = "leaderStatistics2()" })
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <div id="chart_div_leader2">
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -513,35 +572,134 @@
             }
     </script>
     <script>
-                function fifthReport() {
-                    var tester = document.getElementById('tester').value
-                $("#table5").empty();
-                    $.get("/Reports/ParticipationHistory", {tester: tester }, function (data) {
-                    $.each(data, function (index, v5) {
-                        $("#table5").append("<tr><td>" + v5.nombre + "</td><td>" + v5.estado + "</td><td>" + v5.horasDedicas + "</td></tr>");
-                    });
+        function fifthReport() {
+            var tester = document.getElementById('tester').value
+            $("#table5").empty();
+            $.get("/Reports/ParticipationHistory", { tester: tester }, function (data) {
+                $.each(data, function (index, v5) {
+                    $("#table5").append("<tr><td>" + v5.nombre + "</td><td>" + v5.estado + "</td><td>" + v5.horasDedicas + "</td></tr>");
                 });
-            }
+            });
+        }
     </script>
 
     <script>
-                function showProjects1() {
-                    document.getElementById('barra1').style.display = "block";
-                document.getElementById('barra2').style.display = "none";
-                document.getElementById('barra3').style.display = "none";
-                document.getElementById('barra4').style.display = "none";
-                document.getElementById('barra5').style.display = "none";
-                document.getElementById('barra6').style.display = "none";
-                document.getElementById('barra7').style.display = "none";
-                document.getElementById('barra8').style.display = "none";
-                document.getElementById('consulta1').style.display = "block";
-                document.getElementById('consulta2').style.display = "none";
-                document.getElementById('consulta3').style.display = "none";
-                document.getElementById('consulta4').style.display = "none";
-                document.getElementById('consulta5').style.display = "none";
-                document.getElementById('consulta6').style.display = "none";
-                document.getElementById('consulta7').style.display = "none";
-                document.getElementById('consulta8').style.display = "none";
+        function leaderStatistics() {
+            var leader = document.getElementById('Leader').value
+            $.get("/Reports/leaderRequirementsStatistics", { leaderId: leader }, function (data) {
+                showLeaderChart();
+            });
+        }
+    </script>
+    <script>
+        function showLeaderChart() {
+            //Load the Visualization API and the corechart package.
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            // Set a callback to run when the Google Visualization API is loaded.
+
+            drawLeaderChart();
+        }
+    </script>
+
+    <script>
+
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawLeaderChart() {
+
+            // Create the data table.
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+                ['Mushrooms', 3],
+                ['Onions', 1],
+                ['Olives', 1],
+                ['Zucchini', 1],
+                ['Pepperoni', 2]
+            ]);
+
+            // Set chart options
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div_leader'));
+            chart.draw(data, null);
+        }
+    </script>
+
+    <script>
+        function leaderStatistics2() {
+            var leader = document.getElementById('Leader2').value
+            $.get("/Reports/leaderRequirementsStatistics", { leaderId: leader }, function (data) {
+                showLeaderChart2();
+            });
+        }
+    </script>
+    <script>
+        function showLeaderChart2() {
+            //Load the Visualization API and the corechart package.
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            // Set a callback to run when the Google Visualization API is loaded.
+
+            drawLeaderChart2();
+        }
+    </script>
+
+    <script>
+
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawLeaderChart2() {
+
+            // Create the data table.
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+                ['Mushrooms', 3],
+                ['Onions', 1],
+                ['Olives', 1],
+                ['Zucchini', 1],
+                ['Pepperoni', 2]
+            ]);
+
+            // Set chart options
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div_leader2'));
+            chart.draw(data, null);
+        }
+    </script>
+
+
+
+
+    <script>
+        function showProjects1() {
+            document.getElementById('barra1').style.display = "block";
+            document.getElementById('barra2').style.display = "none";
+            document.getElementById('barra3').style.display = "none";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra5').style.display = "none";
+            document.getElementById('barra6').style.display = "none";
+            document.getElementById('barra7').style.display = "none";
+            document.getElementById('barra8').style.display = "none";
+            document.getElementById('consulta1').style.display = "block";
+            document.getElementById('consulta2').style.display = "none";
+            document.getElementById('consulta3').style.display = "none";
+            document.getElementById('consulta4').style.display = "none";
+            document.getElementById('consulta5').style.display = "none";
+            document.getElementById('consulta6').style.display = "none";
+            document.getElementById('consulta7').style.display = "none";
+            document.getElementById('consulta8').style.display = "none";
 
 
             }
