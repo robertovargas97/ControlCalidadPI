@@ -276,5 +276,14 @@ namespace ControlCalidad.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<nombreLideres_Result>("nombreLideres");
         }
+    
+        public virtual ObjectResult<SP_Req_Lider_Result> SP_Req_Lider(string cedula)
+        {
+            var cedulaParameter = cedula != null ?
+                new ObjectParameter("cedula", cedula) :
+                new ObjectParameter("cedula", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Req_Lider_Result>("SP_Req_Lider", cedulaParameter);
+        }
     }
 }

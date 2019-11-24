@@ -7,6 +7,7 @@
 
     List<SelectListItem> projectsNames = (List<SelectListItem>)ViewBag.allprojects;
     List<SelectListItem> testerNames = (List<SelectListItem>)ViewBag.alltesters;
+    List<SelectListItem> leaderNames = (List<SelectListItem>)ViewBag.allLeaders;
 
     if (User.IsInRole("Jefe"))
     {
@@ -349,6 +350,35 @@
                             </div>
                         </div>
                     </nav>
+                    <div class="card-content black-text">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="col s12 margin-b2">
+
+                                </div>
+                                <div class="col s12 margin-b2">
+                                    <div class="answer_list">
+                                        <div class="col s12 margin-b2">
+                                            <i class="p-size text-grey material-icons prefix">content_paste</i>
+                                            <label size="50">Proyecto </label>
+                                        </div>
+                                        <div class="col s5 margin-b2">
+                                            @Html.DropDownList("Leader", leaderNames, "Seleccione un lider", new { @onChange = "leaderStatistics()" })
+                                        </div>
+                                        <br />
+                                        <div id="chart_div">
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -456,6 +486,61 @@
             });
         }
     </script>
+
+    <script>
+        function leaderStatistics() {
+            var leader = document.getElementById('Leader').value
+            $.get("/Reports/leaderRequirementsStatistics", { leaderId: leader }, function (data) {
+  
+            });
+            showLeaderChart();
+        }
+    </script>
+    <script>
+        function showLeaderChart() {
+            //Load the Visualization API and the corechart package.
+            alert("entreeeee");
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawLeaderChart);
+            drawLeaderChart();
+        }
+    </script>
+
+    <script>
+
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawLeaderChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Mushrooms', 3],
+          ['Onions', 1],
+          ['Olives', 1],
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'How Much Pizza I Ate Last Night',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    
+
 
     <script>
         function showProjects1() {

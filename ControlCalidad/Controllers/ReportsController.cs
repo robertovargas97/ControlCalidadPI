@@ -23,6 +23,7 @@ namespace ControlCalidad.Controllers
         {
             ViewBag.allprojects = projectController.GetProjects();
             ViewBag.alltesters = employeeController.GetTesters();
+            ViewBag.allLeaders = LeadersList();
             return View();
         }
 
@@ -70,6 +71,12 @@ namespace ControlCalidad.Controllers
                 };
             });
             return leaderList;
+        }
+
+        public void leaderRequirementsStatistics(string leaderId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SP_Req_Lider_Result> reqs = db.SP_Req_Lider(leaderId).ToList();
         }
     }
 }
