@@ -356,19 +356,39 @@
                                 <div class="col s12 margin-b2">
 
                                 </div>
-                                <div class="col s12 margin-b2">
+                                <div class="col s6 margin-b2">
                                     <div class="answer_list">
                                         <div class="col s12 margin-b2">
                                             <i class="p-size text-grey material-icons prefix">content_paste</i>
                                             <label size="50">Proyecto </label>
                                         </div>
-                                        <div class="col s5 margin-b2">
+                                        <div class="col s12 margin-b2">
                                             @Html.DropDownList("Leader", leaderNames, "Seleccione un lider", new { @onChange = "leaderStatistics()" })
                                         </div>
                                         <br />
                                         <br />
                                         <br />
                                         <div id="chart_div_leader">
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="col s6 margin-b2">
+                                    <div class="answer_list">
+                                        <div class="col s12 margin-b2">
+                                            <i class="p-size text-grey material-icons prefix">content_paste</i>
+                                            <label size="50">Proyecto </label>
+                                        </div>
+                                        <div class="col s5 margin-b2">
+                                            @Html.DropDownList("Leader2", leaderNames, "Seleccione un lider", new { @onChange = "leaderStatistics2()" })
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <div id="chart_div_leader2">
 
                                         </div>
 
@@ -503,7 +523,7 @@
             google.charts.load('current', { 'packages': ['corechart'] });
 
             // Set a callback to run when the Google Visualization API is loaded.
-            
+
             drawLeaderChart();
         }
     </script>
@@ -511,33 +531,81 @@
     <script>
 
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawLeaderChart() {
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawLeaderChart() {
 
-        // Create the data table.
+            // Create the data table.
 
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+                ['Mushrooms', 3],
+                ['Onions', 1],
+                ['Olives', 1],
+                ['Zucchini', 1],
+                ['Pepperoni', 2]
+            ]);
 
-        // Set chart options
+            // Set chart options
 
-        // Instantiate and draw our chart, passing in some options.
-       var chart = new google.visualization.PieChart(document.getElementById('chart_div_leader'));
-      chart.draw(data, null);
-      }
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div_leader'));
+            chart.draw(data, null);
+        }
     </script>
 
-    
+    <script>
+        function leaderStatistics2() {
+            var leader = document.getElementById('Leader2').value
+            $.get("/Reports/leaderRequirementsStatistics", { leaderId: leader }, function (data) {
+                showLeaderChart2();
+            });
+        }
+    </script>
+    <script>
+        function showLeaderChart2() {
+            //Load the Visualization API and the corechart package.
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            // Set a callback to run when the Google Visualization API is loaded.
+
+            drawLeaderChart2();
+        }
+    </script>
+
+    <script>
+
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawLeaderChart2() {
+
+            // Create the data table.
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+                ['Mushrooms', 3],
+                ['Onions', 1],
+                ['Olives', 1],
+                ['Zucchini', 1],
+                ['Pepperoni', 2]
+            ]);
+
+            // Set chart options
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div_leader2'));
+            chart.draw(data, null);
+        }
+    </script>
+
+
 
 
     <script>
