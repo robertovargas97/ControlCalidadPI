@@ -257,5 +257,14 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Cliente", cedulaAntiguaParameter, cedulaPKParameter, nombrePParameter, apellido1Parameter, apellido2Parameter, telefonoParameter, correoParameter, provinciaParameter, cantonParameter, distritoParameter, direccionExactaParameter, fechaNacimientoParameter);
         }
+    
+        public virtual ObjectResult<USP_Detalles_Horas_Req_Proyecto_Result> USP_Detalles_Horas_Req_Proyecto(Nullable<int> id_proyecto)
+        {
+            var id_proyectoParameter = id_proyecto.HasValue ?
+                new ObjectParameter("id_proyecto", id_proyecto) :
+                new ObjectParameter("id_proyecto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Detalles_Horas_Req_Proyecto_Result>("USP_Detalles_Horas_Req_Proyecto", id_proyectoParameter);
+        }
     }
 }

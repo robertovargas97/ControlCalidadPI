@@ -44,6 +44,19 @@ namespace ControlCalidad.Models
 
     }
 
+    public class FinishedProjectForReports
+    {
+        public string nombre
+        {
+            get; set;
+        }
+
+        public int idPk
+        {
+            get; set;
+
+        }
+    }
 
     public class EmployeeForReports
     {

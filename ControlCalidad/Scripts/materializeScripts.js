@@ -56,6 +56,56 @@ function onSubmit() {
     document.getElementById("loading").classList.remove("hide");
 }
 
+//-----------------------------------Reports functions--------------------------------------
+
+function getFinishedProjectInfo() {
+    var idProject = document.getElementById("finisehdProjects").value;
+    $("#projectHoursRequirementsTable").empty();
+    $.get("/Reports/ProjectRequirementesHours", { projectId: idProject }, function (data) {
+        $.each(data, function (index, info) {
+            $("#projectHoursRequirementsTable").append("<tr><td class='center'>" + info.Horas_estimadas + "</td><td class='center'>" + info.Horas_reales + "</td><td class='center'>" + info.Requerimientos_exitosos + "</td><td class='center'>" + info.Requerimientos_fallidos + "</td>" + "<td class='center'>" + info.Requerimientos_Totales + "</td><tr>");
+            showCharts(info.Horas_estimadas, info.Horas_reales, info.Requerimientos_fallidos, info.Requerimientos_exitosos);
+        });
+    });
+
+}
+
+function showCharts(avgHours, realHours, failedRequirements, successfulRequirements) {
+    //Load the Visualization API and the corechart package.
+    google.charts.load('current', { 'packages': ['corechart'] });
+    //Set a callback to run when the Google Visualization API is loaded.
+    drawBarChart(avgHours, realHours, "chart_project_div","Horas","Horas Estimadas","Horas Reales","Horas del proyecto",1);
+    drawBarChart(failedRequirements, successfulRequirements, "chart_project_div_req", "Requerimientos", "Fallidos","Exitosos","Requerimientos del proyecto",2);
+}
+
+function drawBarChart(data1, data2,div,name,dataLabel1,dataLabel2,tittle,option) {
+    var data = google.visualization.arrayToDataTable([
+        [name, '', { role: 'style' }, { role: 'annotation' }],
+        [dataLabel1, parseInt(data1), 'stroke-color: #DE3910; stroke-width: 2; fill-color: #DE3910', data1],
+        [dataLabel2, parseInt(data2), 'stroke-color: #1272C6; stroke-width: 2; fill-color: #1272C6', data2]
+    ]);
+
+    var options = {
+        title: tittle,
+        is3D: true,
+    };
+
+    if (option == 1) {
+        var chart = new google.visualization.ColumnChart(document.getElementById(div));
+
+    }
+    else if (option == 2) {
+        var chart = new google.visualization.PieChart(document.getElementById(div));
+    }
+
+    chart.draw(data, options);
+}
+
+
+
+
+
+
 //------------------------------------Validation functions for inputs-----------------------
 
 //--------------------------------------Register Validations-------------------------------
@@ -217,7 +267,7 @@ function deleteRequirement(id, projectId) {
 function validateRequirementName(id) {
     $.ajax({
         url: '/Requirement/validateName',
-        data: { name: $('#requirementName').val(), idProyect: id},
+        data: { name: $('#requirementName').val(), idProyect: id },
         success: function (exist) {
             if (exist == 'True') {
                 document.getElementById("nameError").innerHTML = "El nombre del requerimiento ya existe... Por favor ingrese otro";
@@ -524,7 +574,7 @@ function validateClientEmail(inputtxt) {
             var err = document.getElementById("clientEmailError");
             $.ajax({
                 url: '/Client/isMailTaken',
-                data: { input: inputtxt.value } ,
+                data: { input: inputtxt.value },
 
                 success: function (exist) {
 
@@ -550,7 +600,7 @@ function validateClientEmail(inputtxt) {
 function validateIdClient(inputtxt) {
     var letters = /^[0-9]*$/;
     var tam = document.getElementById("idClient").value.length;
-    var err = document.getElementById("idClientError");idClientError
+    var err = document.getElementById("idClientError"); idClientError
     if (document.getElementById("idClient").value.length <= 0) {
         document.getElementById("idClientError").innerHTML = "Debe ingresar la cédula.";
         document.getElementById('btn-submit').disabled = true;
