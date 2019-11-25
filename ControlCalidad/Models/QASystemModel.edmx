@@ -319,6 +319,16 @@
         <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="USP_consultaObtenerPruebas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectId" Type="int" Mode="In" />
+          <Parameter Name="requirementId" Type="int" Mode="In" />
+          <Parameter Name="testerName" Type="varchar" Mode="InOut" />
+          <Parameter Name="testName" Type="varchar" Mode="InOut" />
+          <Parameter Name="result" Type="varchar" Mode="InOut" />
+          <Parameter Name="successfulTests" Type="int" Mode="InOut" />
+          <Parameter Name="failedTests" Type="int" Mode="InOut" />
+          <Parameter Name="totalTests" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_estaAsignado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_requerimiento" Type="int" Mode="InOut" />
         </Function>
@@ -721,6 +731,16 @@
           </FunctionImport>
           <FunctionImport Name="nombresLiderers" ReturnType="Collection(String)" />
           <FunctionImport Name="nombreLideres" ReturnType="Collection(QASystemEntity.nombreLideres_Result)" />
+          <FunctionImport Name="USP_consultaObtenerPruebas">
+            <Parameter Name="projectId" Mode="In" Type="Int32" />
+            <Parameter Name="requirementId" Mode="In" Type="Int32" />
+            <Parameter Name="testerName" Mode="InOut" Type="String" />
+            <Parameter Name="testName" Mode="InOut" Type="String" />
+            <Parameter Name="result" Mode="InOut" Type="String" />
+            <Parameter Name="successfulTests" Mode="InOut" Type="Int32" />
+            <Parameter Name="failedTests" Mode="InOut" Type="Int32" />
+            <Parameter Name="totalTests" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -1005,6 +1025,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_consultaObtenerPruebas" FunctionName="QASystemEntity.Store.USP_consultaObtenerPruebas" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1019,8 +1040,8 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

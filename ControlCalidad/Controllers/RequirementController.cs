@@ -280,6 +280,8 @@ namespace ControlCalidad.Controllers
         //Documentar Sergio
         public JsonResult getJsonRequirements(int projectId)
         {
+            db.Configuration.ProxyCreationEnabled = false;
+
             List<Requerimiento> allReqs = db.Requerimientoes.Where(r => r.id_proyectoFK == projectId).ToList();
 
             return Json(allReqs, JsonRequestBehavior.AllowGet);
