@@ -48,6 +48,31 @@ namespace ControlCalidad.Controllers
             return allprojects;
         }
 
+        //<summary> : gets the finished projects from database to put them in a list
+        //<param>   : None
+        //<return>  : List<SelectListItem>, finished projects list
+        public List<SelectListItem> GetFinishedProjects()
+        {
+            List<FinishedProjectForReports> ProjectsList =
+                ( from project in db.Proyectoes
+                  where project.estado == "Finalizado"
+                  select new FinishedProjectForReports {
+                      nombre = project.nombre ,
+                      idPk = project.idPK
+                  } ).ToList( );
+
+            List<SelectListItem> allFinishedprojects = ProjectsList.ConvertAll(
+                project => {
+                    return new SelectListItem( ) {
+                        Text = project.nombre ,
+                        Value = project.idPk.ToString(),
+                        Selected = false
+                    };
+                } );
+
+            return allFinishedprojects;
+        }
+
         // GET: Project
         public async Task<ActionResult> Index()
         {

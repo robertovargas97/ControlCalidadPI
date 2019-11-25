@@ -316,6 +316,9 @@
         <Function Name="Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SP_Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
@@ -328,6 +331,9 @@
           <Parameter Name="successfulTests" Type="int" Mode="InOut" />
           <Parameter Name="failedTests" Type="int" Mode="InOut" />
           <Parameter Name="totalTests" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_Detalles_Horas_Req_Proyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_proyecto" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_estaAsignado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_requerimiento" Type="int" Mode="InOut" />
@@ -741,6 +747,12 @@
             <Parameter Name="failedTests" Mode="InOut" Type="Int32" />
             <Parameter Name="totalTests" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_Req_Lider" ReturnType="Collection(QASystemEntity.SP_Req_Lider_Result)">
+            <Parameter Name="cedula" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_Detalles_Horas_Req_Proyecto" ReturnType="Collection(QASystemEntity.USP_Detalles_Horas_Req_Proyecto_Result)">
+            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -815,6 +827,21 @@
         <ComplexType Name="nombreLideres_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
           <Property Type="String" Name="nombreP" Nullable="false" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="SP_Req_Lider_Result">
+          <Property Type="Int32" Name="idPK" Nullable="false" />
+          <Property Type="String" Name="complejidad" Nullable="true" MaxLength="15" />
+          <Property Type="Single" Name="duracionEstimada" Nullable="false" />
+          <Property Type="Single" Name="duracionReal" Nullable="true" />
+          <Property Type="Int32" Name="id_proyectoFK" Nullable="false" />
+          <Property Type="String" Name="estado" Nullable="true" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="USP_Detalles_Horas_Req_Proyecto_Result">
+          <Property Type="Single" Name="Horas_estimadas" Nullable="false" />
+          <Property Type="Single" Name="Horas_reales" Nullable="true" />
+          <Property Type="Int32" Name="Requerimientos_Totales" Nullable="true" />
+          <Property Type="Int32" Name="Requerimientos_exitosos" Nullable="true" />
+          <Property Type="Int32" Name="Requerimientos_fallidos" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1005,6 +1032,17 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Edit_Cliente" FunctionName="QASystemEntity.Store.Edit_Cliente" />
+          <FunctionImportMapping FunctionImportName="USP_Detalles_Horas_Req_Proyecto" FunctionName="QASystemEntity.Store.USP_Detalles_Horas_Req_Proyecto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.USP_Detalles_Horas_Req_Proyecto_Result">
+                <ScalarProperty Name="Horas_estimadas" ColumnName="Horas estimadas" />
+                <ScalarProperty Name="Horas_reales" ColumnName="Horas reales" />
+                <ScalarProperty Name="Requerimientos_Totales" ColumnName="Requerimientos Totales" />
+                <ScalarProperty Name="Requerimientos_exitosos" ColumnName="Requerimientos exitosos" />
+                <ScalarProperty Name="Requerimientos_fallidos" ColumnName="Requerimientos fallidos" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Req_Lider" FunctionName="QASystemEntity.Store.Req_Lider">
             <ResultMapping>
               <ComplexTypeMapping TypeName="QASystemEntity.Req_Lider_Result">
@@ -1022,6 +1060,18 @@
               <ComplexTypeMapping TypeName="QASystemEntity.nombreLideres_Result">
                 <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
                 <ScalarProperty Name="nombreP" ColumnName="nombreP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Req_Lider" FunctionName="QASystemEntity.Store.SP_Req_Lider">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_Req_Lider_Result">
+                <ScalarProperty Name="idPK" ColumnName="idPK" />
+                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
+                <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
+                <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
+                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
