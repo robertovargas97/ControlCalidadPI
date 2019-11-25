@@ -335,7 +335,7 @@ namespace ControlCalidad.Controllers
             {
                 //If the new leader is not empty in the post.
                 string projectLeader = "";
-
+                // ------- SQL INJECTION -------------//
                 string query = "SELECT	E.cedulaPK FROM ControlCalidad.TrabajaEn TE JOIN ControlCalidad.Empleado E ON E.cedulaPK = TE.cedula_empleadoFK " +
                     "WHERE TE.id_proyectoFK = " + id + " AND TE.rol = 'Lider';";
                 
