@@ -495,6 +495,23 @@
 
                         </div>
 
+                        <div class="col s12 margin-b3">
+                            <div class="answer_list">
+                                <br />
+                                <table class="table striped ">
+                                    <thead>
+                                        <tr>
+                                            <th class="center black white-text"> Nombre de la prueba </th>
+                                            <th class="center black white-text"> Resultado </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="testsReportTable" class="center"></tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
                     </div>
                 
 
@@ -882,7 +899,13 @@
         });
 
         function testsReport() {
-            $.get("/Reports/testsResults", { projectId: $("#proyConsulta8").val(), requirementId: $("#reqConsulta8").val() })
+            $.get("/Reports/testsResults", { projectId: $("#proyConsulta8").val(), requirementId: $("#reqConsulta8").val() }, function (data) {
+
+                $.each(data, function (index, item) {
+                    $("#testsReportTable").append("<tr><td class='center'>" + item.nombre + "</td><tr>");
+                });
+
+            });
         }
 
     </script>
