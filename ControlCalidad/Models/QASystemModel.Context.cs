@@ -277,6 +277,19 @@ namespace ControlCalidad.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<nombreLideres_Result>("nombreLideres");
         }
     
+        public virtual int USP_consultaObtenerPruebas(Nullable<int> projectId, Nullable<int> requirementId, ObjectParameter testerName, ObjectParameter testName, ObjectParameter result, ObjectParameter successfulTests, ObjectParameter failedTests, ObjectParameter totalTests)
+        {
+            var projectIdParameter = projectId.HasValue ?
+                new ObjectParameter("projectId", projectId) :
+                new ObjectParameter("projectId", typeof(int));
+    
+            var requirementIdParameter = requirementId.HasValue ?
+                new ObjectParameter("requirementId", requirementId) :
+                new ObjectParameter("requirementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_consultaObtenerPruebas", projectIdParameter, requirementIdParameter, testerName, testName, result, successfulTests, failedTests, totalTests);
+        }
+    
         public virtual ObjectResult<SP_Req_Lider_Result> SP_Req_Lider(string cedula)
         {
             var cedulaParameter = cedula != null ?
@@ -295,6 +308,5 @@ namespace ControlCalidad.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Detalles_Horas_Req_Proyecto_Result>("USP_Detalles_Horas_Req_Proyecto", id_proyectoParameter);
         }
     
-      
     }
 }

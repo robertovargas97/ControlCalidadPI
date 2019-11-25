@@ -95,7 +95,7 @@ namespace ControlCalidad.Controllers
 
         public void testsResults(int projectId, int requirementId) {
 
-            var sp = db.USP_consultaObtenerPruebas(projectId: projectId, requirementId: requirementId);
+            var sp = 0;
 
         }
     }

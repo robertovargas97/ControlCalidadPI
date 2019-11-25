@@ -316,21 +316,15 @@
         <Function Name="Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SP_consultaObtenerPruebas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectId" Type="int" Mode="In" />
+          <Parameter Name="requirementId" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
         <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="USP_consultaObtenerPruebas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="projectId" Type="int" Mode="In" />
-          <Parameter Name="requirementId" Type="int" Mode="In" />
-          <Parameter Name="testerName" Type="varchar" Mode="InOut" />
-          <Parameter Name="testName" Type="varchar" Mode="InOut" />
-          <Parameter Name="result" Type="varchar" Mode="InOut" />
-          <Parameter Name="successfulTests" Type="int" Mode="InOut" />
-          <Parameter Name="failedTests" Type="int" Mode="InOut" />
-          <Parameter Name="totalTests" Type="int" Mode="InOut" />
         </Function>
         <Function Name="USP_Detalles_Horas_Req_Proyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
@@ -748,10 +742,14 @@
             <Parameter Name="totalTests" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_Req_Lider" ReturnType="Collection(QASystemEntity.SP_Req_Lider_Result)">
-            <Parameter Name="cedula" Mode="In" Type="String" />
+          <Parameter Name="cedula" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_Detalles_Horas_Req_Proyecto" ReturnType="Collection(QASystemEntity.USP_Detalles_Horas_Req_Proyecto_Result)">
-            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_consultaObtenerPruebas" ReturnType="Collection(QASystemEntity.SP_consultaObtenerPruebas_Result)">
+            <Parameter Name="projectId" Mode="In" Type="Int32" />
+            <Parameter Name="requirementId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
@@ -842,6 +840,11 @@
           <Property Type="Int32" Name="Requerimientos_Totales" Nullable="true" />
           <Property Type="Int32" Name="Requerimientos_exitosos" Nullable="true" />
           <Property Type="Int32" Name="Requerimientos_fallidos" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_consultaObtenerPruebas_Result">
+          <Property Type="String" Name="testerName" Nullable="false" MaxLength="51" />
+          <Property Type="String" Name="testName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="result" Nullable="true" MaxLength="15" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1075,7 +1078,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_consultaObtenerPruebas" FunctionName="QASystemEntity.Store.USP_consultaObtenerPruebas" />
+          <FunctionImportMapping FunctionImportName="SP_consultaObtenerPruebas" FunctionName="QASystemEntity.Store.SP_consultaObtenerPruebas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_consultaObtenerPruebas_Result">
+                <ScalarProperty Name="testerName" ColumnName="testerName" />
+                <ScalarProperty Name="testName" ColumnName="testName" />
+                <ScalarProperty Name="result" ColumnName="result" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
