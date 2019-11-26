@@ -887,7 +887,7 @@
                     $("#reqConsulta8").children().remove().end()
                     $.each(data, function (index, row) {
 
-                        $("#reqConsulta8").append("<option value='" + row.idPk + "'>" + row.nombre + "</option>")
+                        $("#reqConsulta8").append("<option value='" + row.idPK + "'>" + row.nombre + "</option>")
 
                     });
                     $("select").formSelect();
@@ -898,15 +898,7 @@
 
         });
 
-        function testsReport() {
-            $.get("/Reports/testsResults", { projectId: $("#proyConsulta8").val(), requirementId: $("#reqConsulta8").val() }, function (data) {
-
-                $.each(data, function (index, item) {
-                    $("#testsReportTable").append("<tr><td class='center'>" + item.nombre + "</td><tr>");
-                });
-
-            });
-        }
+       
 
     </script>
 

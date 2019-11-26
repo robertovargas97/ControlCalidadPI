@@ -307,6 +307,6 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Detalles_Horas_Req_Proyecto_Result>("USP_Detalles_Horas_Req_Proyecto", id_proyectoParameter);
         }
-    
+       
     }
 }

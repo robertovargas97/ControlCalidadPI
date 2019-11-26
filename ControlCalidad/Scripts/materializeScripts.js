@@ -58,6 +58,23 @@ function onSubmit() {
 
 //-----------------------------------Reports functions--------------------------------------
 
+// Documentar sergio 
+function testsReport() {
+    var projectID = document.getElementById("proyConsulta8").value;
+    var requirementID = document.getElementById("reqConsulta8").value;
+    alert(requirementID);
+
+    $.get("/Reports/testsResults", { projectId: projectID, requirementId: requirementID }, function (data) {
+      
+        $.each(data, function (index, item) {
+           
+            $("#testsReportTable").append("<tr><td class='center'>" + item.testerName + "</td><td class= 'center'>" + item.testName + "</td><tr>");
+        });
+
+    });
+}
+
+
 //<summary> :   shows information about a specific project its hours and requirements
 function getFinishedProjectInfo() {
     var idProject = document.getElementById("finisehdProjects").value;

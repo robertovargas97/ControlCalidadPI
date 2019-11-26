@@ -91,11 +91,11 @@ namespace ControlCalidad.Controllers
             return Json( projectInformation , JsonRequestBehavior.AllowGet );
         }
 
+        public JsonResult testsResults(int projectId, int requirementId) {
 
-
-        public void testsResults(int projectId, int requirementId) {
-
-            var sp = 0;
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SP_consultaObtenerPruebas_Result> testsReportTable = db.SP_consultaObtenerPruebas(projectId, requirementId).ToList( );
+            return Json( testsReportTable , JsonRequestBehavior.AllowGet );
 
         }
     }
