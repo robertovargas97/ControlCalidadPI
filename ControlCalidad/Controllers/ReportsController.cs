@@ -94,7 +94,7 @@ namespace ControlCalidad.Controllers
         public JsonResult testsResults(int projectId, int requirementId) {
 
             db.Configuration.ProxyCreationEnabled = false;
-            List<SP_consultaObtenerPruebas_Result> testsReportTable = db.SP_consultaObtenerPruebas(projectId, requirementId).ToList( );
+            List<SP_obtenerDatosPruebas_Result> testsReportTable = db.SP_obtenerDatosPruebas(projectId, requirementId).ToList( );
             return Json( testsReportTable , JsonRequestBehavior.AllowGet );
 
         }

@@ -60,19 +60,42 @@ function onSubmit() {
 
 // Documentar sergio 
 function testsReport() {
+
     var projectID = document.getElementById("proyConsulta8").value;
     var requirementID = document.getElementById("reqConsulta8").value;
-    alert(requirementID);
-
+ 
     $.get("/Reports/testsResults", { projectId: projectID, requirementId: requirementID }, function (data) {
-      
+
+        $("#testsReportTable").empty();
+
         $.each(data, function (index, item) {
            
-            $("#testsReportTable").append("<tr><td class='center'>" + item.testerName + "</td><td class= 'center'>" + item.testName + "</td><tr>");
+            $("#testsReportTable").append("<tr><td class='center'>" + item.testName + "</td><td class= 'center'>" + item.result + "</td><tr>");
+
         });
 
     });
 }
+// Documentar sergio
+$(document).ready(function () {
+
+    $("#proyConsulta8").change(function () {
+
+        $.get("/Requirement/getJsonRequirements", { projectId: $("#proyConsulta8").val() }, function (data) {
+
+            $("#reqConsulta8").children().remove().end()
+            $.each(data, function (index, row) {
+
+                $("#reqConsulta8").append("<option value='" + row.idPK + "'>" + row.nombre + "</option>")
+
+            });
+            $("select").formSelect();
+        });
+
+
+    })
+
+});
 
 
 //<summary> :   shows information about a specific project its hours and requirements

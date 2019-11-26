@@ -875,34 +875,6 @@
     </script>
 
 
-    <!---Script relacionado a los dropdowns de la consulta de "Pruebas" -->
-    <script>
-
-        $(document).ready(function () {
-
-            $("#proyConsulta8").change(function () {
-
-                $.get("/Requirement/getJsonRequirements", { projectId: $("#proyConsulta8").val() }, function (data) {
-
-                    $("#reqConsulta8").children().remove().end()
-                    $.each(data, function (index, row) {
-
-                        $("#reqConsulta8").append("<option value='" + row.idPK + "'>" + row.nombre + "</option>")
-
-                    });
-                    $("select").formSelect();
-                });
-
-
-            })
-
-        });
-
-       
-
-    </script>
-
-
 
 
 

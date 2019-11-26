@@ -263,10 +263,6 @@
         <Function Name="SP_Conseguir_testers_req" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
         </Function>
-        <Function Name="SP_consultaObtenerPruebas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
-          <Parameter Name="projectId" Type="int" Mode="In" />
-          <Parameter Name="requirementId" Type="int" Mode="In" />
-        </Function>
         <Function Name="Edit_Cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedulaAntigua" Type="varchar" Mode="In" />
           <Parameter Name="cedulaPK" Type="varchar" Mode="In" />
@@ -316,6 +312,10 @@
         </Function>
         <Function Name="Proyecto_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_obtenerDatosPruebas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectId" Type="int" Mode="In" />
+          <Parameter Name="requirementId" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
@@ -752,6 +752,10 @@
             <Parameter Name="projectId" Mode="In" Type="Int32" />
             <Parameter Name="requirementId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_obtenerDatosPruebas" ReturnType="Collection(QASystemEntity.SP_obtenerDatosPruebas_Result)">
+            <Parameter Name="projectId" Mode="In" Type="Int32" />
+            <Parameter Name="requirementId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -848,6 +852,14 @@
           <Property Type="String" Name="result" Nullable="true" MaxLength="15" />
         </ComplexType>
         <ComplexType Name="SP_consultaObtenerPruebas1_Result">
+          <Property Type="String" Name="testerName" Nullable="false" MaxLength="51" />
+          <Property Type="String" Name="testName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="result" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="totalTests" Nullable="true" />
+          <Property Type="Int32" Name="successfullTests" Nullable="true" />
+          <Property Type="Int32" Name="failedTests" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_obtenerDatosPruebas_Result">
           <Property Type="String" Name="testerName" Nullable="false" MaxLength="51" />
           <Property Type="String" Name="testName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="result" Nullable="true" MaxLength="15" />
@@ -1076,9 +1088,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_consultaObtenerPruebas1" FunctionName="QASystemEntity.Store.SP_consultaObtenerPruebas">
+          <FunctionImportMapping FunctionImportName="SP_obtenerDatosPruebas" FunctionName="QASystemEntity.Store.SP_obtenerDatosPruebas">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.SP_consultaObtenerPruebas1_Result">
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_obtenerDatosPruebas_Result">
                 <ScalarProperty Name="testerName" ColumnName="testerName" />
                 <ScalarProperty Name="testName" ColumnName="testName" />
                 <ScalarProperty Name="result" ColumnName="result" />
