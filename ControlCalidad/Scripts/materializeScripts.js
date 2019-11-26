@@ -80,7 +80,7 @@ function testsReport() {
 $(document).ready(function () {
 
     $("#proyConsulta8").change(function () {
-
+        $("#testsReportTable").empty();
         $.get("/Requirement/getJsonRequirements", { projectId: $("#proyConsulta8").val() }, function (data) {
 
             $("#reqConsulta8").children().remove().end()
