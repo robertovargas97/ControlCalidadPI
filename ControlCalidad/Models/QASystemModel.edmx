@@ -313,9 +313,6 @@
         <Function Name="Proyecto_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="cedula" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="SP_Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
@@ -696,12 +693,6 @@
           <FunctionImport Name="SP_Conseguir_CantReqs" ReturnType="Collection(QASystemEntity.SP_Conseguir_CantReqs_Result)">
           <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="PA_cant_req_tester" ReturnType="Collection(QASystemEntity.PA_cant_req_tester_Result)">
-          <Parameter Name="nombre_proy" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="PA_historial_participacion_tester" ReturnType="Collection(QASystemEntity.PA_historial_participacion_tester_Result)">
-          <Parameter Name="nombre_tester" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="PA_req_en_ejecucion_proy" ReturnType="Collection(QASystemEntity.PA_req_en_ejecucion_proy_Result)">
           <Parameter Name="nombre_proy" Mode="In" Type="String" />
           </FunctionImport>
@@ -728,10 +719,16 @@
           <FunctionImport Name="nombresLiderers" ReturnType="Collection(String)" />
           <FunctionImport Name="nombreLideres" ReturnType="Collection(QASystemEntity.nombreLideres_Result)" />
           <FunctionImport Name="SP_Req_Lider" ReturnType="Collection(QASystemEntity.SP_Req_Lider_Result)">
-            <Parameter Name="cedula" Mode="In" Type="String" />
+          <Parameter Name="cedula" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_Detalles_Horas_Req_Proyecto" ReturnType="Collection(QASystemEntity.USP_Detalles_Horas_Req_Proyecto_Result)">
-            <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_cant_req_tester" ReturnType="Collection(QASystemEntity.PA_cant_req_tester_Result)">
+          <Parameter Name="nombre_proy" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_historial_participacion_tester" ReturnType="Collection(QASystemEntity.PA_historial_participacion_tester_Result)">
+            <Parameter Name="nombre_tester" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
@@ -776,16 +773,6 @@
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
           <Property Type="Int32" Name="cantidadReqAsignados" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="PA_cant_req_tester_Result">
-          <Property Type="String" Name="nombreTester" Nullable="false" MaxLength="25" />
-          <Property Type="Int32" Name="cantidadReqAsignados" Nullable="true" />
-          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="100" />
-        </ComplexType>
-        <ComplexType Name="PA_historial_participacion_tester_Result">
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="estado" Nullable="true" MaxLength="15" />
-          <Property Type="Single" Name="horasDedicas" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="PA_req_en_ejecucion_proy_Result">
           <Property Type="String" Name="nombreReq" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="complejidadReq" Nullable="true" MaxLength="15" />
@@ -822,6 +809,22 @@
           <Property Type="Int32" Name="Requerimientos_Totales" Nullable="true" />
           <Property Type="Int32" Name="Requerimientos_exitosos" Nullable="true" />
           <Property Type="Int32" Name="Requerimientos_fallidos" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PA_cant_req_tester_Result">
+          <Property Type="String" Name="nombreTester" Nullable="false" MaxLength="25" />
+          <Property Type="Int32" Name="cantidadReqAsignados" Nullable="true" />
+          <Property Type="String" Name="nombreR" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="complejidad" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="PA_historial_participacion_tester_Result">
+          <Property Type="String" Name="proyecto" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="estado" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Requerimiento" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="estadoReq" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="complejidad" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="fechaInicio" Nullable="false" />
+          <Property Type="DateTime" Name="fechaFinalizacion" Nullable="true" />
+          <Property Type="Single" Name="duracionReal" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -974,24 +977,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="PA_cant_req_tester" FunctionName="QASystemEntity.Store.PA_cant_req_tester">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.PA_cant_req_tester_Result">
-                <ScalarProperty Name="nombreTester" ColumnName="nombreTester" />
-                <ScalarProperty Name="cantidadReqAsignados" ColumnName="cantidadReqAsignados" />
-                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="PA_historial_participacion_tester" FunctionName="QASystemEntity.Store.PA_historial_participacion_tester">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.PA_historial_participacion_tester_Result">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="horasDedicas" ColumnName="horasDedicas" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="PA_req_en_ejecucion_proy" FunctionName="QASystemEntity.Store.PA_req_en_ejecucion_proy">
             <ResultMapping>
               <ComplexTypeMapping TypeName="QASystemEntity.PA_req_en_ejecucion_proy_Result">
@@ -1023,17 +1008,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Req_Lider" FunctionName="QASystemEntity.Store.Req_Lider">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.Req_Lider_Result">
-                <ScalarProperty Name="idPK" ColumnName="idPK" />
-                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
-                <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
-                <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
-                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="nombresLiderers" FunctionName="QASystemEntity.Store.nombresLiderers" />
           <FunctionImportMapping FunctionImportName="nombreLideres" FunctionName="QASystemEntity.Store.nombreLideres">
             <ResultMapping>
@@ -1052,6 +1026,30 @@
                 <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
                 <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_cant_req_tester" FunctionName="QASystemEntity.Store.PA_cant_req_tester">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.PA_cant_req_tester_Result">
+                <ScalarProperty Name="nombreTester" ColumnName="nombreTester" />
+                <ScalarProperty Name="cantidadReqAsignados" ColumnName="cantidadReqAsignados" />
+                <ScalarProperty Name="nombreR" ColumnName="nombreR" />
+                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_historial_participacion_tester" FunctionName="QASystemEntity.Store.PA_historial_participacion_tester">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.PA_historial_participacion_tester_Result">
+                <ScalarProperty Name="proyecto" ColumnName="proyecto" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="Requerimiento" ColumnName="Requerimiento" />
+                <ScalarProperty Name="estadoReq" ColumnName="estadoReq" />
+                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
+                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+                <ScalarProperty Name="fechaFinalizacion" ColumnName="fechaFinalizacion" />
+                <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

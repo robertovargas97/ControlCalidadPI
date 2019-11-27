@@ -633,3 +633,196 @@ function validateIdClient(inputtxt) {
         }
     }
 }
+
+
+//------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------Reports Functions----------------------------------------------------
+
+//<summary> : Shows the information of the completed requirements from one project.
+function secondReport() {
+    var proy2 = document.getElementById('proy2').value;
+    $("#table2").empty();
+    $.get("/Reports/CompletedRequirements", { proy: proy2 }, function (data) {
+        $.each(data, function (index, v2) {
+            $("#table2").append("<tr><td>" + v2.nombreRequerimiento + "</td><td>" + v2.estadoRequerimiento + "</td><td>" + v2.complejidadRequerimiento + "</td><td>" + v2.nombreResponsable + "</td><tr>");
+        });
+    });
+}
+
+//<summary> : Shows the information of the running requirements from one project.
+function thirdReport() {
+    var proy3 = document.getElementById('proy3').value;
+    $("#table3").empty();
+    $.get("/Reports/RunningRequirements", { proy: proy3 }, function (data) {
+        $.each(data, function (index, v3) {
+            $("#table3").append("<tr ><td>" + v3.nombreReq + "</td><td>" + v3.complejidadReq + "</td><td>" + v3.nombreResp + "</td>");
+        });
+    });
+}
+
+
+//<summary> : Shows the information of the quantity of requirements for tester in one project.
+function fourthReport() {
+    var proy4 = document.getElementById('proy4').value
+    $("#table4").empty();
+    $("#chart_div").empty();
+    $.get("/Reports/TesterRequirements", { proy: proy4 }, function (data) {
+        var table = [['Elemento', 'Cantidad', { role: 'style' }]];
+        var temp = "";
+        $.each(data, function (index, v4) {
+            $("#table4").append("<tr><td>" + v4.nombreTester + "</td><td>" + v4.nombreR + "</td><td>" + v4.complejidad + "</td><td>");
+            table.push([v4.nombreTester, v4.cantidadReqAsignados, 'blue']);
+            if (temp == "") { temp = v4.nombreTester }
+            else {
+                if (v4.nombreTester == temp) {
+                    var ca = table.pop();
+                } else { temp = v4.nombreTester }
+
+            }
+
+        });
+        var data = google.visualization.arrayToDataTable(table);
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data);
+    });
+}
+
+//<summary> : Shows the information of the participation history of one tester in diferents projects.
+function fifthReport() {
+    var tester = document.getElementById('tester').value
+    $("#table5").empty();
+    $.get("/Reports/ParticipationHistory", { tester: tester }, function (data) {
+        $.each(data, function (index, v5) {
+            $("#table5").append("<tr><td>" + v5.proyecto + "</td><td>" + v5.estado + "</td><td>" + v5.Requerimiento + "</td><td>" + v5.estadoReq + "</td><td>" + v5.complejidad + "</td><td>" + dateFormat(new Date(parseInt((v5.fechaInicio).match(/\d+/)[0]))) + "</td><td>" + dateFormat(new Date(parseInt((v5.fechaFinalizacion).match(/\d+/)[0]))) + "</td><td>" + v5.duracionReal + "</td></tr>");
+        });
+    });
+}
+
+//<summary> : Changes the date format.
+function dateFormat(d) {
+    console.log(d);
+    return ((d.getMonth() + 1) + "").padStart(2, "0")
+        + "/" + (d.getDate() + "").padStart(2, "0")
+        + "/" + d.getFullYear();
+}
+
+
+function showProjects2() {
+    document.getElementById('barra2').style.display = "block";
+    document.getElementById('barra3').style.display = "none";
+    document.getElementById('barra4').style.display = "none";
+    document.getElementById('barra5').style.display = "none";
+    document.getElementById('barra6').style.display = "none";
+    document.getElementById('barra7').style.display = "none";
+    document.getElementById('barra8').style.display = "none";
+    document.getElementById('consulta2').style.display = "block";
+    document.getElementById('consulta3').style.display = "none";
+    document.getElementById('consulta4').style.display = "none";
+    document.getElementById('consulta5').style.display = "none";
+    document.getElementById('consulta6').style.display = "none";
+    document.getElementById('consulta7').style.display = "none";
+    document.getElementById('consulta8').style.display = "none";
+}
+
+function showProjects3() {
+    document.getElementById('barra2').style.display = "none";
+    document.getElementById('barra3').style.display = "block";
+    document.getElementById('barra4').style.display = "none";
+    document.getElementById('barra5').style.display = "none";
+    document.getElementById('barra6').style.display = "none";
+    document.getElementById('barra7').style.display = "none";
+    document.getElementById('barra8').style.display = "none";
+    document.getElementById('consulta2').style.display = "none";
+    document.getElementById('consulta3').style.display = "block";
+    document.getElementById('consulta4').style.display = "none";
+    document.getElementById('consulta5').style.display = "none";
+    document.getElementById('consulta6').style.display = "none";
+    document.getElementById('consulta7').style.display = "none";
+    document.getElementById('consulta8').style.display = "none";
+}
+
+function showProjects4() {
+    document.getElementById('barra2').style.display = "none";
+    document.getElementById('barra3').style.display = "none";
+    document.getElementById('barra4').style.display = "block";
+    document.getElementById('barra5').style.display = "none";
+    document.getElementById('barra6').style.display = "none";
+    document.getElementById('barra7').style.display = "none";
+    document.getElementById('barra8').style.display = "none";
+    document.getElementById('consulta2').style.display = "none";
+    document.getElementById('consulta3').style.display = "none";
+    document.getElementById('consulta4').style.display = "block";
+    document.getElementById('consulta5').style.display = "none";
+    document.getElementById('consulta6').style.display = "none";
+    document.getElementById('consulta7').style.display = "none";
+    document.getElementById('consulta8').style.display = "none";
+}
+
+function showProjects5() {
+    document.getElementById('barra2').style.display = "none";
+    document.getElementById('barra3').style.display = "none";
+    document.getElementById('barra4').style.display = "none";
+    document.getElementById('barra5').style.display = "block";
+    document.getElementById('barra6').style.display = "none";
+    document.getElementById('barra7').style.display = "none";
+    document.getElementById('barra8').style.display = "none";
+    document.getElementById('consulta2').style.display = "none";
+    document.getElementById('consulta3').style.display = "none";
+    document.getElementById('consulta4').style.display = "none";
+    document.getElementById('consulta5').style.display = "block";
+    document.getElementById('consulta6').style.display = "none";
+    document.getElementById('consulta7').style.display = "none";
+    document.getElementById('consulta8').style.display = "none";
+}
+
+function showProjects6() {
+    document.getElementById('barra2').style.display = "none";
+    document.getElementById('barra3').style.display = "none";
+    document.getElementById('barra4').style.display = "none";
+    document.getElementById('barra5').style.display = "none";
+    document.getElementById('barra6').style.display = "block";
+    document.getElementById('barra7').style.display = "none";
+    document.getElementById('barra8').style.display = "none";
+    document.getElementById('consulta2').style.display = "none";
+    document.getElementById('consulta3').style.display = "none";
+    document.getElementById('consulta4').style.display = "none";
+    document.getElementById('consulta5').style.display = "none";
+    document.getElementById('consulta6').style.display = "block";
+    document.getElementById('consulta7').style.display = "none";
+    document.getElementById('consulta8').style.display = "none";
+}
+
+function showProjects7() {
+    document.getElementById('barra2').style.display = "none";
+    document.getElementById('barra3').style.display = "none";
+    document.getElementById('barra4').style.display = "none";
+    document.getElementById('barra5').style.display = "none";
+    document.getElementById('barra6').style.display = "none";
+    document.getElementById('barra7').style.display = "block";
+    document.getElementById('barra8').style.display = "none";
+    document.getElementById('consulta2').style.display = "none";
+    document.getElementById('consulta3').style.display = "none";
+    document.getElementById('consulta4').style.display = "none";
+    document.getElementById('consulta5').style.display = "none";
+    document.getElementById('consulta6').style.display = "none";
+    document.getElementById('consulta7').style.display = "block";
+    document.getElementById('consulta8').style.display = "none";
+}
+
+function showProjects8() {
+    document.getElementById('barra2').style.display = "none";
+    document.getElementById('barra3').style.display = "none";
+    document.getElementById('barra4').style.display = "none";
+    document.getElementById('barra5').style.display = "none";
+    document.getElementById('barra6').style.display = "none";
+    document.getElementById('barra7').style.display = "none";
+    document.getElementById('barra8').style.display = "block";
+    document.getElementById('consulta2').style.display = "none";
+    document.getElementById('consulta3').style.display = "none";
+    document.getElementById('consulta4').style.display = "none";
+    document.getElementById('consulta5').style.display = "none";
+    document.getElementById('consulta6').style.display = "none";
+    document.getElementById('consulta7').style.display = "none";
+    document.getElementById('consulta8').style.display = "block";
+}

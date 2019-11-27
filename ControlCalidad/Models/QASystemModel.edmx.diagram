@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="57c1108a07044111a2022d5e53a91f6f" Name="Diagram1" ZoomLevel="95">
+      <Diagram DiagramId="57c1108a07044111a2022d5e53a91f6f" Name="Diagram1" ZoomLevel="125">
         <EntityTypeShape EntityType="QASystemEntity.Cliente" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QASystemEntity.Empleado" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QASystemEntity.Habilidade" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
