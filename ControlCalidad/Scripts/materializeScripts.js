@@ -58,10 +58,51 @@ function onSubmit() {
 
 //-----------------------------------Reports functions--------------------------------------
 
+// Documentar sergio 
+function testsReport() {
+
+    var projectID = document.getElementById("proyConsulta8").value;
+    var requirementID = document.getElementById("reqConsulta8").value;
+ 
+    $.get("/Reports/testsResults", { projectId: projectID, requirementId: requirementID }, function (data) {
+
+        $("#testsReportTable").empty();
+
+        $.each(data, function (index, item) {
+           
+            $("#testsReportTable").append("<tr><td class='center'>" + item.testName + "</td><td class= 'center'>" + item.result + "</td><tr>");
+
+        });
+
+    });
+}
+// Documentar sergio
+$(document).ready(function () {
+
+    $("#proyConsulta8").change(function () {
+
+        $.get("/Requirement/getJsonRequirements", { projectId: $("#proyConsulta8").val() }, function (data) {
+
+            $("#reqConsulta8").children().remove().end()
+            $.each(data, function (index, row) {
+
+                $("#reqConsulta8").append("<option value='" + row.idPK + "'>" + row.nombre + "</option>")
+
+            });
+            $("select").formSelect();
+        });
+
+
+    })
+
+});
+
+
+//<summary> :   shows information about a specific project its hours and requirements
 function getFinishedProjectInfo() {
     var idProject = document.getElementById("finisehdProjects").value;
     $("#projectHoursRequirementsTable").empty();
-    $.get("/Reports/ProjectRequirementesHours", { projectId: idProject }, function (data) {
+    $.get("/Reports/ProjectRequirementHours", { projectId: idProject }, function (data) {
         $.each(data, function (index, info) {
             $("#projectHoursRequirementsTable").append("<tr><td class='center'>" + info.Horas_estimadas + "</td><td class='center'>" + info.Horas_reales + "</td><td class='center'>" + info.Requerimientos_exitosos + "</td><td class='center'>" + info.Requerimientos_fallidos + "</td>" + "<td class='center'>" + info.Requerimientos_Totales + "</td><tr>");
             showCharts(info.Horas_estimadas, info.Horas_reales, info.Requerimientos_fallidos, info.Requerimientos_exitosos);
@@ -70,15 +111,29 @@ function getFinishedProjectInfo() {
 
 }
 
+//<summary> :   load the charts libraries and it draws the charts
+//<param>   :   avgHours : average hours of the project
+//              realHours : real hours of the project
+//              failedRequirements : failed requirements of the project
+//              successfulRequirements : successful requirements of the project
 function showCharts(avgHours, realHours, failedRequirements, successfulRequirements) {
     //Load the Visualization API and the corechart package.
     google.charts.load('current', { 'packages': ['corechart'] });
     //Set a callback to run when the Google Visualization API is loaded.
-    drawBarChart(avgHours, realHours, "chart_project_div","Horas","Horas Estimadas","Horas Reales","Horas del proyecto",1);
-    drawBarChart(failedRequirements, successfulRequirements, "chart_project_div_req", "Requerimientos", "Fallidos","Exitosos","Requerimientos del proyecto",2);
+    drawChart(avgHours, realHours, "chart_project_div","Horas","Horas Estimadas","Horas Reales","Horas del proyecto",1);
+    drawChart(failedRequirements, successfulRequirements, "chart_project_div_req", "Requerimientos", "Fallidos","Exitosos","Requerimientos del proyecto",2);
 }
 
-function drawBarChart(data1, data2,div,name,dataLabel1,dataLabel2,tittle,option) {
+//<summary> :   draw the chart with the project's information
+//<param>   :   data1 : data tp show in the chart
+//              data2 : data tp show in the chart
+//              div : container to the chart in the HTML
+//              name : identifier to the chart
+//              dataLabel1 : label to data 1
+//              dataLabel2 : label to data 2
+//              tittle : chart's title
+//              option : the option to draw the chart
+function drawChart(data1, data2,div,name,dataLabel1,dataLabel2,tittle,option) {
     var data = google.visualization.arrayToDataTable([
         [name, '', { role: 'style' }, { role: 'annotation' }],
         [dataLabel1, parseInt(data1), 'stroke-color: #DE3910; stroke-width: 2; fill-color: #DE3910', data1],
@@ -100,11 +155,6 @@ function drawBarChart(data1, data2,div,name,dataLabel1,dataLabel2,tittle,option)
 
     chart.draw(data, options);
 }
-
-
-
-
-
 
 //------------------------------------Validation functions for inputs-----------------------
 

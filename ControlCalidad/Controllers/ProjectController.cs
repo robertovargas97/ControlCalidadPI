@@ -31,6 +31,7 @@ namespace ControlCalidad.Controllers
                  select new ProjectForReports
                  {
                      nombre = project.nombre,
+                     idPk = project.idPK
 
                  }).ToList();
 
@@ -39,6 +40,7 @@ namespace ControlCalidad.Controllers
                     return new SelectListItem()
                     {
                         Text = project.nombre,
+                        Value = project.idPk.ToString(),
                         Selected = false
                     };
                 });
@@ -333,7 +335,7 @@ namespace ControlCalidad.Controllers
             {
                 //If the new leader is not empty in the post.
                 string projectLeader = "";
-
+                // ------- SQL INJECTION -------------//
                 string query = "SELECT	E.cedulaPK FROM ControlCalidad.TrabajaEn TE JOIN ControlCalidad.Empleado E ON E.cedulaPK = TE.cedula_empleadoFK " +
                     "WHERE TE.id_proyectoFK = " + id + " AND TE.rol = 'Lider';";
                 

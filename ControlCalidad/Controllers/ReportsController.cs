@@ -17,6 +17,7 @@ namespace ControlCalidad.Controllers
         //Controllers to get values from other models
         private ProjectController projectController = new ProjectController();
         private EmployeeController employeeController = new EmployeeController();
+        private RequirementController requirementController = new RequirementController();
 
         // GET: Reports
         public ActionResult Index()
@@ -80,15 +81,22 @@ namespace ControlCalidad.Controllers
             List<SP_Req_Lider_Result> reqs = db.SP_Req_Lider(leaderId).ToList();
         }
 
-        public JsonResult ProjectRequirementesHours( int projectId)
+        //<summary> : Used to get information about finished projects its hours and requirements
+        //<params>  : projectId : represents the project identifier
+        //<return>  : Returns a Json with the results of SP
+        public JsonResult ProjectRequirementHours( int projectId)
         {
             db.Configuration.ProxyCreationEnabled = false;
             List<USP_Detalles_Horas_Req_Proyecto_Result> projectInformation = db.USP_Detalles_Horas_Req_Proyecto( projectId ).ToList( );
-
             return Json( projectInformation , JsonRequestBehavior.AllowGet );
-
         }
 
+        public JsonResult testsResults(int projectId, int requirementId) {
 
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SP_obtenerDatosPruebas_Result> testsReportTable = db.SP_obtenerDatosPruebas(projectId, requirementId).ToList( );
+            return Json( testsReportTable , JsonRequestBehavior.AllowGet );
+
+        }
     }
 }
