@@ -323,15 +323,6 @@
     <Compile Include="Models\SP_Conseguir_Tester_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SP_consultaObtenerPruebas1_Result.cs">
-      <DependentUpon>QASystemModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SP_consultaObtenerPruebas_Result.cs">
-      <DependentUpon>QASystemModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SP_obtenerDatosPruebas_Result.cs">
-      <DependentUpon>QASystemModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SP_Req_Lider_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>

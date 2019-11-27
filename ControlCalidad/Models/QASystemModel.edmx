@@ -313,10 +313,6 @@
         <Function Name="Proyecto_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="SP_obtenerDatosPruebas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="projectId" Type="int" Mode="In" />
-          <Parameter Name="requirementId" Type="int" Mode="In" />
-        </Function>
         <Function Name="SP_Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
@@ -722,33 +718,11 @@
           </FunctionImport>
           <FunctionImport Name="nombresLiderers" ReturnType="Collection(String)" />
           <FunctionImport Name="nombreLideres" ReturnType="Collection(QASystemEntity.nombreLideres_Result)" />
-          <FunctionImport Name="USP_consultaObtenerPruebas">
-            <Parameter Name="projectId" Mode="In" Type="Int32" />
-            <Parameter Name="requirementId" Mode="In" Type="Int32" />
-            <Parameter Name="testerName" Mode="InOut" Type="String" />
-            <Parameter Name="testName" Mode="InOut" Type="String" />
-            <Parameter Name="result" Mode="InOut" Type="String" />
-            <Parameter Name="successfulTests" Mode="InOut" Type="Int32" />
-            <Parameter Name="failedTests" Mode="InOut" Type="Int32" />
-            <Parameter Name="totalTests" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_Req_Lider" ReturnType="Collection(QASystemEntity.SP_Req_Lider_Result)">
           <Parameter Name="cedula" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_Detalles_Horas_Req_Proyecto" ReturnType="Collection(QASystemEntity.USP_Detalles_Horas_Req_Proyecto_Result)">
           <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SP_consultaObtenerPruebas" ReturnType="Collection(QASystemEntity.SP_consultaObtenerPruebas_Result)">
-            <Parameter Name="projectId" Mode="In" Type="Int32" />
-            <Parameter Name="requirementId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SP_consultaObtenerPruebas1" ReturnType="Collection(QASystemEntity.SP_consultaObtenerPruebas1_Result)">
-            <Parameter Name="projectId" Mode="In" Type="Int32" />
-            <Parameter Name="requirementId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SP_obtenerDatosPruebas" ReturnType="Collection(QASystemEntity.SP_obtenerDatosPruebas_Result)">
-            <Parameter Name="projectId" Mode="In" Type="Int32" />
-            <Parameter Name="requirementId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PA_cant_req_tester" ReturnType="Collection(QASystemEntity.PA_cant_req_tester_Result)">
           <Parameter Name="nombre_proy" Mode="In" Type="String" />
@@ -851,27 +825,6 @@
           <Property Type="DateTime" Name="fechaInicio" Nullable="false" />
           <Property Type="DateTime" Name="fechaFinalizacion" Nullable="true" />
           <Property Type="Single" Name="duracionReal" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="SP_consultaObtenerPruebas_Result">
-          <Property Type="String" Name="testerName" Nullable="false" MaxLength="51" />
-          <Property Type="String" Name="testName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="result" Nullable="true" MaxLength="15" />
-        </ComplexType>
-        <ComplexType Name="SP_consultaObtenerPruebas1_Result">
-          <Property Type="String" Name="testerName" Nullable="false" MaxLength="51" />
-          <Property Type="String" Name="testName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="result" Nullable="true" MaxLength="15" />
-          <Property Type="Int32" Name="totalTests" Nullable="true" />
-          <Property Type="Int32" Name="successfullTests" Nullable="true" />
-          <Property Type="Int32" Name="failedTests" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="SP_obtenerDatosPruebas_Result">
-          <Property Type="String" Name="testerName" Nullable="false" MaxLength="51" />
-          <Property Type="String" Name="testName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="result" Nullable="true" MaxLength="15" />
-          <Property Type="Int32" Name="totalTests" Nullable="true" />
-          <Property Type="Int32" Name="successfullTests" Nullable="true" />
-          <Property Type="Int32" Name="failedTests" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1100,18 +1053,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_obtenerDatosPruebas" FunctionName="QASystemEntity.Store.SP_obtenerDatosPruebas">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.SP_obtenerDatosPruebas_Result">
-                <ScalarProperty Name="testerName" ColumnName="testerName" />
-                <ScalarProperty Name="testName" ColumnName="testName" />
-                <ScalarProperty Name="result" ColumnName="result" />
-                <ScalarProperty Name="totalTests" ColumnName="totalTests" />
-                <ScalarProperty Name="successfullTests" ColumnName="successfullTests" />
-                <ScalarProperty Name="failedTests" ColumnName="failedTests" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1126,8 +1067,8 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
