@@ -308,7 +308,8 @@ namespace ControlCalidad.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Detalles_Horas_Req_Proyecto_Result>("USP_Detalles_Horas_Req_Proyecto", id_proyectoParameter);
         }
     
-        public virtual ObjectResult<SP_consultaObtenerPruebas_Result> SP_consultaObtenerPruebas(Nullable<int> projectId, Nullable<int> requirementId)
+        
+        public virtual ObjectResult<USP_obtenerDatosPruebas_Result> USP_obtenerDatosPruebas(Nullable<int> projectId, Nullable<int> requirementId)
         {
             var projectIdParameter = projectId.HasValue ?
                 new ObjectParameter("projectId", projectId) :
@@ -318,33 +319,7 @@ namespace ControlCalidad.Models
                 new ObjectParameter("requirementId", requirementId) :
                 new ObjectParameter("requirementId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_consultaObtenerPruebas_Result>("SP_consultaObtenerPruebas", projectIdParameter, requirementIdParameter);
-        }
-    
-        public virtual ObjectResult<SP_consultaObtenerPruebas1_Result> SP_consultaObtenerPruebas1(Nullable<int> projectId, Nullable<int> requirementId)
-        {
-            var projectIdParameter = projectId.HasValue ?
-                new ObjectParameter("projectId", projectId) :
-                new ObjectParameter("projectId", typeof(int));
-    
-            var requirementIdParameter = requirementId.HasValue ?
-                new ObjectParameter("requirementId", requirementId) :
-                new ObjectParameter("requirementId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_consultaObtenerPruebas1_Result>("SP_consultaObtenerPruebas1", projectIdParameter, requirementIdParameter);
-        }
-    
-        public virtual ObjectResult<SP_obtenerDatosPruebas_Result> SP_obtenerDatosPruebas(Nullable<int> projectId, Nullable<int> requirementId)
-        {
-            var projectIdParameter = projectId.HasValue ?
-                new ObjectParameter("projectId", projectId) :
-                new ObjectParameter("projectId", typeof(int));
-    
-            var requirementIdParameter = requirementId.HasValue ?
-                new ObjectParameter("requirementId", requirementId) :
-                new ObjectParameter("requirementId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_obtenerDatosPruebas_Result>("SP_obtenerDatosPruebas", projectIdParameter, requirementIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_obtenerDatosPruebas_Result>("USP_obtenerDatosPruebas", projectIdParameter, requirementIdParameter);
         }
     }
 }
