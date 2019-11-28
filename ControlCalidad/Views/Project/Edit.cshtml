@@ -36,12 +36,8 @@
                             <p class="col s4"> Quality Expert S.A</p>
                         </div>
                     </nav>
-                    @using( Ajax.BeginForm( "Edit" , new AjaxOptions {
-                        HttpMethod = "POST" ,
-                        LoadingElementId = "loading" ,
-                        OnSuccess = "redirectToPage('../Index')" ,
-                        OnComplete = "redirectToPage('../Index')" ,
-
+                    @using( Html.BeginForm( "Edit" , "Project" , FormMethod.Post , new {
+                        @onsubmit = "onSubmit()"
                     } ) )
                     {
                         @Html.AntiForgeryToken( )
@@ -198,7 +194,7 @@
                         </div>
 
                         <div class="row center">
-                           
+
                             <button id="btn-delete" type="reset" class="margin-r waves-effect red-hover btn red accent-4">Cancelar</button>
 
                             <button id="btn-submit" type="submit" class="margin-l waves-effect waves-light btn turq">Guardar</button>

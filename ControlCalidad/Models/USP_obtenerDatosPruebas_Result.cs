@@ -11,9 +11,14 @@ namespace ControlCalidad.Models
 {
     using System;
     
-    public partial class nombreLideres_Result
+    public partial class USP_obtenerDatosPruebas_Result
     {
-        public string cedulaPK { get; set; }
-        public string nombreP { get; set; }
+        public string testerName { get; set; }
+        public string testName { get; set; }
+        public string result { get; set; }
+        public Nullable<int> totalTests { get; set; }
+        public Nullable<int> successfulTests { get; set; }
+        public Nullable<int> failedTests { get; set; }
+        public Nullable<int> incompleteTests { get; set; }
     }
 }

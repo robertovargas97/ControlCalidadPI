@@ -11,9 +11,9 @@ namespace ControlCalidad.Models
 {
     using System;
     
-    public partial class nombreLideres_Result
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public string cedulaPK { get; set; }
-        public string nombreP { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
