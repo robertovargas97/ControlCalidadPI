@@ -313,10 +313,6 @@
         <Function Name="Proyecto_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="SP_obtenerDatosPruebas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="projectId" Type="int" Mode="In" />
-          <Parameter Name="requirementId" Type="int" Mode="In" />
-        </Function>
         <Function Name="SP_Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
@@ -1085,18 +1081,6 @@
                 <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
                 <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_obtenerDatosPruebas" FunctionName="QASystemEntity.Store.SP_obtenerDatosPruebas">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.SP_obtenerDatosPruebas_Result">
-                <ScalarProperty Name="testerName" ColumnName="testerName" />
-                <ScalarProperty Name="testName" ColumnName="testName" />
-                <ScalarProperty Name="result" ColumnName="result" />
-                <ScalarProperty Name="totalTests" ColumnName="totalTests" />
-                <ScalarProperty Name="successfullTests" ColumnName="successfullTests" />
-                <ScalarProperty Name="failedTests" ColumnName="failedTests" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
