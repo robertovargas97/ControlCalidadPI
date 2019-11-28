@@ -96,7 +96,6 @@ namespace ControlCalidad.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             List<SP_obtenerDatosPruebas_Result> testsReportTable = db.SP_obtenerDatosPruebas(projectId, requirementId).ToList( );
             return Json( testsReportTable , JsonRequestBehavior.AllowGet );
-
         }
     }
 }
