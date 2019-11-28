@@ -204,7 +204,7 @@
       <DependentUpon>S3G4CURModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Canton.cs">
-      <DependentUpon>localizacionesModel.tt</DependentUpon>
+      <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cliente.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
@@ -213,7 +213,7 @@
       <DependentUpon>S3G4CModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Distrito.cs">
-      <DependentUpon>localizacionesModel.tt</DependentUpon>
+      <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Empleado.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
@@ -254,7 +254,7 @@
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Provincia.cs">
-      <DependentUpon>localizacionesModel.tt</DependentUpon>
+      <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Proyecto.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
@@ -317,10 +317,22 @@
     <Compile Include="Models\SP_Conseguir_CantReqs_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Conseguir_Datos_Lider_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Conseguir_Datos_Tester_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Conseguir_testers_req_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Conseguir_Tester_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_consultaObtenerPruebas1_Result.cs">
@@ -335,6 +347,9 @@
     <Compile Include="Models\SP_Req_Lider_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tester.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
@@ -345,6 +360,9 @@
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\USP_Detalles_Horas_Req_Proyecto_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USP_obtenerDatosPruebas_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels.cs" />

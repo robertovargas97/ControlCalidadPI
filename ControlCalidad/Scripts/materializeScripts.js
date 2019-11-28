@@ -56,7 +56,7 @@ function onSubmit() {
     document.getElementById("loading").classList.remove("hide");
 }
 
-//-----------------------------------Reports functions--------------------------------------
+//------------------------------------------Reports functions--------------------------------------
 
 // Documentar sergio 
 function testsReport() {
@@ -98,7 +98,9 @@ $(document).ready(function () {
 });
 
 
-//<summary> :   shows information about a specific project its hours and requirements
+//--------------------------Finished projects, hours and requirements------------------------------
+
+//<summary> :   shows information about a specific project, its hours and requirements
 function getFinishedProjectInfo() {
     var idProject = document.getElementById("finisehdProjects").value;
     $("#projectHoursRequirementsTable").empty();
@@ -155,6 +157,8 @@ function drawChart(data1, data2,div,name,dataLabel1,dataLabel2,tittle,option) {
 
     chart.draw(data, options);
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------
 
 //------------------------------------Validation functions for inputs-----------------------
 
@@ -389,12 +393,10 @@ function validateEndAssignDate(input, error) {
     else if (document.getElementById(input).value < document.getElementById("fechaInicio").value) {
         document.getElementById(error).innerHTML = "La fecha debe ser posterior o igual  la fecha de inicio.";
         document.getElementById('btn-submit').disabled = true;
-
     }
     else {
         document.getElementById(error).innerHTML = "";
         document.getElementById('btn-submit').disabled = false;
-
     }
 }
 
