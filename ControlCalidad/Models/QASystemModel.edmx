@@ -782,6 +782,9 @@
           <FunctionImport Name="USP_obtenerReqsAsignados" ReturnType="Collection(String)">
           <Parameter Name="projectId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="USP_obtenerReqsAsignados1" ReturnType="Collection(QASystemEntity.USP_obtenerReqsAsignados1_Result)">
+            <Parameter Name="projectId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -906,6 +909,10 @@
           <Property Type="String" Name="testerName" Nullable="false" MaxLength="77" />
           <Property Type="String" Name="phoneNumber" Nullable="true" MaxLength="60" />
           <Property Type="String" Name="email" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="USP_obtenerReqsAsignados1_Result">
+          <Property Type="Int32" Name="idPK" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1151,7 +1158,14 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_obtenerHabilidadesPorCategoria" FunctionName="QASystemEntity.Store.USP_obtenerHabilidadesPorCategoria" />
-          <FunctionImportMapping FunctionImportName="USP_obtenerReqsAsignados" FunctionName="QASystemEntity.Store.USP_obtenerReqsAsignados" />
+          <FunctionImportMapping FunctionImportName="USP_obtenerReqsAsignados1" FunctionName="QASystemEntity.Store.USP_obtenerReqsAsignados">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.USP_obtenerReqsAsignados1_Result">
+                <ScalarProperty Name="idPK" ColumnName="idPK" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

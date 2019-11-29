@@ -386,13 +386,15 @@ namespace ControlCalidad.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("USP_obtenerHabilidadesPorCategoria", categoriaParameter);
         }
     
-        public virtual ObjectResult<string> USP_obtenerReqsAsignados(Nullable<int> projectId)
+     
+    
+        public virtual ObjectResult<USP_obtenerReqsAsignados1_Result> USP_obtenerReqsAsignados1(Nullable<int> projectId)
         {
             var projectIdParameter = projectId.HasValue ?
                 new ObjectParameter("projectId", projectId) :
                 new ObjectParameter("projectId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("USP_obtenerReqsAsignados", projectIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_obtenerReqsAsignados1_Result>("USP_obtenerReqsAsignados1", projectIdParameter);
         }
     }
 }

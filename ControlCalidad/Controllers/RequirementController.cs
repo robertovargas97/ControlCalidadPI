@@ -282,7 +282,7 @@ namespace ControlCalidad.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
 
-            List<string> allReqs = db.USP_obtenerReqsAsignados(projectId).ToList();
+            List<USP_obtenerReqsAsignados1_Result> allReqs = db.USP_obtenerReqsAsignados1(projectId).ToList();
 
             return Json(allReqs, JsonRequestBehavior.AllowGet);
         }
