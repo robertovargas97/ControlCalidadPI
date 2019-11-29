@@ -189,12 +189,8 @@ function getTestersInfo() {
     $.get("/Reports/testerRequirementsHours", { employeeId: idEmployee }, function (data) {
         $.each(data, function (index, info) {
             $("#testerHoursRequirements").append("<tr><td class='center'>" + info.requirementName + "</td><td class='center'>" + info.estimateHours + "</td><td class='center'>" + info.realHours + "</td><td class='center'>" + info.difference  + "</td><tr>");
-            //showCharts(info.Horas_estimadas, info.Horas_reales, info.Requerimientos_fallidos, info.Requerimientos_exitosos);
-            drawTesterHoursChart();
         });
     });
-
-
 }
 
 //------------------------------------Validation functions for inputs-----------------------
