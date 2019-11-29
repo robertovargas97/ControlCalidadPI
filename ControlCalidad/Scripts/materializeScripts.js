@@ -113,7 +113,7 @@ function getFinishedProjectInfo() {
 
 }
 
-//<summary> :   load the charts libraries and it draws the charts
+//<summary> :   loads the charts libraries and it draws the charts
 //<param>   :   avgHours : average hours of the project
 //              realHours : real hours of the project
 //              failedRequirements : failed requirements of the project
@@ -126,7 +126,7 @@ function showCharts(avgHours, realHours, failedRequirements, successfulRequireme
     drawChart(failedRequirements, successfulRequirements, "chart_project_div_req", "Requerimientos", "Fallidos", "Exitosos", "Requerimientos del proyecto", 2);
 }
 
-//<summary> :   draw the chart with the project's information
+//<summary> :   draws the chart with the project's information
 //<param>   :   data1 : data tp show in the chart
 //              data2 : data tp show in the chart
 //              div : container to the chart in the HTML
@@ -161,6 +161,8 @@ function drawChart(data1, data2, div, name, dataLabel1, dataLabel2, tittle, opti
 //--------------------------------------------------------------------------------------------------------------------------------
 
 //-------------------------------------Tester Requirements and hours--------------------------------------------------------------
+
+//<summary> :  shows and hides the html components related with the report
 function showTesterReqHours() {
     document.getElementById('barra1').style.display = "none";
     document.getElementById('barra2').style.display = "none";
@@ -171,7 +173,6 @@ function showTesterReqHours() {
     document.getElementById('barra7').style.display = "none";
     document.getElementById('barra8').style.display = "none";
     document.getElementById('testerReqHoursBar').style.display = "block";
-
     document.getElementById('consulta1').style.display = "none";
     document.getElementById('consulta2').style.display = "none";
     document.getElementById('consulta3').style.display = "none";
@@ -180,21 +181,17 @@ function showTesterReqHours() {
     document.getElementById('consulta6').style.display = "none";
     document.getElementById('consulta7').style.display = "none";
     document.getElementById('testerReqHours').style.display = "block";
-
 }
 
+//<summary> :   shows information about requirements assigned to a specific tester
 function getTestersInfo() {
     var idEmployee = document.getElementById("testers").value;
     $("#testerHoursRequirements").empty();
     $.get("/Reports/testerRequirementsHours", { employeeId: idEmployee }, function (data) {
         $.each(data, function (index, info) {
-            $("#testerHoursRequirements").append("<tr><td class='center'>" + info.requirementName + "</td><td class='center'>" + info.estimateHours + "</td><td class='center'>" + info.realHours + "</td><td class='center'>" + info.difference  + "</td><tr>");
-            //showCharts(info.Horas_estimadas, info.Horas_reales, info.Requerimientos_fallidos, info.Requerimientos_exitosos);
-            drawTesterHoursChart();
+            $("#testerHoursRequirements").append("<tr><td class='center'>" + info.requirementName + "</td>" + "<td class='center'>" + info.status + "</td>+"+"<td class='center'>" + info.estimateHours + "</td><td class='center'>" + info.realHours + "</td><td class='center'>" + info.difference  + "</td><tr>");
         });
     });
-
-
 }
 
 //------------------------------------Validation functions for inputs-----------------------

@@ -320,6 +320,9 @@
     <Compile Include="Models\SP_Conseguir_Datos_Lider_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Conseguir_Datos_Testers_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Conseguir_Datos_Tester_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
@@ -357,6 +360,9 @@
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TrabajaEn.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USP_comparacionHorasTesters_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\USP_comparacionHorasTester_Result.cs">

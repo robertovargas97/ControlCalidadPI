@@ -100,13 +100,13 @@ namespace ControlCalidad.Controllers
             return Json( testsReportTable , JsonRequestBehavior.AllowGet );
         }
 
-        //<summary> : Used to get information about finished projects its hours and requirements
-        //<params>  : projectId : represents the project identifier
+        //<summary> : Used to get information about the requirements assigned to a tester in specific
+        //<params>  : employeeId  : represents the tester identifier
         //<return>  : Returns a Json with the results of SP
         public JsonResult testerRequirementsHours( string employeeId )
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<USP_comparacionHorasTester_Result> projectInformation = db.USP_comparacionHorasTester( employeeId ).ToList( );
+            List<USP_comparacionHorasTesters_Result> projectInformation = db.USP_comparacionHorasTesters( employeeId ).ToList( );
             return Json( projectInformation , JsonRequestBehavior.AllowGet );
         }
     }

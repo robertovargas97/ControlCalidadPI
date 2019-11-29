@@ -494,5 +494,19 @@ namespace ControlCalidad.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_obtenerTestersExistentes_Result>("USP_obtenerTestersExistentes");
         }
+    
+        public virtual ObjectResult<SP_Conseguir_Datos_Testers_Result> SP_Conseguir_Datos_Testers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Conseguir_Datos_Testers_Result>("SP_Conseguir_Datos_Testers");
+        }
+    
+        public virtual ObjectResult<USP_comparacionHorasTesters_Result> USP_comparacionHorasTesters(string cedulaTester)
+        {
+            var cedulaTesterParameter = cedulaTester != null ?
+                new ObjectParameter("cedulaTester", cedulaTester) :
+                new ObjectParameter("cedulaTester", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_comparacionHorasTesters_Result>("USP_comparacionHorasTesters", cedulaTesterParameter);
+        }
     }
 }

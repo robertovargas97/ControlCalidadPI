@@ -325,6 +325,7 @@
         </Function>
         <Function Name="SP_Conseguir_Datos_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" />
         <Function Name="SP_Conseguir_Datos_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" />
+        <Function Name="SP_Conseguir_Datos_Testers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" />
         <Function Name="SP_Conseguir_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
           <Parameter Name="id_requerimiento" Type="int" Mode="In" />
@@ -355,6 +356,10 @@
         </Function>
         <Function Name="UFN_obtenerCantProyPorLider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
           <Parameter Name="cedula_empleadoFK" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UFN_obtenerCantPruebasPorEstado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
+          <Parameter Name="requirementId" Type="int" Mode="In" />
+          <Parameter Name="status" Type="varchar" Mode="In" />
         </Function>
         <Function Name="UFN_obtenerCantPruebasTotales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
           <Parameter Name="requirementId" Type="int" Mode="In" />
@@ -459,7 +464,7 @@
         <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="USP_comparacionHorasTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="USP_comparacionHorasTesters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedulaTester" Type="varchar" Mode="In" />
         </Function>
         <Function Name="USP_Detalles_Horas_Req_Proyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -965,6 +970,10 @@
           <Parameter Name="cedulaTester" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_obtenerTestersExistentes" ReturnType="Collection(QASystemEntity.USP_obtenerTestersExistentes_Result)" />
+          <FunctionImport Name="SP_Conseguir_Datos_Testers" ReturnType="Collection(QASystemEntity.SP_Conseguir_Datos_Testers_Result)" />
+          <FunctionImport Name="USP_comparacionHorasTesters" ReturnType="Collection(QASystemEntity.USP_comparacionHorasTesters_Result)">
+          <Parameter Name="cedulaTester" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -1193,6 +1202,23 @@
         <ComplexType Name="USP_obtenerTestersExistentes_Result">
           <Property Type="String" Name="cedula" Nullable="false" MaxLength="15" />
           <Property Type="String" Name="nombreTester" Nullable="false" MaxLength="77" />
+        </ComplexType>
+        <ComplexType Name="SP_Conseguir_Datos_Testers_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="77" />
+          <Property Type="Int32" Name="Participacion" Nullable="true" />
+          <Property Type="Int32" Name="En_Ejecucion" Nullable="true" />
+          <Property Type="Int32" Name="No_iniciado" Nullable="true" />
+          <Property Type="Int32" Name="Finalizado_Exitoso" Nullable="true" />
+          <Property Type="Int32" Name="Finalizado_Fallido" Nullable="true" />
+          <Property Type="Int32" Name="Cancelado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_comparacionHorasTesters_Result">
+          <Property Type="String" Name="requirementName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="25" />
+          <Property Type="Single" Name="estimateHours" Nullable="false" />
+          <Property Type="Single" Name="realHours" Nullable="true" />
+          <Property Type="Single" Name="difference" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1515,21 +1541,36 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_comparacionHorasTester" FunctionName="QASystemEntity.Store.USP_comparacionHorasTester">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.USP_comparacionHorasTester_Result">
-                <ScalarProperty Name="requirementName" ColumnName="requirementName" />
-                <ScalarProperty Name="estimateHours" ColumnName="estimateHours" />
-                <ScalarProperty Name="realHours" ColumnName="realHours" />
-                <ScalarProperty Name="difference" ColumnName="difference" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_obtenerTestersExistentes" FunctionName="QASystemEntity.Store.USP_obtenerTestersExistentes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="QASystemEntity.USP_obtenerTestersExistentes_Result">
                 <ScalarProperty Name="cedula" ColumnName="cedula" />
                 <ScalarProperty Name="nombreTester" ColumnName="nombreTester" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Conseguir_Datos_Testers" FunctionName="QASystemEntity.Store.SP_Conseguir_Datos_Testers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_Conseguir_Datos_Testers_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Participacion" ColumnName="Participacion" />
+                <ScalarProperty Name="En_Ejecucion" ColumnName="En_Ejecucion" />
+                <ScalarProperty Name="No_iniciado" ColumnName="No_iniciado" />
+                <ScalarProperty Name="Finalizado_Exitoso" ColumnName="Finalizado_Exitoso" />
+                <ScalarProperty Name="Finalizado_Fallido" ColumnName="Finalizado_Fallido" />
+                <ScalarProperty Name="Cancelado" ColumnName="Cancelado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_comparacionHorasTesters" FunctionName="QASystemEntity.Store.USP_comparacionHorasTesters">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.USP_comparacionHorasTesters_Result">
+                <ScalarProperty Name="requirementName" ColumnName="requirementName" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="estimateHours" ColumnName="estimateHours" />
+                <ScalarProperty Name="realHours" ColumnName="realHours" />
+                <ScalarProperty Name="difference" ColumnName="difference" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
