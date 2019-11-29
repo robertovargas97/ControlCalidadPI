@@ -290,13 +290,17 @@ namespace ControlCalidad.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_consultaObtenerPruebas", projectIdParameter, requirementIdParameter, testerName, testName, result, successfulTests, failedTests, totalTests);
         }
     
-        public virtual ObjectResult<SP_Req_Lider_Result> SP_Req_Lider(string cedula)
+        public virtual ObjectResult<SP_Req_Lider_Result> SP_Req_Lider(string cedula, string complejidad)
         {
             var cedulaParameter = cedula != null ?
                 new ObjectParameter("cedula", cedula) :
                 new ObjectParameter("cedula", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Req_Lider_Result>("SP_Req_Lider", cedulaParameter);
+            var complejidadParameter = complejidad != null ?
+                new ObjectParameter("complejidad", complejidad) :
+                new ObjectParameter("complejidad", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Req_Lider_Result>("SP_Req_Lider", cedulaParameter, complejidadParameter);
         }
     
         public virtual ObjectResult<USP_Detalles_Horas_Req_Proyecto_Result> USP_Detalles_Horas_Req_Proyecto(Nullable<int> id_proyecto)
@@ -308,7 +312,45 @@ namespace ControlCalidad.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Detalles_Horas_Req_Proyecto_Result>("USP_Detalles_Horas_Req_Proyecto", id_proyectoParameter);
         }
     
-        
+        public virtual ObjectResult<SP_consultaObtenerPruebas_Result> SP_consultaObtenerPruebas(Nullable<int> projectId, Nullable<int> requirementId)
+        {
+            var projectIdParameter = projectId.HasValue ?
+                new ObjectParameter("projectId", projectId) :
+                new ObjectParameter("projectId", typeof(int));
+    
+            var requirementIdParameter = requirementId.HasValue ?
+                new ObjectParameter("requirementId", requirementId) :
+                new ObjectParameter("requirementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_consultaObtenerPruebas_Result>("SP_consultaObtenerPruebas", projectIdParameter, requirementIdParameter);
+        }
+    
+        public virtual ObjectResult<SP_consultaObtenerPruebas1_Result> SP_consultaObtenerPruebas1(Nullable<int> projectId, Nullable<int> requirementId)
+        {
+            var projectIdParameter = projectId.HasValue ?
+                new ObjectParameter("projectId", projectId) :
+                new ObjectParameter("projectId", typeof(int));
+    
+            var requirementIdParameter = requirementId.HasValue ?
+                new ObjectParameter("requirementId", requirementId) :
+                new ObjectParameter("requirementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_consultaObtenerPruebas1_Result>("SP_consultaObtenerPruebas1", projectIdParameter, requirementIdParameter);
+        }
+    
+        public virtual ObjectResult<SP_obtenerDatosPruebas_Result> SP_obtenerDatosPruebas(Nullable<int> projectId, Nullable<int> requirementId)
+        {
+            var projectIdParameter = projectId.HasValue ?
+                new ObjectParameter("projectId", projectId) :
+                new ObjectParameter("projectId", typeof(int));
+    
+            var requirementIdParameter = requirementId.HasValue ?
+                new ObjectParameter("requirementId", requirementId) :
+                new ObjectParameter("requirementId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_obtenerDatosPruebas_Result>("SP_obtenerDatosPruebas", projectIdParameter, requirementIdParameter);
+        }
+    
         public virtual ObjectResult<USP_obtenerDatosPruebas_Result> USP_obtenerDatosPruebas(Nullable<int> projectId, Nullable<int> requirementId)
         {
             var projectIdParameter = projectId.HasValue ?
@@ -320,6 +362,37 @@ namespace ControlCalidad.Models
                 new ObjectParameter("requirementId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_obtenerDatosPruebas_Result>("USP_obtenerDatosPruebas", projectIdParameter, requirementIdParameter);
+        }
+    
+        public virtual ObjectResult<USP_buscarPorHabilidad_Result> USP_buscarPorHabilidad(string categoria, string habilidad)
+        {
+            var categoriaParameter = categoria != null ?
+                new ObjectParameter("categoria", categoria) :
+                new ObjectParameter("categoria", typeof(string));
+    
+            var habilidadParameter = habilidad != null ?
+                new ObjectParameter("habilidad", habilidad) :
+                new ObjectParameter("habilidad", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_buscarPorHabilidad_Result>("USP_buscarPorHabilidad", categoriaParameter, habilidadParameter);
+        }
+    
+        public virtual ObjectResult<string> USP_obtenerHabilidadesPorCategoria(string categoria)
+        {
+            var categoriaParameter = categoria != null ?
+                new ObjectParameter("categoria", categoria) :
+                new ObjectParameter("categoria", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("USP_obtenerHabilidadesPorCategoria", categoriaParameter);
+        }
+    
+        public virtual ObjectResult<string> USP_obtenerReqsAsignados(Nullable<int> projectId)
+        {
+            var projectIdParameter = projectId.HasValue ?
+                new ObjectParameter("projectId", projectId) :
+                new ObjectParameter("projectId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("USP_obtenerReqsAsignados", projectIdParameter);
         }
     }
 }

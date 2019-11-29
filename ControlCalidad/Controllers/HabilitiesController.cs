@@ -215,5 +215,33 @@ namespace ControlCalidad.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public List<SelectListItem> getHabilitiesCategories()
+        {
+            List<string> categoriesList = db.Habilidades.Select(category => category.categoriaPK).Distinct().ToList();
+
+
+            List<SelectListItem> allCategories = categoriesList.ConvertAll(
+                category => {
+                    return new SelectListItem()
+                    {
+                        Text = category,
+                        Value = category,
+                        Selected = false
+                    };
+                });
+
+            return allCategories;
+        }
+
+        public JsonResult getHabilitiesByCategory(string category) {
+
+            db.Configuration.ProxyCreationEnabled = false;
+
+            List<string> allHabilities = db.USP_obtenerHabilidadesPorCategoria(category).ToList<string>();
+
+            return Json(allHabilities, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

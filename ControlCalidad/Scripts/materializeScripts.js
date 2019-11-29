@@ -71,7 +71,7 @@ function testsReport() {
         $.each(data, function (index, item) {
            
             $("#testsReportTable").append("<tr><td class='center'>" + item.testName + "</td><td class= 'center'>" + item.result + "</td><tr>");
-
+            showTestsDataChart(item.successfulTests, item.failedTests, item.incompleteTests);
         });
 
     });
@@ -81,9 +81,11 @@ $(document).ready(function () {
 
     $("#proyConsulta8").change(function () {
         $("#testsReportTable").empty();
+        $("#chartTestsQuery").empty();
         $.get("/Requirement/getJsonRequirements", { projectId: $("#proyConsulta8").val() }, function (data) {
 
             $("#reqConsulta8").children().remove().end()
+            $("#reqConsulta8").append("<option value=''> Seleccione un requerimiento </option>");
             $.each(data, function (index, row) {
 
                 $("#reqConsulta8").append("<option value='" + row.idPK + "'>" + row.nombre + "</option>")
@@ -97,6 +99,70 @@ $(document).ready(function () {
 
 });
 
+// Documentar sergio
+$(document).ready(function () {
+
+    $("#habilitiesCategory").change(function () {
+        $("#habilitiesReportTable").empty();
+        $.get("/Habilities/getHabilitiesByCategory", { category: $("#habilitiesCategory").val() }, function (data) {
+
+            $("#habilitiesDescription").children().remove().end()
+            $("#habilitiesDescription").append("<option value=''> Seleccione una habilidad </option>");
+            $.each(data, function (index, row) {
+
+                $("#habilitiesDescription").append("<option value='" + row + "'>" + row + "</option>")
+
+            });
+            $("select").formSelect();
+        });
+
+
+    })
+
+});
+
+// Documentar sergio 
+function habilitiesReport() {
+
+    var category = document.getElementById("habilitiesCategory").value;
+    var hability = document.getElementById("habilitiesDescription").value;
+
+    $.get("/Reports/habilitiesResult", { category: category, hability: hability }, function (data) {
+
+        $("#habilitiesReportTable").empty();
+       
+        $.each(data, function (index, item) {
+
+            $("#habilitiesReportTable").append("<tr><td class='center'>" + item.testerName + "</td><td class= 'center'>" + item.phoneNumber + "</td><td class='center'>" + item.email + "</td><tr>");
+            showTestsDataChart(item.successfulTests, item.failedTests, item.incompleteTests);
+        });
+
+    });
+}
+
+function showTestsDataChart(succesfulTests, failedTests, incompleteTests) {
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    drawTestsDataChart(succesfulTests, failedTests, incompleteTests, "chartTestsQuery", "Pruebas", "Exitosas", "Fallidas", "Incompletas", "Pruebas");
+}
+
+function drawTestsDataChart(data1, data2, data3, div, name, dataLabel1, dataLabel2, dataLabel3, tittle) {
+    var data = google.visualization.arrayToDataTable([
+        [name, '', { role: 'style' }, { role: 'annotation' }],
+        [dataLabel1, parseInt(data1), 'stroke-color: #DE3910; stroke-width: 2; fill-color: #DE3910', data1],
+        [dataLabel2, parseInt(data2), 'stroke-color: #1272C6; stroke-width: 2; fill-color: #1272C6', data2],
+        [dataLabel3, parseInt(data3), 'stroke-color: #1272C6; stroke-width: 2; fill-color: #1272C6', data3]
+    ]);
+
+    var options = {
+        title: tittle,
+        is3D: true,
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById(div));
+   
+    chart.draw(data, options);
+}
 
 //<summary> :   shows information about a specific project its hours and requirements
 function getFinishedProjectInfo() {

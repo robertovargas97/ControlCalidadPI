@@ -315,6 +315,11 @@
         </Function>
         <Function Name="SP_Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
+          <Parameter Name="complejidad" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_buscarPorHabilidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="categoria" Type="varchar" Mode="In" />
+          <Parameter Name="habilidad" Type="varchar" Mode="In" />
         </Function>
         <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
@@ -328,6 +333,12 @@
         <Function Name="USP_obtenerDatosPruebas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="projectId" Type="int" Mode="In" />
           <Parameter Name="requirementId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_obtenerHabilidadesPorCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="categoria" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_obtenerReqsAsignados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectId" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="QASystemEntityStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="ControlCalidad" store:Type="Tables" />
@@ -739,7 +750,8 @@
             <Parameter Name="totalTests" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_Req_Lider" ReturnType="Collection(QASystemEntity.SP_Req_Lider_Result)">
-          <Parameter Name="cedula" Mode="In" Type="String" />
+            <Parameter Name="cedula" Mode="In" Type="String" />
+            <Parameter Name="complejidad" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_Detalles_Horas_Req_Proyecto" ReturnType="Collection(QASystemEntity.USP_Detalles_Horas_Req_Proyecto_Result)">
           <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
@@ -759,6 +771,16 @@
           <FunctionImport Name="USP_obtenerDatosPruebas" ReturnType="Collection(QASystemEntity.USP_obtenerDatosPruebas_Result)">
             <Parameter Name="projectId" Mode="In" Type="Int32" />
             <Parameter Name="requirementId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_buscarPorHabilidad" ReturnType="Collection(QASystemEntity.USP_buscarPorHabilidad_Result)">
+            <Parameter Name="categoria" Mode="In" Type="String" />
+            <Parameter Name="habilidad" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_obtenerHabilidadesPorCategoria" ReturnType="Collection(String)">
+          <Parameter Name="categoria" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_obtenerReqsAsignados" ReturnType="Collection(String)">
+          <Parameter Name="projectId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
@@ -879,6 +901,11 @@
           <Property Type="Int32" Name="successfulTests" Nullable="true" />
           <Property Type="Int32" Name="failedTests" Nullable="true" />
           <Property Type="Int32" Name="incompleteTests" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_buscarPorHabilidad_Result">
+          <Property Type="String" Name="testerName" Nullable="false" MaxLength="77" />
+          <Property Type="String" Name="phoneNumber" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1114,6 +1141,17 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_buscarPorHabilidad" FunctionName="QASystemEntity.Store.USP_buscarPorHabilidad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.USP_buscarPorHabilidad_Result">
+                <ScalarProperty Name="testerName" ColumnName="testerName" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_obtenerHabilidadesPorCategoria" FunctionName="QASystemEntity.Store.USP_obtenerHabilidadesPorCategoria" />
+          <FunctionImportMapping FunctionImportName="USP_obtenerReqsAsignados" FunctionName="QASystemEntity.Store.USP_obtenerReqsAsignados" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

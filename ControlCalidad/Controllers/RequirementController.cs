@@ -282,7 +282,7 @@ namespace ControlCalidad.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
 
-            List<Requerimiento> allReqs = db.Requerimientoes.Where(r => r.id_proyectoFK == projectId).ToList();
+            List<string> allReqs = db.USP_obtenerReqsAsignados(projectId).ToList();
 
             return Json(allReqs, JsonRequestBehavior.AllowGet);
         }

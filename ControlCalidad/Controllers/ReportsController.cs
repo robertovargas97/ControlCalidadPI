@@ -18,7 +18,7 @@ namespace ControlCalidad.Controllers
         private ProjectController projectController = new ProjectController();
         private EmployeeController employeeController = new EmployeeController();
         private RequirementController requirementController = new RequirementController();
-
+        private HabilitiesController habilitiesController = new HabilitiesController();
         // GET: Reports
         public ActionResult Index()
         {
@@ -26,6 +26,7 @@ namespace ControlCalidad.Controllers
             ViewBag.alltesters = employeeController.GetTesters();
             ViewBag.allLeaders = LeadersList();
             ViewBag.finishedProjects = projectController.GetFinishedProjects( );
+            ViewBag.habilitiesCategories = habilitiesController.getHabilitiesCategories();
             return View();
         }
 
@@ -78,7 +79,7 @@ namespace ControlCalidad.Controllers
         public void leaderRequirementsStatistics(string leaderId)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<SP_Req_Lider_Result> reqs = db.SP_Req_Lider(leaderId).ToList();
+            //List<SP_Req_Lider_Result> reqs = db.SP_Req_Lider(leaderId).ToList();
         }
 
         //<summary> : Used to get information about finished projects its hours and requirements
@@ -96,6 +97,15 @@ namespace ControlCalidad.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             List<USP_obtenerDatosPruebas_Result> testsReportTable = db.USP_obtenerDatosPruebas(projectId, requirementId).ToList( );
             return Json( testsReportTable , JsonRequestBehavior.AllowGet );
+
+        }
+
+        public JsonResult habilitiesResult(string category, string hability)
+        {
+
+            db.Configuration.ProxyCreationEnabled = false;
+            List<USP_buscarPorHabilidad_Result> habilitiesTableReport = db.USP_buscarPorHabilidad(category, hability).ToList();
+            return Json(habilitiesTableReport, JsonRequestBehavior.AllowGet);
 
         }
     }
