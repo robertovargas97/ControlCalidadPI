@@ -356,15 +356,6 @@
         <Function Name="UFN_obtenerCantProyPorLider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
           <Parameter Name="cedula_empleadoFK" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="UFN_obtenerCantPruebasExitosas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
-          <Parameter Name="requirementId" Type="int" Mode="In" />
-        </Function>
-        <Function Name="UFN_obtenerCantPruebasFallidas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
-          <Parameter Name="requirementId" Type="int" Mode="In" />
-        </Function>
-        <Function Name="UFN_obtenerCantPruebasIncompletas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
-          <Parameter Name="requirementId" Type="int" Mode="In" />
-        </Function>
         <Function Name="UFN_obtenerCantPruebasTotales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
           <Parameter Name="requirementId" Type="int" Mode="In" />
         </Function>
@@ -462,10 +453,14 @@
         </Function>
         <Function Name="SP_Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
+          <Parameter Name="complejidad" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_comparacionHorasTester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedulaTester" Type="varchar" Mode="In" />
         </Function>
         <Function Name="USP_Detalles_Horas_Req_Proyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
@@ -477,6 +472,7 @@
           <Parameter Name="projectId" Type="int" Mode="In" />
           <Parameter Name="requirementId" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_obtenerTestersExistentes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="QASystemEntityStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="ControlCalidad" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="ControlCalidad" store:Type="Tables" />
@@ -899,7 +895,8 @@
             <Parameter Name="totalTests" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_Req_Lider" ReturnType="Collection(QASystemEntity.SP_Req_Lider_Result)">
-          <Parameter Name="cedula" Mode="In" Type="String" />
+            <Parameter Name="cedula" Mode="In" Type="String" />
+            <Parameter Name="complejidad" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_Detalles_Horas_Req_Proyecto" ReturnType="Collection(QASystemEntity.USP_Detalles_Horas_Req_Proyecto_Result)">
           <Parameter Name="id_proyecto" Mode="In" Type="Int32" />
@@ -964,6 +961,10 @@
             <Parameter Name="projectId" Mode="In" Type="Int32" />
             <Parameter Name="requirementId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="USP_comparacionHorasTester" ReturnType="Collection(QASystemEntity.USP_comparacionHorasTester_Result)">
+          <Parameter Name="cedulaTester" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_obtenerTestersExistentes" ReturnType="Collection(QASystemEntity.USP_obtenerTestersExistentes_Result)" />
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -1182,6 +1183,16 @@
           <Property Type="Int32" Name="totalTests" Nullable="true" />
           <Property Type="Int32" Name="successfullTests" Nullable="true" />
           <Property Type="Int32" Name="failedTests" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_comparacionHorasTester_Result">
+          <Property Type="String" Name="requirementName" Nullable="false" MaxLength="50" />
+          <Property Type="Single" Name="estimateHours" Nullable="false" />
+          <Property Type="Single" Name="realHours" Nullable="true" />
+          <Property Type="Single" Name="difference" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_obtenerTestersExistentes_Result">
+          <Property Type="String" Name="cedula" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreTester" Nullable="false" MaxLength="77" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1501,6 +1512,24 @@
                 <ScalarProperty Name="successfulTests" ColumnName="successfulTests" />
                 <ScalarProperty Name="failedTests" ColumnName="failedTests" />
                 <ScalarProperty Name="incompleteTests" ColumnName="incompleteTests" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_comparacionHorasTester" FunctionName="QASystemEntity.Store.USP_comparacionHorasTester">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.USP_comparacionHorasTester_Result">
+                <ScalarProperty Name="requirementName" ColumnName="requirementName" />
+                <ScalarProperty Name="estimateHours" ColumnName="estimateHours" />
+                <ScalarProperty Name="realHours" ColumnName="realHours" />
+                <ScalarProperty Name="difference" ColumnName="difference" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_obtenerTestersExistentes" FunctionName="QASystemEntity.Store.USP_obtenerTestersExistentes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.USP_obtenerTestersExistentes_Result">
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombreTester" ColumnName="nombreTester" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

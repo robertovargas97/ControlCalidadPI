@@ -63,13 +63,13 @@ function testsReport() {
 
     var projectID = document.getElementById("proyConsulta8").value;
     var requirementID = document.getElementById("reqConsulta8").value;
- 
+
     $.get("/Reports/testsResults", { projectId: projectID, requirementId: requirementID }, function (data) {
 
         $("#testsReportTable").empty();
 
         $.each(data, function (index, item) {
-           
+
             $("#testsReportTable").append("<tr><td class='center'>" + item.testName + "</td><td class= 'center'>" + item.result + "</td><tr>");
 
         });
@@ -122,8 +122,8 @@ function showCharts(avgHours, realHours, failedRequirements, successfulRequireme
     //Load the Visualization API and the corechart package.
     google.charts.load('current', { 'packages': ['corechart'] });
     //Set a callback to run when the Google Visualization API is loaded.
-    drawChart(avgHours, realHours, "chart_project_div","Horas","Horas Estimadas","Horas Reales","Horas del proyecto",1);
-    drawChart(failedRequirements, successfulRequirements, "chart_project_div_req", "Requerimientos", "Fallidos","Exitosos","Requerimientos del proyecto",2);
+    drawChart(avgHours, realHours, "chart_project_div", "Horas", "Horas Estimadas", "Horas Reales", "Horas del proyecto", 1);
+    drawChart(failedRequirements, successfulRequirements, "chart_project_div_req", "Requerimientos", "Fallidos", "Exitosos", "Requerimientos del proyecto", 2);
 }
 
 //<summary> :   draw the chart with the project's information
@@ -135,7 +135,7 @@ function showCharts(avgHours, realHours, failedRequirements, successfulRequireme
 //              dataLabel2 : label to data 2
 //              tittle : chart's title
 //              option : the option to draw the chart
-function drawChart(data1, data2,div,name,dataLabel1,dataLabel2,tittle,option) {
+function drawChart(data1, data2, div, name, dataLabel1, dataLabel2, tittle, option) {
     var data = google.visualization.arrayToDataTable([
         [name, '', { role: 'style' }, { role: 'annotation' }],
         [dataLabel1, parseInt(data1), 'stroke-color: #DE3910; stroke-width: 2; fill-color: #DE3910', data1],
@@ -159,6 +159,43 @@ function drawChart(data1, data2,div,name,dataLabel1,dataLabel2,tittle,option) {
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
+
+//-------------------------------------Tester Requirements and hours--------------------------------------------------------------
+function showTesterReqHours() {
+    document.getElementById('barra1').style.display = "none";
+    document.getElementById('barra2').style.display = "none";
+    document.getElementById('barra3').style.display = "none";
+    document.getElementById('barra4').style.display = "none";
+    document.getElementById('barra5').style.display = "none";
+    document.getElementById('barra6').style.display = "none";
+    document.getElementById('barra7').style.display = "none";
+    document.getElementById('barra8').style.display = "none";
+    document.getElementById('testerReqHoursBar').style.display = "block";
+
+    document.getElementById('consulta1').style.display = "none";
+    document.getElementById('consulta2').style.display = "none";
+    document.getElementById('consulta3').style.display = "none";
+    document.getElementById('consulta4').style.display = "none";
+    document.getElementById('consulta5').style.display = "none";
+    document.getElementById('consulta6').style.display = "none";
+    document.getElementById('consulta7').style.display = "none";
+    document.getElementById('testerReqHours').style.display = "block";
+
+}
+
+function getTestersInfo() {
+    var idEmployee = document.getElementById("testers").value;
+    $("#testerHoursRequirements").empty();
+    $.get("/Reports/testerRequirementsHours", { employeeId: idEmployee }, function (data) {
+        $.each(data, function (index, info) {
+            $("#testerHoursRequirements").append("<tr><td class='center'>" + info.requirementName + "</td><td class='center'>" + info.estimateHours + "</td><td class='center'>" + info.realHours + "</td><td class='center'>" + info.difference  + "</td><tr>");
+            //showCharts(info.Horas_estimadas, info.Horas_reales, info.Requerimientos_fallidos, info.Requerimientos_exitosos);
+            drawTesterHoursChart();
+        });
+    });
+
+
+}
 
 //------------------------------------Validation functions for inputs-----------------------
 

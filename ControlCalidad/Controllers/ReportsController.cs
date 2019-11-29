@@ -18,6 +18,7 @@ namespace ControlCalidad.Controllers
         private ProjectController projectController = new ProjectController();
         private EmployeeController employeeController = new EmployeeController();
         private RequirementController requirementController = new RequirementController();
+        private TesterController testerController = new TesterController( );
 
         // GET: Reports
         public ActionResult Index()
@@ -26,6 +27,7 @@ namespace ControlCalidad.Controllers
             ViewBag.alltesters = employeeController.GetTesters();
             ViewBag.allLeaders = LeadersList();
             ViewBag.finishedProjects = projectController.GetFinishedProjects( );
+            ViewBag.allTesters = testerController.getAllTesters( );
             return View();
         }
 
@@ -78,7 +80,7 @@ namespace ControlCalidad.Controllers
         public void leaderRequirementsStatistics(string leaderId)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<SP_Req_Lider_Result> reqs = db.SP_Req_Lider(leaderId).ToList();
+           // List<SP_Req_Lider_Result> reqs = db.SP_Req_Lider(leaderId).ToList();
         }
 
         //<summary> : Used to get information about finished projects its hours and requirements
@@ -96,6 +98,16 @@ namespace ControlCalidad.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             List<SP_obtenerDatosPruebas_Result> testsReportTable = db.SP_obtenerDatosPruebas(projectId, requirementId).ToList( );
             return Json( testsReportTable , JsonRequestBehavior.AllowGet );
+        }
+
+        //<summary> : Used to get information about finished projects its hours and requirements
+        //<params>  : projectId : represents the project identifier
+        //<return>  : Returns a Json with the results of SP
+        public JsonResult testerRequirementsHours( string employeeId )
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<USP_comparacionHorasTester_Result> projectInformation = db.USP_comparacionHorasTester( employeeId ).ToList( );
+            return Json( projectInformation , JsonRequestBehavior.AllowGet );
         }
     }
 }

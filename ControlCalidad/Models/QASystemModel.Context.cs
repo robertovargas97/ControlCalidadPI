@@ -294,13 +294,17 @@ namespace ControlCalidad.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_consultaObtenerPruebas", projectIdParameter, requirementIdParameter, testerName, testName, result, successfulTests, failedTests, totalTests);
         }
     
-        public virtual ObjectResult<SP_Req_Lider_Result> SP_Req_Lider(string cedula)
+        public virtual ObjectResult<SP_Req_Lider_Result> SP_Req_Lider(string cedula, string complejidad)
         {
             var cedulaParameter = cedula != null ?
                 new ObjectParameter("cedula", cedula) :
                 new ObjectParameter("cedula", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Req_Lider_Result>("SP_Req_Lider", cedulaParameter);
+            var complejidadParameter = complejidad != null ?
+                new ObjectParameter("complejidad", complejidad) :
+                new ObjectParameter("complejidad", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Req_Lider_Result>("SP_Req_Lider", cedulaParameter, complejidadParameter);
         }
     
         public virtual ObjectResult<USP_Detalles_Horas_Req_Proyecto_Result> USP_Detalles_Horas_Req_Proyecto(Nullable<int> id_proyecto)
@@ -475,6 +479,20 @@ namespace ControlCalidad.Models
                 new ObjectParameter("requirementId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_obtenerDatosPruebas_Result>("SP_obtenerDatosPruebas", projectIdParameter, requirementIdParameter);
+        }
+    
+        public virtual ObjectResult<USP_comparacionHorasTester_Result> USP_comparacionHorasTester(string cedulaTester)
+        {
+            var cedulaTesterParameter = cedulaTester != null ?
+                new ObjectParameter("cedulaTester", cedulaTester) :
+                new ObjectParameter("cedulaTester", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_comparacionHorasTester_Result>("USP_comparacionHorasTester", cedulaTesterParameter);
+        }
+    
+        public virtual ObjectResult<USP_obtenerTestersExistentes_Result> USP_obtenerTestersExistentes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_obtenerTestersExistentes_Result>("USP_obtenerTestersExistentes");
         }
     }
 }
