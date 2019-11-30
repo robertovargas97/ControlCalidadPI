@@ -432,9 +432,37 @@
                                         <div class="col s12 margin-b2">
                                             @Html.DropDownList("Leader", leaderNames, "Seleccione un lider", new { @onChange = "leaderStatistics()" })
                                         </div>
-                                        <br />
-                                        <br />
-                                        <br />
+                                        <div class="input-field col s12">
+                                            <select id="complexity1" class="input-field col s12"  onChange = "leaderStatistics()">
+                                                <option value="" disabled selected>Nivel de complejidad</option>
+                                                <option value="Facil">Facil</option>
+                                                <option value="Mediano">Mediano</option>
+                                                <option value="Complejo">Complejo</option>
+                                                <option value="Muy Complejo">Muy Complejo</option>
+                                            </select>
+                                        </div>
+                                        <table class="table striped ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center black white-text">
+                                                        Requerimiento
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Duracion Estimado
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Duracion Real
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Diferencia
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Estado
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="leaderTable" class="center"></tbody>
+                                        </table>
                                         <div id="chart_div_leader">
 
                                         </div>
@@ -458,9 +486,39 @@
                                         <div class="col s12 margin-b2">
                                             @Html.DropDownList("Leader2", leaderNames, "Seleccione un lider", new { @onChange = "leaderStatistics2()" })
                                         </div>
-                                        <br />
-                                        <br />
-                                        <br />
+
+
+                                        <div class="input-field col s12">
+                                            <select id="complexity2" class="input-field col s12" onchange="leaderStatistics2()">
+                                                <option value="" disabled selected>Nivel de complejidad</option>
+                                                <option value="Facil">Facil</option>
+                                                <option value="Mediano">Mediano</option>
+                                                <option value="Complejo">Complejo</option>
+                                                <option value="Muy Complejo">Muy Complejo</option>
+                                            </select>
+                                        </div>
+                                        <table class="table striped ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center black white-text">
+                                                        Requerimiento
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Duracion Estimado
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Duracion Real
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Diferencia
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Estado
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="leaderTable2" class="center"></tbody>
+                                        </table>
                                         <div id="chart_div_leader2">
 
                                         </div>
@@ -687,9 +745,18 @@
 
     <script>
         function leaderStatistics() {
+             $("#leaderTable").empty();
             var leader = document.getElementById('Leader').value
-            $.get("/Reports/leaderRequirementsStatistics", { leaderId: leader }, function (data) {
-                showLeaderChart();
+            var complexity = document.getElementById('complexity1').value
+            $.get("/Reports/leaderRequirementsStatistics", { leaderId: leader, complexity: complexity }, function (data) {
+                $.each(data, function (index, v2) {
+                    var real = v2.duracionReal;
+                    if (real == null) {
+                        real = 0;
+                    }
+                    $("#leaderTable").append("<tr><td>" + v2.nombre + "</td><td>" + v2.duracionEstimada + "</td><td>" + real + "</td><td>" + (v2.duracionEstimada - real) + "</td><td>" + v2.estado +  "</td><td>");
+                });
+                //showLeaderChart();
             });
         }
     </script>
@@ -735,9 +802,18 @@
 
     <script>
         function leaderStatistics2() {
+             $("#leaderTable2").empty();
             var leader = document.getElementById('Leader2').value
-            $.get("/Reports/leaderRequirementsStatistics", { leaderId: leader }, function (data) {
-                showLeaderChart2();
+            var complexity = document.getElementById('complexity2').value
+            $.get("/Reports/leaderRequirementsStatistics", { leaderId: leader, complexity: complexity }, function (data) {
+                $.each(data, function (index, v2) {
+                    var real = v2.duracionReal;
+                    if (real == null) {
+                        real = 0;
+                    }
+                    $("#leaderTable2").append("<tr><td>" + v2.nombre + "</td><td>" + v2.duracionEstimada + "</td><td>" + real + "</td><td>" + (v2.duracionEstimada - real) + "</td><td>" + v2.estado +  "</td><td>");
+                });
+                //showLeaderChart();
             });
         }
     </script>

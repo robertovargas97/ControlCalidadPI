@@ -460,6 +460,10 @@
           <Parameter Name="cedula" Type="varchar" Mode="In" />
           <Parameter Name="complejidad" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SP_Requeirmientos_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
+          <Parameter Name="complejidad" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
@@ -974,6 +978,10 @@
           <FunctionImport Name="USP_comparacionHorasTesters" ReturnType="Collection(QASystemEntity.USP_comparacionHorasTesters_Result)">
           <Parameter Name="cedulaTester" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_Requeirmientos_Lider" ReturnType="Collection(QASystemEntity.SP_Requeirmientos_Lider_Result)">
+            <Parameter Name="cedula" Mode="In" Type="String" />
+            <Parameter Name="complejidad" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -1219,6 +1227,14 @@
           <Property Type="Single" Name="estimateHours" Nullable="false" />
           <Property Type="Single" Name="realHours" Nullable="true" />
           <Property Type="Single" Name="difference" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Requeirmientos_Lider_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="complejidad" Nullable="true" MaxLength="15" />
+          <Property Type="Single" Name="duracionEstimada" Nullable="false" />
+          <Property Type="Single" Name="duracionReal" Nullable="true" />
+          <Property Type="Int32" Name="id_proyectoFK" Nullable="false" />
+          <Property Type="String" Name="estado" Nullable="true" MaxLength="25" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1571,6 +1587,18 @@
                 <ScalarProperty Name="estimateHours" ColumnName="estimateHours" />
                 <ScalarProperty Name="realHours" ColumnName="realHours" />
                 <ScalarProperty Name="difference" ColumnName="difference" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Requeirmientos_Lider" FunctionName="QASystemEntity.Store.SP_Requeirmientos_Lider">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_Requeirmientos_Lider_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
+                <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
+                <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
+                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

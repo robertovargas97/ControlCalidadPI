@@ -77,10 +77,11 @@ namespace ControlCalidad.Controllers
             return leaderList;
         }
 
-        public void leaderRequirementsStatistics(string leaderId)
+        public JsonResult leaderRequirementsStatistics(string leaderId,string complexity)
         {
             db.Configuration.ProxyCreationEnabled = false;
-           // List<SP_Req_Lider_Result> reqs = db.SP_Req_Lider(leaderId).ToList();
+            List<SP_Requeirmientos_Lider_Result> reqs = db.SP_Requeirmientos_Lider(leaderId, complexity).ToList();
+            return Json(reqs, JsonRequestBehavior.AllowGet);
         }
 
         //<summary> : Used to get information about finished projects its hours and requirements

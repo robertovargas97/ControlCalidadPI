@@ -347,6 +347,9 @@
     <Compile Include="Models\SP_obtenerDatosPruebas_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Requeirmientos_Lider_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Req_Lider_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
