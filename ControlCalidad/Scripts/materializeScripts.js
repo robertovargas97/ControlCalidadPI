@@ -160,6 +160,33 @@ function drawChart(data1, data2, div, name, dataLabel1, dataLabel2, tittle, opti
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+//-------------------------------------Tester and lead information --------------------------------------------------------------
+
+
+//<summary> :   shows information about all leaders
+function getLeadData() {
+    $("#leadInformation").empty();
+    $.get("/Reports/LeadData", {}, function (data) {
+        $.each(data, function (index, info) {
+            $("#leadInformation").append("<tr><td class='center'>" + info.Nombre + "</td><td class='center'>" + info.Participacion + "</td><td class='center'>" + info.Exito);
+        });
+    });
+
+}
+
+//<summary> :   shows information about a specific project, its hours and requirements
+function getTesterData() {
+    $("#testerData").empty();
+    $.get("/Reports/TesterData", {}, function (data) {
+        $.each(data, function (index, info) {
+            $("#testerData").append("<tr><td class='center'>" + info.Nombre + "</td><td class='center'>" + info.Participacion + "</td><td class='center'>" + info.En_Ejecucion + "</td><td class='center'>" + info.No_iniciado + "</td><td class='center'>" + info.Finalizado_Exitoso + "</td><td class='center'>" + info.Finalizado_Fallido + "</td><td class='center'>" + info.Cancelado + "</td><tr>");
+        });
+    });
+
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
 //-------------------------------------Tester Requirements and hours--------------------------------------------------------------
 
 //<summary> :  shows and hides the html components related with the report

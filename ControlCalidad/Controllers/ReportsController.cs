@@ -117,5 +117,23 @@ namespace ControlCalidad.Controllers
             List<SP_Disponibilidad_Tester_Result> availableTesters = db.SP_Disponibilidad_Tester(availability).ToList();
             return Json(availableTesters, JsonRequestBehavior.AllowGet);
         }
+
+        //<summary> : Used to get information from all leaders
+        //<return>  : Returns a Json with the results of SP
+        public JsonResult LeadData()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SP_Conseguir_Datos_Lider_Result> leadInformation = db.SP_Conseguir_Datos_Lider().ToList();
+            return Json(leadInformation, JsonRequestBehavior.AllowGet);
+        }
+
+        //<summary> : Used to get information from all testers
+        //<return>  : Returns a Json with the results of SP
+        public JsonResult TesterData()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SP_Conseguir_Datos_Testers_Result> testerInformation = db.SP_Conseguir_Datos_Testers().ToList();
+            return Json(testerInformation, JsonRequestBehavior.AllowGet);
+        }
     }
 }
