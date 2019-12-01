@@ -436,9 +436,6 @@
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
-        <Function Name="SP_Disponibilidad_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="disponibilidad" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -471,9 +468,6 @@
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_Disp_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="disponibilidad" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="USP_Disponibilidad_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="disponibilidad" Type="varchar" Mode="In" />
         </Function>
         <Function Name="USP_estaAsignado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -991,7 +985,7 @@
           <Parameter Name="disponibilidad" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_Disp_Tester" ReturnType="Collection(QASystemEntity.USP_Disp_Tester_Result)">
-            <Parameter Name="disponibilidad" Mode="In" Type="String" />
+          <Parameter Name="disponibilidad" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
@@ -1614,24 +1608,6 @@
                 <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
                 <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_Disponibilidad_Tester" FunctionName="QASystemEntity.Store.SP_Disponibilidad_Tester">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.SP_Disponibilidad_Tester_Result">
-                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
-                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_Disponibilidad_Tester" FunctionName="QASystemEntity.Store.USP_Disponibilidad_Tester">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.USP_Disponibilidad_Tester_Result">
-                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
-                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
