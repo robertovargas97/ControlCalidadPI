@@ -110,5 +110,12 @@ namespace ControlCalidad.Controllers
             List<USP_comparacionHorasTesters_Result> projectInformation = db.USP_comparacionHorasTesters( employeeId ).ToList( );
             return Json( projectInformation , JsonRequestBehavior.AllowGet );
         }
+
+        public JsonResult availableTesters(string availability)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SP_Disponibilidad_Tester_Result> availableTesters = db.SP_Disponibilidad_Tester(availability).ToList();
+            return Json(availableTesters, JsonRequestBehavior.AllowGet);
+        }
     }
 }

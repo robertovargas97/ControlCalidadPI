@@ -332,6 +332,9 @@
     <Compile Include="Models\SP_Conseguir_Tester_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Disponibilidad_Tester_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>

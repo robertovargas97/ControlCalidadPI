@@ -439,6 +439,9 @@
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
+        <Function Name="SP_Disponibilidad_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="disponibilidad" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -455,10 +458,6 @@
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="SP_Req_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="cedula" Type="varchar" Mode="In" />
-          <Parameter Name="complejidad" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SP_Requeirmientos_Lider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
@@ -982,6 +981,9 @@
             <Parameter Name="cedula" Mode="In" Type="String" />
             <Parameter Name="complejidad" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_Disponibilidad_Tester" ReturnType="Collection(QASystemEntity.SP_Disponibilidad_Tester_Result)">
+          <Parameter Name="disponibilidad" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -1236,6 +1238,11 @@
           <Property Type="Int32" Name="id_proyectoFK" Nullable="false" />
           <Property Type="String" Name="estado" Nullable="true" MaxLength="25" />
         </ComplexType>
+        <ComplexType Name="SP_Disponibilidad_Tester_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="telefono" Nullable="true" MaxLength="60" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1445,18 +1452,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_Req_Lider" FunctionName="QASystemEntity.Store.SP_Req_Lider">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.SP_Req_Lider_Result">
-                <ScalarProperty Name="idPK" ColumnName="idPK" />
-                <ScalarProperty Name="complejidad" ColumnName="complejidad" />
-                <ScalarProperty Name="duracionEstimada" ColumnName="duracionEstimada" />
-                <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
-                <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="QASystemEntity.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1599,6 +1594,15 @@
                 <ScalarProperty Name="duracionReal" ColumnName="duracionReal" />
                 <ScalarProperty Name="id_proyectoFK" ColumnName="id_proyectoFK" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Disponibilidad_Tester" FunctionName="QASystemEntity.Store.SP_Disponibilidad_Tester">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_Disponibilidad_Tester_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

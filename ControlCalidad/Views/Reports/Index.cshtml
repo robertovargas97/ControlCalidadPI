@@ -87,6 +87,11 @@
                                     <hr size="50" id="testerReqHoursBar" style="display:none; border: 2px solid  teal; width:345px;" />
                                 </div>
 
+                                <div class="col s12 margin-b1">
+                                    <input type="button" class="black-text btn grey  turq-hover" value="Tester Disponibles" onclick="showProjects9()" style="width: 350px;" />
+                                    <hr size="50" id="barra9" style="display:none; border: 2px solid  teal; width:345px;" />
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -650,6 +655,40 @@
 
                 </div>
             </div>
+            <div id="consulta9" style="display:none;" class="col s8">
+                <div class="card hoverable">
+                    <nav>
+                        <div class="nav-wrapper grey">
+                            <div>
+                                <h5 class="col s9">Tester Disponibles</h5>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="card-content black-text">
+                        <select id="availability" class="input-field col s12" onchange="showTesterAvailability()">
+                            <option value="" disabled selected>Seleccione Disponibilidad</option>
+                            <option value="Ocupado">Ocupado</option>
+                            <option value="Disponible">Disponible</option>
+                        </select>
+                        <table class="table striped ">
+                            <thead>
+                                <tr>
+                                    <th class="center black white-text">
+                                        Cedula
+                                    </th>
+                                    <th class="center black white-text">
+                                        Nombre
+                                    </th>
+                                    <th class="center black white-text">
+                                        telefono
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="avilabilityTable" class="center"></tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
         </div>
 
     }
@@ -760,46 +799,8 @@
             });
         }
     </script>
-    <script>
-        function showLeaderChart() {
-            //Load the Visualization API and the corechart package.
-            google.charts.load('current', { 'packages': ['corechart'] });
 
-            // Set a callback to run when the Google Visualization API is loaded.
-
-            drawLeaderChart();
-        }
-    </script>
-
-    <script>
-
-
-        // Callback that creates and populates a data table,
-        // instantiates the pie chart, passes in the data and
-        // draws it.
-        function drawLeaderChart() {
-
-            // Create the data table.
-
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-                ['Mushrooms', 3],
-                ['Onions', 1],
-                ['Olives', 1],
-                ['Zucchini', 1],
-                ['Pepperoni', 2]
-            ]);
-
-            // Set chart options
-
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div_leader'));
-            chart.draw(data, null);
-        }
-    </script>
-
+   
     <script>
         function leaderStatistics2() {
              $("#leaderTable2").empty();
@@ -817,16 +818,6 @@
             });
         }
     </script>
-    <script>
-        function showLeaderChart2() {
-            //Load the Visualization API and the corechart package.
-            google.charts.load('current', { 'packages': ['corechart'] });
-
-            // Set a callback to run when the Google Visualization API is loaded.
-
-            drawLeaderChart2();
-        }
-    </script>
 
     <script>
 
@@ -834,26 +825,17 @@
         // Callback that creates and populates a data table,
         // instantiates the pie chart, passes in the data and
         // draws it.
-        function drawLeaderChart2() {
+        function showTesterAvailability() {
+            $("#avilabilityTable").empty();
+            var availability = document.getElementById('availability').value
+            $.get("/Reports/availableTesters", { availability: availability }, function (data) {
+                $.each(data, function (index, v2) {
+                    $("#avilabilityTable").append("<tr><td>" + v2.cedulaPK + "</td><td>" + v2.nombreP + "</td><td>" + v2.telefono + "</td><td>");
+                });
+                //showLeaderChart();
+            });
 
-            // Create the data table.
-
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-                ['Mushrooms', 3],
-                ['Onions', 1],
-                ['Olives', 1],
-                ['Zucchini', 1],
-                ['Pepperoni', 2]
-            ]);
-
-            // Set chart options
-
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div_leader2'));
-            chart.draw(data, null);
+            
         }
     </script>
 
@@ -870,6 +852,7 @@
             document.getElementById('barra6').style.display = "none";
             document.getElementById('barra7').style.display = "none";
             document.getElementById('barra8').style.display = "none";
+            document.getElementById('barra9').style.display = "none";
             document.getElementById('consulta1').style.display = "block";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
@@ -878,7 +861,7 @@
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "none";
             document.getElementById('consulta8').style.display = "none";
-
+            document.getElementById('consulta9').style.display = "none";
 
         }
     </script>
@@ -892,6 +875,7 @@
             document.getElementById('barra6').style.display = "none";
             document.getElementById('barra7').style.display = "none";
             document.getElementById('barra8').style.display = "none";
+            document.getElementById('barra9').style.display = "none";
             document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "block";
             document.getElementById('consulta3').style.display = "none";
@@ -900,6 +884,7 @@
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "none";
             document.getElementById('consulta8').style.display = "none";
+            document.getElementById('consulta9').style.display = "none";
         }
     </script>
     <script>
@@ -912,6 +897,7 @@
             document.getElementById('barra6').style.display = "none";
             document.getElementById('barra7').style.display = "none";
             document.getElementById('barra8').style.display = "none";
+            document.getElementById('barra9').style.display = "none";
             document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "block";
@@ -920,6 +906,7 @@
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "none";
             document.getElementById('consulta8').style.display = "none";
+            document.getElementById('consulta9').style.display = "none";
         }
     </script>
     <script>
@@ -932,6 +919,7 @@
             document.getElementById('barra6').style.display = "none";
             document.getElementById('barra7').style.display = "none";
             document.getElementById('barra8').style.display = "none";
+            document.getElementById('barra9').style.display = "none";
             document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
@@ -940,6 +928,7 @@
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "none";
             document.getElementById('consulta8').style.display = "none";
+            document.getElementById('consulta9').style.display = "none";
         }
 
         function showProjects5() {
@@ -951,6 +940,7 @@
             document.getElementById('barra6').style.display = "none";
             document.getElementById('barra7').style.display = "none";
             document.getElementById('barra8').style.display = "none";
+            document.getElementById('barra9').style.display = "none";
             document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
@@ -959,6 +949,7 @@
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "none";
             document.getElementById('consulta8').style.display = "none";
+            document.getElementById('consulta9').style.display = "none";
         }
 
         function showFishedProjectsReqHours() {
@@ -970,6 +961,7 @@
             document.getElementById('barra6').style.display = "block";
             document.getElementById('barra7').style.display = "none";
             document.getElementById('barra8').style.display = "none";
+            document.getElementById('barra9').style.display = "none";
             document.getElementById('testerReqHoursBar').style.display = "none";
             document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
@@ -980,6 +972,7 @@
             document.getElementById('consulta7').style.display = "none";
             document.getElementById('consulta8').style.display = "none";
             document.getElementById('testerReqHours').style.display = "none";
+            document.getElementById('consulta9').style.display = "none";
 
         }
 
@@ -992,6 +985,7 @@
             document.getElementById('barra6').style.display = "none";
             document.getElementById('barra7').style.display = "block";
             document.getElementById('barra8').style.display = "none";
+            document.getElementById('barra9').style.display = "none";
             document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
@@ -1000,6 +994,29 @@
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "block";
             document.getElementById('consulta8').style.display = "none";
+            document.getElementById('consulta9').style.display = "none";
+        }
+        function showProjects9() {
+            document.getElementById('barra1').style.display = "none";
+            document.getElementById('barra2').style.display = "none";
+            document.getElementById('barra3').style.display = "none";
+            document.getElementById('barra4').style.display = "none";
+            document.getElementById('barra5').style.display = "none";
+            document.getElementById('barra6').style.display = "none";
+            document.getElementById('barra7').style.display = "none";
+            document.getElementById('barra8').style.display = "none";
+            document.getElementById('barra9').style.display = "block";
+                document.getElementById('testerReqHoursBar').style.display = "none";
+            document.getElementById('consulta1').style.display = "none";
+            document.getElementById('consulta2').style.display = "none";
+            document.getElementById('consulta3').style.display = "none";
+            document.getElementById('consulta4').style.display = "none";
+            document.getElementById('consulta5').style.display = "none";
+            document.getElementById('consulta6').style.display = "none";
+            document.getElementById('consulta7').style.display = "none";
+            document.getElementById('consulta8').style.display = "none";
+            document.getElementById('consulta9').style.display = "block";
+                document.getElementById('testerReqHours').style.display = "none";
         }
 
         function showProjects8() {
@@ -1011,6 +1028,7 @@
             document.getElementById('barra6').style.display = "none";
             document.getElementById('barra7').style.display = "none";
             document.getElementById('barra8').style.display = "block";
+            document.getElementById('barra9').style.display = "none";
             document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
@@ -1019,6 +1037,7 @@
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "none";
             document.getElementById('consulta8').style.display = "block";
+            document.getElementById('consulta9').style.display = "none";
         }
 
     </script>

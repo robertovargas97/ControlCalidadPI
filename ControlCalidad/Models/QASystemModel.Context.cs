@@ -521,5 +521,14 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Requeirmientos_Lider_Result>("SP_Requeirmientos_Lider", cedulaParameter, complejidadParameter);
         }
+    
+        public virtual ObjectResult<SP_Disponibilidad_Tester_Result> SP_Disponibilidad_Tester(string disponibilidad)
+        {
+            var disponibilidadParameter = disponibilidad != null ?
+                new ObjectParameter("disponibilidad", disponibilidad) :
+                new ObjectParameter("disponibilidad", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Disponibilidad_Tester_Result>("SP_Disponibilidad_Tester", disponibilidadParameter);
+        }
     }
 }

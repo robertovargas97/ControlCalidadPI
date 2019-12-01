@@ -172,6 +172,7 @@ function showTesterReqHours() {
     document.getElementById('barra6').style.display = "none";
     document.getElementById('barra7').style.display = "none";
     document.getElementById('barra8').style.display = "none";
+    document.getElementById('barra9').style.display = "none";
     document.getElementById('testerReqHoursBar').style.display = "block";
     document.getElementById('consulta1').style.display = "none";
     document.getElementById('consulta2').style.display = "none";
@@ -181,6 +182,7 @@ function showTesterReqHours() {
     document.getElementById('consulta6').style.display = "none";
     document.getElementById('consulta7').style.display = "none";
     document.getElementById('testerReqHours').style.display = "block";
+    document.getElementById('consulta9').style.display = "none";
 }
 
 //<summary> :   shows information about requirements assigned to a specific tester
