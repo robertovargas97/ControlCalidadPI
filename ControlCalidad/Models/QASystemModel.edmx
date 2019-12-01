@@ -340,9 +340,6 @@
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
           <Parameter Name="estado" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="UFN_Exito_Lead" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
-          <Parameter Name="cedula_empleado" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="UFN_getId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int" />
         <Function Name="UFN_Indice_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="ControlCalidad" ReturnType="int">
           <Parameter Name="cedula_empleado" Type="varchar" Mode="In" />
@@ -472,6 +469,12 @@
         </Function>
         <Function Name="USP_Detalles_Horas_Req_Proyecto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_proyecto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_Disp_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="disponibilidad" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_Disponibilidad_Tester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="disponibilidad" Type="varchar" Mode="In" />
         </Function>
         <Function Name="USP_estaAsignado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_requerimiento" Type="int" Mode="InOut" />
@@ -984,6 +987,12 @@
           <FunctionImport Name="SP_Disponibilidad_Tester" ReturnType="Collection(QASystemEntity.SP_Disponibilidad_Tester_Result)">
           <Parameter Name="disponibilidad" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="USP_Disponibilidad_Tester" ReturnType="Collection(QASystemEntity.USP_Disponibilidad_Tester_Result)">
+          <Parameter Name="disponibilidad" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_Disp_Tester" ReturnType="Collection(QASystemEntity.USP_Disp_Tester_Result)">
+            <Parameter Name="disponibilidad" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -1242,6 +1251,17 @@
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
           <Property Type="String" Name="nombreP" Nullable="false" MaxLength="25" />
           <Property Type="String" Name="telefono" Nullable="true" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="USP_Disponibilidad_Tester_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="telefono" Nullable="true" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="USP_Disp_Tester_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="telefono" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1603,6 +1623,25 @@
                 <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
                 <ScalarProperty Name="nombreP" ColumnName="nombreP" />
                 <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_Disponibilidad_Tester" FunctionName="QASystemEntity.Store.USP_Disponibilidad_Tester">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.USP_Disponibilidad_Tester_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_Disp_Tester" FunctionName="QASystemEntity.Store.USP_Disp_Tester">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.USP_Disp_Tester_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -377,6 +377,12 @@
     <Compile Include="Models\USP_Detalles_Horas_Req_Proyecto_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\USP_Disponibilidad_Tester_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USP_Disp_Tester_Result.cs">
+      <DependentUpon>QASystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\USP_obtenerDatosPruebas_Result.cs">
       <DependentUpon>QASystemModel.tt</DependentUpon>
     </Compile>

@@ -530,5 +530,23 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Disponibilidad_Tester_Result>("SP_Disponibilidad_Tester", disponibilidadParameter);
         }
+    
+        public virtual ObjectResult<USP_Disponibilidad_Tester_Result> USP_Disponibilidad_Tester(string disponibilidad)
+        {
+            var disponibilidadParameter = disponibilidad != null ?
+                new ObjectParameter("disponibilidad", disponibilidad) :
+                new ObjectParameter("disponibilidad", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Disponibilidad_Tester_Result>("USP_Disponibilidad_Tester", disponibilidadParameter);
+        }
+    
+        public virtual ObjectResult<USP_Disp_Tester_Result> USP_Disp_Tester(string disponibilidad)
+        {
+            var disponibilidadParameter = disponibilidad != null ?
+                new ObjectParameter("disponibilidad", disponibilidad) :
+                new ObjectParameter("disponibilidad", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Disp_Tester_Result>("USP_Disp_Tester", disponibilidadParameter);
+        }
     }
 }

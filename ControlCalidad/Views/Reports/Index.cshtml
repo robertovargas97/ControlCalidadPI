@@ -692,6 +692,9 @@
                                     <th class="center black white-text">
                                         telefono
                                     </th>
+                                    <th class="center black white-text">
+                                        Proyecto
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody id="avilabilityTable" class="center"></tbody>
@@ -937,7 +940,11 @@
             var availability = document.getElementById('availability').value
             $.get("/Reports/availableTesters", { availability: availability }, function (data) {
                 $.each(data, function (index, v2) {
-                    $("#avilabilityTable").append("<tr><td>" + v2.cedulaPK + "</td><td>" + v2.nombreP + "</td><td>" + v2.telefono + "</td><td>");
+                    var proyecto = v2.nombre;
+                    if (availability == 'Disponible') {
+                        proyecto = "Sin Asignar";
+                    }
+                    $("#avilabilityTable").append("<tr><td>" + v2.cedulaPK + "</td><td>" + v2.nombreP + "</td><td>" + v2.telefono + "</td><td>" + proyecto + "</td><td>");
                 });
                 //showLeaderChart();
             });

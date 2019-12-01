@@ -114,7 +114,7 @@ namespace ControlCalidad.Controllers
         public JsonResult availableTesters(string availability)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<SP_Disponibilidad_Tester_Result> availableTesters = db.SP_Disponibilidad_Tester(availability).ToList();
+            List<USP_Disp_Tester_Result> availableTesters = db.USP_Disp_Tester(availability).ToList();
             return Json(availableTesters, JsonRequestBehavior.AllowGet);
         }
 
