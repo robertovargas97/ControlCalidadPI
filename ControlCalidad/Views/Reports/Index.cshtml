@@ -860,7 +860,6 @@
     <script>
         function fourthReport() {
             var proy4 = document.getElementById('proy4').value
-            alert(proy4);
             $("#table4").empty();
             $("#chart_div").empty();
             $.get("/Reports/TesterRequirements", { proy: proy4 }, function (data) {
@@ -1228,8 +1227,8 @@
             document.getElementById('consulta5').style.display = "none";
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "none";
-            document.getElementById('consulta8').style.display = "none";
-            document.getElementById('consulta9').style.display = "none";
+             document.getElementById('consulta8').style.display = "none";
+             document.getElementById('consulta9').style.display = "none";
             document.getElementById('consulta10').style.display = "none";
             document.getElementById('consulta11').style.display = "block";
             document.getElementById('testerReqHoursBar').style.display = "none";
