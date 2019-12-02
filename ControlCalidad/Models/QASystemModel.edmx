@@ -488,6 +488,7 @@
         <Function Name="USP_obtenerReqsAsignados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="projectId" Type="int" Mode="In" />
         </Function>
+      <Function Name="USP_obtenerTestersExistentes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="QASystemEntityStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="ControlCalidad" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="ControlCalidad" store:Type="Tables" />
@@ -998,10 +999,6 @@
           <Parameter Name="disponibilidad" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_TesterOcupado" ReturnType="Collection(QASystemEntity.SP_TesterOcupado_Result)" />
-          <FunctionImport Name="USP_obtenerDatosPruebas" ReturnType="Collection(QASystemEntity.USP_obtenerDatosPruebas_Result)">
-            <Parameter Name="projectId" Mode="In" Type="Int32" />
-            <Parameter Name="requirementId" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="USP_buscarPorHabilidad" ReturnType="Collection(QASystemEntity.USP_buscarPorHabilidad_Result)">
             <Parameter Name="categoria" Mode="In" Type="String" />
             <Parameter Name="habilidad" Mode="In" Type="String" />
@@ -1234,15 +1231,7 @@
           <Property Type="Int32" Name="successfullTests" Nullable="true" />
           <Property Type="Int32" Name="failedTests" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="USP_obtenerDatosPruebas_Result">
-          <Property Type="String" Name="testerName" Nullable="false" MaxLength="51" />
-          <Property Type="String" Name="testName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="result" Nullable="true" MaxLength="15" />
-          <Property Type="Int32" Name="totalTests" Nullable="true" />
-          <Property Type="Int32" Name="successfulTests" Nullable="true" />
-          <Property Type="Int32" Name="failedTests" Nullable="true" />
-          <Property Type="Int32" Name="incompleteTests" Nullable="true" />
-        </ComplexType>
+   
         <ComplexType Name="USP_comparacionHorasTester_Result">
           <Property Type="String" Name="requirementName" Nullable="false" MaxLength="50" />
           <Property Type="Single" Name="estimateHours" Nullable="false" />
@@ -1675,14 +1664,11 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_TesterOcupado" FunctionName="QASystemEntity.Store.SP_TesterOcupado">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QASystemEntity.USP_obtenerDatosPruebas_Result">
-                <ScalarProperty Name="testerName" ColumnName="testerName" />
-                <ScalarProperty Name="testName" ColumnName="testName" />
-                <ScalarProperty Name="result" ColumnName="result" />
-                <ScalarProperty Name="totalTests" ColumnName="totalTests" />
-                <ScalarProperty Name="successfulTests" ColumnName="successfulTests" />
-                <ScalarProperty Name="failedTests" ColumnName="failedTests" />
-                <ScalarProperty Name="incompleteTests" ColumnName="incompleteTests" />
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_TesterOcupado_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1700,11 +1686,6 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="QASystemEntity.USP_obtenerReqsAsignados1_Result">
                 <ScalarProperty Name="idPK" ColumnName="idPK" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-              <ComplexTypeMapping TypeName="QASystemEntity.SP_TesterOcupado_Result">
-                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
-                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
               </ComplexTypeMapping>
             </ResultMapping>

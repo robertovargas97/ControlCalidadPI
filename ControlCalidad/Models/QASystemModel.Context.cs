@@ -554,19 +554,6 @@ namespace ControlCalidad.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TesterOcupado_Result>("SP_TesterOcupado");
         }
     
-        public virtual ObjectResult<USP_obtenerDatosPruebas_Result> USP_obtenerDatosPruebas(Nullable<int> projectId, Nullable<int> requirementId)
-        {
-            var projectIdParameter = projectId.HasValue ?
-                new ObjectParameter("projectId", projectId) :
-                new ObjectParameter("projectId", typeof(int));
-    
-            var requirementIdParameter = requirementId.HasValue ?
-                new ObjectParameter("requirementId", requirementId) :
-                new ObjectParameter("requirementId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_obtenerDatosPruebas_Result>("USP_obtenerDatosPruebas", projectIdParameter, requirementIdParameter);
-        }
-    
         public virtual ObjectResult<USP_buscarPorHabilidad_Result> USP_buscarPorHabilidad(string categoria, string habilidad)
         {
             var categoriaParameter = categoria != null ?

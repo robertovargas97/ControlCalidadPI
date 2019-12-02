@@ -276,6 +276,8 @@ function showTesterReqHours() {
     document.getElementById('barra8').style.display = "none";
     document.getElementById('barra9').style.display = "none";
     document.getElementById('barra10').style.display = "none";
+    document.getElementById('barra11').style.display = "none";
+    document.getElementById('barrah').style.display = "none";
 
     document.getElementById('testerReqHoursBar').style.display = "block";
     document.getElementById('consulta1').style.display = "none";
@@ -289,6 +291,8 @@ function showTesterReqHours() {
     document.getElementById('testerReqHours').style.display = "block";
     document.getElementById('consulta9').style.display = "none";
     document.getElementById('consulta10').style.display = "none";
+    document.getElementById('consulta11').style.display = "none";
+    document.getElementById('habilitiesQuery').style.display = "none";
 
 }
 
