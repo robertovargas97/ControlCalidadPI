@@ -191,7 +191,6 @@ function getTesterData() {
 
 //<summary> :  shows and hides the html components related with the report
 function showTesterReqHours() {
-    document.getElementById('barra1').style.display = "none";
     document.getElementById('barra2').style.display = "none";
     document.getElementById('barra3').style.display = "none";
     document.getElementById('barra4').style.display = "none";
@@ -203,7 +202,6 @@ function showTesterReqHours() {
     document.getElementById('barra10').style.display = "none";
 
     document.getElementById('testerReqHoursBar').style.display = "block";
-    document.getElementById('consulta1').style.display = "none";
     document.getElementById('consulta2').style.display = "none";
     document.getElementById('consulta3').style.display = "none";
     document.getElementById('consulta4').style.display = "none";
