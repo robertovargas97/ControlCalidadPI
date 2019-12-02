@@ -10,14 +10,10 @@
 namespace ControlCalidad.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Habilidade
+    public partial class USP_obtenerTestersExistentes_Result
     {
-        public string cedula_empleadoFK { get; set; }
-        public string categoriaPK { get; set; }
-        public string descripcionPK { get; set; }
-    
-        public virtual Empleado Empleado { get; set; }
+        public string cedula { get; set; }
+        public string nombreTester { get; set; }
     }
 }

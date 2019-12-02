@@ -10,14 +10,16 @@
 namespace ControlCalidad.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Habilidade
+    public partial class SP_Conseguir_Datos_Testers_Result
     {
-        public string cedula_empleadoFK { get; set; }
-        public string categoriaPK { get; set; }
-        public string descripcionPK { get; set; }
-    
-        public virtual Empleado Empleado { get; set; }
+        public string cedulaPK { get; set; }
+        public string Nombre { get; set; }
+        public Nullable<int> Participacion { get; set; }
+        public Nullable<int> En_Ejecucion { get; set; }
+        public Nullable<int> No_iniciado { get; set; }
+        public Nullable<int> Finalizado_Exitoso { get; set; }
+        public Nullable<int> Finalizado_Fallido { get; set; }
+        public Nullable<int> Cancelado { get; set; }
     }
 }

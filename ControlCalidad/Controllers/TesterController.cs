@@ -129,5 +129,22 @@ namespace ControlCalidad.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //<summary> : gets all testers from database to put them in a list
+        //<param>   : None
+        //<return>  : List<SelectListItem>, a testers list
+        public List<SelectListItem> getAllTesters()
+        {
+            List<USP_obtenerTestersExistentes_Result> testers = db.USP_obtenerTestersExistentes( ).ToList( );
+            List<SelectListItem> allTesters = testers.ConvertAll(
+                tester => {
+                    return new SelectListItem( ) {
+                        Text = tester.nombreTester ,
+                        Value = tester.cedula ,
+                        Selected = false
+                    };
+                } );
+            return allTesters;
+        }
     }
 }

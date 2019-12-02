@@ -18,6 +18,8 @@ namespace ControlCalidad.Controllers
         private ProjectController projectController = new ProjectController();
         private EmployeeController employeeController = new EmployeeController();
         private RequirementController requirementController = new RequirementController();
+        private TesterController testerController = new TesterController( );
+
         private HabilitiesController habilitiesController = new HabilitiesController();
         // GET: Reports
         public ActionResult Index()
@@ -26,6 +28,7 @@ namespace ControlCalidad.Controllers
             ViewBag.alltesters = employeeController.GetTesters();
             ViewBag.allLeaders = LeadersList();
             ViewBag.finishedProjects = projectController.GetFinishedProjects( );
+            ViewBag.allTesters = testerController.getAllTesters( );
             ViewBag.habilitiesCategories = habilitiesController.getHabilitiesCategories();
             return View();
         }
@@ -76,10 +79,11 @@ namespace ControlCalidad.Controllers
             return leaderList;
         }
 
-        public void leaderRequirementsStatistics(string leaderId)
+        public JsonResult leaderRequirementsStatistics(string leaderId,string complexity)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            //List<SP_Req_Lider_Result> reqs = db.SP_Req_Lider(leaderId).ToList();
+            List<SP_Requeirmientos_Lider_Result> reqs = db.SP_Requeirmientos_Lider(leaderId, complexity).ToList();
+            return Json(reqs, JsonRequestBehavior.AllowGet);
         }
 
         //<summary> : Used to get information about finished projects its hours and requirements
@@ -98,7 +102,49 @@ namespace ControlCalidad.Controllers
             List<USP_obtenerDatosPruebas_Result> testsReportTable = db.USP_obtenerDatosPruebas(projectId, requirementId).ToList( );
             ViewBag.testerName = testsReportTable[0].testerName;
             return Json( testsReportTable , JsonRequestBehavior.AllowGet );
+        }
 
+        //<summary> : Used to get information about the requirements assigned to a tester in specific
+        //<params>  : employeeId  : represents the tester identifier
+        //<return>  : Returns a Json with the results of SP
+        public JsonResult testerRequirementsHours( string employeeId )
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<USP_comparacionHorasTesters_Result> projectInformation = db.USP_comparacionHorasTesters( employeeId ).ToList( );
+            return Json( projectInformation , JsonRequestBehavior.AllowGet );
+        }
+
+        public JsonResult availableTesters(string availability)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            if (availability.Equals("Ocupado"))
+            {
+                List<SP_TesterOcupado_Result> availableTesters = db.SP_TesterOcupado().ToList();
+                return Json(availableTesters, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                List<Empleado> disponibles = db.Empleadoes.Where(x => x.disponibilidad.Equals("Disponible")).ToList();
+                return Json(disponibles, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //<summary> : Used to get information from all leaders
+        //<return>  : Returns a Json with the results of SP
+        public JsonResult LeadData()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SP_Conseguir_Datos_Lider_Result> leadInformation = db.SP_Conseguir_Datos_Lider().ToList();
+            return Json(leadInformation, JsonRequestBehavior.AllowGet);
+        }
+
+        //<summary> : Used to get information from all testers
+        //<return>  : Returns a Json with the results of SP
+        public JsonResult TesterData()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SP_Conseguir_Datos_Testers_Result> testerInformation = db.SP_Conseguir_Datos_Testers().ToList();
+            return Json(testerInformation, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult habilitiesResult(string category, string hability)

@@ -10,14 +10,13 @@
 namespace ControlCalidad.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Habilidade
+    public partial class USP_comparacionHorasTesters_Result
     {
-        public string cedula_empleadoFK { get; set; }
-        public string categoriaPK { get; set; }
-        public string descripcionPK { get; set; }
-    
-        public virtual Empleado Empleado { get; set; }
+        public string requirementName { get; set; }
+        public string status { get; set; }
+        public float estimateHours { get; set; }
+        public Nullable<float> realHours { get; set; }
+        public Nullable<float> difference { get; set; }
     }
 }

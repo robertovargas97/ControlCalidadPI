@@ -23,6 +23,12 @@
         <AssociationConnector Association="QASystemEntity.FK_TieneAsignado_Tester" ManuallyRouted="false" />
         <EntityTypeShape EntityType="QASystemEntity.Prueba" Width="1.5" PointX="7.5" PointY="4.625" />
         <AssociationConnector Association="QASystemEntity.FK_Prueba_Requerimiento" />
+        <EntityTypeShape EntityType="QASystemEntity.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QASystemEntity.Canton" Width="1.5" PointX="10" PointY="7.875" />
+        <EntityTypeShape EntityType="QASystemEntity.Distrito" Width="1.5" PointX="12.25" PointY="7.875" />
+        <EntityTypeShape EntityType="QASystemEntity.Provincia" Width="1.5" PointX="7.75" PointY="8.125" />
+        <AssociationConnector Association="QASystemEntity.FK_Canton_Provincia" />
+        <AssociationConnector Association="QASystemEntity.FK_Distrito_Canton" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

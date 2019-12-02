@@ -10,14 +10,12 @@
 namespace ControlCalidad.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Habilidade
+    public partial class SP_Conseguir_Datos_Lider_Result
     {
-        public string cedula_empleadoFK { get; set; }
-        public string categoriaPK { get; set; }
-        public string descripcionPK { get; set; }
-    
-        public virtual Empleado Empleado { get; set; }
+        public string cedulaPK { get; set; }
+        public string Nombre { get; set; }
+        public Nullable<int> Participacion { get; set; }
+        public Nullable<int> Exito { get; set; }
     }
 }
