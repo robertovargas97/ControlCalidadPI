@@ -95,7 +95,10 @@ namespace ControlCalidad.Controllers
             List<USP_Detalles_Horas_Req_Proyecto_Result> projectInformation = db.USP_Detalles_Horas_Req_Proyecto( projectId ).ToList( );
             return Json( projectInformation , JsonRequestBehavior.AllowGet );
         }
-
+        //<summary> : Used to get information about tests related to a project an a requirement
+        //<params>  : projectId     :   identifier of the project
+        //          : requirementId :   identifier of the requirement
+        //<return>  : Returns a Json with the result of the SP 
         public JsonResult testsResults(int projectId, int requirementId) {
 
             db.Configuration.ProxyCreationEnabled = false;
@@ -146,7 +149,11 @@ namespace ControlCalidad.Controllers
             List<SP_Conseguir_Datos_Testers_Result> testerInformation = db.SP_Conseguir_Datos_Testers().ToList();
             return Json(testerInformation, JsonRequestBehavior.AllowGet);
         }
-
+        
+        // <summary> : Used to get information about employees according to an especific hability
+        // <param>   : category :  The category of the hability (Blanda, Tecnica,..)  
+        // <param>   : hability :  The especific hability in the category selected previously
+        // <returns> : Returns a Json with the result of the SP
         public JsonResult habilitiesResult(string category, string hability)
         {
 

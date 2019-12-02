@@ -58,7 +58,8 @@ function onSubmit() {
 
 //------------------------------------------Reports functions--------------------------------------
 
-// Documentar sergio 
+//==========================================Resultado Pruebas======================================
+//<summary> :   This function is used to load the result of a SP called on a function in ReportsController into a table.
 function testsReport() {
 
     var projectID = document.getElementById("proyConsulta8").value;
@@ -83,7 +84,7 @@ function testsReport() {
     });
     
 }
-// Documentar sergio
+//<summary> :   This function loads the options for requirement dropdown depending on the value in projects dropdown (Dropdowns dependency).
 $(document).ready(function () {
 
     $("#proyConsulta8").change(function () {
@@ -107,7 +108,46 @@ $(document).ready(function () {
 
 });
 
-// Documentar sergio
+//<summary> :   Function used to pass the information that its needed to draw the chart with the report info.
+//<params>  :   succesfulTests  :    Number of successful tests
+//          :   failedTests     :    Number of failed tests
+//          :   incompleteTests :   Number of incomplete tests
+function showTestsDataChart(succesfulTests, failedTests, incompleteTests) {
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    drawTestsDataChart(succesfulTests, failedTests, incompleteTests, "chartTestsQuery", "Pruebas", "Exitosas", "Fallidas", "Incompletas", "Pruebas");
+}
+
+//<summary> :   draws the chart with the tests information
+//<param>   :   data1 : data to show in the chart
+//              data2 : data to show in the chart
+//              data3 : data to show in the chart
+//              div : container to the chart in the HTML
+//              name : identifier to the chart
+//              dataLabel1 : label to data 1
+//              dataLabel2 : label to data 2
+//              dataLabel3 : label to data 3
+//              tittle : chart's title
+function drawTestsDataChart(data1, data2, data3, div, name, dataLabel1, dataLabel2, dataLabel3, tittle) {
+    var data = google.visualization.arrayToDataTable([
+        [name, '', { role: 'style' }, { role: 'annotation' }],
+        [dataLabel1, parseInt(data1), 'stroke-color: #DE3910; stroke-width: 2; fill-color: #DE3910', data1],
+        [dataLabel2, parseInt(data2), 'stroke-color: #1272C6; stroke-width: 2; fill-color: #1272C6', data2],
+        [dataLabel3, parseInt(data3), 'stroke-color: #1272C6; stroke-width: 2; fill-color: #1272C6', data3]
+    ]);
+
+    var options = {
+        title: tittle,
+        is3D: true,
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById(div));
+
+    chart.draw(data, options);
+}
+
+//===========================================Consultar tester por habilidades=======================================
+//<summary> :   This function loads the options for habilities dropdown depending on the value in category dropdown (Dropdowns dependency).
 $(document).ready(function () {
 
     $("#habilitiesCategory").change(function () {
@@ -129,7 +169,7 @@ $(document).ready(function () {
 
 });
 
-// Documentar sergio 
+//<summary> :  This function is used to load the result of a SP called on a function in ReportsController into a table.
 function habilitiesReport() {
 
     var category = document.getElementById("habilitiesCategory").value;
@@ -149,29 +189,6 @@ function habilitiesReport() {
     });
 }
 
-function showTestsDataChart(succesfulTests, failedTests, incompleteTests) {
-
-    google.charts.load('current', { 'packages': ['corechart'] });
-    drawTestsDataChart(succesfulTests, failedTests, incompleteTests, "chartTestsQuery", "Pruebas", "Exitosas", "Fallidas", "Incompletas", "Pruebas");
-}
-
-function drawTestsDataChart(data1, data2, data3, div, name, dataLabel1, dataLabel2, dataLabel3, tittle) {
-    var data = google.visualization.arrayToDataTable([
-        [name, '', { role: 'style' }, { role: 'annotation' }],
-        [dataLabel1, parseInt(data1), 'stroke-color: #DE3910; stroke-width: 2; fill-color: #DE3910', data1],
-        [dataLabel2, parseInt(data2), 'stroke-color: #1272C6; stroke-width: 2; fill-color: #1272C6', data2],
-        [dataLabel3, parseInt(data3), 'stroke-color: #1272C6; stroke-width: 2; fill-color: #1272C6', data3]
-    ]);
-
-    var options = {
-        title: tittle,
-        is3D: true,
-    };
-
-    var chart = new google.visualization.ColumnChart(document.getElementById(div));
-   
-    chart.draw(data, options);
-}
 
 //--------------------------Finished projects, hours and requirements------------------------------
 

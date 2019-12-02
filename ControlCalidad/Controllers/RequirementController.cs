@@ -277,7 +277,10 @@ namespace ControlCalidad.Controllers
             return dt == null ? "" : ( ( DateTime ) dt ).ToString( format );
         }
 
-        //Documentar Sergio
+ 
+        // <summary>   :   Used to get the requirements that has been associated to a tester in a project. 
+        // <param>     :   projectId : the identifier of the project
+        // <returns>   :   Returns the requirements of the project that have testers associated.
         public JsonResult getJsonRequirements(int projectId)
         {
             db.Configuration.ProxyCreationEnabled = false;
