@@ -6,6 +6,7 @@
 
 
     List<SelectListItem> projectsNames = ( List<SelectListItem> ) ViewBag.allprojects;
+    List<SelectListItem> nameProjects = (List<SelectListItem>)ViewBag.allNameProjects;
     List<SelectListItem> testerNames = ( List<SelectListItem> ) ViewBag.alltesters;
     List<SelectListItem> leaderNames = ( List<SelectListItem> ) ViewBag.allLeaders;
     List<SelectListItem> finishedProjects = ( List<SelectListItem> ) ViewBag.finishedProjects;
@@ -133,7 +134,7 @@
                                             <label size="50">Proyecto </label>
                                         </div>
                                         <div class="col s5 margin-b2">
-                                            @Html.DropDownList("proy2", projectsNames, "Seleccione un proyecto", new { @onchange = "secondReport()" })
+                                            @Html.DropDownList("proy2", nameProjects, "Seleccione un proyecto", new { @onchange = "secondReport()" })
                                         </div>
                                         <br />
                                         <div>
@@ -193,7 +194,7 @@
                                             <label size="50">Proyecto </label>
                                         </div>
                                         <div class="col s5 margin-b2">
-                                            @Html.DropDownList("proy3", projectsNames, "Seleccione un proyecto", new { @onChange = "thirdReport()" })
+                                            @Html.DropDownList("proy3", nameProjects, "Seleccione un proyecto", new { @onChange = "thirdReport()" })
                                         </div>
                                         <br />
                                         <table class="table striped ">
@@ -247,7 +248,7 @@
                                             <label size="50">Proyecto </label>
                                         </div>
                                         <div class="col s5 margin-b2">
-                                            @Html.DropDownList("proy4", projectsNames, "Seleccione un proyecto", new { @onChange = "fourthReport()" })
+                                            @Html.DropDownList("proy4", nameProjects, "Seleccione un proyecto", new { @onChange = "fourthReport()" })
                                         </div>
                                         <br />
                                         <table class="table striped ">
@@ -257,10 +258,10 @@
                                                         Tester
                                                     </th>
                                                     <th class="center black white-text">
-                                                        Cantidad
+                                                        Requerimiento
                                                     </th>
                                                     <th class="center black white-text">
-                                                        Proyecto
+                                                        Complejidad
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -317,7 +318,22 @@
                                                         Estado del Proyecto
                                                     </th>
                                                     <th class="center black white-text">
-                                                        Horas Dedicadas
+                                                        Nombre del Requerimiento
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Estado del Requerimiento
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Complejidad
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Fecha de Inicio
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Fecha de Finalización
+                                                    </th>
+                                                    <th class="center black white-text">
+                                                        Horas
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -844,20 +860,27 @@
     <script>
         function fourthReport() {
             var proy4 = document.getElementById('proy4').value
+            alert(proy4);
             $("#table4").empty();
             $("#chart_div").empty();
             $.get("/Reports/TesterRequirements", { proy: proy4 }, function (data) {
+                var table = [['Elemento', 'Cantidad', { role: 'style' }]];
+                var temp = "";
                 $.each(data, function (index, v4) {
-                    $("#table4").append("<tr><td>" + v4.nombreTester + "</td><td>" + v4.cantidadReqAsignados + "</td><td>" + v4.nombreP + "</td><td>");
-                    var data = google.visualization.arrayToDataTable([
-                        ['Elemento', 'Cantidad', { role: 'style' }],
-                        [v4.nombreTester, v4.cantidadReqAsignados, 'blue'],
-                    ]);
+                    $("#table4").append("<tr><td>" + v4.nombreTester + "</td><td>" + v4.nombreR + "</td><td>" + v4.complejidad + "</td><td>");
+                    table.push([v4.nombreTester, v4.cantidadReqAsignados, 'blue']);
+                    if (temp == "") { temp = v4.nombreTester }
+                    else {
+                        if (v4.nombreTester == temp) {
+                            var ca = table.pop();
+                        } else { temp = v4.nombreTester }
 
+                    }
 
-                    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-                    chart.draw(data);
                 });
+                var data = google.visualization.arrayToDataTable(table);
+                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                chart.draw(data);
             });
         }
     </script>
@@ -867,9 +890,19 @@
             $("#table5").empty();
             $.get("/Reports/ParticipationHistory", { tester: tester }, function (data) {
                 $.each(data, function (index, v5) {
-                    $("#table5").append("<tr><td>" + v5.nombre + "</td><td>" + v5.estado + "</td><td>" + v5.horasDedicas + "</td></tr>");
+                    $("#table5").append("<tr><td>" + v5.proyecto + "</td><td>" + v5.estado + "</td><td>" + v5.Requerimiento + "</td><td>" + v5.estadoReq + "</td><td>" + v5.complejidad + "</td><td>" + dateFormat(new Date(parseInt((v5.fechaInicio).match(/\d+/)[0]))) + "</td><td>" + dateFormat(new Date(parseInt((v5.fechaFinalizacion).match(/\d+/)[0]))) + "</td><td>" + v5.duracionReal + "</td></tr>");
                 });
             });
+        }
+
+    </script>
+
+    <script>
+        function dateFormat(d) {
+            console.log(d);
+            return ((d.getMonth() + 1) + "").padStart(2, "0")
+                + "/" + (d.getDate() + "").padStart(2, "0")
+                + "/" + d.getFullYear();
         }
     </script>
 

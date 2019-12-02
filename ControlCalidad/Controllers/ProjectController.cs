@@ -48,6 +48,29 @@ namespace ControlCalidad.Controllers
             return allprojects;
         }
 
+        public List<SelectListItem> GetNameProjects()
+        {
+            List<ProjectsForReports> NameProjectsList =
+                (from project in db.Proyectoes
+                 select new ProjectsForReports
+                 {
+                     nombre = project.nombre,
+
+                 }).ToList();
+
+            List<SelectListItem> allnameprojects = NameProjectsList.ConvertAll(
+                project => {
+                    return new SelectListItem()
+                    {
+                        Text = project.nombre,
+                        Selected = false
+                    };
+                });
+
+            return allnameprojects;
+        }
+
+
         //<summary> : gets the finished projects from database to put them in a list
         //<param>   : None
         //<return>  : List<SelectListItem>, finished projects list
