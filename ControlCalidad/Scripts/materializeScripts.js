@@ -63,18 +63,25 @@ function testsReport() {
 
     var projectID = document.getElementById("proyConsulta8").value;
     var requirementID = document.getElementById("reqConsulta8").value;
- 
+    
     $.get("/Reports/testsResults", { projectId: projectID, requirementId: requirementID }, function (data) {
 
         $("#testsReportTable").empty();
-
+        $("#pTester").empty();
         $.each(data, function (index, item) {
+
+            if (index == 0) {
+
+                $("#pTester").append("<i class='material-icons left text-grey'>person</i><span class='text-grey'> Tester : </span><span class='badge'>" + item.testerName + "</span>"); 
+            }
            
             $("#testsReportTable").append("<tr><td class='center'>" + item.testName + "</td><td class= 'center'>" + item.result + "</td><tr>");
+           
             showTestsDataChart(item.successfulTests, item.failedTests, item.incompleteTests);
         });
-
+        
     });
+    
 }
 // Documentar sergio
 $(document).ready(function () {
@@ -82,6 +89,7 @@ $(document).ready(function () {
     $("#proyConsulta8").change(function () {
         $("#testsReportTable").empty();
         $("#chartTestsQuery").empty();
+        $("#pTester").empty();
         $.get("/Requirement/getJsonRequirements", { projectId: $("#proyConsulta8").val() }, function (data) {
 
             $("#reqConsulta8").children().remove().end()
@@ -126,7 +134,7 @@ function habilitiesReport() {
 
     var category = document.getElementById("habilitiesCategory").value;
     var hability = document.getElementById("habilitiesDescription").value;
-
+    
     $.get("/Reports/habilitiesResult", { category: category, hability: hability }, function (data) {
 
         $("#habilitiesReportTable").empty();
@@ -134,6 +142,7 @@ function habilitiesReport() {
         $.each(data, function (index, item) {
 
             $("#habilitiesReportTable").append("<tr><td class='center'>" + item.testerName + "</td><td class= 'center'>" + item.phoneNumber + "</td><td class='center'>" + item.email + "</td><tr>");
+
             showTestsDataChart(item.successfulTests, item.failedTests, item.incompleteTests);
         });
 
