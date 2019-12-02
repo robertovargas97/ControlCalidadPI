@@ -34,10 +34,6 @@
                     <div class="card-content black-text">
                         <div class="row">
                             <div class="col s11">
-                                <div class="col s12 margin-b1">
-                                    <input type="button" class="black-text btn grey  turq-hover background-color:grey" name="answer" value="Total Requerimientos" onclick="showProjects1()" style="width: 350px;" />
-                                    <hr id="barra1" style="display:none; border: 2px solid  teal; width:345px;" />
-                                </div>
 
 
                                 <div class="col s12 margin-b1">
@@ -111,19 +107,6 @@
 
 
             <!-----------------------------------------------Sección de resultados---------------------------------------->
-            <!--------------Consulta 1: Total de requerimientos------------------------------------>
-            <div id="consulta1" style="display:none;" class="col s8">
-                <div class="card hoverable">
-                    <nav>
-                        <div class="nav-wrapper grey">
-                            <div>
-                                <h5 class="col s9">Total de requerimientos en un proyecto</h5>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-
 
             <!------------------Consulta 2: Requerimientos terminados----------------->
             <div id="consulta2" style="display:none;" class="col s8">
@@ -830,13 +813,11 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(showProject3);
+        google.charts.setOnLoadCallback(showProject4);
     </script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="objects.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-
 
     <script>
         function secondReport() {
@@ -967,39 +948,8 @@
 
 
 
-
-    <script>
-        function showProjects1() {
-            document.getElementById('barra1').style.display = "block";
-            document.getElementById('barra2').style.display = "none";
-            document.getElementById('barra3').style.display = "none";
-            document.getElementById('barra4').style.display = "none";
-            document.getElementById('barra5').style.display = "none";
-            document.getElementById('barra6').style.display = "none";
-            document.getElementById('barra7').style.display = "none";
-            document.getElementById('barra8').style.display = "none";
-            document.getElementById('barra9').style.display = "none";
-            document.getElementById('barra10').style.display = "none";
-            document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "block";
-            document.getElementById('consulta2').style.display = "none";
-            document.getElementById('consulta3').style.display = "none";
-            document.getElementById('consulta4').style.display = "none";
-            document.getElementById('consulta5').style.display = "none";
-            document.getElementById('consulta6').style.display = "none";
-            document.getElementById('consulta7').style.display = "none";
-            document.getElementById('consulta8').style.display = "none";
-            document.getElementById('consulta9').style.display = "none";
-            document.getElementById('consulta10').style.display = "none";
-            document.getElementById('consulta11').style.display = "none";
-            document.getElementById('testerReqHoursBar').style.display = "none";
-            document.getElementById('testerReqHours').style.display = "none";
-
-        }
-    </script>
     <script>
         function showProjects2() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "block";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
@@ -1010,7 +960,6 @@
             document.getElementById('barra9').style.display = "none";
             document.getElementById('barra10').style.display = "none";
             document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "block";
             document.getElementById('consulta3').style.display = "none";
             document.getElementById('consulta4').style.display = "none";
@@ -1027,7 +976,6 @@
     </script>
     <script>
         function showProjects3() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "block";
             document.getElementById('barra4').style.display = "none";
@@ -1038,7 +986,6 @@
             document.getElementById('barra9').style.display = "none";
             document.getElementById('barra10').style.display = "none";
             document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "block";
             document.getElementById('consulta4').style.display = "none";
@@ -1055,7 +1002,6 @@
     </script>
     <script>
         function showProjects4() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "block";
@@ -1066,7 +1012,6 @@
             document.getElementById('barra9').style.display = "none";
             document.getElementById('barra10').style.display = "none";
             document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
             document.getElementById('consulta4').style.display = "block";
@@ -1082,7 +1027,6 @@
         }
 
         function showProjects5() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
@@ -1093,7 +1037,6 @@
             document.getElementById('barra9').style.display = "none";
             document.getElementById('barra10').style.display = "none";
             document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
             document.getElementById('consulta4').style.display = "none";
@@ -1109,7 +1052,6 @@
         }
 
         function showFishedProjectsReqHours() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
@@ -1120,7 +1062,6 @@
             document.getElementById('barra9').style.display = "none";
             document.getElementById('barra10').style.display = "none";
             document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
             document.getElementById('consulta4').style.display = "none";
@@ -1137,7 +1078,6 @@
         }
 
         function showProjects7() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
@@ -1148,7 +1088,6 @@
             document.getElementById('barra9').style.display = "none";
             document.getElementById('barra10').style.display = "none";
             document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
             document.getElementById('consulta4').style.display = "none";
@@ -1163,7 +1102,6 @@
             document.getElementById('testerReqHours').style.display = "none";
         }
         function showProjects9() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
@@ -1174,7 +1112,6 @@
             document.getElementById('barra9').style.display = "block";
             document.getElementById('barra10').style.display = "none";
             document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
             document.getElementById('consulta4').style.display = "none";
@@ -1191,7 +1128,6 @@
         }
 
         function showProjects8() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
@@ -1202,7 +1138,6 @@
             document.getElementById('barra9').style.display = "none";
             document.getElementById('barra10').style.display = "none";
             document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
             document.getElementById('consulta4').style.display = "none";
@@ -1218,7 +1153,6 @@
         }
 
         function showProjects10() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
@@ -1229,7 +1163,6 @@
             document.getElementById('barra9').style.display = "none";
             document.getElementById('barra10').style.display = "block";
             document.getElementById('barra11').style.display = "none";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
             document.getElementById('consulta4').style.display = "none";
@@ -1237,6 +1170,7 @@
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "none";
             document.getElementById('consulta8').style.display = "none";
+            document.getElementById('consulta9').style.display = "none";
             document.getElementById('consulta10').style.display = "block";
             document.getElementById('consulta11').style.display = "none";
             document.getElementById('testerReqHoursBar').style.display = "none";
@@ -1245,7 +1179,6 @@
         }
 
          function showProjects11() {
-            document.getElementById('barra1').style.display = "none";
             document.getElementById('barra2').style.display = "none";
             document.getElementById('barra3').style.display = "none";
             document.getElementById('barra4').style.display = "none";
@@ -1256,7 +1189,6 @@
             document.getElementById('barra9').style.display = "none";
             document.getElementById('barra10').style.display = "none";
             document.getElementById('barra11').style.display = "block";
-            document.getElementById('consulta1').style.display = "none";
             document.getElementById('consulta2').style.display = "none";
             document.getElementById('consulta3').style.display = "none";
             document.getElementById('consulta4').style.display = "none";
@@ -1264,6 +1196,7 @@
             document.getElementById('consulta6').style.display = "none";
             document.getElementById('consulta7').style.display = "none";
             document.getElementById('consulta8').style.display = "none";
+            document.getElementById('consulta9').style.display = "none";
             document.getElementById('consulta10').style.display = "none";
             document.getElementById('consulta11').style.display = "block";
             document.getElementById('testerReqHoursBar').style.display = "none";
