@@ -733,6 +733,30 @@ public partial class QASystemEntities : DbContext
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TesterOcupado_Result>("SP_TesterOcupado");
     }
 
+
+    public virtual ObjectResult<PA_cant_req_tester_nuevo_Result> PA_cant_req_tester_nuevo(string nombre_proy)
+    {
+
+        var nombre_proyParameter = nombre_proy != null ?
+            new ObjectParameter("nombre_proy", nombre_proy) :
+            new ObjectParameter("nombre_proy", typeof(string));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PA_cant_req_tester_nuevo_Result>("PA_cant_req_tester_nuevo", nombre_proyParameter);
+    }
+
+
+    public virtual ObjectResult<PA_historial_participacion_tester_nuevo_Result> PA_historial_participacion_tester_nuevo(string nombre_tester)
+    {
+
+        var nombre_testerParameter = nombre_tester != null ?
+            new ObjectParameter("nombre_tester", nombre_tester) :
+            new ObjectParameter("nombre_tester", typeof(string));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PA_historial_participacion_tester_nuevo_Result>("PA_historial_participacion_tester_nuevo", nombre_testerParameter);
+    }
+
 }
 
 }

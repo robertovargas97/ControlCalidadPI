@@ -7,7 +7,8 @@
 
     List<SelectListItem> projectsNames = ( List<SelectListItem> ) ViewBag.allprojects;
     List<SelectListItem> nameProjects = (List<SelectListItem>)ViewBag.allNameProjects;
-    List<SelectListItem> testerNames = ( List<SelectListItem> ) ViewBag.alltesters;
+    List<SelectListItem> testerNames = (List<SelectListItem>)ViewBag.alltesters;
+    List<SelectListItem> testiNames = (List<SelectListItem>)ViewBag.allNametesters;
     List<SelectListItem> leaderNames = ( List<SelectListItem> ) ViewBag.allLeaders;
     List<SelectListItem> finishedProjects = ( List<SelectListItem> ) ViewBag.finishedProjects;
     List<SelectListItem> allTesters = ( List<SelectListItem> ) ViewBag.allTesters;
@@ -305,7 +306,7 @@
                                             <label size="50">Proyecto </label>
                                         </div>
                                         <div class="col s5 margin-b2">
-                                            @Html.DropDownList("tester", testerNames, "Seleccione un tester", new { @onChange = "fifthReport()" })
+                                            @Html.DropDownList("testi", testiNames, "Seleccione un tester", new { @onChange = "fifthReport()" })
                                         </div>
                                         <br />
                                         <table class="table striped ">
@@ -885,7 +886,7 @@
     </script>
     <script>
         function fifthReport() {
-            var tester = document.getElementById('tester').value
+            var tester = document.getElementById('testi').value
             $("#table5").empty();
             $.get("/Reports/ParticipationHistory", { tester: tester }, function (data) {
                 $.each(data, function (index, v5) {

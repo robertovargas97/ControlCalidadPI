@@ -73,7 +73,17 @@ namespace ControlCalidad.Models
         }
     }
 
+
     public class EmployeeForReports
+    {
+        public string nombreP
+        {
+            get; set;
+        }
+
+    }
+
+    public class EmployeeForReportsT
     {
         public string nombreP
         {
