@@ -25,7 +25,9 @@ namespace ControlCalidad.Controllers
         public ActionResult Index()
         {
             ViewBag.allprojects = projectController.GetProjects();
+            ViewBag.allNameProjects = projectController.GetNameProjects();
             ViewBag.alltesters = employeeController.GetTesters();
+            ViewBag.allNametesters = employeeController.GetNameTesters();
             ViewBag.allLeaders = LeadersList();
             ViewBag.finishedProjects = projectController.GetFinishedProjects( );
             ViewBag.allTesters = testerController.getAllTesters( );
@@ -53,13 +55,13 @@ namespace ControlCalidad.Controllers
         public JsonResult TesterRequirements(string proy)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<PA_cant_req_tester_Result> reqList = db.PA_cant_req_tester(proy).ToList();
+            List<PA_cant_req_tester_nuevo_Result> reqList = db.PA_cant_req_tester_nuevo(proy).ToList();
             return Json(reqList, JsonRequestBehavior.AllowGet);
         }
         public JsonResult ParticipationHistory(string tester)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<PA_historial_participacion_tester_Result> reqList = db.PA_historial_participacion_tester(tester).ToList();
+            List<PA_historial_participacion_tester_nuevo_Result> reqList = db.PA_historial_participacion_tester_nuevo(tester).ToList();
             return Json(reqList, JsonRequestBehavior.AllowGet);
 
         }

@@ -49,6 +49,16 @@ namespace ControlCalidad.Models
 
     }
 
+
+    public class ProjectsForReports
+    {
+        public string nombre
+        {
+            get; set;
+        }
+
+    }
+
     public class FinishedProjectForReports
     {
         public string nombre
@@ -63,7 +73,17 @@ namespace ControlCalidad.Models
         }
     }
 
+
     public class EmployeeForReports
+    {
+        public string nombreP
+        {
+            get; set;
+        }
+
+    }
+
+    public class EmployeeForReportsT
     {
         public string nombreP
         {

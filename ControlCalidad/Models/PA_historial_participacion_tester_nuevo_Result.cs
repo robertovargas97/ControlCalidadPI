@@ -14,24 +14,24 @@ namespace ControlCalidad.Models
 
 using System;
     
-public partial class SP_Conseguir_Datos_Testers_Result
+public partial class PA_historial_participacion_tester_nuevo_Result
 {
 
-    public string cedulaPK { get; set; }
+    public string proyecto { get; set; }
 
-    public string Nombre { get; set; }
+    public string estado { get; set; }
 
-    public Nullable<int> Participacion { get; set; }
+    public string Requerimiento { get; set; }
 
-    public Nullable<int> En_Ejecucion { get; set; }
+    public string estadoReq { get; set; }
 
-    public Nullable<int> No_iniciado { get; set; }
+    public string complejidad { get; set; }
 
-    public Nullable<int> Finalizado_Exitoso { get; set; }
+    public System.DateTime fechaInicio { get; set; }
 
-    public Nullable<int> Finalizado_Fallido { get; set; }
+    public Nullable<System.DateTime> fechaFinalizacion { get; set; }
 
-    public Nullable<int> Cancelado { get; set; }
+    public Nullable<float> duracionReal { get; set; }
 
 }
 

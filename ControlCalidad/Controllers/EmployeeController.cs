@@ -256,6 +256,24 @@ namespace ControlCalidad.Controllers
             return alltesters;
         }
 
+        //<summary> : gets employees from database to put them in a list
+        //<param>   : None
+        //<return>  : List<SelectListItem>, a employees list
+        public List<SelectListItem> GetNameTesters()
+        {
+            string query = "SELECT	E.nombreP FROM ControlCalidad.Empleado E WHERE E.cedulaPK IN(SELECT T.cedula_empleadoFk FROM ControlCalidad.Tester T) ";
+            List<EmployeeForReportsT> testerList = db.Database.SqlQuery<EmployeeForReportsT>(query).ToList();
+
+            List<SelectListItem> allNametesters = testerList.ConvertAll(
+                tester => {
+                    return new SelectListItem()
+                    {
+                        Text = tester.nombreP,
+                    };
+                });
+            return allNametesters;
+        }
+
         //<summary> : This method is used to know the identifier of an employee just by passing his email.
         //<params>  : email : The email of the employee we want to know his id.
         //<return>  : Returns the identifier of an employee.
