@@ -142,7 +142,7 @@ function drawTestsDataChart(data1, data2, data3, div, name, dataLabel1, dataLabe
     };
 
     var chart = new google.visualization.ColumnChart(document.getElementById(div));
-
+   
     chart.draw(data, options);
 }
 

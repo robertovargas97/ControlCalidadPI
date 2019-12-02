@@ -570,51 +570,56 @@
                     </div>
                 </div>
             </nav>
-            <div class="row">
+            <div class="card-content black-text">
 
-                <div class="col s4">
+                <div class="row">
 
-                    @Html.DropDownList("proyConsulta8", projectsNames, "Seleccione un proyecto")
+                    <div class="col s4">
 
-                    <br />
-                    <div class="col s8 margin-b1" id="testerName">
+                        @Html.DropDownList("proyConsulta8", projectsNames, "Seleccione un proyecto")
 
-                        <p class="p-size" id="pTester">
-
-
-                        </p>
-
-                    </div>
-                </div>
-
-                <div class="col s4"></div>
-                <div class="col s4">
-
-                    @Html.DropDownList("reqConsulta8", new SelectList(" "), "Seleccione un requerimiento", new { @onChange = "testsReport()" })
-
-                </div>
-
-                <div class="col s12 margin-b3">
-                    <div class="answer_list">
                         <br />
-                        <table class="table striped ">
-                            <thead>
-                                <tr>
-                                    <th class="center black white-text"> Nombre de la prueba </th>
-                                    <th class="center black white-text"> Resultado </th>
-                                </tr>
-                            </thead>
-                            <tbody id="testsReportTable" class="center"></tbody>
-                        </table>
+                        <div class="col s8 margin-b1" id="testerName">
+
+                            <p class="p-size col" id="pTester">
+
+
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="col s4"></div>
+                    <div class="col s4">
+
+                        @Html.DropDownList("reqConsulta8", new SelectList(" "), "Seleccione un requerimiento", new { @onChange = "testsReport()" })
 
                     </div>
 
-                </div>
-                <div class="col s12">
-                    <div id="chartTestsQuery" style="width: 100%; height: 100%;"></div>
+                    <div class="col s12 margin-b3">
+                        <div class="answer_list">
+                            <br />
+                            <table class="table striped ">
+                                <thead>
+                                    <tr>
+                                        <th class="center black white-text"> Nombre de la prueba </th>
+                                        <th class="center black white-text"> Resultado </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="testsReportTable" class="center"></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <div class="col s12">
+                        <div id="chartTestsQuery" style="width: 100%; height: 100%;"></div>
+                    </div>
+
                 </div>
 
             </div>
+            
 
 
         </div>
@@ -959,7 +964,7 @@
                                             if (real == null) {
                                                 real = 0;
                                             }
-                                            $("#leaderTable").append("<tr><td>" + v2.nombre + "</td><td>" + v2.duracionEstimada + "</td><td>" + real + "</td><td>" + (v2.duracionEstimada - real) + "</td><td>" + v2.estado + "</td><td>");
+                                            $("#leaderTable").append("<tr><td class='center'>" + v2.nombre + "</td><td class='center'>" + v2.duracionEstimada + "</td><td class='center'>" + real + "</td><td class='center'>" + (v2.duracionEstimada - real) + "</td><td class='center'>" + v2.estado + "</td></tr>");
                                         });
                                         //showLeaderChart();
                                     });
@@ -978,7 +983,7 @@
                                             if (real == null) {
                                                 real = 0;
                                             }
-                                            $("#leaderTable2").append("<tr><td>" + v2.nombre + "</td><td>" + v2.duracionEstimada + "</td><td>" + real + "</td><td>" + (v2.duracionEstimada - real) + "</td><td>" + v2.estado + "</td><td>");
+                                            $("#leaderTable2").append("<tr><td class='center'>" + v2.nombre + "</td><td class='center'>" + v2.duracionEstimada + "</td><td class='center'>" + real + "</td><td class='center'>" + (v2.duracionEstimada - real) + "</td><td class='center'>" + v2.estado + "</td></tr>");
                                         });
                                         //showLeaderChart();
                                     });
@@ -1012,7 +1017,7 @@
                                                 numero = v2.telefono;
 
                                             }
-                                            $("#avilabilityTable").append("<tr><td>" + cedula + "</td><td>" + nombre + "</td><td>" + numero + "</td><td>" + proyecto + "</td><td>");
+                                            $("#avilabilityTable").append("<tr><td class='center'>" + cedula + "</td><td class='center'>" + nombre + "</td><td class='center'>" + numero + "</td><td class='center'>" + proyecto + "</td></tr>");
                                         });
                                         //showLeaderChart();
                                     });
