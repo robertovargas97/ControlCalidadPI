@@ -940,11 +940,23 @@
             var availability = document.getElementById('availability').value
             $.get("/Reports/availableTesters", { availability: availability }, function (data) {
                 $.each(data, function (index, v2) {
-                    var proyecto = v2.nombre;
+                    var cedula = "";
+                    var nombre = "";
+                    var proyecto = "";
+                    var numero = "";
                     if (availability == 'Disponible') {
-                        proyecto = "Sin Asignar";
+                        cedula = v2.cedulaPK;
+                        nombre = v2.nombreP;
+                        proyecto = "Sin asignar";
+                        numero = v2.telefono;
+                    } else {
+                         cedula = v2.cedulaPK;
+                        nombre = v2.nombreP;
+                        proyecto = v2.nombre;
+                        numero = v2.telefono;
+
                     }
-                    $("#avilabilityTable").append("<tr><td>" + v2.cedulaPK + "</td><td>" + v2.nombreP + "</td><td>" + v2.telefono + "</td><td>" + proyecto + "</td><td>");
+                    $("#avilabilityTable").append("<tr><td>" + cedula + "</td><td>" + nombre + "</td><td>" + numero + "</td><td>" + proyecto + "</td><td>");
                 });
                 //showLeaderChart();
             });

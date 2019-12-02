@@ -457,6 +457,7 @@
           <Parameter Name="cedula" Type="varchar" Mode="In" />
           <Parameter Name="complejidad" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SP_TesterOcupado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_calcularEdadEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
@@ -987,6 +988,7 @@
           <FunctionImport Name="USP_Disp_Tester" ReturnType="Collection(QASystemEntity.USP_Disp_Tester_Result)">
           <Parameter Name="disponibilidad" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_TesterOcupado" ReturnType="Collection(QASystemEntity.SP_TesterOcupado_Result)" />
         </EntityContainer>
         <ComplexType Name="SP_Conseguir_testers_req_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
@@ -1252,6 +1254,12 @@
           <Property Type="String" Name="telefono" Nullable="true" MaxLength="60" />
         </ComplexType>
         <ComplexType Name="USP_Disp_Tester_Result">
+          <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="nombreP" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="telefono" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_TesterOcupado_Result">
           <Property Type="String" Name="cedulaPK" Nullable="false" MaxLength="15" />
           <Property Type="String" Name="nombreP" Nullable="false" MaxLength="25" />
           <Property Type="String" Name="telefono" Nullable="true" MaxLength="60" />
@@ -1614,6 +1622,16 @@
           <FunctionImportMapping FunctionImportName="USP_Disp_Tester" FunctionName="QASystemEntity.Store.USP_Disp_Tester">
             <ResultMapping>
               <ComplexTypeMapping TypeName="QASystemEntity.USP_Disp_Tester_Result">
+                <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
+                <ScalarProperty Name="nombreP" ColumnName="nombreP" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_TesterOcupado" FunctionName="QASystemEntity.Store.SP_TesterOcupado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QASystemEntity.SP_TesterOcupado_Result">
                 <ScalarProperty Name="cedulaPK" ColumnName="cedulaPK" />
                 <ScalarProperty Name="nombreP" ColumnName="nombreP" />
                 <ScalarProperty Name="telefono" ColumnName="telefono" />

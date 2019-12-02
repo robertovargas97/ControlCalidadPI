@@ -548,5 +548,10 @@ namespace ControlCalidad.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Disp_Tester_Result>("USP_Disp_Tester", disponibilidadParameter);
         }
+    
+        public virtual ObjectResult<SP_TesterOcupado_Result> SP_TesterOcupado()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TesterOcupado_Result>("SP_TesterOcupado");
+        }
     }
 }

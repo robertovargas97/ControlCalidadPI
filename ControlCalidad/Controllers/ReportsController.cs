@@ -114,8 +114,16 @@ namespace ControlCalidad.Controllers
         public JsonResult availableTesters(string availability)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<USP_Disp_Tester_Result> availableTesters = db.USP_Disp_Tester(availability).ToList();
-            return Json(availableTesters, JsonRequestBehavior.AllowGet);
+            if (availability.Equals("Ocupado"))
+            {
+                List<SP_TesterOcupado_Result> availableTesters = db.SP_TesterOcupado().ToList();
+                return Json(availableTesters, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                List<Empleado> disponibles = db.Empleadoes.Where(x => x.disponibilidad.Equals("Disponible")).ToList();
+                return Json(disponibles, JsonRequestBehavior.AllowGet);
+            }
         }
 
         //<summary> : Used to get information from all leaders
